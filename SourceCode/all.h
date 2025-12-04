@@ -4,5 +4,9 @@
 #include"common.h"
 #include"OBJ2D.h"
 #include<vector>
+#include"Scene.h"
+#include"SceneGame.h"
+#include"SceneTitle.h"
+
 using namespace GameLib;
 using namespace input;

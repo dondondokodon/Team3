@@ -150,6 +150,8 @@
     <ClInclude Include="SourceCode\common.h" />
     <ClInclude Include="SourceCode\OBJ2D.h" />
     <ClInclude Include="SourceCode\Scene.h" />
+    <ClInclude Include="SourceCode\SceneGame.h" />
+    <ClInclude Include="SourceCode\SceneTitle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameLib\debug.cpp" />
@@ -171,6 +173,8 @@
     <ClCompile Include="SourceCode\main.cpp" />
     <ClCompile Include="SourceCode\OBJ2D.cpp" />
     <ClCompile Include="SourceCode\Scene.cpp" />
+    <ClCompile Include="SourceCode\SceneGame.cpp" />
+    <ClCompile Include="SourceCode\SceneTitle.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

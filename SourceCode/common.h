@@ -9,10 +9,7 @@ enum
 	SCENE_NONE = -1,
 	SCENE_TITLE,
 	SCENE_TUTORIAL,
-	SCENE_GAME,
-	SCENE_RESULT,
-	SCENE_GAMEOVER,
-	SCENE_MOVIE,
+	
 	SCENE_MAX
 };
 
@@ -26,4 +23,3 @@ extern const LPCWSTR APPLICATION_NAME;
 //  関数ポインタ
 extern float(* const ToRadian)(float);// 角度をラジアンに
 extern float(* const ToDegree)(float);// ラジアンを角度に
-

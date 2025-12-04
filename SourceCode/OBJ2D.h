@@ -11,7 +11,6 @@ enum
 	line
 };
 
-
 class OBJ2D
 {
 protected:
@@ -42,7 +41,7 @@ protected:
 	VECTOR2 bodyOffset;
 
 public:
-	void setsprite(Sprite*s)
+	void setsprite(Sprite* s)
 	{
 		spr = s;
 	}
@@ -50,22 +49,22 @@ public:
 	virtual void render()
 	{
 		if (!spr) return;
-		sprite_render(spr, pos.x, pos.y, scale.x, scale.y, texPos.x, texPos.y, texSize.x, texSize.y, pivot.x, pivot.y,angle, color.x, color.y, color.z, color.w);
+		sprite_render(spr, pos.x, pos.y, scale.x, scale.y, texPos.x, texPos.y, texSize.x, texSize.y, pivot.x, pivot.y, angle, color.x, color.y, color.z, color.w);
 	}
 
-	void camera_render(Camera& camera)
+	/*void camera_render(Camera& camera)
 	{
 		if (!spr) return;
 			screenPos = camera.ZoomScreen(pos);
 			drawScale.x = scale.x * camera.GetZoom();
 			drawScale.y = scale.y * camera.GetZoom();
 			sprite_render(spr, screenPos.x, screenPos.y, drawScale.x, drawScale.y, texPos.x, texPos.y, texSize.x, texSize.y, pivot.x, pivot.y, angle,color.x, color.y, color.z, color.w);
-	}
+	}*/
 
-	virtual void init(){}
-	virtual void deinit(){}
+	virtual void init() {}
+	virtual void deinit() {}
 	virtual void update() = 0;
-	bool animeUpdate(int animeNo,int total,int frame,bool loop);
+	bool animeUpdate(int animeNo, int total, int frame, bool loop);
 
 	int                 hitPrimitive;//•¨‚ÌŒ`
 	VECTOR2 getPos() { return pos; }
@@ -82,30 +81,28 @@ public:
 
 	void hitAreaRender(int f);
 	void hitAreaRender();
-	void setSpeed(VECTOR2 Speed) { speed = Speed;}
-	void hitAreaRender(Camera& camera);
-	void bodyHitAreaRender(Camera& camera);
+	void setSpeed(VECTOR2 Speed) { speed = Speed; }
+	//void hitAreaRender(Camera& camera);
+	//void bodyHitAreaRender(Camera& camera);
 
 	void bodyHitAreaRender();
-	virtual bool hitCheck(OBJ2D& obj,bool bodyOnly);
-	bool hitCheck(OBJ2D& obj, bool bodyOnly, Camera& camera);
-
+	virtual bool hitCheck(OBJ2D& obj, bool bodyOnly);
+	//bool hitCheck(OBJ2D& obj, bool bodyOnly, Camera& camera);
 };
 class CHARACTER :public OBJ2D
 {
-
 protected:
 	int hp;
 	int atk;
 	int MaxHP;
 	bool attackOn;	//UŒ‚”­¶’†‚©‚Ç‚¤‚©
-	int  joutai=-1;	//-1‰½‚à‚È‚µ@0‘Ì‚¾‚¯@‚PUŒ‚‚µ‚½@‚QUŒ‚‚³‚ê‚½
+	int  joutai = -1;	//-1‰½‚à‚È‚µ@0‘Ì‚¾‚¯@‚PUŒ‚‚µ‚½@‚QUŒ‚‚³‚ê‚½
 	int  targetATK = 0;	//“G‚ÌUŒ‚—Í
-	int mutekiTimer=0;
+	int mutekiTimer = 0;
 	bool efectOn = false;
 
 public:
-	virtual void Act()=0;
+	virtual void Act() = 0;
 	virtual int getHp() { return hp; }
 	virtual int getMaxhp() { return MaxHP; }
 	int getATK() { return atk; }
@@ -118,8 +115,8 @@ public:
 	bool isAlive() { return hp > 0; }	//Ž€‚ñ‚Å‚½‚çfalse
 	VECTOR2 getpos() { return pos; }
 	float getSX() { return speed.x; }
-	
-	void setp(float position) { pos.x = position;}
+
+	void setp(float position) { pos.x = position; }
 
 	void hitEfect();
 };
@@ -130,8 +127,8 @@ enum JUDGE
 	attackEnemy,
 	bodyOnly
 };
-bool hitCheck(CHARACTER* p1, CHARACTER* p2,int num);
-bool camera_hitCheck(CHARACTER* p1, CHARACTER* p2, int num, Camera& camera);
+bool hitCheck(CHARACTER* p1, CHARACTER* p2, int num);
+//bool camera_hitCheck(CHARACTER* p1, CHARACTER* p2, int num, Camera& camera);
 
 void ScaleRebarse(CHARACTER* p1, CHARACTER* p2);
-void setPos(CHARACTER* p1,CHARACTER* p2);
+void setPos(CHARACTER* p1, CHARACTER* p2);

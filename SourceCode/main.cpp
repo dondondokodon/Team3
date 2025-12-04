@@ -1,8 +1,7 @@
 #include"all.h"
-#include"SceneGameOver.h"
 
 
-ISCENE* scenes[SCENE_MAX] = { new SceneTitle,new Tutorial,new SceneGame, new SceneResult,new SceneGameOver,new SceneMovie};
+ISCENE* scenes[SCENE_MAX] = { new SceneTitle,new SceneGame};
 
 
 int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
@@ -14,10 +13,9 @@ int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
 	srand((unsigned int)time(NULL));
 
 	//オーディオの初期設定
-	audio_init();
+	//audio_init();
 
-	//UIのメンバにまとめる
-	UI_Manager::Instance().addUIs();
+	
 
 	//ゲームループ
 	while (GameLib::gameLoop())
@@ -29,15 +27,10 @@ int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
 			if(ISCENE::curScene>=0)
 			scenes[ISCENE::curScene]->deinit();
 
-			//uiのやつ終了処理
-			UI_Manager::Instance().deinit(ISCENE::curScene);
 
 			//次のシーンに応じた初期設定処理
 			scenes[ISCENE::nextScene]->init();
 			ISCENE::curScene = ISCENE::nextScene;
-
-			//UIのやつ初期設定処理
-			UI_Manager::Instance().init(ISCENE::nextScene);
 		}
 
 		//入力を更新する
@@ -50,19 +43,13 @@ int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
 		scenes[ISCENE::curScene]->update();
 		scenes[ISCENE::curScene]->render();
 
-		//UIの更新シーンに応じた　レンダーは各シーンで呼ぶ　順番があるので
-		UI_Manager::Instance().update(ISCENE::curScene);
-		UI_Manager::Instance().deleteUI();	//削除要請あったもの消す
-		
-
 		//デバッグ用文字列の表示
-		//debug::display(1, 1, 1, 1, 1);
+		debug::display(1, 1, 1, 1, 1);
 
 		//画面を描画する
 		GameLib::present(1, 0);
 	}
-	//現在のシーンに応じた終了処理を行う
-	UI_Manager::Instance().deinit(ISCENE::curScene);
+	
 
 	for (int i = 0;i < SCENE_MAX;i++)
 	{
@@ -73,7 +60,7 @@ int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
 
 
 	//音楽の開放
-	audio_deinit();
+	//audio_deinit();
 
 	//ゲームライブラリの終了処理
 	GameLib::uninit();
