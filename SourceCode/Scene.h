@@ -3,8 +3,8 @@
 class ISCENE
 {
 protected:
-	int timer;
-	int state;
+	int timer=0;
+	int state=0;
 	// フェード用
 	float fadeAlpha = 0.0f;
 	bool isFading = false;    // フェード中か
@@ -18,7 +18,7 @@ public:
 	virtual void init() = 0;
 	virtual void deinit() = 0;
 
-    virtual void deleteSprite() = 0;
+	virtual void deleteSprite() = 0;
 
 	void startFade(int scene)
 	{
@@ -28,40 +28,40 @@ public:
 		fadeAlpha = 0.0f;
 	}
 
-    void updateFade()
-    {
-        if (!isFading) return;
+	void updateFade()
+	{
+		if (!isFading) return;
 
-        if (fadeOut)
-        {
-            fadeAlpha += 0.02f; // 調整可能
-            if (fadeAlpha >= 1.0f)
-            {
-                fadeAlpha = 1.0f;
-                fadeOut = false;
-                // シーン切替
-                curScene = nextScene;
-            }
-        }
-        else
-        {
-            fadeAlpha -= 0.02f;
-            if (fadeAlpha <= 0.0f)
-            {
-                fadeAlpha = 0.0f;
-                isFading = false;
-            }
-        }
-    }
+		if (fadeOut)
+		{
+			fadeAlpha += 0.02f; // 調整可能
+			if (fadeAlpha >= 1.0f)
+			{
+				fadeAlpha = 1.0f;
+				fadeOut = false;
+				// シーン切替
+				curScene = nextScene;
+			}
+		}
+		else
+		{
+			fadeAlpha -= 0.02f;
+			if (fadeAlpha <= 0.0f)
+			{
+				fadeAlpha = 0.0f;
+				isFading = false;
+			}
+		}
+	}
 
-    void renderFade();
+	void renderFade();
 
-    void startFadeIn()
-    {
-        isFading = true;
-        fadeOut = false;  // フェードインにする
-        fadeAlpha = 1.0f;
-    }
+	void startFadeIn()
+	{
+		isFading = true;
+		fadeOut = false;  // フェードインにする
+		fadeAlpha = 1.0f;
+	}
 };
 
 
