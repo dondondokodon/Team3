@@ -1,13 +1,14 @@
 #include"all.h"
+#include<memory>
+using namespace std;
 
-
-ISCENE* scenes[SCENE_MAX] = { new SceneTitle,new SceneGame};
+unique_ptr<ISCENE> scenes[SCENE_MAX] = { make_unique<SceneTitle>(),make_unique<SceneGame>()};
 
 
 int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
 {
 	//ゲームライブラリの初期設定
-	GameLib::init(L"呪祓", SCREEN_W, SCREEN_H,true);
+	GameLib::init(L"チーム制作3", SCREEN_W, SCREEN_H,true);
 
 	//乱数のシード
 	srand((unsigned int)time(NULL));
@@ -51,10 +52,10 @@ int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
 	}
 	
 
+	//全部スマートポインタにしたらいらん
 	for (int i = 0;i < SCENE_MAX;i++)
 	{
 		scenes[i]->deleteSprite();
-		delete scenes[i];
 	}
 
 

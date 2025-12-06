@@ -3,6 +3,7 @@
 
 class SceneGame:public ISCENE
 {
+public:
 	virtual void update();
 	virtual void render();
 	virtual void init();

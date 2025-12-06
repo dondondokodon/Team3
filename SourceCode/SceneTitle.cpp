@@ -1,18 +1,21 @@
 #include"SceneTitle.h"
+#include "../GameLib/game_lib.h"
 
 void SceneTitle::update()
 {
-
+	player.update();
 }
 
 void SceneTitle::render()
 {
+	GameLib::clear(0, 0, 1);
 
+	player.render();
 }
 
 void SceneTitle::init()
 {
-
+	player.init();
 }
 
 void SceneTitle::deinit()

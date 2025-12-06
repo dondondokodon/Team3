@@ -1,10 +1,11 @@
 #pragma once
+#include<memory>
 #include "../GameLib/game_lib.h"
 #include"common.h"
 using namespace GameLib;
 using namespace input;
 
-enum
+enum hitPrimitive
 {
 	circle,
 	rect,
@@ -22,26 +23,18 @@ protected:
 	VECTOR4 color;
 	VECTOR2 speed;
 	VECTOR2 offset;
-	VECTOR2 drawScale;	//ÉJÉÅÉâÇÃÇ‚Ç¬
 	int angle;
-	GameLib::Sprite* spr;
-	GameLib::Sprite* spr_Sengeki;
+	std::shared_ptr<GameLib::Sprite> spr;
+	
 	int act;
 	int timer;
 	int anime;
 	int animeTimer;
 	int anime_state;
 	float radius;     // îºåa
-	float eyeRadius;
-	VECTOR2 screenPos;	//ï`âÊà íu
-
-	//ëÃÇæÇØ
-	float   bodyRadius;     // îºåa
-	VECTOR2 bodySize;
-	VECTOR2 bodyOffset;
 
 public:
-	void setsprite(Sprite* s)
+	void setSprite(std::shared_ptr<Sprite> s)
 	{
 		spr = s;
 	}
@@ -49,21 +42,12 @@ public:
 	virtual void render()
 	{
 		if (!spr) return;
-		sprite_render(spr, pos.x, pos.y, scale.x, scale.y, texPos.x, texPos.y, texSize.x, texSize.y, pivot.x, pivot.y, angle, color.x, color.y, color.z, color.w);
+		sprite_render(spr.get(), pos.x, pos.y, scale.x, scale.y, texPos.x, texPos.y, texSize.x, texSize.y, pivot.x, pivot.y, angle, color.x, color.y, color.z, color.w);
 	}
-
-	/*void camera_render(Camera& camera)
-	{
-		if (!spr) return;
-			screenPos = camera.ZoomScreen(pos);
-			drawScale.x = scale.x * camera.GetZoom();
-			drawScale.y = scale.y * camera.GetZoom();
-			sprite_render(spr, screenPos.x, screenPos.y, drawScale.x, drawScale.y, texPos.x, texPos.y, texSize.x, texSize.y, pivot.x, pivot.y, angle,color.x, color.y, color.z, color.w);
-	}*/
 
 	virtual void init() {}
 	virtual void deinit() {}
-	virtual void update() = 0;
+	virtual void update() =0;
 	bool animeUpdate(int animeNo, int total, int frame, bool loop);
 
 	int                 hitPrimitive;//ï®ÇÃå`
@@ -72,63 +56,12 @@ public:
 	bool getRadius() { return radius; }
 	int getAct() { return act; }
 	int getAnime() { return anime; }
-	float getBodyRadius() { return bodyRadius; }
-	VECTOR2 getBodyOffset() { return bodyOffset; }
+
 
 	void setScale(VECTOR2 Scale) { scale = Scale; }
 	void setAct(int Act) { act = Act; }
 	void setColor(VECTOR4 c) { color = c; }
 
-	void hitAreaRender(int f);
-	void hitAreaRender();
+	
 	void setSpeed(VECTOR2 Speed) { speed = Speed; }
-	//void hitAreaRender(Camera& camera);
-	//void bodyHitAreaRender(Camera& camera);
-
-	void bodyHitAreaRender();
-	virtual bool hitCheck(OBJ2D& obj, bool bodyOnly);
-	//bool hitCheck(OBJ2D& obj, bool bodyOnly, Camera& camera);
 };
-class CHARACTER :public OBJ2D
-{
-protected:
-	int hp;
-	int atk;
-	int MaxHP;
-	bool attackOn;	//çUåÇî≠ê∂íÜÇ©Ç«Ç§Ç©
-	int  joutai = -1;	//-1âΩÇ‡Ç»ÇµÅ@0ëÃÇæÇØÅ@ÇPçUåÇÇµÇΩÅ@ÇQçUåÇÇ≥ÇÍÇΩ
-	int  targetATK = 0;	//ìGÇÃçUåÇóÕ
-	int mutekiTimer = 0;
-	bool efectOn = false;
-
-public:
-	virtual void Act() = 0;
-	virtual int getHp() { return hp; }
-	virtual int getMaxhp() { return MaxHP; }
-	int getATK() { return atk; }
-	//bool hitCheck(OBJ2D& obj,bool bodyOnly);
-	virtual int getUltCount() const { return 0; }
-	bool getAttackOn() { return attackOn; }
-	int getMutekiTimer() { return mutekiTimer; }
-	//-1âΩÇ‡Ç»ÇµÅ@0ëÃÇæÇØÅ@ÇPçUåÇÇµÇΩÅ@ÇQçUåÇÇ≥ÇÍÇΩ  ìGÇÃçUåÇóÕÇà¯êîÇ…ì¸ÇÍÇÈ
-	void setJoutai(int j, int atk) { joutai = j;targetATK = atk; }
-	bool isAlive() { return hp > 0; }	//éÄÇÒÇ≈ÇΩÇÁfalse
-	VECTOR2 getpos() { return pos; }
-	float getSX() { return speed.x; }
-
-	void setp(float position) { pos.x = position; }
-
-	void hitEfect();
-};
-
-enum JUDGE
-{
-	attackPlayer,
-	attackEnemy,
-	bodyOnly
-};
-bool hitCheck(CHARACTER* p1, CHARACTER* p2, int num);
-//bool camera_hitCheck(CHARACTER* p1, CHARACTER* p2, int num, Camera& camera);
-
-void ScaleRebarse(CHARACTER* p1, CHARACTER* p2);
-void setPos(CHARACTER* p1, CHARACTER* p2);

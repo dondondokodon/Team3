@@ -149,6 +149,7 @@
     <ClInclude Include="SourceCode\all.h" />
     <ClInclude Include="SourceCode\common.h" />
     <ClInclude Include="SourceCode\OBJ2D.h" />
+    <ClInclude Include="SourceCode\Player.h" />
     <ClInclude Include="SourceCode\Scene.h" />
     <ClInclude Include="SourceCode\SceneGame.h" />
     <ClInclude Include="SourceCode\SceneTitle.h" />
@@ -172,6 +173,7 @@
     <ClCompile Include="SourceCode\common.cpp" />
     <ClCompile Include="SourceCode\main.cpp" />
     <ClCompile Include="SourceCode\OBJ2D.cpp" />
+    <ClCompile Include="SourceCode\Player.cpp" />
     <ClCompile Include="SourceCode\Scene.cpp" />
     <ClCompile Include="SourceCode\SceneGame.cpp" />
     <ClCompile Include="SourceCode\SceneTitle.cpp" />
