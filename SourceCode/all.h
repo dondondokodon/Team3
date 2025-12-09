@@ -7,6 +7,7 @@
 #include"Scene.h"
 #include"SceneGame.h"
 #include"SceneTitle.h"
+#include"stage.h"
 
 using namespace GameLib;
 using namespace input;

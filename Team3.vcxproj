@@ -153,6 +153,7 @@
     <ClInclude Include="SourceCode\Scene.h" />
     <ClInclude Include="SourceCode\SceneGame.h" />
     <ClInclude Include="SourceCode\SceneTitle.h" />
+    <ClInclude Include="SourceCode\stage.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameLib\debug.cpp" />
@@ -177,6 +178,7 @@
     <ClCompile Include="SourceCode\Scene.cpp" />
     <ClCompile Include="SourceCode\SceneGame.cpp" />
     <ClCompile Include="SourceCode\SceneTitle.cpp" />
+    <ClCompile Include="SourceCode\stage.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
