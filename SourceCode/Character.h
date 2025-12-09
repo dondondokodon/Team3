@@ -4,6 +4,7 @@ class Character :
     public OBJ2D
 {
 public:
+	virtual ~Character() {}
 	virtual void init()    = 0;
 	virtual void deinit()  = 0;
 	virtual void update()  = 0;
