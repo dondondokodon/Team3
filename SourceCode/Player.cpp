@@ -20,6 +20,9 @@ Player::Player()
 	animeTimer = 0;
 	anime_state = 0;
 	radius = texSize.x * 0.5f;
+	atk = 0;
+	gold = 0;
+	returnGold = 0;
 }
 
 void Player::init()
@@ -33,6 +36,7 @@ void Player::init()
 	speed = { 0,0 };
 	offset = { 0,0 };
 	angle = 0;
+	if(!spr)
 	spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load(L"./Data/Images/0_sp.png"));
 	act = 0;
 	timer = 0;
@@ -40,6 +44,9 @@ void Player::init()
 	animeTimer = 0;
 	anime_state = 0;
 	radius = texSize.x * 0.5f;
+	atk = 0;
+	gold = 0;
+	returnGold = 0;
 }
 
 void Player::deinit()
@@ -66,4 +73,11 @@ void Player::update()
 			num++;
 		}
 	}
+}
+
+void Player::betCoin(int Gold,float atkMultiple, float goldMultiple)
+{
+	atk = Gold * atkMultiple;
+	returnGold = Gold * goldMultiple;
+	if (returnGold)		returnGold = 1;	//‹A‚Á‚Ä‚­‚é”‚ª0‚ÌÅ’á•ÛØ‚Å1‚É‚·‚é
 }
