@@ -28,7 +28,7 @@ bool OBJ2D::animeUpdate(int animeNo, int total, int frame, bool loop)
 		{
 			if (anime >= total)
 			{
-				anime = total - 1;
+				anime = total;
 				return true;    // アニメの終端に達した
 			}
 		}

@@ -67,7 +67,7 @@ void Player::update()
 	}
 	else
 	{
-		if (animeUpdate(1, 5, 8, false))
+		if (animeUpdate(1, 5 , 8, false))
 		{
 			anime_state = 0;
 			num++;
