@@ -11,7 +11,7 @@ void SceneTitle::render()
 	GameLib::clear(0, 0, 1);
 
 	player.render();
-	stage.render();
+//	stage.render();
 }
 
 void SceneTitle::init()
