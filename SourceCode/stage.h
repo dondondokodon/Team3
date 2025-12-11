@@ -21,4 +21,5 @@ public:
 	void update();
 	void init();
 	void deinit();
+	int a;
 };
