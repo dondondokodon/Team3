@@ -2,6 +2,10 @@
 #include<memory>
 #include "../GameLib/game_lib.h"
 
+
+//‰Šú’l
+int Coin::CoinNum = 10000;
+
 Player::Player()
 {
 	pos = { SCREEN_W * 0.5f,SCREEN_H * 0.5f };
