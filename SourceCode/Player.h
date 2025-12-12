@@ -1,5 +1,7 @@
 #pragma once
 #include "Character.h"
+#include "Coin.h"
+
 class Player :
     public Character
 {
@@ -11,7 +13,7 @@ public:
 	void betCoin(int gold,float atkMultiple,float goldMultiple);		//UŒ‚‚·‚é‚Æ‚«‚É‚©‚¯‚é‚¨‹à ˆø”@Š|‚¯‹à@UŒ‚—Í”{—¦@‹A‚Á‚Ä‚­‚é‚¨‹à”{—¦
 	bool isAlive() { return (gold <= 0 && returnGold <= 0); }
 private:
-	int gold       = 0; //‚¨‹à
+	int gold       = Coin::GetCoinNum(); //‚¨‹à
 	int returnGold = 0; //UŒ‚‚ğ“–‚Ä‚½‚É‹A‚Á‚Ä‚­‚é‚¨‹à
 };
 
