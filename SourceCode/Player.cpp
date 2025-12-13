@@ -3,8 +3,7 @@
 #include "../GameLib/game_lib.h"
 #include "common.h"
 
-//初期値
-int Coin::CoinNum = 10000;
+
 
 Player::Player():MAX_SPEED({20,30})
 {
