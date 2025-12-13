@@ -56,12 +56,14 @@ public:
 	bool getRadius() { return radius; }
 	int getAct() { return act; }
 	int getAnime() { return anime; }
-
+	VECTOR2 getSpeed() { return speed; }
 
 	void setScale(VECTOR2 Scale) { scale = Scale; }
 	void setAct(int Act) { act = Act; }
 	void setColor(VECTOR4 c) { color = c; }
 
-	
+	void setPosition(VECTOR2 p) { pos = p; }
 	void setSpeed(VECTOR2 Speed) { speed = Speed; }
 };
+
+void gravity(OBJ2D* obj);

@@ -1,8 +1,9 @@
 #include "Player.h"
 #include<memory>
 #include "../GameLib/game_lib.h"
+#include "common.h"
 
-Player::Player()
+Player::Player():MAX_SPEED({20,30})
 {
 	pos = { SCREEN_W * 0.5f,SCREEN_H * 0.5f };
 	scale = { 1,1 };
@@ -28,7 +29,7 @@ Player::Player()
 void Player::init()
 {
 	pos = { SCREEN_W * 0.5f,SCREEN_H * 0.5f };
-	scale = { 5,5 };
+	scale = { 1,1 };
 	texPos = { 0,0 };
 	texSize = { 256,256 };
 	pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
@@ -56,7 +57,17 @@ void Player::deinit()
 
 void Player::update()
 {
-	static int num = 0;
+	//重力と地面判定
+	gravity(this);
+	if (pos.y > 800)
+	{
+		pos.y = 800;
+		speed.y = 0;
+		isGround = true;
+		jumpCount = 2;
+	}
+
+	/*static int num = 0;
 	if (num % 2 == 0)
 	{
 		if (animeUpdate(0, 6, 8, false))
@@ -72,6 +83,44 @@ void Player::update()
 			anime_state = 0;
 			num++;
 		}
+	}*/
+
+	state();
+}
+
+void Player::state()
+{
+	switch (act)
+	{
+
+	}
+}
+
+void Player::inputMove()
+{
+	//キー入力で加速
+	if (STATE(0) & PAD_LEFT)
+	{
+		speed.x -= 1;
+	}
+	if (STATE(0) & PAD_RIGHT)
+	{
+		speed.x += 1;
+	}
+
+	//最高速度に収める
+	if (speed.x > MAX_SPEED.x)
+		speed.x = MAX_SPEED.x;
+	else if (speed.x < -MAX_SPEED.x)
+		speed.x = -MAX_SPEED.x;
+
+}
+void Player::inputJump()
+{
+	//キー入力でジャンプ
+	if (STATE(0) & PAD_TRG1)
+	{
+		speed -= MAX_SPEED;
 	}
 }
 
