@@ -3,6 +3,8 @@
 
 void SceneTitle::update()
 {
+	if (TRG(0) & PAD_START)
+		ISCENE::nextScene = SCENE_MAP;
 	player.update();
 	stage.update();
 }
@@ -28,5 +30,5 @@ void SceneTitle::deinit()
 
 void SceneTitle::deleteSprite()
 {
-
+	//delete player
 }

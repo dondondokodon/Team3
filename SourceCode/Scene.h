@@ -1,4 +1,6 @@
 #pragma once
+#include "common.h"
+
 //シーンインターフェイス
 class ISCENE
 {

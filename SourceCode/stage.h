@@ -1,6 +1,6 @@
 #pragma once
 #include"../GameLib/game_lib.h"
-#include"OBJ2D.h"
+
 //’ŠÛƒNƒ‰ƒX ”wŒi
 class Stage
 {
