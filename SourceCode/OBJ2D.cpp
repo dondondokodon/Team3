@@ -39,3 +39,10 @@ bool OBJ2D::animeUpdate(int animeNo, int total, int frame, bool loop)
 
 	}
 }
+
+
+void gravity(OBJ2D* obj)
+{
+	//‰º‚É‰Á‘¬
+	obj->setSpeed(obj->getSpeed() + VECTOR2{ 0,5 });
+}
