@@ -155,6 +155,7 @@
     <ClInclude Include="SourceCode\Player.h" />
     <ClInclude Include="SourceCode\Scene.h" />
     <ClInclude Include="SourceCode\SceneGame.h" />
+    <ClInclude Include="SourceCode\SceneMap.h" />
     <ClInclude Include="SourceCode\SceneTitle.h" />
     <ClInclude Include="SourceCode\stage.h" />
   </ItemGroup>
@@ -183,6 +184,7 @@
     <ClCompile Include="SourceCode\Player.cpp" />
     <ClCompile Include="SourceCode\Scene.cpp" />
     <ClCompile Include="SourceCode\SceneGame.cpp" />
+    <ClCompile Include="SourceCode\SceneMap.cpp" />
     <ClCompile Include="SourceCode\SceneTitle.cpp" />
     <ClCompile Include="SourceCode\stage01.cpp" />
   </ItemGroup>

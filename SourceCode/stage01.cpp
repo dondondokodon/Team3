@@ -111,7 +111,7 @@ void Stage01::deinit()
 
 void Stage01::render()
 {
-	setBlendMode(Blender::BS_ALPHA);	
+	GameLib::setBlendMode(GameLib::Blender::BS_ALPHA);	
 	back.render();
 	back_back.render();
 	middle.render();
