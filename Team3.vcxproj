@@ -148,6 +148,7 @@
     <ClInclude Include="GameLib\view_settings.h" />
     <ClInclude Include="SourceCode\all.h" />
     <ClInclude Include="SourceCode\Character.h" />
+    <ClInclude Include="SourceCode\Coin.h" />
     <ClInclude Include="SourceCode\common.h" />
     <ClInclude Include="SourceCode\Enemy.h" />
     <ClInclude Include="SourceCode\OBJ2D.h" />
@@ -174,6 +175,7 @@
     <ClCompile Include="GameLib\view_settings.cpp" />
     <ClCompile Include="GameLib\wnd_proc.cpp" />
     <ClCompile Include="SourceCode\Character.cpp" />
+    <ClCompile Include="SourceCode\Coin.cpp" />
     <ClCompile Include="SourceCode\common.cpp" />
     <ClCompile Include="SourceCode\Enemy.cpp" />
     <ClCompile Include="SourceCode\main.cpp" />
@@ -182,7 +184,7 @@
     <ClCompile Include="SourceCode\Scene.cpp" />
     <ClCompile Include="SourceCode\SceneGame.cpp" />
     <ClCompile Include="SourceCode\SceneTitle.cpp" />
-    <ClCompile Include="SourceCode\stage.cpp" />
+    <ClCompile Include="SourceCode\stage01.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

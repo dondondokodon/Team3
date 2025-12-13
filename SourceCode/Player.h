@@ -1,5 +1,7 @@
 #pragma once
 #include "Character.h"
+#include "Coin.h"
+
 class Player :
     public Character
 {
@@ -14,7 +16,7 @@ public:
 	void inputJump();
 	void state();
 private:
-	int gold       = 0; //‚¨‹à
+	int gold       = Coin::GetCoinNum(); //‚¨‹à
 	int returnGold = 0; //UŒ‚‚ğ“–‚Ä‚½‚É‹A‚Á‚Ä‚­‚é‚¨‹à
 	const VECTOR2 MAX_SPEED;	//Å‚‘¬“x
 	bool isGround = false;

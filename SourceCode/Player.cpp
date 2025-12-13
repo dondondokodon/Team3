@@ -3,6 +3,9 @@
 #include "../GameLib/game_lib.h"
 #include "common.h"
 
+//åˆæœŸå€¤
+int Coin::CoinNum = 10000;
+
 Player::Player():MAX_SPEED({20,30})
 {
 	pos = { SCREEN_W * 0.5f,SCREEN_H * 0.5f };
@@ -57,7 +60,7 @@ void Player::deinit()
 
 void Player::update()
 {
-	//d—Í‚Æ’n–Ê”»’è
+	//é‡åŠ›ã¨åœ°é¢åˆ¤å®š
 	gravity(this);
 	if (pos.y > 800)
 	{
@@ -78,7 +81,7 @@ void Player::update()
 	}
 	else
 	{
-		if (animeUpdate(1, 5, 8, false))
+		if (animeUpdate(1, 5 , 8, false))
 		{
 			anime_state = 0;
 			num++;
@@ -98,7 +101,7 @@ void Player::state()
 
 void Player::inputMove()
 {
-	//ƒL[“ü—Í‚Å‰Á‘¬
+	//ã‚­ãƒ¼å…¥åŠ›ã§åŠ é€Ÿ
 	if (STATE(0) & PAD_LEFT)
 	{
 		speed.x -= 1;
@@ -108,7 +111,7 @@ void Player::inputMove()
 		speed.x += 1;
 	}
 
-	//Å‚‘¬“x‚ÉŽû‚ß‚é
+	//æœ€é«˜é€Ÿåº¦ã«åŽã‚ã‚‹
 	if (speed.x > MAX_SPEED.x)
 		speed.x = MAX_SPEED.x;
 	else if (speed.x < -MAX_SPEED.x)
@@ -117,7 +120,7 @@ void Player::inputMove()
 }
 void Player::inputJump()
 {
-	//ƒL[“ü—Í‚ÅƒWƒƒƒ“ƒv
+	//ã‚­ãƒ¼å…¥åŠ›ã§ã‚¸ãƒ£ãƒ³ãƒ—
 	if (STATE(0) & PAD_TRG1)
 	{
 		speed -= MAX_SPEED;
@@ -128,5 +131,5 @@ void Player::betCoin(int Gold,float atkMultiple, float goldMultiple)
 {
 	atk = Gold * atkMultiple;
 	returnGold = Gold * goldMultiple;
-	if (returnGold)		returnGold = 1;	//‹A‚Á‚Ä‚­‚é”‚ª0‚ÌŽžÅ’á•ÛØ‚Å1‚É‚·‚é
+	if (returnGold)		returnGold = 1;	//å¸°ã£ã¦ãã‚‹æ•°ãŒ0ã®æ™‚æœ€ä½Žä¿è¨¼ã§1ã«ã™ã‚‹
 }

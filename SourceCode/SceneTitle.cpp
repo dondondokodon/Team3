@@ -4,6 +4,7 @@
 void SceneTitle::update()
 {
 	player.update();
+	stage.update();
 }
 
 void SceneTitle::render()
