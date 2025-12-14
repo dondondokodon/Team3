@@ -5,7 +5,7 @@
 
 
 
-Player::Player():MAX_SPEED({20,30})
+Player::Player():MAX_SPEED({15,25})
 {
 	pos = { SCREEN_W * 0.5f,SCREEN_H * 0.5f };
 	scale = { 1,1 };
@@ -26,6 +26,9 @@ Player::Player():MAX_SPEED({20,30})
 	atk = 0;
 	gold = 0;
 	returnGold = 0;
+	isGround = false;
+	jumpCount = 0;
+
 }
 
 void Player::init()
@@ -34,7 +37,7 @@ void Player::init()
 	scale = { 1,1 };
 	texPos = { 0,0 };
 	texSize = { 256,256 };
-	pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
+	pivot = { texSize.x * 0.5f,texSize.y};
 	color = { 1,1,1,1 };
 	speed = { 0,0 };
 	offset = { 0,0 };
@@ -50,6 +53,9 @@ void Player::init()
 	atk = 0;
 	gold = 0;
 	returnGold = 0;
+	isGround = false;
+	jumpCount = 0;
+
 }
 
 void Player::deinit()
@@ -59,17 +65,32 @@ void Player::deinit()
 
 void Player::update()
 {
+	//状態遷移
+	state();
+
+	//位置に速度足す
+	pos += speed;
+
 	//重力と地面判定
+	if(!isGround)
 	gravity(this);
-	if (pos.y > 800)
+	if (pos.y > 700)
 	{
-		pos.y = 800;
+		pos.y = 700;
 		speed.y = 0;
 		isGround = true;
 		jumpCount = 2;
 	}
 
-
+	//摩擦
+	friction(this);
+	setBlendMode(Blender::BS_ALPHA);
+	debug::setString("SPEEDX:%f", speed.x);
+	debug::setString("SPEEDY:%f", speed.y);
+	debug::setString("jumpCount:%d", jumpCount);
+	debug::setString("act:%d", act);
+	debug::setString("isGround:%d", isGround);
+	
 
 	/*static int num = 0;
 	if (num % 2 == 0)
@@ -88,15 +109,51 @@ void Player::update()
 			num++;
 		}
 	}*/
-
-	state();
 }
 
 void Player::state()
 {
 	switch (act)
 	{
+	case IDLE_INIT:
+		anime_state = 0;
+		act = IDLE;
 
+	case IDLE:
+		//animeUpdate();
+		inputMove();
+		inputJump();
+
+		if (speed.y < 0)
+			act = JUMP_INIT;
+		else if (fabsf(speed.x) > 2)
+			act = WALK_INIT;
+		break;
+	case WALK_INIT:
+		anime_state = 0;
+		act = WALK;
+
+	case WALK:
+		//animeUpdate();
+		inputMove();
+		inputJump();
+
+		if (speed.y < 0)
+			act = JUMP_INIT;
+		else if (fabsf(speed.x) < 2)
+			act = IDLE_INIT;
+		break;
+
+	case JUMP_INIT:
+		anime_state = 0;
+		act = JUMP;
+
+	case JUMP:
+		//animeUpdate();
+		inputMove();
+		inputJump();
+
+		//いったんここまで
 	}
 }
 
@@ -105,11 +162,11 @@ void Player::inputMove()
 	//キー入力で加速
 	if (STATE(0) & PAD_LEFT)
 	{
-		speed.x -= 1;
+		speed.x -= 2;
 	}
 	if (STATE(0) & PAD_RIGHT)
 	{
-		speed.x += 1;
+		speed.x += 2;
 	}
 
 	//最高速度に収める
@@ -122,9 +179,11 @@ void Player::inputMove()
 void Player::inputJump()
 {
 	//キー入力でジャンプ
-	if (STATE(0) & PAD_TRG1)
+	if (TRG(0) & PAD_TRG1&&jumpCount>0)
 	{
-		speed -= MAX_SPEED;
+		speed.y -= MAX_SPEED.y;
+		jumpCount--;
+		isGround = false;
 	}
 }
 
@@ -132,5 +191,5 @@ void Player::betCoin(int Gold,float atkMultiple, float goldMultiple)
 {
 	atk = Gold * atkMultiple;
 	returnGold = Gold * goldMultiple;
-	if (returnGold)		returnGold = 1;	//帰ってくる数が0の時最低保証で1にする
+	if (!returnGold)		returnGold = 1;	//帰ってくる数が0の時最低保証で1にする
 }

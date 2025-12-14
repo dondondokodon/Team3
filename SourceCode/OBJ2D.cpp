@@ -44,7 +44,7 @@ bool OBJ2D::animeUpdate(int animeNo, int total, int frame, bool loop)
 void gravity(OBJ2D* obj)
 {
 	//‰º‚É‰Á‘¬
-	obj->setSpeed(obj->getSpeed() + VECTOR2{ 0,5 });
+	obj->setSpeed(obj->getSpeed() + VECTOR2{ 0,1.3f });
 }
 
 void friction(OBJ2D* obj)	//–€ŽC
@@ -52,7 +52,7 @@ void friction(OBJ2D* obj)	//–€ŽC
 	float speedX = fabsf(obj->getSpeed().x);
 	if (speedX > 0)
 	{
-		float friction = 5.0f;
+		float friction = 0.5f;
 		VECTOR2 Speed = obj->getSpeed();
 		if (speedX > friction)
 		{

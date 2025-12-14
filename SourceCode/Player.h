@@ -21,5 +21,20 @@ private:
 	const VECTOR2 MAX_SPEED;	//ç≈çÇë¨ìx
 	bool isGround = false;
 	int jumpCount = 2;
+	enum ACT
+	{
+		IDLE_INIT,
+		IDLE,
+		WALK_INIT,
+		WALK,
+		JUMP_INIT,
+		JUMP,
+		FALL_INIT,
+		FALL,
+		ATTACK1_INIT,
+		ATTACK1,
+		ATTACK2_INIT,
+		ATTACK2,
+	};
 };
 
