@@ -66,4 +66,5 @@ public:
 	void setSpeed(VECTOR2 Speed) { speed = Speed; }
 };
 
-void gravity(OBJ2D* obj);
+void gravity(OBJ2D* obj);	//d—Í
+void friction(OBJ2D* obj);	//–€C
