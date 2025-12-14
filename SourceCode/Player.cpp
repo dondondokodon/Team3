@@ -69,6 +69,8 @@ void Player::update()
 		jumpCount = 2;
 	}
 
+
+
 	/*static int num = 0;
 	if (num % 2 == 0)
 	{
