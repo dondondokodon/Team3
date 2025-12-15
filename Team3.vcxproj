@@ -147,6 +147,7 @@
     <ClInclude Include="GameLib\vector.h" />
     <ClInclude Include="GameLib\view_settings.h" />
     <ClInclude Include="SourceCode\all.h" />
+    <ClInclude Include="SourceCode\CAMERA.h" />
     <ClInclude Include="SourceCode\Character.h" />
     <ClInclude Include="SourceCode\Coin.h" />
     <ClInclude Include="SourceCode\common.h" />
@@ -175,6 +176,7 @@
     <ClCompile Include="GameLib\vector.cpp" />
     <ClCompile Include="GameLib\view_settings.cpp" />
     <ClCompile Include="GameLib\wnd_proc.cpp" />
+    <ClCompile Include="SourceCode\CAMERA.cpp" />
     <ClCompile Include="SourceCode\Character.cpp" />
     <ClCompile Include="SourceCode\Coin.cpp" />
     <ClCompile Include="SourceCode\common.cpp" />
