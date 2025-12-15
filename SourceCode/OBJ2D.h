@@ -2,7 +2,9 @@
 #include<memory>
 #include "../GameLib/game_lib.h"
 #include"common.h"
-#include "CAMERA.h"
+
+class CAMERA;
+
 using namespace GameLib;
 using namespace input;
 
@@ -46,11 +48,7 @@ public:
 		sprite_render(spr.get(), pos.x, pos.y, scale.x, scale.y, texPos.x, texPos.y, texSize.x, texSize.y, pivot.x, pivot.y, angle, color.x, color.y, color.z, color.w);
 	}
 
-	void cameraRender(CAMERA camera)
-	{
-		if (!spr)return;
-		sprite_render(spr.get(), pos.x-camera.getPos().x, pos.y-camera.getPos().y, scale.x, scale.y, texPos.x, texPos.y, texSize.x, texSize.y, pivot.x, pivot.y, angle, color.x, color.y, color.z, color.w);
-	}
+	void cameraRender(CAMERA& camera);
 
 	virtual void init() {}
 	virtual void deinit() {}

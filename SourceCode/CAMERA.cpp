@@ -7,6 +7,13 @@ CAMERA::CAMERA() :pos({0,0}),height(SCREEN_H),width(SCREEN_W)
 
 }
 
+void CAMERA::init()
+{
+	pos = { 0,0 };
+	height = SCREEN_H;
+	width = SCREEN_W;
+}
+
 void CAMERA::update(Character& target)
 {
 	// プレイヤーの画面内X座標
