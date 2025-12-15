@@ -34,8 +34,9 @@ void SceneTitle::render()
 {
 	GameLib::clear(0, 0, 1);
 
+	stage.render();
 	player.render();
-	//stage.render();
+
 }
 
 

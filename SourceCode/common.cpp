@@ -4,6 +4,7 @@
 const FLOAT PI{ DirectX::XM_PI };
 const LONG SCREEN_W{ 1280 };
 const LONG SCREEN_H{ 720 };
+const LONG GROUND_Y{ 700 };
 const BOOL FULLSCREEN{ FALSE };
 const LPCWSTR APPLICATION_NAME{ L"C++ project template" };
 

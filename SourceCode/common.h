@@ -21,6 +21,7 @@ extern const LONG SCREEN_W;
 extern const LONG SCREEN_H;
 extern const BOOL FULLSCREEN;
 extern const LPCWSTR APPLICATION_NAME;
+extern const LONG GROUND_Y;
 
 //  関数ポインタ
 extern float(* const ToRadian)(float);// 角度をラジアンに

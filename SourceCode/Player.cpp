@@ -10,7 +10,7 @@ Player::Player():MAX_SPEED({15,25})
 	pos = { SCREEN_W * 0.5f,SCREEN_H * 0.5f };
 	scale = { 1,1 };
 	texPos = { 0,0 };
-	texSize = { 256,256 };
+	texSize = { 320,320 };
 	pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
 	color = { 1,1,1,1 };
 	speed = { 0,0 };
@@ -36,14 +36,14 @@ void Player::init()
 	pos = { SCREEN_W * 0.5f,SCREEN_H * 0.5f };
 	scale = { 1,1 };
 	texPos = { 0,0 };
-	texSize = { 256,256 };
+	texSize = { 320,320 };
 	pivot = { texSize.x * 0.5f,texSize.y};
 	color = { 1,1,1,1 };
 	speed = { 0,0 };
 	offset = { 0,0 };
 	angle = 0;
 	if(!spr)
-	spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load(L"./Data/Images/0_sp.png"));
+	spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load(L"./Data/Images/zikitest1213_sprite.png"));
 	act = 0;
 	timer = 0;
 	anime = 0;
@@ -74,9 +74,9 @@ void Player::update()
 	//重力と地面判定
 	if(!isGround)
 	gravity(this);
-	if (pos.y > 700)
+	if (pos.y > GROUND_Y)
 	{
-		pos.y = 700;
+		pos.y = GROUND_Y;
 		speed.y = 0;
 		isGround = true;
 		jumpCount = 2;
@@ -84,6 +84,9 @@ void Player::update()
 
 	//摩擦
 	friction(this);
+
+	
+
 	setBlendMode(Blender::BS_ALPHA);
 	debug::setString("SPEEDX:%f", speed.x);
 	debug::setString("SPEEDY:%f", speed.y);
@@ -120,15 +123,24 @@ void Player::state()
 		act = IDLE;
 
 	case IDLE:
-		//animeUpdate();
+	{
+		int i = 0;
+		if (i == 0)
+		{
+			if (animeUpdate(0, 7, 8, true))
+				i++;
+		}
+		else
+			if (animeUpdate(1, 6, 8, true))
+				i = 0;
+		
 		inputMove();
 		inputJump();
 
-		if (speed.y < 0)
-			act = JUMP_INIT;
-		else if (fabsf(speed.x) > 2)
+		if (fabsf(speed.x) > 2)
 			act = WALK_INIT;
 		break;
+	}
 	case WALK_INIT:
 		anime_state = 0;
 		act = WALK;
@@ -138,9 +150,7 @@ void Player::state()
 		inputMove();
 		inputJump();
 
-		if (speed.y < 0)
-			act = JUMP_INIT;
-		else if (fabsf(speed.x) < 2)
+		if (fabsf(speed.x) < 2)
 			act = IDLE_INIT;
 		break;
 
@@ -153,7 +163,24 @@ void Player::state()
 		inputMove();
 		inputJump();
 
-		//いったんここまで
+		if (speed.y > 0)
+			act = FALL_INIT;
+		break;
+
+	case FALL_INIT:
+		anime_state = 0;
+		act = FALL;
+
+	case FALL:
+		//animeUpdate();
+		inputMove();
+		inputJump();
+
+		if (GROUND_Y <= pos.y)
+			act = IDLE;
+		break;
+
+
 	}
 }
 
@@ -163,11 +190,19 @@ void Player::inputMove()
 	if (STATE(0) & PAD_LEFT)
 	{
 		speed.x -= 2;
+		scale.x = -1;
 	}
 	if (STATE(0) & PAD_RIGHT)
 	{
 		speed.x += 2;
+		scale.x = 1;
 	}
+
+	//速度でスケールやるver
+	/*if (fabsf(speed.x) > 0.5f)
+	{
+		scale.x = (speed.x > 0) ? 1.0f : -1.0f;
+	}*/
 
 	//最高速度に収める
 	if (speed.x > MAX_SPEED.x)
@@ -181,9 +216,10 @@ void Player::inputJump()
 	//キー入力でジャンプ
 	if (TRG(0) & PAD_TRG1&&jumpCount>0)
 	{
-		speed.y -= MAX_SPEED.y;
+		speed.y = -MAX_SPEED.y;
 		jumpCount--;
 		isGround = false;
+		act = JUMP_INIT;
 	}
 }
 
