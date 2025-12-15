@@ -118,3 +118,13 @@ void Stage01::render()
 	front.render();
 	ground.render();
 }
+
+void Stage01::cameraRender(CAMERA camera)
+{
+	GameLib::setBlendMode(GameLib::Blender::BS_ALPHA);
+	back.cameraRender(camera);
+	back_back.cameraRender(camera);
+	middle.cameraRender(camera);
+	front. cameraRender(camera);
+	ground.cameraRender(camera);
+}

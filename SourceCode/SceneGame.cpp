@@ -6,6 +6,10 @@ void SceneGame::init()
 	state = 0;
 	frame = 0;
 	timer = 0;
+	player.init();
+	stage.init();
+	camera.init();
+	camera.setStageLimitX(SCREEN_W + 500);
 }
 
 void SceneGame::update()
@@ -25,6 +29,9 @@ void SceneGame::update()
 		frame++;
 		if (frame % 60 == 0)
 			timer++;
+		camera.update(player);
+		player.update();
+		stage.update();
 
 		debug::setString("time:%d", timer);
 		break;
@@ -34,7 +41,8 @@ void SceneGame::update()
 void SceneGame::render()
 {
 	GameLib::clear(1, 0, 1);
-
+	stage.cameraRender(camera);
+	player.cameraRender(camera);
 
 }
 

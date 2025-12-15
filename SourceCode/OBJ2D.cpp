@@ -1,6 +1,7 @@
 #include"all.h"
 #include<cmath>
 #include<algorithm>
+#include "CAMERA.h"
 using namespace std;
 
 
@@ -40,6 +41,12 @@ bool OBJ2D::animeUpdate(int animeNo, int total, int frame, bool loop)
 	}
 }
 
+void OBJ2D::cameraRender(CAMERA& camera)
+{
+	if (!spr)return;
+	sprite_render(spr.get(), pos.x - camera.getPos().x, pos.y - camera.getPos().y, scale.x, scale.y, texPos.x, texPos.y, texSize.x, texSize.y, pivot.x, pivot.y, angle, color.x, color.y, color.z, color.w);
+}
+
 
 void gravity(OBJ2D* obj)
 {
@@ -64,3 +71,4 @@ void friction(OBJ2D* obj)	//–€ŽC
 		obj->setSpeed(Speed);
 	}
 }
+
