@@ -52,7 +52,7 @@ void friction(OBJ2D* obj)	//–€ŽC
 	float speedX = fabsf(obj->getSpeed().x);
 	if (speedX > 0)
 	{
-		float friction = 0.5f;
+		float friction = 1.0f;
 		VECTOR2 Speed = obj->getSpeed();
 		if (speedX > friction)
 		{
