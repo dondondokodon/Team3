@@ -7,7 +7,7 @@ class Player;
 class Build
 {
 public:
-	virtual ~Build() = default;
+	virtual ~Build() {};
 
 	virtual void Update(Player& p) {}
 
