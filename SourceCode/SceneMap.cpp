@@ -1,5 +1,6 @@
 #include"SceneMap.h"
 #include "../GameLib/game_lib.h"
+#include "Build.h"
 
 void SceneMap::init()
 {
@@ -21,6 +22,9 @@ void SceneMap::update()
 		//デバッグ用
 		if (GameLib::input::TRG(0) & GameLib::input::PAD_START)
 			ISCENE::nextScene = SCENE_GAME;
+
+		if (GameLib::input::TRG(0) & GameLib::input::PAD_SELECT)
+			Build::extraJump = true;
 
 		break;
 	}

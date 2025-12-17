@@ -1,6 +1,10 @@
 #pragma once
 #include "Character.h"
 #include "Coin.h"
+#include <vector>
+#include <memory>
+#include "Build.h"
+
 
 class Player :
     public Character
@@ -15,12 +19,23 @@ public:
 	void inputMove();
 	void inputJump();
 	void state();
+
+
+	//ビルド関連
+	void addEffect(std::unique_ptr<Build> e) { builds.push_back(std::move(e)); }	//追加
+	void clearEffect() { builds.clear(); }											//削除
+
+	int GetMaxJump();
+	void ResetJumpCount() { jumpCount = GetMaxJump(); }
+
 private:
 	int gold       = Coin::GetCoinNum(); //お金
 	int returnGold = 0; //攻撃を当てた時に帰ってくるお金
 	const VECTOR2 MAX_SPEED;	//最高速度
 	bool isGround = false;
-	int jumpCount = 2;
+	int baseMaxJump = 2;	//最大のジャンプ回数
+	int jumpCount = 2;		//残りのジャンプ回数
+
 	enum ACT
 	{
 		IDLE_INIT,
@@ -36,5 +51,8 @@ private:
 		ATTACK2_INIT,
 		ATTACK2,
 	};
+	//ビルド関係
+	std::vector<std::unique_ptr<Build>> builds;
+
 };
 
