@@ -7,7 +7,7 @@ class Player;
 class Build
 {
 public:
-	virtual ~Build() {};
+	virtual ~Build() {}
 
 	virtual void Update(Player& p) {}
 
@@ -24,5 +24,6 @@ public:
 class ExtraJump : public Build
 {
 public:
+	~ExtraJump() {}
 	int AddMaxJump() const;
 };
