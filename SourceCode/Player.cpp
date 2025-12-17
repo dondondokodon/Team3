@@ -1,5 +1,4 @@
 #include "Player.h"
-#include<memory>
 #include "../GameLib/game_lib.h"
 #include "common.h"
 
@@ -56,6 +55,9 @@ void Player::init()
 	isGround = false;
 	jumpCount = 0;
 
+	//3段ジャンプ
+	if (Build::extraJump)
+		addEffect(std::make_unique<ExtraJump>());
 }
 
 void Player::deinit()
@@ -79,7 +81,8 @@ void Player::update()
 		pos.y = GROUND_Y;
 		speed.y = 0;
 		isGround = true;
-		jumpCount = 2;
+		//jumpCount = 2;
+		ResetJumpCount();
 	}
 
 	//摩擦
@@ -228,4 +231,15 @@ void Player::betCoin(int Gold,float atkMultiple, float goldMultiple)
 	atk = Gold * atkMultiple;
 	returnGold = Gold * goldMultiple;
 	if (!returnGold)		returnGold = 1;	//帰ってくる数が0の時最低保証で1にする
+}
+
+
+
+///////////////////////////////////////////////////////////////
+/*-------------------------ビルド関連--------------------------*/
+int Player::GetMaxJump()
+{
+	int bouns = 0;
+	for (auto& e : builds) bouns += e->AddMaxJump();
+	return baseMaxJump + bouns;
 }
