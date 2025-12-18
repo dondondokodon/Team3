@@ -156,6 +156,9 @@
     <ClInclude Include="SourceCode\Enemy.h" />
     <ClInclude Include="SourceCode\OBJ2D.h" />
     <ClInclude Include="SourceCode\Player.h" />
+    <ClInclude Include="SourceCode\Projectile.h" />
+    <ClInclude Include="SourceCode\ProjectileManager.h" />
+    <ClInclude Include="SourceCode\ProjectileStraight.h" />
     <ClInclude Include="SourceCode\Scene.h" />
     <ClInclude Include="SourceCode\SceneGame.h" />
     <ClInclude Include="SourceCode\SceneMap.h" />
@@ -188,6 +191,8 @@
     <ClCompile Include="SourceCode\main.cpp" />
     <ClCompile Include="SourceCode\OBJ2D.cpp" />
     <ClCompile Include="SourceCode\Player.cpp" />
+    <ClCompile Include="SourceCode\ProjectileManager.cpp" />
+    <ClCompile Include="SourceCode\ProjectileStraight.cpp" />
     <ClCompile Include="SourceCode\Scene.cpp" />
     <ClCompile Include="SourceCode\SceneGame.cpp" />
     <ClCompile Include="SourceCode\SceneMap.cpp" />
