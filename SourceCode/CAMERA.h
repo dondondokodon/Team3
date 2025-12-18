@@ -10,8 +10,8 @@ private:
 
 	float stageLimitX;	//ステージの一番右
 
-	const float DEADZONE_LEFT  = 200.0f;		//カメラが動かない範囲
-	const float DEADZONE_RIGHT = 1000.0f;
+	const float DEADZONE_LEFT  = 300.0f;		//カメラが動かない範囲
+	const float DEADZONE_RIGHT = 900.0f;
 public:
 	CAMERA();
 	void init();
