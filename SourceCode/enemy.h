@@ -1,4 +1,5 @@
 #pragma once
+#include "../GameLib/game_lib.h"
 #include "Character.h"
 class Enemy :
     public Character
@@ -8,6 +9,7 @@ private:
     const int coinReward;   //Œ‚”jŽž‚ÌƒRƒCƒ“
 public:
     Enemy();
+    Enemy(VECTOR2 Pos);
     virtual void init()override;
     virtual void deinit()override;
     virtual void update()override;

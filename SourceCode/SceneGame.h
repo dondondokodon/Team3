@@ -1,7 +1,6 @@
 #pragma once
 #include"Scene.h"
 #include"Player.h"
-#include"Enemy.h"
 #include"stage.h"
 #include "CAMERA.h"
 class SceneGame:public ISCENE
@@ -11,7 +10,6 @@ private:
 	Player player;
 	Stage01 stage;
 	CAMERA camera;
-	Enemy enemy;
 public:
 	virtual void update();
 	virtual void render();
