@@ -1,5 +1,8 @@
 #include"SceneGame.h"
+#include<memory>
 #include"../GameLib/game_lib.h"
+#include"Enemy.h"
+#include"EnemyManager.h"
 
 void SceneGame::init()
 {
@@ -8,7 +11,7 @@ void SceneGame::init()
 	timer = 0;
 	player.init();
 	stage.init();
-	enemy.init();
+	EnemyManager::instance().init();
 	camera.init();
 	camera.setStageLimitX(SCREEN_W + 500);
 }
@@ -22,6 +25,9 @@ void SceneGame::update()
 
 	case 1:
 		setBlendMode(Blender::BS_ALPHA);
+		//エネミーセット固定
+		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ 1000.0f, 500.0f }));
+		EnemyManager::instance().init();//ここでやるのキモイからadd関数の中で追加したてのエネミーのinitしてもいいかも
 		state++;
 
 	case 2:
@@ -32,7 +38,7 @@ void SceneGame::update()
 			timer++;
 		camera.update(player);
 		player.update();
-		enemy.update();
+		EnemyManager::instance().update();
 		stage.update();
 
 		debug::setString("time:%d", timer);
@@ -44,7 +50,7 @@ void SceneGame::render()
 {
 	GameLib::clear(1, 0, 1);
 	stage.cameraRender(camera);
-	enemy.cameraRender(camera);
+	EnemyManager::instance().render(camera);
 	player.cameraRender(camera);
 }
 
