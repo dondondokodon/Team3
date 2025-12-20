@@ -42,7 +42,7 @@ void Player::init()
 	offset = { 0,0 };
 	angle = 0;
 	if(!spr)
-	spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load(L"./Data/Images/zikitest1213_sprite.png"));
+	spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load(L"./Data/Images/tadasii_sprite.png"));
 	act = 0;
 	timer = 0;
 	anime = 0;
@@ -126,22 +126,21 @@ void Player::state()
 		act = IDLE;
 
 	case IDLE:
-	{
-		int i = 0;
-		if (i == 0)
-		{
-			if (animeUpdate(0, 7, 8, true))
-				i++;
-		}
-		else
-			if (animeUpdate(1, 6, 8, true))
-				i = 0;
+	{		
+		animeUpdate(2, 5, 10, true);
 		
 		inputMove();
 		inputJump();
 
+		//歩き
 		if (fabsf(speed.x) > 2)
 			act = WALK_INIT;
+
+		//攻撃
+		if (TRG(0) & PAD_START)
+		{
+			act = ATTACK1_INIT;
+		}
 		break;
 	}
 	case WALK_INIT:
@@ -153,8 +152,15 @@ void Player::state()
 		inputMove();
 		inputJump();
 
+		//アイドル
 		if (fabsf(speed.x) < 2)
 			act = IDLE_INIT;
+
+		//攻撃
+		if (TRG(0) & PAD_START)
+		{
+			act = ATTACK1_INIT;
+		}
 		break;
 
 	case JUMP_INIT:
@@ -165,9 +171,15 @@ void Player::state()
 		//animeUpdate();
 		inputMove();
 		inputJump();
-
+		//落下
 		if (speed.y > 0)
 			act = FALL_INIT;
+
+		//攻撃
+		if (TRG(0) & PAD_START)
+		{
+			act = ATTACK1_INIT;
+		}
 		break;
 
 	case FALL_INIT:
@@ -179,10 +191,38 @@ void Player::state()
 		inputMove();
 		inputJump();
 
+		//アイドル
 		if (GROUND_Y <= pos.y)
 			act = IDLE;
-		break;
 
+		//攻撃
+		if (TRG(0) & PAD_START)
+		{
+			act = ATTACK1_INIT;
+		}
+		break;
+	case ATTACK1_INIT:
+		anime_state = 0;
+		act = ATTACK1;
+
+	case ATTACK1:
+	{
+		static int i = 0;
+		if (i == 0)
+		{
+			if (animeUpdate(0, 8, 10, false))
+			i++;
+		}
+		else
+		{
+			if (animeUpdate(1, 7, 10, false))
+			{
+				i = 0;
+				act = IDLE_INIT;
+			}
+		}		
+		break;
+	}
 
 	}
 }
