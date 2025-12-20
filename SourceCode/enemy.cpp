@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-Enemy::Enemy()
+Enemy::Enemy():coinReward(100)
 {
 	hp          = 100;
 	atk         = 50;
