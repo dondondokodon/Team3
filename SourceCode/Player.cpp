@@ -127,7 +127,7 @@ void Player::state()
 
 	case IDLE:
 	{		
-		animeUpdate(2, 5, 10, true);
+		animeUpdate(2, 5, 6, true);
 		
 		inputMove();
 		inputJump();
@@ -210,12 +210,15 @@ void Player::state()
 		static int i = 0;
 		if (i == 0)
 		{
-			if (animeUpdate(0, 8, 10, false))
-			i++;
+			if (animeUpdate(0, 8, 6, false))
+			{
+				anime_state = 0;
+				i++;
+			}
 		}
 		else
 		{
-			if (animeUpdate(1, 7, 10, false))
+			if (animeUpdate(1, 7, 6, false))
 			{
 				i = 0;
 				act = IDLE_INIT;
