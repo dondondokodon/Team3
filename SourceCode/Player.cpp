@@ -42,7 +42,7 @@ void Player::init()
 	offset = { 0,0 };
 	angle = 0;
 	if(!spr)
-	spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load(L"./Data/Images/tadasii_sprite.png"));
+	spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load(L"./Data/Images/tadasii_sprite_2.png"));
 	act = 0;
 	timer = 0;
 	anime = 0;
@@ -148,7 +148,26 @@ void Player::state()
 		act = WALK;
 
 	case WALK:
-		//animeUpdate();
+	{
+
+		static int WalkNum = 0;
+		if (WalkNum == 0)
+		{
+			if (animeUpdate(3, 8, 6, false))
+			{
+				anime_state = 0;
+				WalkNum++;
+			}
+		}
+		else
+		{
+			if (animeUpdate(4, 1, 6, false))
+			{
+				WalkNum = 0;
+				act = IDLE_INIT;
+			}
+		}
+
 		inputMove();
 		inputJump();
 
@@ -162,7 +181,7 @@ void Player::state()
 			act = ATTACK1_INIT;
 		}
 		break;
-
+	}
 	case JUMP_INIT:
 		anime_state = 0;
 		act = JUMP;
