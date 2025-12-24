@@ -37,7 +37,7 @@ void Player::init()
 	scale = { 1,1 };
 	texPos = { 0,0 };
 	texSize = { 320,320 };
-	pivot = { texSize.x * 0.5f,texSize.y};
+	pivot = { texSize.x * 0.5f,texSize.y * 0.5f};
 	color = { 1,1,1,1 };
 	speed = { 0,0 };
 	offset = { 0,0 };
@@ -78,9 +78,9 @@ void Player::update()
 	//重力と地面判定
 	if(!isGround)
 	gravity(this);
-	if (pos.y > GROUND_Y)
+	if (pos.y > GROUND_Y - pivot.y)
 	{
-		pos.y = GROUND_Y;
+		pos.y = GROUND_Y - pivot.y;
 		speed.y = 0;
 		isGround = true;
 		//jumpCount = 2;
