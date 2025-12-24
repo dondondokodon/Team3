@@ -3,9 +3,12 @@
 class ProjectileStraight :
     public Projectile
 {
-    ProjectileStraight(VECTOR2 Pos, VECTOR2 direction);
+public:
+    ProjectileStraight(ProjectileManager* manager, Owner owner, int damage, int ownerId);
     void init()  override;
     void deinit()override;
     void update()override;
+    void render()override;
+    void Launch(VECTOR2 dir, VECTOR2 pos);
 };
 

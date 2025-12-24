@@ -4,7 +4,7 @@
 #include <vector>
 #include <memory>
 #include "Build.h"
-
+#include "ProjectileManager.h"
 
 class Player :
     public Character
@@ -19,7 +19,7 @@ public:
 	void inputMove();
 	void inputJump();
 	void state();
-
+	void InputProjectile();
 
 	//ビルド関連
 	void addEffect(std::unique_ptr<Build> e) { builds.push_back(std::move(e)); }	//追加
@@ -28,6 +28,7 @@ public:
 	int GetMaxJump();
 	void ResetJumpCount() { jumpCount = GetMaxJump(); }
 
+	bool lightAttack = false;	//軽攻撃フラグ
 private:
 	int gold       = Coin::GetCoinNum(); //お金
 	int returnGold = 0; //攻撃を当てた時に帰ってくるお金
@@ -35,7 +36,9 @@ private:
 	bool isGround = false;
 	int baseMaxJump = 2;	//最大のジャンプ回数
 	int jumpCount = 2;		//残りのジャンプ回数
+	//ProjectileManager projMgr;
 
+	
 	enum ACT
 	{
 		IDLE_INIT,

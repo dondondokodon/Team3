@@ -3,6 +3,9 @@
 #include"Player.h"
 #include"stage.h"
 #include "CAMERA.h"
+#include "ProjectileManager.h"
+#include "ProjectileStraight.h"
+
 class SceneGame:public ISCENE
 {
 private:
@@ -10,6 +13,8 @@ private:
 	Player player;
 	Stage01 stage;
 	CAMERA camera;
+	ProjectileManager projMgr;
+
 public:
 	virtual void update();
 	virtual void render();

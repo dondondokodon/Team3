@@ -41,6 +41,14 @@ void SceneGame::update()
 		EnemyManager::instance().update();
 		stage.update();
 
+		if (player.lightAttack)
+		{
+			ProjectileStraight* b = new ProjectileStraight(&projMgr, Projectile::Owner::player, 100, -1);
+			b->Launch(player.getDir(), player.getPos());//-player.getPivot());
+		}
+		player.lightAttack = false;
+
+		projMgr.update();
 		debug::setString("time:%d", timer);
 		break;
 	}
@@ -52,6 +60,7 @@ void SceneGame::render()
 	stage.cameraRender(camera);
 	EnemyManager::instance().render(camera);
 	player.cameraRender(camera);
+	projMgr.Render(camera);
 }
 
 
