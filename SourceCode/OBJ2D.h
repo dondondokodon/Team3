@@ -26,6 +26,7 @@ protected:
 	VECTOR4 color;
 	VECTOR2 speed;
 	VECTOR2 offset;
+	VECTOR2 direction;
 	int angle;
 	std::shared_ptr<GameLib::Sprite> spr;
 	
@@ -62,6 +63,8 @@ public:
 	int getAct() { return act; }
 	int getAnime() { return anime; }
 	VECTOR2 getSpeed() { return speed; }
+	VECTOR2 getPivot() { return pivot; }
+	VECTOR2 getDir() { return direction; }
 
 	void setScale(VECTOR2 Scale) { scale = Scale; }
 	void setAct(int Act) { act = Act; }

@@ -1,11 +1,42 @@
 #pragma once
 #include<vector>
 #include<memory>
+#include<set>
 #include"Projectile.h"
-class ProjectileManager
+#include"CAMERA.h"
+class ProjectileManager : public OBJ2D
 {
-	std::vector<std::unique_ptr<Projectile>> playerProjcetiles;	//ƒvƒŒƒCƒ„[‚Ì’e
-	std::vector<std::unique_ptr<Projectile>> enemyProjcetiles;	//“G‚Ì’e
-	std::vector<Projectile*> removeList;	//íœ‚·‚é‹…
+public:
+	ProjectileManager();
+	~ProjectileManager();
+
+	//XV
+	void update()override;
+
+	//•`‰æ
+	void Render(CAMERA& camera);
+
+
+	//”æ“¾
+	int GetPlayerProjectileCount()const { return static_cast<int>(playerProjectiles.size()); }
+	int GetEnemyProjectileCount()const { return static_cast<int>(enemyProjectiles.size()); }
+
+	//‹…‚Ìæ“¾
+	Projectile* GetPlayerProjectile(int index) { return playerProjectiles.at(index); }
+	Projectile* GetEnemyProjectile(int index) { return enemyProjectiles.at(index); }
+
+	//‘Síœ
+	void Clear();
+
+	//“o˜^
+	void Register(Projectile* projectile);
+
+	//íœƒŠƒXƒg‚É’Ç‰Á
+	void Remove(Projectile* projectile);
+
+private:
+	std::vector<Projectile*> playerProjectiles;	//ƒvƒŒƒCƒ„[‚Ì’e
+	std::vector<Projectile*> enemyProjectiles;	//“G‚Ì’e
+	std::set<Projectile*> removeList;	//íœ‚·‚é‹…
 };
 

@@ -193,6 +193,7 @@
     <ClCompile Include="SourceCode\main.cpp" />
     <ClCompile Include="SourceCode\OBJ2D.cpp" />
     <ClCompile Include="SourceCode\Player.cpp" />
+    <ClCompile Include="SourceCode\Projectile.cpp" />
     <ClCompile Include="SourceCode\ProjectileManager.cpp" />
     <ClCompile Include="SourceCode\ProjectileStraight.cpp" />
     <ClCompile Include="SourceCode\Scene.cpp" />

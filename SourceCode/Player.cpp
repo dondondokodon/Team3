@@ -1,7 +1,7 @@
 #include "Player.h"
 #include "../GameLib/game_lib.h"
 #include "common.h"
-
+#include "ProjectileStraight.h"
 
 
 Player::Player():MAX_SPEED({15,25})
@@ -27,6 +27,7 @@ Player::Player():MAX_SPEED({15,25})
 	returnGold = 0;
 	isGround = false;
 	jumpCount = 0;
+	direction = { 1,1 };
 
 }
 
@@ -54,6 +55,7 @@ void Player::init()
 	returnGold = 0;
 	isGround = false;
 	jumpCount = 0;
+	direction = { 1,1 };
 
 	//3段ジャンプ
 	if (Build::extraJump)
@@ -88,7 +90,8 @@ void Player::update()
 	//摩擦
 	friction(this);
 
-	
+	//GameLib::primitive::circle(pos.x,pos.y, 20, 1, 1);
+
 
 	setBlendMode(Blender::BS_ALPHA);
 	debug::setString("SPEEDX:%f", speed.x);
@@ -96,7 +99,7 @@ void Player::update()
 	debug::setString("jumpCount:%d", jumpCount);
 	debug::setString("act:%d", act);
 	debug::setString("isGround:%d", isGround);
-	
+
 
 	/*static int num = 0;
 	if (num % 2 == 0)
@@ -137,10 +140,7 @@ void Player::state()
 			act = WALK_INIT;
 
 		//攻撃
-		if (TRG(0) & PAD_START)
-		{
-			act = ATTACK1_INIT;
-		}
+		InputProjectile();
 		break;
 	}
 	case WALK_INIT:
@@ -159,10 +159,7 @@ void Player::state()
 			act = IDLE_INIT;
 
 		//攻撃
-		if (TRG(0) & PAD_START)
-		{
-			act = ATTACK1_INIT;
-		}
+		InputProjectile();
 		break;
 	}
 	case JUMP_INIT:
@@ -178,10 +175,7 @@ void Player::state()
 			act = FALL_INIT;
 
 		//攻撃
-		if (TRG(0) & PAD_START)
-		{
-			act = ATTACK1_INIT;
-		}
+		InputProjectile();
 		break;
 
 	case FALL_INIT:
@@ -198,20 +192,33 @@ void Player::state()
 			act = IDLE;
 
 		//攻撃
-		if (TRG(0) & PAD_START)
-		{
-			act = ATTACK1_INIT;
-		}
+		InputProjectile();
 		break;
 	case ATTACK1_INIT:
 		anime_state = 0;
+		lightAttack = true;
 		act = ATTACK1;
 
 	case ATTACK1:
 	{
-		if (animeUpdate(0, 16, 6, false))
-			act = IDLE_INIT;
-				
+		//lightAttack = false;
+		static int i = 0;
+		if (i == 0)
+		{
+			if (animeUpdate(0, 8, 6, false))
+			{
+				anime_state = 0;
+				i++;
+			}
+		}
+		else
+		{
+			if (animeUpdate(1, 7, 6, false))
+			{
+				i = 0;
+				act = IDLE_INIT;
+			}
+		}		
 		break;
 	}
 
@@ -220,16 +227,19 @@ void Player::state()
 
 void Player::inputMove()
 {
+	//scale.x *= direction.x;
 	//キー入力で加速
 	if (STATE(0) & PAD_LEFT)
 	{
 		speed.x -= 2;
 		scale.x = -1;
+		direction.x = -1;
 	}
 	if (STATE(0) & PAD_RIGHT)
 	{
 		speed.x += 2;
 		scale.x = 1;
+		direction.x = 1;
 	}
 
 	//速度でスケールやるver
@@ -265,6 +275,15 @@ void Player::betCoin(int Gold,float atkMultiple, float goldMultiple)
 }
 
 
+void Player::InputProjectile()
+{
+	if (TRG(0) & PAD_TRG4)
+	{
+		act = ATTACK1_INIT;
+		//b->init();
+
+	}
+}
 
 ///////////////////////////////////////////////////////////////
 /*-------------------------ビルド関連--------------------------*/
