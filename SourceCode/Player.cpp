@@ -43,7 +43,7 @@ void Player::init()
 	offset = { 0,0 };
 	angle = 0;
 	if(!spr)
-	spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load(L"./Data/Images/tadasii_sprite.png"));
+	spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load(L"./Data/Images/ziki_motto_tadasii_sprite.png"));
 	act = 0;
 	timer = 0;
 	anime = 0;
@@ -130,7 +130,7 @@ void Player::state()
 
 	case IDLE:
 	{		
-		animeUpdate(2, 5, 6, true);
+		animeUpdate(1, 5, 6, true);
 		
 		inputMove();
 		inputJump();
@@ -148,7 +148,9 @@ void Player::state()
 		act = WALK;
 
 	case WALK:
-		//animeUpdate();
+	{
+		animeUpdate(2, 10, 6, true);
+
 		inputMove();
 		inputJump();
 
@@ -159,7 +161,7 @@ void Player::state()
 		//攻撃
 		InputProjectile();
 		break;
-
+	}
 	case JUMP_INIT:
 		anime_state = 0;
 		act = JUMP;
