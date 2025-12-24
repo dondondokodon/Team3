@@ -22,6 +22,10 @@ public:
 	void render(CAMERA camera);
 	void init();
 	void clear();
+	//エネミー数取得
+	int GetEnemyCount() const { return static_cast<int>(enemies.size()); }
+	//エネミー取得
+	Enemy* GetEnemy(int index) { return enemies.at(index).get(); }
 
 private:
 	std::vector<std::unique_ptr<Enemy>> enemies;

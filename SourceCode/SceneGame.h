@@ -21,5 +21,5 @@ public:
 	virtual void init();
 	virtual void deinit();
 	virtual void deleteSprite();
-
+	void Collision();
 };

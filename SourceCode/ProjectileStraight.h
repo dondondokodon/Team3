@@ -4,7 +4,7 @@ class ProjectileStraight :
     public Projectile
 {
 public:
-    ProjectileStraight(ProjectileManager* manager, Owner owner, int damage, int ownerId);
+    ProjectileStraight(ProjectileManager* manager, Faction faction, int damage, int ownerId);
     void init()  override;
     void deinit()override;
     void update()override;
