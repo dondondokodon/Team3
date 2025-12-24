@@ -1,6 +1,6 @@
 #include "ProjectileStraight.h"
 
-ProjectileStraight::ProjectileStraight(ProjectileManager* manager, Owner owner, int damage, int ownerId):Projectile(manager,owner,damage,ownerId)
+ProjectileStraight::ProjectileStraight(ProjectileManager* manager, Faction faction, int damage, int ownerId):Projectile(manager, faction,damage,ownerId)
 {
 	spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load(L"./Data/Images/94f61596c6928aaa.png"));
 	pos = {SCREEN_W * 0.5f,SCREEN_H * 0.5f };

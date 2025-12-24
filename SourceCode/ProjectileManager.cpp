@@ -25,7 +25,7 @@ void ProjectileManager::update()
 	for (Projectile* projectile : removeList)
 	{
 		//player‚©enemy‚©‚ð”»•Ê
-		auto& vec = (projectile->GetOwner() == Projectile::Owner::player)
+		auto& vec = (projectile->GetFaction() == Projectile::Faction::player)
 			? playerProjectiles
 			: enemyProjectiles;
 
@@ -63,7 +63,7 @@ void ProjectileManager::Register(Projectile* projectile)
 {
 	if (!projectile)	return;
 
-	if (projectile->GetOwner() == Projectile::Owner::player)
+	if (projectile->GetFaction() == Projectile::Faction::player)
 		playerProjectiles.emplace_back(projectile);
 	else
 		enemyProjectiles.emplace_back(projectile);

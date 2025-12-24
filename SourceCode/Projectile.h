@@ -6,18 +6,18 @@ class ProjectileManager;
 class Projectile :public OBJ2D
 {
 public:
-	enum class Owner
+	enum class Faction
 	{
 		player,
 		enemy
 	};
 
-	Owner GetOwner()const { return owner; }
+	Faction GetFaction()const { return faction; }
 	int GetOwnerId()const { return ownerId; }
 
 	void Destroy();
-	//owner→どっちの球か　ownerId→誰が撃ったか
-	Projectile(ProjectileManager* manager, Owner owner,int damage, int ownerId);
+	//faction→どっちの球か　ownerId→誰が撃ったか
+	Projectile(ProjectileManager* manager, Faction faction,int damage, int ownerId);
 	virtual ~Projectile(){}
 	void kill() { alive = false; }
 	void update()override  = 0;
@@ -27,7 +27,7 @@ protected:
 	bool alive;
 	VECTOR2 dir;//向き
 	ProjectileManager* manager = nullptr;
-	Owner owner;
+	Faction faction;
 	int ownerId;
 };
 

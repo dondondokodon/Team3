@@ -34,6 +34,9 @@ public:
 	//削除リストに追加
 	void Remove(Projectile* projectile);
 
+	const std::vector<Projectile*>& GetPlayerProjectile() const { return playerProjectiles; }
+	const std::vector<Projectile*>& GetEnemyProjectile() const { return enemyProjectiles; }
+
 private:
 	std::vector<Projectile*> playerProjectiles;	//プレイヤーの弾
 	std::vector<Projectile*> enemyProjectiles;	//敵の弾
