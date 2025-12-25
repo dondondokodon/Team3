@@ -8,6 +8,8 @@ void EnemyManager::update()
 	}
 	//“–‚½‚è”»’è
 	//Ž€–S”»’è
+		//Ž€‚ñ‚¾‚ç”jŠü
+
 }
 
 void EnemyManager::render(CAMERA camera)

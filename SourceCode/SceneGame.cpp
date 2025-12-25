@@ -44,7 +44,9 @@ void SceneGame::update()
 
 		if (player.lightAttack)
 		{
-			ProjectileStraight* b = new ProjectileStraight(&projMgr, Projectile::Faction::player, 100, -1);
+			int useCoin = Coin::GetRatioCoin(0.01f);
+			ProjectileStraight* b = new ProjectileStraight(&projMgr, Projectile::Faction::player, Coin::calcDamage(2, useCoin), -1);
+			Coin::DegCoinNum(useCoin);
 			b->Launch(player.getDir(), player.getPos());
 		}
 		player.lightAttack = false;
@@ -52,6 +54,9 @@ void SceneGame::update()
 		projMgr.update();
 		Collision();
 		debug::setString("time:%d", timer);
+		debug::setString("Coin:%d", Coin::GetCoinNum());
+		debug::setString("RewardCoin:%d", Coin::RewardCoin());
+		debug::setString("Enemy:%d", EnemyManager::instance().GetEnemy(0)->getHp());
 		break;
 	}
 }
@@ -93,7 +98,11 @@ void SceneGame::Collision()
 			if (hitCircle(p->getPos(), p->getRadius(), e->getPos(), e->getRadius()))
 			{
 				p->Destroy();
-
+				e->degHp(p->getDamage());
+				if (e->isDeath())
+				{
+					Coin::AddCoinNum(Coin::RewardCoin());
+				}
 			}
 		}
 	}

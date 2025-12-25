@@ -50,6 +50,7 @@ void ProjectileManager::Render(CAMERA& camera)
 	for (Projectile* projectile : playerProjectiles)
 	{
 		projectile->cameraRender(camera);
+		GameLib::primitive::circle(projectile->getPos() - camera.getPos(), projectile->getRadius(), { 1, 1 }, 0, { 1, 1, 1, 1 });
 	}
 	for (Projectile* projectile : enemyProjectiles)
 	{

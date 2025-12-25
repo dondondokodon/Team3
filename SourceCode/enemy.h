@@ -25,6 +25,9 @@ public:
     virtual void update()override;
     virtual void state();
     int getCoinReward()const { return coinReward; }
-    bool isAlive()override { return (hp <= 0); }
+    bool isDeath()override { return (hp <= 0); }
+    void degHp(int damage) { hp += -damage; }
+    int getHp()const { return hp; }
+    void Destroy();
 };
 

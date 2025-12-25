@@ -8,7 +8,7 @@ public:
 	virtual void init()    = 0;
 	virtual void deinit()  = 0;
 	virtual void update()  = 0;
-	virtual bool isAlive() = 0;
+	virtual bool isDeath() = 0;
 public:
 	int atk = 0;	//UŒ‚—Í
 };
