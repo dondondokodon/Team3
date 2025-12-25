@@ -55,7 +55,7 @@ void SceneGame::update()
 		Collision();
 		debug::setString("time:%d", timer);
 		debug::setString("Coin:%d", Coin::GetCoinNum());
-		debug::setString("RewardCoin:%d", Coin::RewardCoin());
+		debug::setString("RewardCoin:%d", Coin::RewardCoin(2));
 		debug::setString("Enemy:%d", EnemyManager::instance().GetEnemy(0)->getHp());
 		break;
 	}
@@ -84,6 +84,7 @@ void SceneGame::deleteSprite()
 void SceneGame::Collision()
 {
 	//player¨enemy
+	//‹…‚Ìˆ—
 	EnemyManager& enemyManager = EnemyManager::instance();
 	int playerProjectileCount = projMgr.GetPlayerProjectileCount();
 	int enemyCount = enemyManager.GetEnemyCount();
@@ -98,10 +99,12 @@ void SceneGame::Collision()
 			if (hitCircle(p->getPos(), p->getRadius(), e->getPos(), e->getRadius()))
 			{
 				p->Destroy();
+				Coin::AddCoinNum(Coin::RewardCoin(2));
 				e->degHp(p->getDamage());
+
 				if (e->isDeath())
 				{
-					Coin::AddCoinNum(Coin::RewardCoin());
+
 				}
 			}
 		}
@@ -109,6 +112,7 @@ void SceneGame::Collision()
 
 
 	//enemy¨player
+	//‹…‚Ìˆ—
 	int EnemyProjectileCount = projMgr.GetEnemyProjectileCount();
 	for (int i = 0; i < EnemyProjectileCount; i++)
 	{

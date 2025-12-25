@@ -17,7 +17,7 @@ public:
 	static int GetRatioCoin(float ratio);	//割合で取りだす
 											//攻撃で使用した場合、しっかり減算してね
 
-	static int RewardCoin() { return moveCoin * 1.3; }	//返ってくるコイン
+	static int RewardCoin(int add) { return moveCoin * add; }	//返ってくるコイン
 
 	//ダメージ計算
 	static int calcDamage(int baseDamage, int coin) { return baseDamage * coin; }
