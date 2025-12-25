@@ -59,7 +59,7 @@ public:
 	int                 hitPrimitive;//•¨‚ÌŒ`
 	VECTOR2 getPos() { return pos; }
 	VECTOR2 getScale() { return scale; }
-	bool getRadius() { return radius; }
+	float getRadius() { return radius; }
 	int getAct() { return act; }
 	int getAnime() { return anime; }
 	VECTOR2 getSpeed() { return speed; }

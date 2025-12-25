@@ -1,7 +1,7 @@
 #include "Coin.h"
 
 //ƒRƒCƒ“‚Ì‰Šú’l
-int Coin::CoinNum = 10000;
+int Coin::CoinNum = 1500;
 
 //
 int Coin::moveCoin = Coin::CoinNum;

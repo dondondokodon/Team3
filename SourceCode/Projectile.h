@@ -21,6 +21,7 @@ public:
 	virtual ~Projectile(){}
 	void kill() { alive = false; }
 	void update()override  = 0;
+	int getDamage()const { return damage; }
 protected:
 	float lifeLimit;
 	int damage;

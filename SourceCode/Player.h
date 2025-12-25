@@ -15,7 +15,7 @@ public:
 	void deinit();
 	void update();
 	void betCoin(int gold,float atkMultiple,float goldMultiple);		//UŒ‚‚·‚é‚Æ‚«‚É‚©‚¯‚é‚¨‹à ˆø”@Š|‚¯‹à@UŒ‚—Í”{—¦@‹A‚Á‚Ä‚­‚é‚¨‹à”{—¦
-	bool isAlive() { return (gold <= 0 && returnGold <= 0); }
+	bool isDeath() { return (gold <= 0 && returnGold <= 0); }
 	void inputMove();
 	void inputJump();
 	void state();

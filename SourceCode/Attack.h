@@ -8,6 +8,4 @@ private:
 	~Attack(){}
 
 public:
-	//ダメージ計算
-	int calcDamage(int baseDamage, int coin) { return baseDamage * coin; }
 };
