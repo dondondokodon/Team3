@@ -28,7 +28,6 @@ void SceneGame::update()
 		setBlendMode(Blender::BS_ALPHA);
 		//エネミーセット固定
 		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ 1000.0f, 500.0f }));
-		//EnemyManager::instance().init();//ここでやるのキモイからadd関数の中で追加したてのエネミーのinitしてもいいかも
 		state++;
 
 	case 2:
@@ -56,7 +55,6 @@ void SceneGame::update()
 		debug::setString("time:%d", timer);
 		debug::setString("Coin:%d", Coin::GetCoinNum());
 		debug::setString("RewardCoin:%d", Coin::RewardCoin());
-		debug::setString("Enemy:%d", EnemyManager::instance().GetEnemy(0)->getHp());
 		break;
 	}
 }

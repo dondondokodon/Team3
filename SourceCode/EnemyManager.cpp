@@ -2,15 +2,24 @@
 
 void EnemyManager::update()
 {
-	for (auto& e : enemies)
+	int num = 0;	//ループ回数　デバッグ用
+	for (auto it = enemies.begin(); it != enemies.end(); )
 	{
-		e->update();
+		(*it)->update();
+		debug::setString("Enemy[%d]HP:%d", num,(*it)->getHp());
+		if ((*it)->isDeath())
+		{
+			(*it)->deinit();
+			it = enemies.erase(it); // eraseは次のiteratorを返す
+		}
+		else
+		{
+			++it;
+			++num;
+		}
 	}
-	//当たり判定
-	//死亡判定
-		//死んだら破棄
-
 }
+
 
 void EnemyManager::render(CAMERA camera)
 {
