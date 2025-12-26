@@ -49,6 +49,9 @@ public:
 		sprite_render(spr.get(), pos.x, pos.y, scale.x, scale.y, texPos.x, texPos.y, texSize.x, texSize.y, pivot.x, pivot.y, angle, color.x, color.y, color.z, color.w);
 	}
 
+	void hitAreaRender(CAMERA& camera);
+	
+
 	void cameraRender(CAMERA& camera);
 
 	virtual void init() {}

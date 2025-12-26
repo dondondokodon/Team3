@@ -67,6 +67,7 @@ void SceneGame::render()
 	stage.cameraRender(camera);
 	EnemyManager::instance().render(camera);
 	player.cameraRender(camera);
+	player.hitAreaRender(camera);
 	projMgr.Render(camera);
 }
 
