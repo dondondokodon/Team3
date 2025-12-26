@@ -202,23 +202,12 @@ void Player::state()
 	case ATTACK1:
 	{
 		//lightAttack = false;
-		static int i = 0;
-		if (i == 0)
+		
+		if (animeUpdate(0, 16, 6,false))
 		{
-			if (animeUpdate(0, 8, 6, false))
-			{
-				anime_state = 0;
-				i++;
-			}
+			act = IDLE_INIT;
 		}
-		else
-		{
-			if (animeUpdate(1, 7, 6, false))
-			{
-				i = 0;
-				act = IDLE_INIT;
-			}
-		}		
+		
 		break;
 	}
 

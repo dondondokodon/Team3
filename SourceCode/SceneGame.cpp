@@ -28,7 +28,7 @@ void SceneGame::update()
 		setBlendMode(Blender::BS_ALPHA);
 		//エネミーセット固定
 		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ 1000.0f, 500.0f }));
-		EnemyManager::instance().init();//ここでやるのキモイからadd関数の中で追加したてのエネミーのinitしてもいいかも
+		//EnemyManager::instance().init();//ここでやるのキモイからadd関数の中で追加したてのエネミーのinitしてもいいかも
 		state++;
 
 	case 2:
