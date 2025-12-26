@@ -60,7 +60,7 @@ void Enemy::init()
 	anime       = 0;
 	animeTimer  = 0;
 	anime_state = 0;
-	radius      = texSize.y * 0.5f;
+	radius      = texSize.y * 0.3f*scale.x;
 	if(!spr)
 	spr.reset(sprite_load(L"./Data/Images/teki_motto_tadasii_sprite.png"));
 }

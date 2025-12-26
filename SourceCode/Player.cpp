@@ -4,7 +4,7 @@
 #include "ProjectileStraight.h"
 
 
-Player::Player():MAX_SPEED({15,25})
+Player::Player():MAX_SPEED({7,25})
 {
 	pos = { SCREEN_W * 0.5f,SCREEN_H * 0.5f };
 	scale = { 1,1 };
@@ -40,7 +40,7 @@ void Player::init()
 	pivot = { texSize.x * 0.5f,texSize.y * 0.5f};
 	color = { 1,1,1,1 };
 	speed = { 0,0 };
-	offset = { 0,0 };
+	offset = { 0,50*scale.y };
 	angle = 0;
 	if(!spr)
 	spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load(L"./Data/Images/ziki_motto_tadasii_sprite.png"));
@@ -49,7 +49,7 @@ void Player::init()
 	anime = 0;
 	animeTimer = 0;
 	anime_state = 0;
-	radius = texSize.x * 0.5f;
+	radius = texSize.x * 0.3f*scale.x;
 	atk = 0;
 	gold = 0;
 	returnGold = 0;
@@ -196,13 +196,12 @@ void Player::state()
 		break;
 	case ATTACK1_INIT:
 		anime_state = 0;
-		lightAttack = true;
 		act = ATTACK1;
 
 	case ATTACK1:
 	{
 		//lightAttack = false;
-		
+		if (animeTimer == 3*6)	lightAttack = true;	//４コマ目に射撃
 		if (animeUpdate(0, 16, 6,false))
 		{
 			act = IDLE_INIT;
