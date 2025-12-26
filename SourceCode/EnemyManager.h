@@ -9,6 +9,7 @@ class EnemyManager
 public:
 	void add(std::unique_ptr<Enemy> enemy)
 	{
+		enemy->init();
 		enemies.push_back(std::move(enemy));
 	}
 
