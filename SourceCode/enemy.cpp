@@ -30,7 +30,7 @@ Enemy::Enemy(VECTOR2 Pos) :coinReward(100)
 	texPos      = { 0.0f,0.0f };
 	pos         = { Pos.x,Pos.y};
 	color       = { 1.0f,1.0f,1.0f,1.0f };
-	scale       = { 1.0f,1.0f };
+	scale       = { 0.5f,0.5f };
 	pivot       = { texSize.x * 0.5f,texSize.y * 0.5f };
 	speed       = { 0,0 };
 	offset      = { 0,0 };
@@ -49,9 +49,9 @@ void Enemy::init()
 	atk         = 50;
 	texSize     = { 320.0f,320.0f };
 	texPos      = { 0.0f,0.0f };
-	pos         = { 1000,500 };
+	//pos         = { 1000,500 };		引数付きコンストラクタで設定する場合があるのでinitでは書かない
 	color       = { 1.0f,1.0f,1.0f,1.0f };
-	scale       = { 1.0f,1.0f };
+	scale       = { 0.7f,0.7f };
 	pivot       = { texSize.x * 0.5f,texSize.y * 0.5f };
 	speed       = { 0,0 };
 	offset      = { 0,0 };
@@ -96,9 +96,25 @@ void Enemy::state()
 		act = IDLE;
 
 	case IDLE:
-	{
-		animeUpdate(0, 14, 6, true);
-	}	
+		if (fabsf(speed.x) > 0.0f)				act = WALK_INIT;
+		if (animeUpdate(0, 14, 6, true))	act = ATTACK1_INIT;
+		break;
+
+	case WALK_INIT:
+		anime_state = 0;
+		act = WALK;
+
+	case WALK:
+		if(animeUpdate(1, 10, 6, false)) act = IDLE_INIT;
+		break;
+
+	case ATTACK1_INIT:
+		anime_state = 0;
+		act = ATTACK1;
+
+	case ATTACK1:
+		if (animeUpdate(2, 10, 6, false))	act = IDLE_INIT;
+		break;
 
 	}
 }

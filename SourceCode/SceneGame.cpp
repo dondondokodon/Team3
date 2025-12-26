@@ -27,7 +27,7 @@ void SceneGame::update()
 	case 1:
 		setBlendMode(Blender::BS_ALPHA);
 		//エネミーセット固定
-		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ 1000.0f, 500.0f }));
+		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ 1000.0f, 200.0f }));
 		state++;
 
 	case 2:
