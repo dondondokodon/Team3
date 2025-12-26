@@ -44,7 +44,7 @@ bool OBJ2D::animeUpdate(int animeNo, int total, int frame, bool loop)
 void OBJ2D::hitAreaRender(CAMERA& camera)
 {
 	//‚¢‚Á‚½‚ñ‰~‚¾‚¯
-	primitive::circle(VECTOR2(pos - camera.getPos()) + (VECTOR2{ offset.x * scale.x,offset.y * scale.y }), radius, scale, angle, { 1,0,0,0.3f });
+	primitive::circle(VECTOR2(pos - camera.getPos()) + (VECTOR2{ offset.x * scale.x,offset.y * scale.y }), radius, {1,1}, angle, {1,0,0,0.3f});
 }
 
 void OBJ2D::cameraRender(CAMERA& camera)
