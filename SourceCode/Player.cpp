@@ -221,8 +221,9 @@ void Player::state()
 	{
 		InputProjectile();	//ここでattack2Reserveを更新してる
 		//lightAttack = false;
+		if (animeUpdate(0, 16, 5, false))		act = IDLE_INIT;
 		if (animeTimer == 3*5)	lightAttack = true;	//４コマ目に射撃
-		if (animeUpdate(0, 16, 5,false))		act = IDLE_INIT;
+		
 		
 		//連撃
 		if (anime >= 11 && attack2Reserve)		act = ATTACK2_INIT;
@@ -236,8 +237,8 @@ void Player::state()
 		act = ATTACK2;
 
 	case ATTACK2:
-		if (animeTimer == 3 * 5)	lightAttack = true;	//４コマ目に射撃
 		if (animeUpdate(6, 13, 5, false))	act = IDLE_INIT;
+		if (animeTimer == 3 * 5)	lightAttack = true;	//４コマ目に射撃
 		break;
 
 	}
