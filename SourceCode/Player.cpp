@@ -53,6 +53,7 @@ void Player::init()
 	atk = 0;
 	gold = 0;
 	returnGold = 0;
+	attack2Reserve = false;
 	isGround = false;
 	jumpCount = 0;
 	direction = { 1,1 };
@@ -167,12 +168,18 @@ void Player::state()
 		act = JUMP;
 
 	case JUMP:
-		//animeUpdate();
+		
+
 		inputMove();
 		inputJump();
-		//落下
-		if (speed.y > 0)
-			act = FALL_INIT;
+
+		if (animeUpdate(3, 8, 3, false))
+		{
+			//落下
+			if (speed.y > 0)
+				act = FALL_INIT;
+		}
+
 
 		//攻撃
 		InputProjectile();
@@ -183,32 +190,55 @@ void Player::state()
 		act = FALL;
 
 	case FALL:
-		//animeUpdate();
+		animeUpdate(4,11,6,false);
 		inputMove();
 		inputJump();
 
 		//アイドル
-		if (GROUND_Y <= pos.y)
-			act = IDLE;
+		if (GROUND_Y - pivot.y <= pos.y)
+			act = LANDING_INIT;
 
 		//攻撃
 		InputProjectile();
 		break;
+
+	case LANDING_INIT:
+		anime_state = 0;
+		act = LANDING;
+
+	case LANDING:
+		animeUpdate(5, 10, 6, false);
+		if(animeUpdate(5, 10, 6, false))	act=IDLE_INIT;
+
+		break;
+
 	case ATTACK1_INIT:
 		anime_state = 0;
+		attack2Reserve = false;
 		act = ATTACK1;
 
 	case ATTACK1:
 	{
+		InputProjectile();	//ここでattack2Reserveを更新してる
 		//lightAttack = false;
-		if (animeTimer == 3*6)	lightAttack = true;	//４コマ目に射撃
-		if (animeUpdate(0, 16, 6,false))
-		{
-			act = IDLE_INIT;
-		}
+		if (animeTimer == 3*5)	lightAttack = true;	//４コマ目に射撃
+		if (animeUpdate(0, 16, 5,false))		act = IDLE_INIT;
+		
+		//連撃
+		if (anime >= 11 && attack2Reserve)		act = ATTACK2_INIT;
+		
 		
 		break;
 	}
+
+	case ATTACK2_INIT:
+		anime_state = 0;
+		act = ATTACK2;
+
+	case ATTACK2:
+		if (animeTimer == 3 * 5)	lightAttack = true;	//４コマ目に射撃
+		if (animeUpdate(6, 13, 5, false))	act = IDLE_INIT;
+		break;
 
 	}
 }
@@ -267,6 +297,9 @@ void Player::InputProjectile()
 {
 	if (TRG(0) & PAD_TRG4)
 	{
+		if (act == ATTACK1)	attack2Reserve = true;
+		
+		else
 		act = ATTACK1_INIT;
 		//b->init();
 
