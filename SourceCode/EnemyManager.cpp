@@ -6,6 +6,8 @@ void EnemyManager::update(CAMERA camera)
 	for (auto it = enemies.begin(); it != enemies.end(); )
 	{
 		(*it)->update(camera);
+		if(target)		//ターゲットがnullじゃなければ
+		(*it)->ScaleReverse(target);		//スケール反転
 		debug::setString("Enemy[%d]HP:%d", num,(*it)->getHp());
 		if ((*it)->isDeath())
 		{

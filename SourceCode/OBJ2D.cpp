@@ -63,7 +63,7 @@ void gravity(OBJ2D* obj)
 
 void friction(OBJ2D* obj)	//–€ŽC
 {
-	float speedX = fabsf(obj->getSpeed().x);
+	/*float speedX = fabsf(obj->getSpeed().x);
 	if (speedX > 0)
 	{
 		float friction = 1.0f;
@@ -76,6 +76,15 @@ void friction(OBJ2D* obj)	//–€ŽC
 		else
 			Speed.x = 0.0f;
 		obj->setSpeed(Speed);
-	}
+	}*/
+
+	float friction = 0.8f; // 20% Œ¸‘¬
+	VECTOR2 v = obj->getSpeed();
+	v.x *= friction;
+
+	if (fabsf(v.x) < 0.1f)
+		v.x = 0;
+
+	obj->setSpeed(v);
 }
 
