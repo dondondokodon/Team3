@@ -33,6 +33,7 @@ private:
 	int gold       = Coin::GetCoinNum(); //お金
 	int returnGold = 0; //攻撃を当てた時に帰ってくるお金
 	const VECTOR2 MAX_SPEED;	//最高速度
+	bool attack2Reserve = false; // 次弾攻撃予約
 	bool isGround = false;
 	int baseMaxJump = 2;	//最大のジャンプ回数
 	int jumpCount = 2;		//残りのジャンプ回数
@@ -49,6 +50,8 @@ private:
 		JUMP,
 		FALL_INIT,
 		FALL,
+		LANDING_INIT,
+		LANDING,
 		ATTACK1_INIT,
 		ATTACK1,
 		ATTACK2_INIT,
