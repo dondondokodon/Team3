@@ -19,7 +19,7 @@ public:
 		return inst;
 	}
 
-	void update();
+	void update(CAMERA camera);
 	void render(CAMERA camera);
 	void init();
 	void clear();
