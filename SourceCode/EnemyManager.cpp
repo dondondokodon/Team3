@@ -1,11 +1,11 @@
 #include "EnemyManager.h"
 
-void EnemyManager::update()
+void EnemyManager::update(CAMERA camera)
 {
 	int num = 0;	//ループ回数　デバッグ用
 	for (auto it = enemies.begin(); it != enemies.end(); )
 	{
-		(*it)->update();
+		(*it)->update(camera);
 		debug::setString("Enemy[%d]HP:%d", num,(*it)->getHp());
 		if ((*it)->isDeath())
 		{

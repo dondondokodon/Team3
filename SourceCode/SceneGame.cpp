@@ -27,7 +27,7 @@ void SceneGame::update()
 	case 1:
 		setBlendMode(Blender::BS_ALPHA);
 		//エネミーセット固定
-		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ 1000.0f, 200.0f }));
+		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ 1500.0f, 200.0f }));
 		state++;
 
 	case 2:
@@ -38,7 +38,7 @@ void SceneGame::update()
 			timer++;
 		camera.update(player);
 		player.update();
-		EnemyManager::instance().update();
+		EnemyManager::instance().update(camera);
 		stage.update();
 
 		if (player.lightAttack)
