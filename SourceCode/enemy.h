@@ -31,5 +31,6 @@ public:
     int getHp()const { return hp; }
     void moveHorizontalInCamera(CAMERA& camera);
     void Destroy();
+    virtual void ScaleReverse(Character* target);   //•K—v‚È‚¢‚Æ‚«‚Í{}‚Åoverride
 };
 

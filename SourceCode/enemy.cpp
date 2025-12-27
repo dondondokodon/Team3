@@ -76,13 +76,18 @@ void Enemy::update(CAMERA& camera)
 	//状態遷移
 	state();
 
+	//画面外に出た場合移動
 	moveHorizontalInCamera(camera);
+
+	// 速度制限
+	if (speed.x > maxSpeedX) speed.x = maxSpeedX;
+	if (speed.x < -maxSpeedX) speed.x = -maxSpeedX;
+
+	//摩擦
+	friction(this);
 
 	//位置に速度足す
 	pos += speed;
-
-	friction(this);
-
 
 	//死んだら破棄
 	if (isDeath())
@@ -143,7 +148,6 @@ void Enemy::moveHorizontalInCamera(CAMERA& camera)
 	float safeLeft = camLeft + SAFE_OFFSET;
 	float safeRight = camRight - SAFE_OFFSET;
 
-	//const float MAX_S = 3.0f;
 
 	//画面外に出たら中に入るモードに行く
 	if (pos.x < camLeft || pos.x > camRight)
@@ -154,7 +158,10 @@ void Enemy::moveHorizontalInCamera(CAMERA& camera)
 	// --- 回収モード ---
 	if (moveInCamera)
 	{
-		float targetX;		//目標地点
+		float targetX=pos.x;				//目標地点
+
+		const float MIN_PULL_SPEED = 2.0f;	//最低速度
+
 
 		if (pos.x < safeLeft)
 			targetX = safeLeft;
@@ -169,10 +176,31 @@ void Enemy::moveHorizontalInCamera(CAMERA& camera)
 
 		//目標地点との距離に応じて引き寄せ速度を変える
 		float dx = targetX - pos.x;
-		speed.x += dx * 0.02f; //dxに引き寄せ力をかける
+		float pull = dx * 0.02f;
+
+		// 最低速度保証
+		if (fabsf(pull) < MIN_PULL_SPEED)
+		{
+			pull = (dx > 0) ? MIN_PULL_SPEED : -MIN_PULL_SPEED;
+		}
+
+		speed.x += pull;
 	}
 
-	// 速度制限
-	if (speed.x > maxSpeedX) speed.x = maxSpeedX;
-	if (speed.x < -maxSpeedX) speed.x = -maxSpeedX;
+	/*debug::setString(
+		"pos=%.1f safeL=%.1f safeR=%.1f camL=%.1f camR=%.1f in=%d",
+		pos.x, safeLeft, safeRight, camLeft, camRight, moveInCamera
+	);*/
+}
+
+//敵のほうを見るようにする
+void Enemy::ScaleReverse(Character* target)
+{
+	if (target->getPos().x < pos.x)
+	{
+		if (scale.x < 0)
+			scale.x = -scale.x;
+	}
+	else if (scale.x > 0)
+		scale.x = -scale.x;
 }

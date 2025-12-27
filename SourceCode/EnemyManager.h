@@ -27,6 +27,7 @@ public:
 	int GetEnemyCount() const { return static_cast<int>(enemies.size()); }
 	//エネミー取得
 	Enemy* GetEnemy(int index) { return enemies.at(index).get(); }
+	void setTarget(Character& t) { target = &t; }
 
 private:
 	std::vector<std::unique_ptr<Enemy>> enemies;
@@ -34,5 +35,6 @@ private:
 	EnemyManager(){}
 	EnemyManager(const EnemyManager& e){}
 	EnemyManager& operator=(const EnemyManager& e){}
+	Character* target;
 };
 
