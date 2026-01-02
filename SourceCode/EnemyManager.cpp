@@ -1,14 +1,23 @@
 #include "EnemyManager.h"
+#include "ProjectileManager.h"
+#include "ProjectileStraight.h"
 
 void EnemyManager::update(CAMERA camera)
 {
 	int num = 0;	//ループ回数　デバッグ用
 	for (auto it = enemies.begin(); it != enemies.end(); )
 	{
-		(*it)->update(camera);
-		if(target)		//ターゲットがnullじゃなければ
-		(*it)->ScaleReverse(target);		//スケール反転
-		debug::setString("Enemy[%d]HP:%d", num,(*it)->getHp());
+		if (target)		//ターゲットがnullじゃなければ
+		(*it)->update(camera,target->getPos());
+		debug::setString("En9emy[%d]HP:%d", num,(*it)->getHp());
+		//攻撃
+		if ((*it)->getIsAttackOn())
+		{
+			//球を打つ
+			ProjectileStraight* projectile=new ProjectileStraight(&ProjectileManager::Instance(), Projectile::Faction::enemy, (*it)->getATK(),-1,1.5f);
+			projectile->Launch((*it)->shotDir(target->getPos()), (*it)->getPos());
+		}
+		//死んでたら
 		if ((*it)->isDeath())
 		{
 			(*it)->deinit();

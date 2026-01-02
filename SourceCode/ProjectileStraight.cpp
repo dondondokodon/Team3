@@ -1,6 +1,6 @@
 #include "ProjectileStraight.h"
 
-ProjectileStraight::ProjectileStraight(ProjectileManager* manager, Faction faction, int damage, int ownerId):Projectile(manager, faction,damage,ownerId)
+ProjectileStraight::ProjectileStraight(ProjectileManager* manager, Faction faction, int damage, int ownerId,float LifeLimit):Projectile(manager, faction,damage,ownerId,LifeLimit)
 {
 	spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load(L"./Data/Images/94f61596c6928aaa.png"));
 	pos = {SCREEN_W * 0.5f,SCREEN_H * 0.5f };
@@ -9,7 +9,7 @@ ProjectileStraight::ProjectileStraight(ProjectileManager* manager, Faction facti
 	texSize = { 44,66 };
 	pivot = { texSize.x * 0.5f,texSize.y *0.5f};
 	color = { 1,1,1,1 };
-	speed = { 10,0 };
+	speed = { 10,10 };
 	offset = { 0,0 };
 	angle = 0;
 	act = 0;
@@ -18,7 +18,7 @@ ProjectileStraight::ProjectileStraight(ProjectileManager* manager, Faction facti
 	animeTimer = 0;
 	anime_state = 0;
 	radius = texSize.x * 0.5f;
-	lifeLimit = 0.5f;
+	//lifeLimit = 0.5f;
 
 }
 void ProjectileStraight::init()  

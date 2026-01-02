@@ -13,9 +13,10 @@ private:
 	Player player;
 	Stage01 stage;
 	CAMERA camera;
-	ProjectileManager projMgr;
+	ProjectileManager& projMgr;
 
 public:
+	SceneGame();
 	virtual void update();
 	virtual void render();
 	virtual void init();

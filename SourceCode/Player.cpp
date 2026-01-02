@@ -27,7 +27,7 @@ Player::Player():MAX_SPEED({7,25})
 	returnGold = 0;
 	isGround = false;
 	jumpCount = 0;
-	direction = { 1,1 };
+	direction = { 1,0 };
 
 }
 
@@ -56,7 +56,7 @@ void Player::init()
 	attack2Reserve = false;
 	isGround = false;
 	jumpCount = 0;
-	direction = { 1,1 };
+	direction = { 1,0 };
 
 	//3段ジャンプ
 	if (Build::extraJump)
@@ -101,24 +101,6 @@ void Player::update()
 	debug::setString("act:%d", act);
 	debug::setString("isGround:%d", isGround);
 
-
-	/*static int num = 0;
-	if (num % 2 == 0)
-	{
-		if (animeUpdate(0, 6, 8, false))
-		{
-			anime_state = 0;
-			num++;
-		}
-	}
-	else
-	{
-		if (animeUpdate(1, 5 , 8, false))
-		{
-			anime_state = 0;
-			num++;
-		}
-	}*/
 }
 
 void Player::state()

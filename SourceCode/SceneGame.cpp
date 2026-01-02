@@ -4,6 +4,14 @@
 #include"Enemy.h"
 #include"EnemyManager.h"
 #include"common.h"
+#include"ProjectileManager.h"
+
+SceneGame::SceneGame():projMgr(ProjectileManager::Instance())
+{
+	state = 0;
+	frame = 0;
+	timer = 0;
+}
 
 void SceneGame::init()
 {
@@ -47,7 +55,7 @@ void SceneGame::update()
 		if (player.lightAttack)
 		{
 			int useCoin = Coin::GetRatioCoin(0.01f);
-			ProjectileStraight* b = new ProjectileStraight(&projMgr, Projectile::Faction::player, Coin::calcDamage(2, useCoin), -1);
+			ProjectileStraight* b = new ProjectileStraight(&projMgr, Projectile::Faction::player, Coin::calcDamage(2, useCoin), -1,0.5f);
 			Coin::DegCoinNum(useCoin);
 			b->Launch(player.getDir(), player.getPos());
 		}

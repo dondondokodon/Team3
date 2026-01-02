@@ -9,6 +9,7 @@ private:
     const float maxSpeedX;
     const int coinReward;   //撃破時のコイン
     bool moveInCamera;      //カメラの中に入ろうとする動きの条件
+    bool isAttackOn=false;        //攻撃するか
     enum STATE
     {
         IDLE_INIT,
@@ -23,14 +24,16 @@ public:
     Enemy(VECTOR2 Pos);
     virtual void init()override;
     virtual void deinit()override;
-    virtual void update(CAMERA& camera);
+    virtual void update(CAMERA& camera, VECTOR2 targetPos);
     virtual void state();
     int getCoinReward()const { return coinReward; }
     bool isDeath()override { return (hp <= 0); }
     void degHp(int damage) { hp += -damage; }
     int getHp()const { return hp; }
+    bool getIsAttackOn() { return isAttackOn; }
     void moveHorizontalInCamera(CAMERA& camera);
     void Destroy();
-    virtual void ScaleReverse(Character* target);   //必要ないときは{}でoverride
+    virtual void ScaleReverse(VECTOR2 target);   //必要ないときは{}でoverride
+    VECTOR2 shotDir(VECTOR2 targetPos);//発射方向
 };
 

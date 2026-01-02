@@ -1,4 +1,5 @@
 #include "common.h"
+class VECTOR2;
 
 //  íËêî
 const FLOAT PI{ DirectX::XM_PI };
@@ -19,4 +20,14 @@ bool hitCircle(VECTOR2 pos1, float r1, VECTOR2 pos2, float r2)
 	float distR = r1 + r2;
 
 	return (distX * distX + distY * distY) <= (distR * distR);
+
+}
+
+VECTOR2 normalize(const VECTOR2& v)
+{
+	float len = sqrt(v.x * v.x + v.y * v.y);
+	if (len == 0.0f)
+		return { 0.0f, 0.0f };
+
+	return { v.x / len, v.y / len };
 }

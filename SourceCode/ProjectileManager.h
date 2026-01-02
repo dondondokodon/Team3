@@ -7,7 +7,11 @@
 class ProjectileManager : public OBJ2D
 {
 public:
-	ProjectileManager();
+	static ProjectileManager& Instance()
+	{
+		static ProjectileManager instance;
+		return instance;
+	}
 	~ProjectileManager();
 
 	//XV
@@ -41,5 +45,6 @@ private:
 	std::vector<Projectile*> playerProjectiles;	//ƒvƒŒƒCƒ„[‚Ì’e
 	std::vector<Projectile*> enemyProjectiles;	//“G‚Ì’e
 	std::set<Projectile*> removeList;	//íœ‚·‚é‹…
+	ProjectileManager();
 };
 

@@ -17,7 +17,7 @@ public:
 
 	void Destroy();
 	//faction¨‚Ç‚Á‚¿‚Ì‹…‚©@ownerId¨’N‚ªŒ‚‚Á‚½‚©
-	Projectile(ProjectileManager* manager, Faction faction,int damage, int ownerId);
+	Projectile(ProjectileManager* manager, Faction faction,int damage, int ownerId, float LifeLimit);
 	virtual ~Projectile(){}
 	void kill() { alive = false; }
 	void update()override  = 0;
