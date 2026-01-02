@@ -28,3 +28,4 @@ extern float(* const ToRadian)(float);// 角度をラジアンに
 extern float(* const ToDegree)(float);// ラジアンを角度に
 
 bool hitCircle(VECTOR2 pos1, float r1, VECTOR2 pos2, float r2);
+VECTOR2 normalize(const VECTOR2& v);

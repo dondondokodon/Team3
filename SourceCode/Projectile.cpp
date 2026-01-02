@@ -1,7 +1,7 @@
 #include "Projectile.h"
 #include "ProjectileManager.h"
 
-Projectile::Projectile(ProjectileManager* manager, Faction faction, int damage, int ownerId) : manager(manager), faction(faction), damage(damage), ownerId(ownerId)
+Projectile::Projectile(ProjectileManager* manager, Faction faction, int damage, int ownerId,float LifeLimit) : manager(manager), faction(faction), damage(damage), ownerId(ownerId),lifeLimit(LifeLimit)
 {
 	manager->Register(this);
 }

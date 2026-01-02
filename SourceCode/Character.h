@@ -23,6 +23,7 @@ public:
 			if (scale.x < 0)		scale.x = -scale.x;
 		}
 	}
+	int getATK() { return atk; }
 
 	
 
