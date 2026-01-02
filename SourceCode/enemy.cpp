@@ -124,6 +124,7 @@ void Enemy::state()
 
 	case WALK:
 		animeUpdate(2, 9, 6, true);
+		if (fabsf(speed.x) <= 0.3f) act = IDLE_INIT;
 		break;
 
 	case ATTACK1_INIT:
