@@ -36,5 +36,6 @@ private:
 	EnemyManager(const EnemyManager& e){}
 	EnemyManager& operator=(const EnemyManager& e){}
 	Character* target;
+	std::shared_ptr<Sprite> enemyBullet;
 };
 

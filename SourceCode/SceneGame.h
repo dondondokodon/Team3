@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include"Scene.h"
 #include"Player.h"
 #include"stage.h"
@@ -14,6 +15,7 @@ private:
 	Stage01 stage;
 	CAMERA camera;
 	ProjectileManager& projMgr;
+	std::shared_ptr<Sprite> playerBullet;
 
 public:
 	SceneGame();

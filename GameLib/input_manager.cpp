@@ -38,6 +38,9 @@ namespace GameLib
         { PAD_TRG1      , Keyboard::Up },           // VK_UP
         { PAD_TRG2      , Keyboard::Down },         // VK_DOWN
         { PAD_TRG4      , Keyboard::K },            // 'K'
+        { PAD_TRG5      , Keyboard::L },            // 'L'
+        { PAD_TRG6      , Keyboard::J },            // 'J'
+        
 
         { PAD_L1        , Keyboard::F1 },           // VK_F1
         { PAD_L3        , Keyboard::F2 },           // VK_F2

@@ -23,6 +23,7 @@ void SceneGame::init()
 	EnemyManager::instance().init();
 	camera.init();
 	camera.setStageLimitX(SCREEN_W + 500);
+	playerBullet = std::shared_ptr<GameLib::Sprite>(sprite_load(L"./Data/Images/1213_coin6x6.png"));
 }
 
 void SceneGame::update()
@@ -52,14 +53,26 @@ void SceneGame::update()
 		EnemyManager::instance().update(camera);
 		stage.update();
 
+		//ŒyUŒ‚
 		if (player.lightAttack)
 		{
 			int useCoin = Coin::GetRatioCoin(0.01f);
-			ProjectileStraight* b = new ProjectileStraight(&projMgr, Projectile::Faction::player, Coin::calcDamage(2, useCoin), -1,0.5f);
+			ProjectileStraight* b = new ProjectileStraight(&projMgr, Projectile::Faction::player, Coin::calcDamage(2, useCoin), -1,0.5f, playerBullet,VECTOR2{6,6},VECTOR2{3,3});
 			Coin::DegCoinNum(useCoin);
 			b->Launch(player.getDir(), player.getPos());
 		}
 		player.lightAttack = false;
+
+		//dUŒ‚
+		if (player.heavyAttack)
+		{
+			int useCoin = Coin::GetRatioCoin(0.1f);
+			VECTOR2 bulletScale = (player.getAct()==Player::HEAVY_ATTACK2)? VECTOR2{ 17.0f,17.0f}:VECTOR2{ 8.0f,8.0f };
+			ProjectileStraight* projectile = new ProjectileStraight(&projMgr, Projectile::Faction::player, Coin::calcDamage(10, useCoin), -1, 0.3f, playerBullet, VECTOR2{ 6,6 }, bulletScale);
+			Coin::DegCoinNum(useCoin);
+			projectile->Launch(player.getDir(), player.getPos());
+		}
+		player.heavyAttack = false;
 
 		projMgr.update();
 		Collision();

@@ -6,57 +6,59 @@
 
 Player::Player():MAX_SPEED({7,25})
 {
-	pos = { SCREEN_W * 0.5f,SCREEN_H * 0.5f };
-	scale = { 1,1 };
-	texPos = { 0,0 };
-	texSize = { 320,320 };
-	pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
-	color = { 1,1,1,1 };
-	speed = { 0,0 };
-	offset = { 0,0 };
-	angle = 0;
-	spr = nullptr;
-	act = 0;
-	timer = 0;
-	anime = 0;
-	animeTimer = 0;
+	pos         = { SCREEN_W * 0.5f,SCREEN_H * 0.5f };
+	scale       = { 1,1 };
+	texPos      = { 0,0 };
+	texSize     = { 320,320 };
+	pivot       = { texSize.x * 0.5f,texSize.y * 0.5f };
+	color       = { 1,1,1,1 };
+	speed       = { 0,0 };
+	offset      = { 0,0 };
+	angle       = 0;
+	spr         = nullptr;
+	act         = 0;
+	timer       = 0;
+	anime       = 0;
+	animeTimer  = 0;
 	anime_state = 0;
-	radius = texSize.x * 0.5f;
-	atk = 0;
-	gold = 0;
-	returnGold = 0;
-	isGround = false;
-	jumpCount = 0;
-	direction = { 1,0 };
+	radius      = texSize.x * 0.5f;
+	atk         = 0;
+	gold        = 0;
+	returnGold  = 0;
+	isGround    = false;
+	heavyAttack = false;
+	jumpCount   = 0;
+	direction   = { 1,0 };
 
 }
 
 void Player::init()
 {
-	pos = { SCREEN_W * 0.5f,SCREEN_H * 0.5f };
-	scale = { 1,1 };
-	texPos = { 0,0 };
-	texSize = { 320,320 };
-	pivot = { texSize.x * 0.5f,texSize.y * 0.5f};
-	color = { 1,1,1,1 };
-	speed = { 0,0 };
-	offset = { 0,50*scale.y };
-	angle = 0;
+	pos			   = { SCREEN_W * 0.5f,SCREEN_H * 0.5f };
+	scale		   = { 1,1 };
+	texPos		   = { 0,0 };
+	texSize		   = { 320,320 };
+	pivot		   = { texSize.x * 0.5f,texSize.y * 0.5f};
+	color		   = { 1,1,1,1 };
+	speed		   = { 0,0 };
+	offset		   = { 0,50*scale.y };
+	angle		   = 0;
 	if(!spr)
-	spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load(L"./Data/Images/ziki_motto_tadasii_sprite.png"));
-	act = 0;
-	timer = 0;
-	anime = 0;
-	animeTimer = 0;
-	anime_state = 0;
-	radius = texSize.x * 0.3f*scale.x;
-	atk = 0;
-	gold = 0;
-	returnGold = 0;
+	spr            = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load(L"./Data/Images/ziki_motto_tadasii_sprite.png"));
+	act            = 0;
+	timer          = 0;
+	anime          = 0;
+	animeTimer     = 0;
+	anime_state    = 0;
+	radius         = texSize.x * 0.3f*scale.x;
+	atk            = 0;
+	gold           = 0;
+	returnGold     = 0;
 	attack2Reserve = false;
-	isGround = false;
-	jumpCount = 0;
-	direction = { 1,0 };
+	isGround       = false;
+	heavyAttack    = false;
+	jumpCount      = 0;
+	direction      = { 1,0 };
 
 	//3段ジャンプ
 	if (Build::extraJump)
@@ -220,9 +222,26 @@ void Player::state()
 
 	case ATTACK2:
 		if (animeUpdate(6, 13, 5, false))	act = IDLE_INIT;
-		if (animeTimer == 3 * 5)	lightAttack = true;	//４コマ目に射撃
+		if (animeTimer == 3 * 5)			lightAttack = true;	//４コマ目に射撃
 		break;
 
+	case HEAVY_ATTACK1_INIT:
+		anime_state = 0;
+		act = HEAVY_ATTACK1;
+
+	case HEAVY_ATTACK1:
+		if (animeUpdate(7, 40, 5, false))	act = IDLE_INIT;
+		if (animeTimer == 20 * 5+1)			heavyAttack = true; //20コマ目に射撃
+		break;
+
+	case HEAVY_ATTACK2_INIT:
+		anime_state = 0;
+		act = HEAVY_ATTACK2;
+
+	case HEAVY_ATTACK2:
+		if (animeUpdate(8, 40, 5, false))	act = IDLE_INIT;
+		if (animeTimer == 20 * 5 + 1)		heavyAttack = true; //20コマ目に射撃
+		break;
 	}
 }
 
@@ -278,6 +297,7 @@ void Player::betCoin(int Gold,float atkMultiple, float goldMultiple)
 
 void Player::InputProjectile()
 {
+	//Kで軽攻撃
 	if (TRG(0) & PAD_TRG4)
 	{
 		if (act == ATTACK1)	attack2Reserve = true;
@@ -285,7 +305,18 @@ void Player::InputProjectile()
 		else
 		act = ATTACK1_INIT;
 		//b->init();
+	}
 
+	//Lで重攻撃
+	if (TRG(0) & PAD_TRG5)
+	{
+		act = HEAVY_ATTACK1_INIT;
+	}
+
+	//Jで重攻撃（重いバージョン　仮）
+	if (TRG(0) & PAD_TRG6)
+	{
+		act = HEAVY_ATTACK2_INIT;
 	}
 }
 
