@@ -1,5 +1,6 @@
 #pragma once
 #include "OBJ2D.h"
+#include <memory>
 #include "CAMERA.h"
 class ProjectileManager;
 
@@ -17,11 +18,13 @@ public:
 
 	void Destroy();
 	//faction→どっちの球か　ownerId→誰が撃ったか
-	Projectile(ProjectileManager* manager, Faction faction,int damage, int ownerId, float LifeLimit);
+	Projectile(ProjectileManager* manager, Faction faction,int damage, int ownerId, float LifeLimit,std::shared_ptr<Sprite> s,VECTOR2 TEX_SIZE, VECTOR2 SCALE);
 	virtual ~Projectile(){}
 	void kill() { alive = false; }
 	void update()override  = 0;
 	int getDamage()const { return damage; }
+	void AnimeUpdate();
+
 protected:
 	float lifeLimit;
 	int damage;
@@ -30,5 +33,6 @@ protected:
 	ProjectileManager* manager = nullptr;
 	Faction faction;
 	int ownerId;
+	int animeCount = 0;			//２段目のアニメ再生用変数
 };
 

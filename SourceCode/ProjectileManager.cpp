@@ -15,11 +15,16 @@ void ProjectileManager::update()
 {
 	//球の一斉更新
 	for (Projectile* p : playerProjectiles)
+	{
 		p->update();
+		p->AnimeUpdate();
+	}
+		
 	for (Projectile* p : enemyProjectiles)
+	{
 		p->update();
-	
-
+		//p->AnimeUpdate();		敵は今のところアニメーションないからこれしてない
+	}
 
 	//破棄処理
 	for (Projectile* projectile : removeList)
@@ -50,7 +55,7 @@ void ProjectileManager::Render(CAMERA& camera)
 	for (Projectile* projectile : playerProjectiles)
 	{
 		projectile->cameraRender(camera);
-		GameLib::primitive::circle(projectile->getPos() - camera.getPos(), projectile->getRadius(), { 1, 1 }, 0, { 1, 1, 1, 1 });
+		//GameLib::primitive::circle(projectile->getPos() - camera.getPos(), projectile->getRadius(), { 1, 1 }, 0, { 1, 1, 1, 1 });
 	}
 	for (Projectile* projectile : enemyProjectiles)
 	{

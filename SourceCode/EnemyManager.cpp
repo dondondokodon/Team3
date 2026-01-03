@@ -14,7 +14,7 @@ void EnemyManager::update(CAMERA camera)
 		if ((*it)->getIsAttackOn())
 		{
 			//‹…‚ğ‘Å‚Â
-			ProjectileStraight* projectile=new ProjectileStraight(&ProjectileManager::Instance(), Projectile::Faction::enemy, (*it)->getATK(),-1,1.5f);
+			ProjectileStraight* projectile=new ProjectileStraight(&ProjectileManager::Instance(), Projectile::Faction::enemy, (*it)->getATK(),-1,1.5f,enemyBullet,VECTOR2{44,66}, VECTOR2{ 1,1 });
 			projectile->Launch((*it)->shotDir(target->getPos()), (*it)->getPos());
 		}
 		//€‚ñ‚Å‚½‚ç
@@ -43,6 +43,7 @@ void EnemyManager::render(CAMERA camera)
 
 void EnemyManager::init()
 {
+	enemyBullet.reset(sprite_load(L"./Data/Images/bullet.png"));
 	for (auto& e : enemies)
 	{
 		e->init();

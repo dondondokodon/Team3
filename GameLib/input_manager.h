@@ -32,6 +32,9 @@ namespace GameLib
         const int PAD_TRG3 = (1 << 7);
         const int PAD_SELECT = (1 << 8);
         const int PAD_TRG4 = (1 << 9);
+        const int PAD_TRG5 = (1 << 10);
+        const int PAD_TRG6 = (1 << 11);
+
         const int PAD_L1 = (1 << 10);
         const int PAD_R1 = (1 << 11);
         const int PAD_L2 = (1 << 12);

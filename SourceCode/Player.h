@@ -29,17 +29,8 @@ public:
 	void ResetJumpCount() { jumpCount = GetMaxJump(); }
 
 	bool lightAttack = false;	//軽攻撃フラグ
-private:
-	int gold       = Coin::GetCoinNum(); //お金
-	int returnGold = 0; //攻撃を当てた時に帰ってくるお金
-	const VECTOR2 MAX_SPEED;	//最高速度
-	bool attack2Reserve = false; // 次弾攻撃予約
-	bool isGround = false;
-	int baseMaxJump = 2;	//最大のジャンプ回数
-	int jumpCount = 2;		//残りのジャンプ回数
-	//ProjectileManager projMgr;
+	bool heavyAttack = true;	//重攻撃フラグ
 
-	
 	enum ACT
 	{
 		IDLE_INIT,
@@ -56,7 +47,23 @@ private:
 		ATTACK1,
 		ATTACK2_INIT,
 		ATTACK2,
+		HEAVY_ATTACK1_INIT,
+		HEAVY_ATTACK1,
+		HEAVY_ATTACK2_INIT,
+		HEAVY_ATTACK2,
 	};
+private:
+	int gold       = Coin::GetCoinNum(); //お金
+	int returnGold = 0;			//攻撃を当てた時に帰ってくるお金
+	const VECTOR2 MAX_SPEED;	//最高速度
+	bool attack2Reserve = false;// 次弾攻撃予約
+	bool isGround = false;
+	int baseMaxJump = 2;		//最大のジャンプ回数
+	int jumpCount = 2;			//残りのジャンプ回数
+	//ProjectileManager projMgr;
+
+	
+	
 	//ビルド関係
 	std::vector<std::unique_ptr<Build>> builds;
 
