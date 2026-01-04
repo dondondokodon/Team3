@@ -33,6 +33,6 @@ protected:
 	ProjectileManager* manager = nullptr;
 	Faction faction;
 	int ownerId;
-	int animeCount = 0;			//２段目のアニメ再生用変数
+	//int animeCount = 0;			//２段目のアニメ再生用変数
 };
 
