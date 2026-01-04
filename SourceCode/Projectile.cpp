@@ -16,20 +16,5 @@ void Projectile::Destroy()
 
 void Projectile::AnimeUpdate()
 {
-	if (!animeCount)
-	{
-		if (animeUpdate(0, 5, 3, true))
-		{
-			animeCount++;
-			anime_state = 0;
-		}
-	}
-	else
-	{
-		if (animeUpdate(1, 5, 3, true))
-		{
-			anime_state = 0;
-			animeCount = 0;
-		}
-	}
+	animeUpdate(0, 5, 3, true);
 }
