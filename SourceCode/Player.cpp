@@ -29,7 +29,7 @@ Player::Player():MAX_SPEED({7,25})
 	heavyAttack = false;
 	jumpCount   = 0;
 	direction   = { 1,0 };
-
+	invincibleTimer = 1.0f;
 }
 
 void Player::init()
@@ -63,6 +63,7 @@ void Player::init()
 	//3段ジャンプ
 	if (Build::extraJump)
 		addEffect(std::make_unique<ExtraJump>());
+	invincibleTimer = 1.0f;
 }
 
 void Player::deinit()
@@ -74,6 +75,9 @@ void Player::update()
 {
 	//状態遷移
 	state();
+
+	//無敵時間更新
+	invincibleTimerUpdate();
 
 	//位置に速度足す
 	pos += speed;
@@ -158,6 +162,7 @@ void Player::state()
 
 		inputMove();
 		inputJump();
+		inputDodge();
 
 		if (animeUpdate(3, 8, 3, false))
 		{
@@ -259,7 +264,11 @@ void Player::state()
 		}
 
 		//4こまめから８こまめいないまでの時に後ろ方向に速度を入れる
-		if (animeTimer >= 3 * 5 + 1&&animeTimer<7*5+1)	speed.x = 10.0f* -direction.x;
+		if (animeTimer >= 3 * 5 + 1 && animeTimer < 7 * 5 + 1)
+		{
+			invincibleTimer = 1.5f;		//無敵時間
+			speed.x = 10.0f * -direction.x;
+		}
 		break;
 	}
 }

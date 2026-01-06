@@ -21,6 +21,7 @@ Enemy::Enemy():coinReward(100),maxSpeedX(3)
 	anime_state = 0;
 	radius      = texSize.y * 0.5f;
 	spr         = nullptr;
+	invincibleTimer = 1.0f;
 }
 
 Enemy::Enemy(VECTOR2 Pos) :coinReward(100), maxSpeedX(3)
@@ -43,6 +44,7 @@ Enemy::Enemy(VECTOR2 Pos) :coinReward(100), maxSpeedX(3)
 	radius      = texSize.y * 0.5f;
 	isAttackOn  = false;
 	spr         = nullptr;
+	invincibleTimer = 1.0f;
 }
 
 void Enemy::init()  
@@ -67,6 +69,7 @@ void Enemy::init()
 	isAttackOn    = false;
 	if(!spr)
 	spr.reset(sprite_load(L"./Data/Images/teki_motto_tadasii_sprite.png"));
+	invincibleTimer = 1.0f;
 }
 
 void Enemy::deinit()
@@ -79,6 +82,9 @@ void Enemy::update(CAMERA& camera, VECTOR2 targetPos)
 	isAttackOn = false;
 	//状態遷移
 	state();
+
+	//無敵時間更新
+	invincibleTimerUpdate();
 
 	//画面外に出た場合移動 攻撃時は移動しない
 	if(act!=ATTACK1&&act!=ATTACK1_INIT)
@@ -214,6 +220,7 @@ void Enemy::ScaleReverse(VECTOR2 target)
 		scale.x = -scale.x;
 }
 
+//発射方向を決める
 VECTOR2 Enemy::shotDir(VECTOR2 targetPos)
 {
 	return normalize({targetPos.x-pos.x,targetPos.y-pos.y});	//ターゲットの方向

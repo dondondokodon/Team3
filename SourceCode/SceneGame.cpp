@@ -40,6 +40,7 @@ void SceneGame::update()
 		//エネミーセット固定
 		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ 1500.0f, 200.0f }));
 		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ -500.0f, 250.0f }));
+		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ -300.0f, 600.0f }));
 		state++;
 
 	case 2:
@@ -96,7 +97,8 @@ void SceneGame::render()
 
 void SceneGame::deinit()
 {
-
+	//敵のクリア
+	EnemyManager::instance().clear();
 }
 
 void SceneGame::deleteSprite()
@@ -117,14 +119,18 @@ void SceneGame::Collision()
 		for (int j = 0; j < enemyCount; j++)
 		{
 			Enemy* e = enemyManager.GetEnemy(j);
-
-			if (hitCircle(p->getPos(), p->getRadius(), e->getPos(), e->getRadius()))
+			if (e->getInvincibleTimer() <= 0)		//無敵時間中は当たり判定を取らない
 			{
-				p->Destroy();
-				e->degHp(p->getDamage());
-				if (e->isDeath())
+				//当たり判定
+				if (hitCircle(p->getPos(), p->getRadius(), e->getPos(), e->getRadius()))
 				{
-					Coin::AddCoinNum(Coin::RewardCoin());
+					p->Destroy();
+					e->degHp(p->getDamage());
+					e->setInvincibleTimer(1.5f);
+					if (e->isDeath())
+					{
+						Coin::AddCoinNum(Coin::RewardCoin());
+					}
 				}
 			}
 		}
@@ -132,18 +138,21 @@ void SceneGame::Collision()
 
 
 	//enemy→player
-	int EnemyProjectileCount = projMgr.GetEnemyProjectileCount();
-	for (int i = 0; i < EnemyProjectileCount; i++)
+	if (player.getInvincibleTimer() <= 0)		//無敵時間中のみ
 	{
-		Projectile* e = projMgr.GetEnemyProjectile(i);
-
-		for (int j = 0; j < enemyCount; j++)
+		int EnemyProjectileCount = projMgr.GetEnemyProjectileCount();
+		for (int i = 0; i < EnemyProjectileCount; i++)
 		{
-
-			if (hitCircle(player.getPos(), player.getRadius(), e->getPos(), e->getRadius()))
+			Projectile* e = projMgr.GetEnemyProjectile(i);
+			for (int j = 0; j < enemyCount; j++)
 			{
-				e->Destroy();
-
+				//当たり判定
+				if (hitCircle(player.getPos(), player.getRadius(), e->getPos(), e->getRadius()))
+				{
+					e->Destroy();
+					Coin::DegCoinNum(e->getDamage());
+					player.setInvincibleTimer(1.5f);
+				}
 			}
 		}
 	}
