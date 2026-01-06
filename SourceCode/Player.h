@@ -51,6 +51,7 @@ public:
 		HEAVY_ATTACK1,
 		HEAVY_ATTACK2_INIT,
 		HEAVY_ATTACK2,
+
 	};
 private:
 	int gold       = Coin::GetCoinNum(); //‚¨‹à
