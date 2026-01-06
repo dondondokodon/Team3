@@ -119,6 +119,7 @@ void Player::state()
 		
 		inputMove();
 		inputJump();
+		inputDodge();
 
 		//歩き
 		if (fabsf(speed.x) > 2)
@@ -138,6 +139,7 @@ void Player::state()
 
 		inputMove();
 		inputJump();
+		inputDodge();
 
 		//アイドル
 		if (fabsf(speed.x) < 2)
@@ -177,6 +179,7 @@ void Player::state()
 		animeUpdate(4,11,6,false);
 		inputMove();
 		inputJump();
+		inputDodge();
 
 		//アイドル
 		if (GROUND_Y - pivot.y <= pos.y)
@@ -191,7 +194,7 @@ void Player::state()
 		act = LANDING;
 
 	case LANDING:
-		animeUpdate(5, 10, 6, false);
+		animeUpdate(5, 10, 6, false);	//モーションゆっくりやから意図的に２こ
 		if(animeUpdate(5, 10, 6, false))	act=IDLE_INIT;
 
 		break;
@@ -231,7 +234,8 @@ void Player::state()
 
 	case HEAVY_ATTACK1:
 		if (animeUpdate(7, 40, 5, false))	act = IDLE_INIT;
-		if (animeTimer == 20 * 5+1)			heavyAttack = true; //20コマ目に射撃
+		if (animeTimer == 20* 5+1)			heavyAttack = true; //20コマ目に射撃
+		if (animeTimer == 20 * 5 + 1)	speed.x = 20 * -direction.x;
 		break;
 
 	case HEAVY_ATTACK2_INIT:
@@ -241,6 +245,21 @@ void Player::state()
 	case HEAVY_ATTACK2:
 		if (animeUpdate(8, 40, 5, false))	act = IDLE_INIT;
 		if (animeTimer == 20 * 5 + 1)		heavyAttack = true; //20コマ目に射撃
+		if (animeTimer == 20 * 5 + 1)	speed.x = 20 * -direction.x;
+		break;
+
+	case DODGE_INIT:
+		anime_state = 0;
+		act = DODGE;
+
+	case DODGE:
+		if (animeUpdate(9, 10, 5, false))
+		{
+			act = IDLE_INIT;
+		}
+
+		//4こまめから８こまめいないまでの時に後ろ方向に速度を入れる
+		if (animeTimer >= 3 * 5 + 1&&animeTimer<7*5+1)	speed.x = 10.0f* -direction.x;
 		break;
 	}
 }
@@ -284,6 +303,15 @@ void Player::inputJump()
 		jumpCount--;
 		isGround = false;
 		act = JUMP_INIT;
+	}
+}
+
+void Player::inputDodge()
+{
+	//キー入力で回避
+	if (TRG(0) & PAD_TRG7)
+	{
+		act = DODGE_INIT;
 	}
 }
 

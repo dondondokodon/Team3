@@ -18,6 +18,7 @@ public:
 	bool isDeath() { return (gold <= 0 && returnGold <= 0); }
 	void inputMove();
 	void inputJump();
+	void inputDodge();
 	void state();
 	void InputProjectile();
 
@@ -51,14 +52,15 @@ public:
 		HEAVY_ATTACK1,
 		HEAVY_ATTACK2_INIT,
 		HEAVY_ATTACK2,
-
+		DODGE_INIT,
+		DODGE,
 	};
 private:
 	int gold       = Coin::GetCoinNum(); //‚¨‹à
 	int returnGold = 0;			//UŒ‚‚ğ“–‚Ä‚½‚É‹A‚Á‚Ä‚­‚é‚¨‹à
 	const VECTOR2 MAX_SPEED;	//Å‚‘¬“x
 	bool attack2Reserve = false;// Ÿ’eUŒ‚—\–ñ
-	bool isGround = false;
+	bool isGround = false;		//’n–Ê”»’è
 	int baseMaxJump = 2;		//Å‘å‚ÌƒWƒƒƒ“ƒv‰ñ”
 	int jumpCount = 2;			//c‚è‚ÌƒWƒƒƒ“ƒv‰ñ”
 	//ProjectileManager projMgr;
