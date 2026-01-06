@@ -74,6 +74,13 @@ void SceneGame::update()
 		}
 		player.heavyAttack = false;
 
+		//デバッグ用
+		if (TRG(0) & PAD_SELECT)
+		{
+			ISCENE::nextScene = SCENE_MAP;
+
+		}
+
 		projMgr.update();
 		Collision();
 		debug::setString("time:%d", timer);
