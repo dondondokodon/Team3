@@ -2,7 +2,6 @@
 #include "../GameLib/game_lib.h"
 #include "Build.h"
 
-int choice;
 int moveTile = 0;	//何マス進んだかをカウント
 int i;				//どのマスにいるか
 
@@ -11,7 +10,6 @@ void SceneMap::init()
 	i = 0;
 	ShopAndBattle();	//後でランダムで出るようにしたら完成？
 	state = 0;
-	choice = map;
 	Map.setSprite(std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load((L"./Data/Images/map.png"))));
 }
 
@@ -46,7 +44,16 @@ void SceneMap::update()
 		}
 		Tile*  nowTile = GetTile(i);
 
+		nowTile->setScale({ 1.2,1.2 });
 		nowTile->update();
+
+		for (int i = 0; i <= GetTileCount() - 1; i++)
+		{
+			Tile* tile = GetTile(i);
+			if (tile != nowTile)
+				tile->setScale({ 1,1 });
+		}
+
 
 		debug::setString("inTile:%d", GetTileCount());
 		debug::setString("moveTile:%d", moveTile);
@@ -99,13 +106,10 @@ void Battle1_Tile::update()
 {
 	if (GameLib::input::TRG(0) & GameLib::input::PAD_START)
 	{
-		Build::extraJump = true;
+		//Build::extraJump = true;
 		ISCENE::nextScene = SCENE_GAME;
 
 	}
-	if (GameLib::input::TRG(0) & GameLib::input::PAD_SELECT)
-		choice = map;
-
 
 	debug::setString("battle");
 
@@ -119,9 +123,6 @@ void Shop_Tile::update()
 		ISCENE::nextScene = SCENE_GAME;
 
 	}
-	if (GameLib::input::TRG(0) & GameLib::input::PAD_SELECT)
-		choice = map;
-
 
 	debug::setString("shop");
 
