@@ -2,6 +2,8 @@
 #include "../GameLib/game_lib.h"
 #include "common.h"
 #include "ProjectileStraight.h"
+#include "Ghost.h"
+#include "EffektManager.h"
 
 
 Player::Player():MAX_SPEED({7,25})
@@ -21,7 +23,7 @@ Player::Player():MAX_SPEED({7,25})
 	anime       = 0;
 	animeTimer  = 0;
 	anime_state = 0;
-	radius      = texSize.x * 0.5f;
+	radius      = texSize.x * 0.2f * scale.x;;
 	atk         = 0;
 	gold        = 0;
 	returnGold  = 0;
@@ -50,7 +52,7 @@ void Player::init()
 	anime          = 0;
 	animeTimer     = 0;
 	anime_state    = 0;
-	radius         = texSize.x * 0.3f*scale.x;
+	radius         = texSize.x * 0.2f*scale.x;
 	atk            = 0;
 	gold           = 0;
 	returnGold     = 0;
@@ -103,6 +105,8 @@ void Player::update()
 	setBlendMode(Blender::BS_ALPHA);
 	debug::setString("SPEEDX:%f", speed.x);
 	debug::setString("SPEEDY:%f", speed.y);
+	debug::setString("positionX:%f", pos.x);
+	debug::setString("positionY:%f", pos.y);
 	debug::setString("jumpCount:%d", jumpCount);
 	debug::setString("act:%d", act);
 	debug::setString("isGround:%d", isGround);
@@ -162,7 +166,6 @@ void Player::state()
 
 		inputMove();
 		inputJump();
-		inputDodge();
 
 		if (animeUpdate(3, 8, 3, false))
 		{
@@ -184,7 +187,6 @@ void Player::state()
 		animeUpdate(4,11,6,false);
 		inputMove();
 		inputJump();
-		inputDodge();
 
 		//アイドル
 		if (GROUND_Y - pivot.y <= pos.y)
@@ -268,6 +270,9 @@ void Player::state()
 		{
 			invincibleTimer = 1.5f;		//無敵時間
 			speed.x = 10.0f * -direction.x;
+
+			if(animeTimer%3==0)		//残像エフェクト
+			EffektManager::Instance().Register(new Ghost(*this));
 		}
 		break;
 	}

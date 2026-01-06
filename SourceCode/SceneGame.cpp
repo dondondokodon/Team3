@@ -5,6 +5,7 @@
 #include"EnemyManager.h"
 #include"common.h"
 #include"ProjectileManager.h"
+#include"EffektManager.h"
 
 SceneGame::SceneGame():projMgr(ProjectileManager::Instance())
 {
@@ -21,6 +22,7 @@ void SceneGame::init()
 	player.init();
 	stage.init();
 	EnemyManager::instance().init();
+	EffektManager::Instance().init();
 	camera.init();
 	camera.setStageLimitX(SCREEN_W + 500);
 	playerBullet = std::shared_ptr<GameLib::Sprite>(sprite_load(L"./Data/Images/1213_coin6x6.png"));
@@ -52,13 +54,14 @@ void SceneGame::update()
 		camera.update(player);
 		player.update();
 		EnemyManager::instance().update(camera);
+		EffektManager::Instance().update(camera);
 		stage.update();
 
 		//ŒyUŒ‚
 		if (player.lightAttack)
 		{
 			int useCoin = Coin::GetRatioCoin(0.01f);
-			ProjectileStraight* b = new ProjectileStraight(&projMgr, Projectile::Faction::player, Coin::calcDamage(2, useCoin), -1,0.5f, playerBullet,VECTOR2{6,6},VECTOR2{3,3});
+			ProjectileStraight* b = new ProjectileStraight(&projMgr, Projectile::Faction::player, Coin::calcDamage(2, useCoin), -1,0.7f, playerBullet,VECTOR2{6,6},VECTOR2{3,3}, VECTOR2{ 15,15 });
 			Coin::DegCoinNum(useCoin);
 			b->Launch(player.getDir(), player.getPos());
 		}
@@ -69,7 +72,7 @@ void SceneGame::update()
 		{
 			int useCoin = Coin::GetRatioCoin(0.1f);
 			VECTOR2 bulletScale = (player.getAct()==Player::HEAVY_ATTACK2)? VECTOR2{ 17.0f,17.0f}:VECTOR2{ 8.0f,8.0f };
-			ProjectileStraight* projectile = new ProjectileStraight(&projMgr, Projectile::Faction::player, Coin::calcDamage(10, useCoin), -1, 0.3f, playerBullet, VECTOR2{ 6,6 }, bulletScale);
+			ProjectileStraight* projectile = new ProjectileStraight(&projMgr, Projectile::Faction::player, Coin::calcDamage(10, useCoin), -1, 0.5f, playerBullet, VECTOR2{ 6,6 }, bulletScale, VECTOR2{ 10,10 });
 			Coin::DegCoinNum(useCoin);
 			projectile->Launch(player.getDir(), player.getPos());
 		}
@@ -89,6 +92,7 @@ void SceneGame::render()
 	GameLib::clear(1, 0, 1);
 	stage.cameraRender(camera);
 	EnemyManager::instance().render(camera);
+	EffektManager::Instance().render(camera);
 	player.cameraRender(camera);
 	player.hitAreaRender(camera);
 	projMgr.Render(camera);

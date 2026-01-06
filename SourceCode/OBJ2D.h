@@ -43,6 +43,8 @@ public:
 		spr = s;
 	}
 
+	std::shared_ptr<Sprite> getSprite() { return spr; }
+
 	virtual void render()
 	{
 		if (!spr) return;
@@ -63,6 +65,9 @@ public:
 	VECTOR2 getPos() { return pos; }
 	VECTOR2 getScale() { return scale; }
 	float getRadius() { return radius; }
+	VECTOR2 getTexPos() { return texPos; }
+	VECTOR2 getTexSize() { return texSize; }
+	VECTOR2 getOffset() { return offset; }
 	int getAct() { return act; }
 	int getAnime() { return anime; }
 	VECTOR2 getSpeed() { return speed; }

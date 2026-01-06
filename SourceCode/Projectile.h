@@ -18,7 +18,7 @@ public:
 
 	void Destroy();
 	//faction¨‚Ç‚Á‚¿‚Ì‹…‚©@ownerId¨’N‚ªŒ‚‚Á‚½‚©
-	Projectile(ProjectileManager* manager, Faction faction,int damage, int ownerId, float LifeLimit,std::shared_ptr<Sprite> s,VECTOR2 TEX_SIZE, VECTOR2 SCALE);
+	Projectile(ProjectileManager* manager, Faction faction,int damage, int ownerId, float LifeLimit,std::shared_ptr<Sprite> s,VECTOR2 TEX_SIZE, VECTOR2 SCALE, VECTOR2 Speed);
 	virtual ~Projectile(){}
 	void kill() { alive = false; }
 	void update()override  = 0;

@@ -153,8 +153,10 @@
     <ClInclude Include="SourceCode\Character.h" />
     <ClInclude Include="SourceCode\Coin.h" />
     <ClInclude Include="SourceCode\common.h" />
+    <ClInclude Include="SourceCode\EffektManager.h" />
     <ClInclude Include="SourceCode\Enemy.h" />
     <ClInclude Include="SourceCode\EnemyManager.h" />
+    <ClInclude Include="SourceCode\Ghost.h" />
     <ClInclude Include="SourceCode\OBJ2D.h" />
     <ClInclude Include="SourceCode\Player.h" />
     <ClInclude Include="SourceCode\Projectile.h" />
@@ -188,8 +190,10 @@
     <ClCompile Include="SourceCode\Character.cpp" />
     <ClCompile Include="SourceCode\Coin.cpp" />
     <ClCompile Include="SourceCode\common.cpp" />
+    <ClCompile Include="SourceCode\EffektManager.cpp" />
     <ClCompile Include="SourceCode\Enemy.cpp" />
     <ClCompile Include="SourceCode\EnemyManager.cpp" />
+    <ClCompile Include="SourceCode\Ghost.cpp" />
     <ClCompile Include="SourceCode\main.cpp" />
     <ClCompile Include="SourceCode\OBJ2D.cpp" />
     <ClCompile Include="SourceCode\Player.cpp" />

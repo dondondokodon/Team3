@@ -1,6 +1,6 @@
 #include "ProjectileStraight.h"
 
-ProjectileStraight::ProjectileStraight(ProjectileManager* manager, Faction faction, int damage, int ownerId,float LifeLimit, std::shared_ptr<Sprite> s, VECTOR2 TEX_SIZE,VECTOR2 SCALE):Projectile(manager, faction,damage,ownerId,LifeLimit,s,TEX_SIZE,SCALE)
+ProjectileStraight::ProjectileStraight(ProjectileManager* manager, Faction faction, int damage, int ownerId,float LifeLimit, std::shared_ptr<Sprite> s, VECTOR2 TEX_SIZE,VECTOR2 SCALE, VECTOR2 Speed):Projectile(manager, faction,damage,ownerId,LifeLimit,s,TEX_SIZE,SCALE,Speed)
 {
 	//コメントにしてるのは基底クラスのコンストラクタでしてる
 	//spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load(L"./Data/Images/1213_coin6x6.png"));
@@ -11,7 +11,7 @@ ProjectileStraight::ProjectileStraight(ProjectileManager* manager, Faction facti
 	//texSize = { 6,6 };
 	pivot = { texSize.x * 0.5f,texSize.y *0.5f};
 	color = { 1,1,1,1 };
-	speed = { 10,10 };
+	//speed = { 10,10 };
 	offset = { 0,0 };
 	angle = 0;
 	act = 0;
