@@ -1,5 +1,6 @@
 #include "ProjectileStraight.h"
 
+
 ProjectileStraight::ProjectileStraight(ProjectileManager* manager, Faction faction, int damage, kinds ownerId,float LifeLimit, std::shared_ptr<Sprite> s, VECTOR2 TEX_SIZE,VECTOR2 SCALE, VECTOR2 Speed):Projectile(manager, faction,damage,ownerId,LifeLimit,s,TEX_SIZE,SCALE,Speed)
 {
 	//コメントにしてるのは基底クラスのコンストラクタでしてる
@@ -19,7 +20,7 @@ ProjectileStraight::ProjectileStraight(ProjectileManager* manager, Faction facti
 	anime = 0;
 	animeTimer = 0;
 	anime_state = 0;
-	radius = texSize.x * 0.5f;
+	radius = texSize.x *scale.x* 0.5f;
 	//lifeLimit = 0.5f;
 }
 void ProjectileStraight::init()  
