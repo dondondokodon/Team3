@@ -1,10 +1,11 @@
 #include "stage.h"
+#include"ImageManager.h"
 
 
 void Stage01::init()
 {
 	//”wŒiiƒOƒ‰ƒf[ƒVƒ‡ƒ“j
-	back.spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load(L"./Data/Images/back.png"));
+	back.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::back);
 	back.pos = { 0,0 };
 	back.scale = { 1,1 };
 	back.texPos = { 0,0 };
@@ -22,7 +23,7 @@ void Stage01::init()
 	back.radius = 0;
 
 	//‰“X”wŒi
-	back_back.spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load(L"./Data/Images/back-back.png"));
+	back_back.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::backBack);
 	back_back.pos = { 0,0 };
 	back_back.scale = { 1,1 };
 	back_back.texPos = { 0,0 };
@@ -40,7 +41,7 @@ void Stage01::init()
 	back_back.radius = 0;
 
 	//’†”wŒi
-	middle.spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load(L"./Data/Images/back-middle.png"));
+	middle.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::middle);
 	middle.pos = { 0,0 };
 	middle.scale = { 1,1 };
 	middle.texPos = { 0,0 };
@@ -58,7 +59,7 @@ void Stage01::init()
 	middle.radius = 0;
 
 	//‹ß”wŒi
-	front.spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load(L"./Data/Images/back-front.png"));
+	front.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::front);
 	front.pos = { 0,0 };
 	front.scale = { 1,1 };
 	front.texPos = { 0,0 };
@@ -77,7 +78,7 @@ void Stage01::init()
 
 
 	//’n–Ê
-	ground.spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load(L"./Data/Images/ground.png"));
+	ground.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::ground);
 	ground.pos = { 0,0 };
 	ground.scale = { 1,1 };
 	ground.texPos = { 0,0 };

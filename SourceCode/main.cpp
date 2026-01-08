@@ -1,5 +1,6 @@
 #include"all.h"
 #include<memory>
+#include"ImageManager.h"
 using namespace std;
 
 unique_ptr<ISCENE> scenes[SCENE_MAX] = { make_unique<SceneTitle>(),make_unique<SceneGame>(), make_unique<SceneMap>() };
@@ -9,6 +10,9 @@ int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
 {
 	//ゲームライブラリの初期設定
 	GameLib::init(L"チーム制作3", SCREEN_W, SCREEN_H,true);
+
+	//スプライト全ロード
+	ImageManager::Instance().load();
 
 	//乱数のシード
 	srand((unsigned int)time(NULL));

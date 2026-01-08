@@ -4,7 +4,7 @@
 #include "ProjectileStraight.h"
 #include "Ghost.h"
 #include "EffektManager.h"
-
+#include"ImageManager.h"
 
 Player::Player():MAX_SPEED({7,25})
 {
@@ -45,8 +45,8 @@ void Player::init()
 	speed		   = { 0,0 };
 	offset		   = { 0,50*scale.y };
 	angle		   = 0;
-	if(!spr)
-	spr            = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load(L"./Data/Images/ziki_motto_tadasii_sprite.png"));
+	if (!spr)
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player);
 	act            = 0;
 	timer          = 0;
 	anime          = 0;
@@ -65,7 +65,7 @@ void Player::init()
 	invincibleTimer = 1.0f;
 	attack_frame = 5;
 
-	playerBullet = std::shared_ptr<GameLib::Sprite>(sprite_load(L"./Data/Images/1213_coin6x6.png"));
+	playerBullet = ImageManager::Instance().getSprite(ImageManager::SpriteNum::PlayerBullet);
 
 	lightBetRatio = 0.01f;
 	heavyBetRatio = 0.1f;

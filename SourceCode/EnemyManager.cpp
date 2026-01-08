@@ -4,6 +4,7 @@
 #include<cstdlib>
 #include<memory>
 #include"StageSpawnRules.h"
+#include"ImageManager.h"
 
 void EnemyManager::update(CAMERA camera)
 {
@@ -14,7 +15,7 @@ void EnemyManager::update(CAMERA camera)
 	{
 		if (target)		//ƒ^[ƒQƒbƒg‚ªnull‚¶‚á‚È‚¯‚ê‚Î
 		(*it)->update(camera,target->getPos());
-		debug::setString("En9emy[%d]HP:%d", num,(*it)->getHp());
+		debug::setString("Enemy[%d]HP:%d", num,(*it)->getHp());
 		//UŒ‚
 		if ((*it)->getIsAttackOn())
 		{
@@ -48,7 +49,7 @@ void EnemyManager::render(CAMERA camera)
 
 void EnemyManager::init()
 {
-	enemyBullet.reset(sprite_load(L"./Data/Images/bullet.png"));
+	enemyBullet=ImageManager::Instance().getSprite(ImageManager::SpriteNum::EnemyBullet);
 	for (auto& e : enemies)
 	{
 		e->init();
