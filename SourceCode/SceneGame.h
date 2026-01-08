@@ -14,8 +14,7 @@ private:
 	Player player;
 	Stage01 stage;
 	CAMERA camera;
-	ProjectileManager& projMgr;
-	std::shared_ptr<Sprite> playerBullet;
+
 
 public:
 	SceneGame();

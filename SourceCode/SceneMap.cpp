@@ -146,6 +146,7 @@ void Shop_Tile::update()
 	if (GameLib::input::TRG(0) & GameLib::input::PAD_START)
 	{
 		Build::extraJump = true;
+		Build::extraCost = true;
 		ISCENE::nextScene = SCENE_GAME;
 
 	}
