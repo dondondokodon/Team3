@@ -63,6 +63,7 @@ void Player::init()
 	jumpCount      = 0;
 	direction      = { 1,0 };
 	invincibleTimer = 1.0f;
+	attack_frame = 5;
 
 	playerBullet = std::shared_ptr<GameLib::Sprite>(sprite_load(L"./Data/Images/1213_coin6x6.png"));
 
@@ -91,9 +92,13 @@ void Player::init()
 	if (Build::extraVeryCost)
 		addEffect(std::make_unique<VeryCostUp>());
 
+	//攻撃モーション短縮
+		if (Build::extraMotionRapid)
+		addEffect(std::make_unique<MotionRapid>());
+
 	setHeavyCost();
 	setHeavyVeryCost();
-
+	setAttackFrame();
 }
 
 void Player::deinit()
@@ -266,8 +271,8 @@ void Player::state()
 	{
 		InputProjectile();	//ここでattack2Reserveを更新してる
 		//lightAttack = false;
-		if (animeUpdate(0, 16, 5, false))		act = IDLE_INIT;
-		if (animeTimer == 3*5)	lightAttack = true;	//４コマ目に射撃
+		if (animeUpdate(0, 16, attack_frame, false))		act = IDLE_INIT;
+		if (animeTimer == 3* attack_frame)	lightAttack = true;	//４コマ目に射撃
 		
 		
 		//連撃
@@ -282,8 +287,8 @@ void Player::state()
 		act = ATTACK2;
 
 	case ATTACK2:
-		if (animeUpdate(6, 13, 5, false))	act = IDLE_INIT;
-		if (animeTimer == 3 * 5)			lightAttack = true;	//４コマ目に射撃
+		if (animeUpdate(6, 13, attack_frame, false))	act = IDLE_INIT;
+		if (animeTimer == 3 * attack_frame)			lightAttack = true;	//４コマ目に射撃
 		break;
 
 	case HEAVY_ATTACK1_INIT:
@@ -291,9 +296,9 @@ void Player::state()
 		act = HEAVY_ATTACK1;
 
 	case HEAVY_ATTACK1:
-		if (animeUpdate(7, 40, 5, false))	act = IDLE_INIT;
-		if (animeTimer == 20* 5+1)			heavyAttack = true; //20コマ目に射撃
-		if (animeTimer == 20 * 5 + 1)	speed.x = 20 * -direction.x;
+		if (animeUpdate(7, 40, attack_frame, false))	act = IDLE_INIT;
+		if (animeTimer == 20* attack_frame+1)			heavyAttack = true; //20コマ目に射撃
+		if (animeTimer == 20 * attack_frame + 1)	speed.x = 20 * -direction.x;
 		break;
 
 	case HEAVY_ATTACK2_INIT:
@@ -301,9 +306,9 @@ void Player::state()
 		act = HEAVY_ATTACK2;
 
 	case HEAVY_ATTACK2:
-		if (animeUpdate(8, 40, 5, false))	act = IDLE_INIT;
-		if (animeTimer == 20 * 5 + 1)		heavyAttack = true; //20コマ目に射撃
-		if (animeTimer == 20 * 5 + 1)	speed.x = 20 * -direction.x;
+		if (animeUpdate(8, 40, attack_frame, false))	act = IDLE_INIT;
+		if (animeTimer == 20 * attack_frame + 1)		heavyAttack = true; //20コマ目に射撃
+		if (animeTimer == 20 * attack_frame + 1)	speed.x = 20 * -direction.x;
 		break;
 
 	case DODGE_INIT:
@@ -448,3 +453,10 @@ void Player::setHeavyVeryCost()
 	addHeavyBulletRadius(radius);
 }
 
+void Player::setAttackFrame()
+{
+	int frame = 0;
+	for (auto& e : builds)	frame += e->degMotionFrameSpeed();
+	degAttackFrame(frame);
+
+}

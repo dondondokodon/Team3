@@ -30,6 +30,7 @@ public:
 	void ResetJumpCount() { jumpCount = GetMaxJump(); }
 	void setHeavyCost();
 	void setHeavyVeryCost();
+	void setAttackFrame();
 
 	bool lightAttack = false;	//軽攻撃フラグ
 	bool heavyAttack = true;	//重攻撃フラグ
@@ -42,6 +43,8 @@ public:
 	void degHeavyBulletSpeed(VECTOR2 speed) { heavySpeed -= speed; }
 	void addHeavyBulletScale(VECTOR2 scale) { heavyScale += scale; }
 	void addHeavyBulletRadius(float radius) { heavyRadius += radius; }
+
+	void degAttackFrame(int frame) { attack_frame -= frame; }
 
 	enum ACT
 	{
@@ -77,6 +80,7 @@ private:
 	bool isGround = false;		//地面判定
 	int baseMaxJump = 2;		//最大のジャンプ回数
 	int jumpCount = 2;			//残りのジャンプ回数
+	int attack_frame = 5;		//攻撃時のフレーム数
 
 	//球関連
 	VECTOR2 lightSpeed = { 15,15 };

@@ -4,6 +4,7 @@
 bool Build::extraJump = false;
 bool Build::extraCost = false;
 bool Build::extraVeryCost = false;
+bool Build::extraMotionRapid = false;
 
 
 //ジャンプ追加
@@ -40,4 +41,10 @@ VECTOR2 VeryCostUp::AddProjectileScale() const
 float VeryCostUp::AddProjectileRadius() const
 {
 	return  120;	//仮置き
+}
+
+//モーション短縮
+int MotionRapid::degMotionFrameSpeed()const
+{
+	return 2;	//frame-2
 }
