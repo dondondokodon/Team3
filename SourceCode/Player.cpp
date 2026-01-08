@@ -59,18 +59,21 @@ void Player::init()
 	attack2Reserve = false;
 	isGround       = false;
 	heavyAttack    = false;
+	baseMaxJump	   = 2;
 	jumpCount      = 0;
 	direction      = { 1,0 };
+	invincibleTimer = 1.0f;
 
 	//3段ジャンプ
 	if (Build::extraJump)
 		addEffect(std::make_unique<ExtraJump>());
-	invincibleTimer = 1.0f;
+
 }
 
 void Player::deinit()
 {
-
+	//ビルドを消す
+	clearEffect();
 }
 
 void Player::update()
@@ -110,6 +113,7 @@ void Player::update()
 	debug::setString("jumpCount:%d", jumpCount);
 	debug::setString("act:%d", act);
 	debug::setString("isGround:%d", isGround);
+	debug::setString("buildCount:%d", builds.size());
 
 }
 
