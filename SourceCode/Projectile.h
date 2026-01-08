@@ -12,13 +12,19 @@ public:
 		player,
 		enemy
 	};
+	enum class kinds	//発射した球の種類
+	{
+		light = 0,
+		heavy,
+		enemy
+	};
 
 	Faction GetFaction()const { return faction; }
-	int GetOwnerId()const { return ownerId; }
+	kinds GetOwnerId()const { return ownerId; }
 
 	void Destroy();
 	//faction→どっちの球か　ownerId→誰が撃ったか
-	Projectile(ProjectileManager* manager, Faction faction,int damage, int ownerId, float LifeLimit,std::shared_ptr<Sprite> s,VECTOR2 TEX_SIZE, VECTOR2 SCALE, VECTOR2 Speed);
+	Projectile(ProjectileManager* manager, Faction faction,int damage, kinds ownerId, float LifeLimit,std::shared_ptr<Sprite> s,VECTOR2 TEX_SIZE, VECTOR2 SCALE, VECTOR2 Speed);
 	virtual ~Projectile(){}
 	void kill() { alive = false; }
 	void update()override  = 0;
@@ -32,7 +38,8 @@ protected:
 	VECTOR2 dir;//向き
 	ProjectileManager* manager = nullptr;
 	Faction faction;
-	int ownerId;
+	kinds ownerId;
+	//int ownerId;
 	//int animeCount = 0;			//２段目のアニメ再生用変数
 };
 

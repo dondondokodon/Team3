@@ -60,8 +60,8 @@ void SceneGame::update()
 		//ŒyUŒ‚
 		if (player.lightAttack)
 		{
-			int useCoin = Coin::GetRatioCoin(0.01f);
-			ProjectileStraight* b = new ProjectileStraight(&projMgr, Projectile::Faction::player, Coin::calcDamage(2, useCoin), -1,0.7f, playerBullet,VECTOR2{6,6},VECTOR2{3,3}, VECTOR2{ 15,15 });
+			int useCoin = Coin::GetRatioCoin(player.getLightRatio());
+			ProjectileStraight* b = new ProjectileStraight(&projMgr, Projectile::Faction::player, Coin::calcDamage(2, useCoin), Projectile::kinds::light, 0.7f, playerBullet, VECTOR2{ 6,6 }, VECTOR2{ 3,3 }, VECTOR2{ 15,15 });
 			Coin::DegCoinNum(useCoin);
 			b->Launch(player.getDir(), player.getPos());
 		}
@@ -70,9 +70,9 @@ void SceneGame::update()
 		//dUŒ‚
 		if (player.heavyAttack)
 		{
-			int useCoin = Coin::GetRatioCoin(0.1f);
+			int useCoin = Coin::GetRatioCoin(player.getHeavyRatio());
 			VECTOR2 bulletScale = (player.getAct()==Player::HEAVY_ATTACK2)? VECTOR2{ 17.0f,17.0f}:VECTOR2{ 8.0f,8.0f };
-			ProjectileStraight* projectile = new ProjectileStraight(&projMgr, Projectile::Faction::player, Coin::calcDamage(10, useCoin), -1, 0.5f, playerBullet, VECTOR2{ 6,6 }, bulletScale, VECTOR2{ 10,10 });
+			ProjectileStraight* projectile = new ProjectileStraight(&projMgr, Projectile::Faction::player, Coin::calcDamage(10, useCoin), Projectile::kinds::heavy, 0.5f, playerBullet, VECTOR2{ 6,6 }, bulletScale, VECTOR2{ 10,10 });
 			Coin::DegCoinNum(useCoin);
 			projectile->Launch(player.getDir(), player.getPos());
 		}
@@ -89,7 +89,7 @@ void SceneGame::update()
 		Collision();
 		debug::setString("time:%d", timer);
 		debug::setString("Coin:%d", Coin::GetCoinNum());
-		debug::setString("RewardCoin:%d", Coin::RewardCoin());
+		//debug::setString("RewardCoin:%d", Coin::RewardCoin());
 		break;
 	}
 }
@@ -144,7 +144,13 @@ void SceneGame::Collision()
 					e->setInvincibleTimer(1.5f);
 					if (e->isDeath())
 					{
-						Coin::AddCoinNum(Coin::RewardCoin());
+						//ŒyUŒ‚‚È‚ç
+						if (p->GetOwnerId() == Projectile::kinds::light)
+							Coin::AddCoinNum(Coin::LightAttackReward());
+
+						//dUŒ‚‚È‚ç
+						if (p->GetOwnerId() == Projectile::kinds::heavy)
+							Coin::AddCoinNum(Coin::HeavyAttackReward());
 					}
 				}
 			}

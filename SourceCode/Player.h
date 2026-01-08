@@ -32,6 +32,12 @@ public:
 	bool lightAttack = false;	//軽攻撃フラグ
 	bool heavyAttack = true;	//重攻撃フラグ
 
+	//消費割合をいじるためのゲッターとセッター
+	float getLightRatio()const { return lightBetRatio; }
+	float getHeavyRatio()const { return heavyBetRatio; }
+	void setLightRatio(float ratio) { lightBetRatio = ratio; }
+	void setHeavyRatio(float ratio) { heavyBetRatio = ratio; }
+
 	enum ACT
 	{
 		IDLE_INIT,
@@ -55,9 +61,12 @@ public:
 		DODGE_INIT,
 		DODGE,
 	};
+
 private:
 	int gold       = Coin::GetCoinNum(); //お金
 	int returnGold = 0;			//攻撃を当てた時に帰ってくるお金
+	float lightBetRatio = 0.01f;//軽攻撃消費コイン割合
+	float heavyBetRatio = 0.1f;	//重攻撃消費コイン割合
 	const VECTOR2 MAX_SPEED;	//最高速度
 	bool attack2Reserve = false;// 次弾攻撃予約
 	bool isGround = false;		//地面判定
