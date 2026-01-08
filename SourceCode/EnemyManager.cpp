@@ -1,9 +1,14 @@
 #include "EnemyManager.h"
 #include "ProjectileManager.h"
 #include "ProjectileStraight.h"
+#include<cstdlib>
+#include<memory>
+#include"StageSpawnRules.h"
 
 void EnemyManager::update(CAMERA camera)
 {
+	if (spawnRule)	spawnRule->update();
+
 	int num = 0;	//ループ回数　デバッグ用
 	for (auto it = enemies.begin(); it != enemies.end(); )
 	{
@@ -57,4 +62,41 @@ void EnemyManager::clear()
 		e->deinit();
 	}
 	enemies.clear(); 
+}
+
+VECTOR2 EnemyManager::setSpawnPos()
+{
+	VECTOR2 pos;
+	float SPAWN_MARGIN=200;
+	int rnd_SPAWN_MARGIN = rand() % 400+500;
+
+	//プレイヤーが右にいるなら左から沸く
+	if (target->getPos().x - camera->getPos().x > SCREEN_W * 0.5f)
+	{
+		pos.x = camera->getPos().x - SPAWN_MARGIN- rnd_SPAWN_MARGIN;	//左画面端
+	}
+	else
+	{
+		pos.x = camera->getPos().x + SPAWN_MARGIN+SCREEN_W + rnd_SPAWN_MARGIN;	//右画面端
+	}
+
+	//yはランダム
+	pos.y = rand() % 600+50;
+
+	return pos;
+}
+
+void EnemyManager::Spawn(EnemyType type, VECTOR2 pos)
+{
+	switch (type)
+	{
+	case EnemyType::FlyEye:
+		add(std::make_unique<Enemy>(pos));
+		break;
+	}
+}
+
+void EnemyManager::setStage(int stageNo)
+{
+	spawnRule = SpawnRuleFactory::create(stageNo);
 }

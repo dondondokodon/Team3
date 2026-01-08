@@ -156,6 +156,7 @@
     <ClInclude Include="SourceCode\EffektManager.h" />
     <ClInclude Include="SourceCode\Enemy.h" />
     <ClInclude Include="SourceCode\EnemyManager.h" />
+    <ClInclude Include="SourceCode\EnemySpawnRule.h" />
     <ClInclude Include="SourceCode\Ghost.h" />
     <ClInclude Include="SourceCode\OBJ2D.h" />
     <ClInclude Include="SourceCode\Player.h" />
@@ -167,6 +168,7 @@
     <ClInclude Include="SourceCode\SceneMap.h" />
     <ClInclude Include="SourceCode\SceneTitle.h" />
     <ClInclude Include="SourceCode\stage.h" />
+    <ClInclude Include="SourceCode\StageSpawnRules.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameLib\debug.cpp" />
@@ -193,6 +195,7 @@
     <ClCompile Include="SourceCode\EffektManager.cpp" />
     <ClCompile Include="SourceCode\Enemy.cpp" />
     <ClCompile Include="SourceCode\EnemyManager.cpp" />
+    <ClCompile Include="SourceCode\EnemySpawnRule.cpp" />
     <ClCompile Include="SourceCode\Ghost.cpp" />
     <ClCompile Include="SourceCode\main.cpp" />
     <ClCompile Include="SourceCode\OBJ2D.cpp" />
@@ -205,6 +208,7 @@
     <ClCompile Include="SourceCode\SceneMap.cpp" />
     <ClCompile Include="SourceCode\SceneTitle.cpp" />
     <ClCompile Include="SourceCode\stage01.cpp" />
+    <ClCompile Include="SourceCode\StageSpawnRules.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

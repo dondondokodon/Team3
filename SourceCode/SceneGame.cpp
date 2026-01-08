@@ -24,7 +24,8 @@ void SceneGame::init()
 	EnemyManager::instance().init();
 	EffektManager::Instance().init();
 	camera.init();
-	camera.setStageLimitX(SCREEN_W + 500);
+	camera.setStageLimitX(SCREEN_W + 1500);
+	EnemyManager::instance().setCamera(camera);
 }
 
 void SceneGame::update()
@@ -38,10 +39,11 @@ void SceneGame::update()
 		setBlendMode(Blender::BS_ALPHA);
 		//ターゲット設定
 		EnemyManager::instance().setTarget(player);
-		//エネミーセット固定
-		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ 1500.0f, 200.0f }));
+		//エネミーセット　引数がステージ番号
+		EnemyManager::instance().setStage(1);
+		/*EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ 1500.0f, 200.0f }));
 		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ -500.0f, 250.0f }));
-		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ -300.0f, 600.0f }));
+		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ -300.0f, 600.0f }));*/
 		state++;
 
 	case 2:
@@ -91,6 +93,8 @@ void SceneGame::deinit()
 
 	//球を全削除
 	ProjectileManager::Instance().Clear();
+
+	EnemyManager::instance().setCameraNull();
 }
 
 void SceneGame::deleteSprite()
