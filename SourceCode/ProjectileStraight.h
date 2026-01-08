@@ -4,7 +4,7 @@ class ProjectileStraight :
     public Projectile
 {
 public:
-    ProjectileStraight(ProjectileManager* manager, Faction faction, int damage, kinds ownerId, float LifeLimit,std::shared_ptr<Sprite> s, VECTOR2 TEX_SIZE, VECTOR2 SCALE,VECTOR2 Speed);
+    ProjectileStraight(ProjectileManager* manager, Faction faction, int damage, kinds ownerId, float LifeLimit,std::shared_ptr<Sprite> s, VECTOR2 TEX_SIZE, VECTOR2 SCALE,VECTOR2 Speed, float Radius);
     void init()  override;
     void deinit()override;
     void update()override;

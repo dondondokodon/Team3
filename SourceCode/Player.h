@@ -29,6 +29,7 @@ public:
 	int GetMaxJump();
 	void ResetJumpCount() { jumpCount = GetMaxJump(); }
 	void setHeavyCost();
+	void setHeavyVeryCost();
 
 	bool lightAttack = false;	//軽攻撃フラグ
 	bool heavyAttack = true;	//重攻撃フラグ
@@ -38,6 +39,9 @@ public:
 	void addLightRatio(float ratio) { lightBetRatio += ratio; }
 	void addHeavyRatio(float ratio) { heavyBetRatio += ratio; }
 
+	void degHeavyBulletSpeed(VECTOR2 speed) { heavySpeed -= speed; }
+	void addHeavyBulletScale(VECTOR2 scale) { heavyScale += scale; }
+	void addHeavyBulletRadius(float radius) { heavyRadius += radius; }
 
 	enum ACT
 	{
@@ -77,13 +81,16 @@ private:
 	//球関連
 	VECTOR2 lightSpeed = { 15,15 };
 	VECTOR2 lightScale = { 3,3 };
-	float lightLifeLimit;
-	float lightRadius;
+	float lightLifeLimit = 0.7f;
+	VECTOR2 lightTexSize = { 6,6 };
+	float lightRadius = 3.0f;
 
-	VECTOR2 heavySpeed;
-	VECTOR2 heavyScale;
-	float heavyLifeLimit;
-	float heavyRadius;
+	VECTOR2 heavySpeed = { 10,10 };
+	VECTOR2 heavyScale = { 8.0,8.0 };
+	float heavyLifeLimit = 0.5f;
+	VECTOR2 heavyTexSize = { 6,6 };
+	float heavyRadius = 3.0f;
+
 
 	std::shared_ptr<Sprite> playerBullet;
 

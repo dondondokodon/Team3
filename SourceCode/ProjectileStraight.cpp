@@ -1,9 +1,8 @@
 #include "ProjectileStraight.h"
 
-
-ProjectileStraight::ProjectileStraight(ProjectileManager* manager, Faction faction, int damage, kinds ownerId,float LifeLimit, std::shared_ptr<Sprite> s, VECTOR2 TEX_SIZE,VECTOR2 SCALE, VECTOR2 Speed):Projectile(manager, faction,damage,ownerId,LifeLimit,s,TEX_SIZE,SCALE,Speed)
+ProjectileStraight::ProjectileStraight(ProjectileManager* manager, Faction faction, int damage, kinds ownerId,float LifeLimit, std::shared_ptr<Sprite> s, VECTOR2 TEX_SIZE,VECTOR2 SCALE, VECTOR2 Speed, float Radius):Projectile(manager, faction,damage,ownerId,LifeLimit,s,TEX_SIZE,SCALE,Speed,Radius)
 {
-	//ƒRƒƒ“ƒg‚É‚µ‚Ä‚é‚Ì‚ÍŠî’êƒNƒ‰ƒX‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Å‚µ‚Ä‚é
+	//ã‚³ãƒ¡ãƒ³ãƒˆã«ã—ã¦ã‚‹ã®ã¯åŸºåº•ã‚¯ãƒ©ã‚¹ã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã§ã—ã¦ã‚‹
 	//spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load(L"./Data/Images/1213_coin6x6.png"));
 	pos = {SCREEN_W * 0.5f,SCREEN_H * 0.5f };
 	//scale = { 1,1 };
@@ -36,10 +35,10 @@ void ProjectileStraight::update()
 	lifeLimit -= 0.01f;
 	if (lifeLimit < 0)
 	{
-		//©•ª‚ğíœ
+		//è‡ªåˆ†ã‚’å‰Šé™¤
 		Destroy();
 	}
-	//”­Ë
+	//ç™ºå°„
 	pos.x += dir.x * speed.x;
 	pos.y += dir.y * speed.y;
 

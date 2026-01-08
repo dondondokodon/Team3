@@ -67,7 +67,6 @@ void SceneGame::update()
 		Collision();
 		debug::setString("time:%d", timer);
 		debug::setString("Coin:%d", Coin::GetCoinNum());
-		//debug::setString("RewardCoin:%d", Coin::RewardCoin());
 		break;
 	}
 }
@@ -132,6 +131,8 @@ void SceneGame::Collision()
 					}
 				}
 			}
+			debug::setString("Coin:%d", playerProjectileCount);
+
 		}
 	}
 
