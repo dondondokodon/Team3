@@ -110,6 +110,10 @@ void SceneGame::deinit()
 {
 	//“G‚ÌƒNƒŠƒA
 	EnemyManager::instance().clear();
+	player.deinit();
+
+	//‹…‚ğ‘Síœ
+	projMgr.Clear();
 }
 
 void SceneGame::deleteSprite()
