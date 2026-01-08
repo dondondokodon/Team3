@@ -21,9 +21,12 @@ public:
 	//íÜêg
 	virtual int AddMaxJump() const { return 0; }
 	virtual float AddCost() const { return 0.0f; }
+	virtual float AddVeryCost() const { return 0.0f; }
 	virtual VECTOR2 DegProjectileSpeed() const { return { 0.0f,0.0f }; }
-	virtual VECTOR2 AddProjectileSize() const { return { 0.0f,0.0f }; }
-	virtual float AddProjectileRadius() const { return 0.0f; }
+	virtual VECTOR2 AddProjectileScale() const { return { 0.0f,0.0f }; }
+	virtual float AddProjectileRadius() const { return  0.0f; }
+	virtual float DegProjectileLife()const { return 0.0f; }
+
 
 };
 
@@ -49,8 +52,9 @@ class VeryCostUp :public Build
 {
 public:
 	~VeryCostUp(){}
-	float AddCost() const;
+	float AddVeryCost() const;
 	VECTOR2 DegProjectileSpeed() const;
-	VECTOR2 AddProjectileSize() const;
+	VECTOR2 AddProjectileScale() const;
 	float AddProjectileRadius() const;
+	//float DegProjectileLife()const;
 };

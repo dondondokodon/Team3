@@ -3,6 +3,7 @@
 //フラグ
 bool Build::extraJump = false;
 bool Build::extraCost = false;
+bool Build::extraVeryCost = false;
 
 
 //ジャンプ追加
@@ -18,7 +19,7 @@ float CostUp::AddCost() const
 }
 
 //重攻撃時コスト超up
-float VeryCostUp::AddCost() const
+float VeryCostUp::AddVeryCost() const
 {
 	return 0.4f;	//0.1+0.4
 }
@@ -26,17 +27,17 @@ float VeryCostUp::AddCost() const
 //弾速減
 VECTOR2 VeryCostUp::DegProjectileSpeed() const
 {
-	return { 8,8 };	//10-8
+	return { 5,5 };	//10-8
 }
 
 //スケール増
-VECTOR2 VeryCostUp::AddProjectileSize() const
+VECTOR2 VeryCostUp::AddProjectileScale() const
 {
-	return { 2,2 };	
+	return { 18,18 };	
 }
 
 //当たり判定拡大
 float VeryCostUp::AddProjectileRadius() const
 {
-	return 20;	//仮置き
+	return  120;	//仮置き
 }

@@ -66,6 +66,18 @@ void Player::init()
 
 	playerBullet = std::shared_ptr<GameLib::Sprite>(sprite_load(L"./Data/Images/1213_coin6x6.png"));
 
+	lightSpeed = { 15,15 };
+	lightScale = { 3,3 };
+	lightLifeLimit = 0.7f;
+	lightTexSize = { 6,6 };
+	lightRadius = 3.0f;
+
+	heavySpeed = { 10,10 };
+	heavyScale = { 8.0,8.0 };
+	heavyLifeLimit = 0.5f;
+	heavyTexSize = { 6,6 };
+	heavyRadius = 3.0f;
+
 
 	//3段ジャンプ
 	if (Build::extraJump)
@@ -75,7 +87,12 @@ void Player::init()
 	if (Build::extraCost)
 		addEffect(std::make_unique<CostUp>());
 
+	//重攻撃コイン消費超アップ
+	if (Build::extraVeryCost)
+		addEffect(std::make_unique<VeryCostUp>());
+
 	setHeavyCost();
+	setHeavyVeryCost();
 
 }
 
@@ -89,6 +106,27 @@ void Player::update()
 {
 	//状態遷移
 	state();
+
+	//軽攻撃
+	if (lightAttack)
+	{
+		int useCoin = Coin::GetRatioCoin(getLightRatio());
+		ProjectileStraight* b = new ProjectileStraight(&ProjectileManager::Instance(), Projectile::Faction::player, Coin::calcDamage(2, useCoin), Projectile::kinds::light, lightLifeLimit, playerBullet, lightTexSize, lightScale, lightSpeed, lightRadius);
+		Coin::DegCoinNum(useCoin);
+		b->Launch(getDir(), getPos());
+	}
+	lightAttack = false;
+
+	//重攻撃
+	if (heavyAttack)
+	{
+		int useCoin = Coin::GetRatioCoin(getHeavyRatio());
+		//VECTOR2 bulletScale = (getAct() == Player::HEAVY_ATTACK2) ? VECTOR2{ 17.0f,17.0f } : VECTOR2{ 8.0f,8.0f };
+		ProjectileStraight* projectile = new ProjectileStraight(&ProjectileManager::Instance(), Projectile::Faction::player, Coin::calcDamage(10, useCoin), Projectile::kinds::heavy, heavyLifeLimit, playerBullet, heavyTexSize, heavyScale, heavySpeed, heavyRadius);
+		Coin::DegCoinNum(useCoin);
+		projectile->Launch(getDir(), getPos());
+	}
+	heavyAttack = false;
 
 	//無敵時間更新
 	invincibleTimerUpdate();
@@ -111,26 +149,6 @@ void Player::update()
 	//摩擦
 	friction(this);
 
-	//軽攻撃
-	if (lightAttack)
-	{
-		int useCoin = Coin::GetRatioCoin(getLightRatio());
-		ProjectileStraight* b = new ProjectileStraight(&ProjectileManager::Instance(), Projectile::Faction::player, Coin::calcDamage(2, useCoin), Projectile::kinds::light, 0.7f, playerBullet, VECTOR2{ 6,6 }, VECTOR2{ 3,3 }, VECTOR2{ 15,15 });
-		Coin::DegCoinNum(useCoin);
-		b->Launch(getDir(), getPos());
-	}
-	lightAttack = false;
-
-	//重攻撃
-	if (heavyAttack)
-	{
-		int useCoin = Coin::GetRatioCoin(getHeavyRatio());
-		VECTOR2 bulletScale = (getAct() == Player::HEAVY_ATTACK2) ? VECTOR2{ 17.0f,17.0f } : VECTOR2{ 8.0f,8.0f };
-		ProjectileStraight* projectile = new ProjectileStraight(&ProjectileManager::Instance(), Projectile::Faction::player, Coin::calcDamage(10, useCoin), Projectile::kinds::heavy, 0.5f, playerBullet, VECTOR2{ 6,6 }, bulletScale, VECTOR2{ 10,10 });
-		Coin::DegCoinNum(useCoin);
-		projectile->Launch(getDir(), getPos());
-	}
-	heavyAttack = false;
 
 
 	setBlendMode(Blender::BS_ALPHA);
@@ -409,5 +427,24 @@ void Player::setHeavyCost()
 	float addCost = 0.0f;
 	for (auto& e : builds)	addCost += e->AddCost();
 	addHeavyRatio(addCost);
+}
+
+void Player::setHeavyVeryCost()
+{
+	float addCost = 0.0f;
+	VECTOR2 speed = { 0.0f,0.0f };
+	VECTOR2 scale = { 0.0f,0.0f };
+	float radius = 0.0f;
+	for (auto& e : builds)
+	{
+		addCost += e->AddVeryCost();
+		speed += e->DegProjectileSpeed();
+		scale += e->AddProjectileScale();
+		radius += e->AddProjectileRadius();
+	}
+	addHeavyRatio(addCost);
+	degHeavyBulletSpeed(speed);
+	addHeavyBulletScale(scale);
+	addHeavyBulletRadius(radius);
 }
 
