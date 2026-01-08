@@ -119,15 +119,19 @@ void SceneGame::Collision()
 					p->Destroy();
 					e->degHp(p->getDamage());
 					e->setInvincibleTimer(1.5f);
+
+					//ŒyUŒ‚‚È‚ç
+					if (p->GetOwnerId() == Projectile::kinds::light)
+						Coin::AddCoinNum(Coin::LightAttackReward());
+
+					//dUŒ‚‚È‚ç
+					if (p->GetOwnerId() == Projectile::kinds::heavy)
+						Coin::AddCoinNum(Coin::HeavyAttackReward());
+
 					if (e->isDeath())
 					{
-						//ŒyUŒ‚‚È‚ç
-						if (p->GetOwnerId() == Projectile::kinds::light)
-							Coin::AddCoinNum(Coin::LightAttackReward());
 
-						//dUŒ‚‚È‚ç
-						if (p->GetOwnerId() == Projectile::kinds::heavy)
-							Coin::AddCoinNum(Coin::HeavyAttackReward());
+
 					}
 				}
 			}

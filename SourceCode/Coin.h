@@ -18,7 +18,7 @@ public:
 											//攻撃で使用した場合、しっかり減算してね
 
 	static int RewardCoin(float ratio) { return moveCoin * ratio; }	//返ってくるコイン
-	static int LightAttackReward() { return RewardCoin(2.0f); }
+	static int LightAttackReward() { return RewardCoin(2.5f); }
 	static int HeavyAttackReward() { return RewardCoin(1.5f); }
 
 	//ダメージ計算
