@@ -8,6 +8,7 @@ Projectile::Projectile(ProjectileManager* manager, Faction faction, int damage, 
 	texSize = TEX_SIZE;
 	radius = Radius;
 	spr = s;
+	radius = texSize.x * 0.5f;
 	manager->Register(this);
 }
 
