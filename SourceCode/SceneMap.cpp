@@ -3,6 +3,7 @@
 #include "Build.h"
 
 int moveTile = 0;	//何マス進んだかをカウント
+int move5 = 0;
 int nemuturai = 0;
 int i;				//どのマスにいるか
 
@@ -29,9 +30,23 @@ void SceneMap::update()
 		else
 		{
 			if (moveTile % 5 == 0)
-				MiddleBoss();
-			else
-				ShopAndBattle();
+			{
+				move5++;
+				if (move5 % 3 == 0)
+					LastBoss();
+				else
+					MiddleBoss();
+
+			}
+			else//ぜ～んぶ仮置き
+			{
+				if (moveTile % 2 == 0)
+					ShopAndBattle();
+				else if (moveTile % 3 == 0)
+					BattleAndEvent();
+				else
+					ShopAndEvent();
+			}
 		}
 
 		if (moveTile > 2)
@@ -140,8 +155,37 @@ void Battle2_Tile::update()
 	//debug::setString("battle");
 
 }
+void Battle3_Tile::update()
+{
+	if (GameLib::input::TRG(0) & GameLib::input::PAD_START)
+	{
+		//Build::extraJump = true;
+		ISCENE::nextScene = SCENE_GAME;
+
+	}
+
+	
+	//debug::setString("battle");
+
+}
 
 void Shop_Tile::update()
+{
+	if (GameLib::input::TRG(0) & GameLib::input::PAD_START)
+	{
+		Build::extraJump = true;
+		//Build::extraCost = true;
+		Build::extraVeryCost = true;
+		Build::extraMotionRapid = true;
+		ISCENE::nextScene = SCENE_GAME;
+
+	}
+
+	//debug::setString("shop");
+
+}
+
+void Event_Tile::update()
 {
 	if (GameLib::input::TRG(0) & GameLib::input::PAD_START)
 	{
@@ -163,6 +207,19 @@ void SceneMap::startBattle()		//いっちゃん最初
 
 }
 
+void SceneMap::BattleAndEvent()		//雑魚敵戦・イベント
+{
+	tiles.emplace_back(std::make_unique<Event_Tile>(VECTOR2{ posMemory_x,posMemory_y1 }));
+	tiles.emplace_back(std::make_unique<Battle1_Tile>(VECTOR2{ posMemory_x,posMemory_y2 }));
+}
+
+void SceneMap::ShopAndEvent()		//店・イベント
+{
+	tiles.emplace_back(std::make_unique<Shop_Tile>(VECTOR2{ posMemory_x,posMemory_y1 }));
+	tiles.emplace_back(std::make_unique<Event_Tile>(VECTOR2{ posMemory_x,posMemory_y2 }));
+
+}
+
 void SceneMap::ShopAndBattle()		//店・雑魚敵戦
 {
 	tiles.emplace_back(std::make_unique<Shop_Tile>(VECTOR2{ posMemory_x,posMemory_y1 }));
@@ -173,6 +230,12 @@ void SceneMap::ShopAndBattle()		//店・雑魚敵戦
 void SceneMap::MiddleBoss()			//中ボス
 {
 	tiles.emplace_back(std::make_unique<Battle2_Tile>(VECTOR2{ posMemory_x,posMemory_y0 }));
+
+}
+
+void SceneMap::LastBoss()			//本ボス
+{
+	tiles.emplace_back(std::make_unique<Battle3_Tile>(VECTOR2{ posMemory_x,posMemory_y0 }));
 
 }
 

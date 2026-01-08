@@ -107,7 +107,7 @@ public:
 		scale = { 1,1 };
 		texPos = { 0,0 };
 		texSize = { 64,64 };
-		pivot = { 0,0 };
+		pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
 		color = { 1,1,1,1 };
 		speed = { 0,0 };
 		offset = { 0,0 };
@@ -115,7 +115,29 @@ public:
 	}
 	~Shop_Tile() {}
 
-	//std::shared_ptr<GameLib::Sprite> spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load(L"./Data/Images/shop.png"));
+	void update();
+	//void render();
+};
+
+//イベントマス
+class Event_Tile : public Tile
+{
+public:
+	Event_Tile(VECTOR2 WPos)
+	{
+		spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load((L"./Data/Images/event.png")));
+		WorldPos = WPos;
+		scale = { 1,1 };
+		texPos = { 0,0 };
+		texSize = { 64,64 };
+		pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
+		color = { 1,1,1,1 };
+		speed = { 0,0 };
+		offset = { 0,0 };
+		direction = { 0,0 };
+	}
+	~Event_Tile() {}
+
 	void update();
 	//void render();
 };
@@ -131,7 +153,7 @@ public:
 		scale = { 1,1 };
 		texPos = { 0,0 };
 		texSize = { 64,64 };
-		pivot = { 0,0 };
+		pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
 		color = { 1,1,1,1 };
 		speed = { 0,0 };
 		offset = { 0,0 };
@@ -149,12 +171,12 @@ class Battle2_Tile : public Tile
 public:
 	Battle2_Tile(VECTOR2 WPos)
 	{
-		spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load((L"./Data/Images/battle.png")));
+		spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load((L"./Data/Images/middleBoss.png")));
 		WorldPos = WPos;
 		scale = { 1,1 };
 		texPos = { 0,0 };
 		texSize = { 64,64 };
-		pivot = { 0,0 };
+		pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
 		color = { 1,1,1,1 };
 		speed = { 0,0 };
 		offset = { 0,0 };
@@ -170,8 +192,23 @@ public:
 class Battle3_Tile : public Tile
 {
 public:
+	Battle3_Tile(VECTOR2 WPos)
+	{
+		spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load((L"./Data/Images/lastBoss.png")));
+		WorldPos = WPos;
+		scale = { 1,1 };
+		texPos = { 0,0 };
+		texSize = { 64,64 };
+		pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
+		color = { 1,1,1,1 };
+		speed = { 0,0 };
+		offset = { 0,0 };
+		direction = { 0,0 };
+	}
+	~Battle3_Tile() {}
+
 	void update();
-	void render();
+	//void render();
 };
 
 //////////////////////////////////////////
@@ -193,7 +230,8 @@ public:
 
 	void startBattle();			//いっちゃん最初
 	void ShopAndBattle();		//店・雑魚敵戦
-	void BattleAndBattle();		//雑魚敵戦・雑魚敵戦
+	void BattleAndEvent();		//雑魚敵戦・イベント
+	void ShopAndEvent();		//店・イベント
 	void MiddleBoss();			//中ボス
 	void LastBoss();			//本ボス
 

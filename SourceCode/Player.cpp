@@ -67,6 +67,9 @@ void Player::init()
 
 	playerBullet = std::shared_ptr<GameLib::Sprite>(sprite_load(L"./Data/Images/1213_coin6x6.png"));
 
+	lightBetRatio = 0.01f;
+	heavyBetRatio = 0.1f;
+
 	lightSpeed = { 15,15 };
 	lightScale = { 3,3 };
 	lightLifeLimit = 0.7f;
