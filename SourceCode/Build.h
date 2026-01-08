@@ -17,6 +17,7 @@ public:
 	static bool extraJump;
 	static bool extraCost;
 	static bool extraVeryCost;
+	static bool extraMotionRapid;
 
 	//中身
 	virtual int AddMaxJump() const { return 0; }
@@ -26,6 +27,7 @@ public:
 	virtual VECTOR2 AddProjectileScale() const { return { 0.0f,0.0f }; }
 	virtual float AddProjectileRadius() const { return  0.0f; }
 	virtual float DegProjectileLife()const { return 0.0f; }
+	virtual int degMotionFrameSpeed()const { return 0.0f; }
 
 
 };
@@ -57,4 +59,13 @@ public:
 	VECTOR2 AddProjectileScale() const;
 	float AddProjectileRadius() const;
 	//float DegProjectileLife()const;
+};
+
+//攻撃測上昇+サイズDown
+class MotionRapid :public Build
+{
+public:
+	~MotionRapid(){}
+	int degMotionFrameSpeed()const;
+	
 };

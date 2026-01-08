@@ -148,6 +148,7 @@ void Shop_Tile::update()
 		Build::extraJump = true;
 		//Build::extraCost = true;
 		Build::extraVeryCost = true;
+		Build::extraMotionRapid = true;
 		ISCENE::nextScene = SCENE_GAME;
 
 	}
