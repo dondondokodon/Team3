@@ -2,6 +2,7 @@
 #include "common.h"
 #include "CAMERA.h"
 #include<cstdlib>
+#include"ImageManager.h"
 
 Enemy::Enemy():coinReward(100),maxSpeedX(3)
 {
@@ -23,6 +24,7 @@ Enemy::Enemy():coinReward(100),maxSpeedX(3)
 	radius      = texSize.y * 0.5f;
 	spr         = nullptr;
 	invincibleTimer = 1.0f;
+	direction = { 1,0 };
 }
 
 Enemy::Enemy(VECTOR2 Pos) :coinReward(100), maxSpeedX(3)
@@ -46,6 +48,7 @@ Enemy::Enemy(VECTOR2 Pos) :coinReward(100), maxSpeedX(3)
 	isAttackOn  = false;
 	spr         = nullptr;
 	invincibleTimer = 1.0f;
+	direction = {1,0};
 }
 
 void Enemy::init()  
@@ -68,9 +71,10 @@ void Enemy::init()
 	anime_state   = 0;
 	radius        = texSize.y * 0.3f*scale.x;
 	isAttackOn    = false;
-	if(!spr)
-	spr.reset(sprite_load(L"./Data/Images/teki_motto_tadasii_sprite.png"));
+	if (!spr)
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Enemy);
 	invincibleTimer = 1.0f;
+	direction = { -1,0 };
 }
 
 void Enemy::deinit()
@@ -81,6 +85,7 @@ void Enemy::deinit()
 void Enemy::update(CAMERA& camera, VECTOR2 targetPos)
 {
 	isAttackOn = false;
+
 	//èÛë‘ëJà⁄
 	state();
 
@@ -96,11 +101,13 @@ void Enemy::update(CAMERA& camera, VECTOR2 targetPos)
 	if (speed.x < -maxSpeedX) speed.x = -maxSpeedX;
 
 	//ñÄéC
+	if(act!=ATTACK1)
 	friction(this);
 
 	//à íuÇ…ë¨ìxë´Ç∑
 	pos += speed;
 
+	//ÉXÉPÅ[ÉãîΩì]
 	ScaleReverse(targetPos);
 
 	//éÄÇÒÇæÇÁîjä¸
@@ -109,7 +116,6 @@ void Enemy::update(CAMERA& camera, VECTOR2 targetPos)
 		Destroy();
 		//coinReward = 100;
 	}
-
 }
 
 void Enemy::state()
@@ -141,6 +147,9 @@ void Enemy::state()
 	case ATTACK1:
 		if (animeUpdate(0, 14, 6, false))	act = IDLE_INIT;
 		if (animeTimer ==8*6)	isAttackOn = true;
+
+		if (animeTimer > 9 * 6)
+			speed.x = 5.0f * -direction.x;
 		break;
 
 	}

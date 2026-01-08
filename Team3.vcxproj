@@ -158,6 +158,7 @@
     <ClInclude Include="SourceCode\EnemyManager.h" />
     <ClInclude Include="SourceCode\EnemySpawnRule.h" />
     <ClInclude Include="SourceCode\Ghost.h" />
+    <ClInclude Include="SourceCode\ImageManager.h" />
     <ClInclude Include="SourceCode\OBJ2D.h" />
     <ClInclude Include="SourceCode\Player.h" />
     <ClInclude Include="SourceCode\Projectile.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="SourceCode\EnemyManager.cpp" />
     <ClCompile Include="SourceCode\EnemySpawnRule.cpp" />
     <ClCompile Include="SourceCode\Ghost.cpp" />
+    <ClCompile Include="SourceCode\ImageManager.cpp" />
     <ClCompile Include="SourceCode\main.cpp" />
     <ClCompile Include="SourceCode\OBJ2D.cpp" />
     <ClCompile Include="SourceCode\Player.cpp" />

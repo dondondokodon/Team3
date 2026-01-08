@@ -1,6 +1,8 @@
 #include"SceneMap.h"
 #include "../GameLib/game_lib.h"
 #include "Build.h"
+#include"ImageManager.h"
+
 
 int moveTile = 0;	//何マス進んだかをカウント
 int nemuturai = 0;
@@ -11,7 +13,7 @@ void SceneMap::init()
 	i = 0;
 	//ShopAndBattle();	//後でランダムで出るようにしたら完成？
 	state = 0;
-	Map.setSprite(std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load((L"./Data/Images/map.png"))));
+	Map.setSprite(ImageManager::Instance().getSprite(ImageManager::SpriteNum::Map));
 }
 
 
