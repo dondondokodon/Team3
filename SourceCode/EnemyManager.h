@@ -4,6 +4,13 @@
 #include"Enemy.h"
 #include"CAMERA.h"
 #include"ProjectileManager.h"
+#include"EnemySpawnRule.h"
+
+enum class EnemyType
+{
+	FlyEye,
+};
+
 class EnemyManager
 {
 public:
@@ -29,6 +36,13 @@ public:
 	Enemy* GetEnemy(int index) { return enemies.at(index).get(); }
 	void setTarget(Character& t) { target = &t; }
 
+	VECTOR2 setSpawnPos();
+	void setCamera(CAMERA& cam) { camera = &cam; }
+	void setCameraNull() { camera = nullptr; }
+	void Spawn(EnemyType type,VECTOR2 pos);
+	//void setSpawnRule(std::unique_ptr<IEnemySpawnRule> rule);
+	void setStage(int stageNo);
+
 private:
 	std::vector<std::unique_ptr<Enemy>> enemies;
 	//コンストラクタ系禁止　シングルトン
@@ -37,5 +51,7 @@ private:
 	EnemyManager& operator=(const EnemyManager& e){}
 	Character* target;
 	std::shared_ptr<Sprite> enemyBullet;
+	CAMERA* camera = nullptr;
+	std::unique_ptr<IEnemySpawnRule> spawnRule;
 };
 

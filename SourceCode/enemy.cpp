@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include "common.h"
 #include "CAMERA.h"
+#include<cstdlib>
 
 Enemy::Enemy():coinReward(100),maxSpeedX(3)
 {
@@ -160,6 +161,7 @@ void Enemy::moveHorizontalInCamera(CAMERA& camera)
 	//どれくらい内側まで移動させるか
 	const float SAFE_OFFSET = 200.0f;
 	
+
 	float safeLeft = camLeft + SAFE_OFFSET;
 	float safeRight = camRight - SAFE_OFFSET;
 
@@ -182,7 +184,7 @@ void Enemy::moveHorizontalInCamera(CAMERA& camera)
 			targetX = safeLeft;
 		else if (pos.x > safeRight)
 			targetX = safeRight;
-		else
+		else if (rand() % 60 == 0)		//ここで右に行ったらびくびくするバグある
 		{
 			// 安全ラインに入ったら終了
 			moveInCamera = false;
