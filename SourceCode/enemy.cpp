@@ -198,7 +198,7 @@ void Enemy::moveHorizontalInCamera(CAMERA& camera)
 		// ç≈í·ë¨ìxï€èÿ
 		if (fabsf(pull) < MIN_PULL_SPEED)
 		{
-			pull = (dx > 0) ? MIN_PULL_SPEED : -MIN_PULL_SPEED;
+			pull = (direction.x>0) ? MIN_PULL_SPEED : -MIN_PULL_SPEED;
 		}
 
 		speed.x += pull;
@@ -206,8 +206,7 @@ void Enemy::moveHorizontalInCamera(CAMERA& camera)
 
 	/*debug::setString(
 		"pos=%.1f safeL=%.1f safeR=%.1f camL=%.1f camR=%.1f in=%d",
-		pos.x, safeLeft, safeRight, camLeft, camRight, moveInCamera
-	);*/
+		pos.x, safeLeft, safeRight, camLeft, camRight, moveInCamera);*/
 }
 
 //ìGÇÃÇŸÇ§Çå©ÇÈÇÊÇ§Ç…Ç∑ÇÈ
@@ -216,10 +215,16 @@ void Enemy::ScaleReverse(VECTOR2 target)
 	if (target.x < pos.x)
 	{
 		if (scale.x < 0)
+		{
+			direction.x = -1;
 			scale.x = -scale.x;
+		}
 	}
 	else if (scale.x > 0)
+	{
 		scale.x = -scale.x;
+		direction.x = 1;
+	}
 }
 
 //î≠éÀï˚å¸ÇåàÇﬂÇÈ
