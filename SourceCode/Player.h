@@ -28,15 +28,16 @@ public:
 
 	int GetMaxJump();
 	void ResetJumpCount() { jumpCount = GetMaxJump(); }
+	void setHeavyCost();
 
 	bool lightAttack = false;	//軽攻撃フラグ
 	bool heavyAttack = true;	//重攻撃フラグ
 
-	//消費割合をいじるためのゲッターとセッター
 	float getLightRatio()const { return lightBetRatio; }
 	float getHeavyRatio()const { return heavyBetRatio; }
-	void setLightRatio(float ratio) { lightBetRatio = ratio; }
-	void setHeavyRatio(float ratio) { heavyBetRatio = ratio; }
+	void addLightRatio(float ratio) { lightBetRatio += ratio; }
+	void addHeavyRatio(float ratio) { heavyBetRatio += ratio; }
+
 
 	enum ACT
 	{
@@ -72,9 +73,20 @@ private:
 	bool isGround = false;		//地面判定
 	int baseMaxJump = 2;		//最大のジャンプ回数
 	int jumpCount = 2;			//残りのジャンプ回数
-	//ProjectileManager projMgr;
 
-	
+	//球関連
+	VECTOR2 lightSpeed = { 15,15 };
+	VECTOR2 lightScale = { 3,3 };
+	float lightLifeLimit;
+	float lightRadius;
+
+	VECTOR2 heavySpeed;
+	VECTOR2 heavyScale;
+	float heavyLifeLimit;
+	float heavyRadius;
+
+	std::shared_ptr<Sprite> playerBullet;
+
 	
 	//ビルド関係
 	std::vector<std::unique_ptr<Build>> builds;
