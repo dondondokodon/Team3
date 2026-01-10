@@ -9,6 +9,7 @@
 enum class EnemyType
 {
 	FlyEye,
+	BOSS,
 };
 
 class EnemyManager

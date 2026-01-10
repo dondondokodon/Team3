@@ -155,6 +155,7 @@
     <ClInclude Include="SourceCode\common.h" />
     <ClInclude Include="SourceCode\EffektManager.h" />
     <ClInclude Include="SourceCode\Enemy.h" />
+    <ClInclude Include="SourceCode\EnemyBoss.h" />
     <ClInclude Include="SourceCode\EnemyManager.h" />
     <ClInclude Include="SourceCode\EnemySpawnRule.h" />
     <ClInclude Include="SourceCode\Ghost.h" />
@@ -195,6 +196,7 @@
     <ClCompile Include="SourceCode\common.cpp" />
     <ClCompile Include="SourceCode\EffektManager.cpp" />
     <ClCompile Include="SourceCode\Enemy.cpp" />
+    <ClCompile Include="SourceCode\EnemyBoss.cpp" />
     <ClCompile Include="SourceCode\EnemyManager.cpp" />
     <ClCompile Include="SourceCode\EnemySpawnRule.cpp" />
     <ClCompile Include="SourceCode\Ghost.cpp" />

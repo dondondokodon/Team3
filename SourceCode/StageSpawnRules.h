@@ -15,3 +15,9 @@ class Statge1SpawnRule :public IEnemySpawnRule
 public:
 	void update()override;
 };
+
+//ステージ２
+class Stage2SpawnRule :public IEnemySpawnRule
+{
+	void update()override;
+};

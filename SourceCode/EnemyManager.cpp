@@ -5,6 +5,7 @@
 #include<memory>
 #include"StageSpawnRules.h"
 #include"ImageManager.h"
+#include"EnemyBoss.h"
 
 void EnemyManager::update(CAMERA camera)
 {
@@ -93,6 +94,10 @@ void EnemyManager::Spawn(EnemyType type, VECTOR2 pos)
 	{
 	case EnemyType::FlyEye:
 		add(std::make_unique<Enemy>(pos));
+		break;
+
+	case EnemyType::BOSS:
+		add(std::make_unique<EnemyBoss>(pos));
 		break;
 	}
 }
