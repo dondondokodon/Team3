@@ -41,7 +41,6 @@ void ProjectileStraight::update()
 	//発射
 	pos.x += dir.x * speed.x;
 	pos.y += dir.y * speed.y;
-
 }
 
 void ProjectileStraight::render()
