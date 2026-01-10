@@ -19,6 +19,7 @@ public:
 		middle,
 		front,
 		ground,
+		boss,
 
 		Max
 	};

@@ -5,11 +5,6 @@ class Enemy :
     public Character
 {
 private:
-    int hp = 100;
-    const float maxSpeedX;
-    const int coinReward;   //撃破時のコイン
-    bool moveInCamera;      //カメラの中に入ろうとする動きの条件
-    bool isAttackOn=false;        //攻撃するか
     enum STATE
     {
         IDLE_INIT,
@@ -19,6 +14,15 @@ private:
         WALK_INIT,
         WALK,
     };
+
+    const float maxSpeedX;
+    const int   coinReward;   //撃破時のコイン
+
+protected:
+    int hp = 100;
+    bool moveInCamera;      //カメラの中に入ろうとする動きの条件
+    bool isAttackOn=false;        //攻撃するか
+    
 public:
     Enemy();
     Enemy(VECTOR2 Pos);
