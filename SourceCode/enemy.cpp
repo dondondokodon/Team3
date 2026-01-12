@@ -6,75 +6,83 @@
 
 Enemy::Enemy():coinReward(100),maxSpeedX(3)
 {
-	hp          = 100;
-	atk         = 50;
-	texSize     = { 320.0f,320.0f };
-	texPos      = { 0.0f,0.0f };
-	pos         = { 1000,500 };
-	color       = { 1.0f,1.0f,1.0f,1.0f };
-	scale       = { 1.0f,1.0f };
-	pivot       = { texSize.x * 0.5f,texSize.y * 0.5f };
-	speed       = { 0,0 };
-	offset      = { 0,0 };
-	act         = IDLE_INIT;
-	timer       = 0;
-	anime       = 0;
-	animeTimer  = 0;
-	anime_state = 0;
-	radius      = texSize.y * 0.5f;
-	spr         = nullptr;
+	hp              = 100;
+	atk             = 50;
+	texSize         = { 320.0f,320.0f };
+	texPos          = { 0.0f,0.0f };
+	pos             = { 1000,500 };
+	color           = { 1.0f,1.0f,1.0f,1.0f };
+	scale           = { 1.0f,1.0f };
+	pivot           = { texSize.x * 0.5f,texSize.y * 0.5f };
+	speed           = { 0,0 };
+	offset          = { 0,0 };
+	act             = IDLE_INIT;
+	timer           = 0;
+	anime           = 0;
+	animeTimer      = 0;
+	anime_state     = 0;
+	radius          = texSize.y * 0.5f;
+	spr             = nullptr;
+	isHitOn         = false;
+	gravityOn       = false;
 	invincibleTimer = 1.0f;
-	direction = { 1,0 };
+	direction       = { 1,0 };
+	hitPos          = { 0,0 };
 }
 
 Enemy::Enemy(VECTOR2 Pos) :coinReward(100), maxSpeedX(3)
 {
-	hp          = 100;
-	atk         = 50;
-	texSize     = { 320.0f,320.0f };
-	texPos      = { 0.0f,0.0f };
-	pos         = { Pos.x,Pos.y};
-	color       = { 1.0f,1.0f,1.0f,1.0f };
-	scale       = { 0.5f,0.5f };
-	pivot       = { texSize.x * 0.5f,texSize.y * 0.5f };
-	speed       = { 0,0 };
-	offset      = { 0,0 };
-	act         = IDLE_INIT;
-	timer       = 0;
-	anime       = 0;
-	animeTimer  = 0;
-	anime_state = 0;
-	radius      = texSize.y * 0.5f;
-	isAttackOn  = false;
-	spr         = nullptr;
+	hp              = 100;
+	atk             = 50;
+	texSize         = { 320.0f,320.0f };
+	texPos          = { 0.0f,0.0f };
+	pos             = { Pos.x,Pos.y};
+	color           = { 1.0f,1.0f,1.0f,1.0f };
+	scale           = { 0.5f,0.5f };
+	pivot           = { texSize.x * 0.5f,texSize.y * 0.5f };
+	speed           = { 0,0 };
+	offset          = { 0,0 };
+	act             = IDLE_INIT;
+	timer           = 0;
+	anime           = 0;
+	animeTimer      = 0;
+	anime_state     = 0;
+	radius          = texSize.y * 0.5f;
+	isAttackOn      = false;
+	spr             = nullptr;
+	isHitOn         = false;
 	invincibleTimer = 1.0f;
-	direction = {1,0};
+	gravityOn       = false;
+	direction       = {1,0};
+	hitPos          = { 0,0 };
 }
 
 void Enemy::init()  
 {
-	hp            = 100;
-	atk           = 50;
-	texSize       = { 320.0f,320.0f };
-	texPos        = { 0.0f,0.0f };
-	//pos         = { 1000,500 };		引数付きコンストラクタで設定する場合があるのでinitでは書かない
-	color         = { 1.0f,1.0f,1.0f,1.0f };
-	scale         = { 0.7f,0.7f };
-	pivot         = { texSize.x * 0.5f,texSize.y * 0.5f };
-	moveInCamera  = false;
-	speed         = { 0,0 };
-	offset        = { 0,0 };
-	act           = IDLE_INIT;
-	timer         = 0;
-	anime         = 0;
-	animeTimer    = 0;
-	anime_state   = 0;
-	radius        = texSize.y * 0.3f*scale.x;
-	isAttackOn    = false;
+	hp				= 100;
+	atk				= 50;
+	texSize			= { 320.0f,320.0f };
+	texPos			= { 0.0f,0.0f };
+	//pos			= { 1000,500 };		引数付きコンストラクタで設定する場合があるのでinitでは書かない
+	color			= { 1.0f,1.0f,1.0f,1.0f };
+	scale			= { 0.7f,0.7f };
+	pivot			= { texSize.x * 0.5f,texSize.y * 0.5f };
+	moveInCamera	= false;
+	speed			= { 0,0 };
+	offset			= { 0,0 };
+	act				= IDLE_INIT;
+	timer			= 0;
+	anime			= 0;
+	animeTimer		= 0;
+	anime_state		= 0;
+	radius			= texSize.y * 0.3f*scale.x;
+	isAttackOn		= false;
+	gravityOn		= false;
 	if (!spr)
-		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Enemy);
+		spr         = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Enemy);
 	invincibleTimer = 1.0f;
-	direction = { -1,0 };
+	direction       = { -1,0 };
+	hitPos          = { 0,0 };
 }
 
 void Enemy::deinit()
@@ -86,23 +94,57 @@ void Enemy::update(CAMERA& camera, VECTOR2 targetPos)
 {
 	isAttackOn = false;
 
-	//状態遷移
-	state();
+	//ヒット時の挙動
+	if (isHitOn)
+	{
+		hitPos    = pos;
+		speed.x   = 3 * -direction.x;
+		speed.y   = -20;
+		isHitOn   = false;
+		gravityOn = true;
+		//被弾の画像みたいに見えるところにセット
+		texPos    = { texSize.x * 9,0 };
+	}
 
-	//無敵時間更新
-	invincibleTimerUpdate();
+	//重力
+	if (gravityOn)
+	{
+		gravity(this);
+		timer++;
+		if (hitPos.y<pos.y)
+		{
+			speed.y	  =-speed.y * 0.5f;
+		}
+		if (timer > 60)
+		{
+			gravityOn = false;
+			timer     = 0;
+			speed     = {0,0};
+			hitPos    = { 0,0 };
+			act       = IDLE_INIT;
+		}
+	}
 
-	//画面外に出た場合移動 攻撃時は移動しない
-	if(act!=ATTACK1&&act!=ATTACK1_INIT)
-	moveHorizontalInCamera(camera);
+	else
+	{
+		//状態遷移
+		state();
 
-	// 速度制限
-	if (speed.x > maxSpeedX) speed.x = maxSpeedX;
-	if (speed.x < -maxSpeedX) speed.x = -maxSpeedX;
+		//無敵時間更新
+		invincibleTimerUpdate();
 
-	//摩擦
-	if(act!=ATTACK1)
-	friction(this);
+		//画面外に出た場合移動 攻撃時は移動しない
+		if (act != ATTACK1 && act != ATTACK1_INIT)
+			moveHorizontalInCamera(camera);
+
+		// 速度制限
+		if (speed.x > maxSpeedX) speed.x = maxSpeedX;
+		if (speed.x < -maxSpeedX) speed.x = -maxSpeedX;
+
+		//摩擦
+		if (act != ATTACK1)
+			friction(this);
+	}
 
 	//位置に速度足す
 	pos += speed;
@@ -221,7 +263,7 @@ void Enemy::moveHorizontalInCamera(CAMERA& camera)
 //敵のほうを見るようにする
 void Enemy::ScaleReverse(VECTOR2 target)
 {
-	if (target.x < pos.x)
+	/*if (target.x < pos.x)
 	{
 		if (scale.x < 0)
 		{
@@ -233,6 +275,21 @@ void Enemy::ScaleReverse(VECTOR2 target)
 	{
 		scale.x = -scale.x;
 		direction.x = 1;
+	}*/
+
+	//真上に来た時に左右になりまくるのがいやなのでデッドゾーンを付けたver
+	const float DEAD_ZONE = 20.0f; // この範囲では向きを変えない
+	float dx = target.x - pos.x;
+
+	if (dx < -DEAD_ZONE)
+	{
+		direction.x = -1;
+		scale.x = fabsf(scale.x);
+	}
+	else if (dx > DEAD_ZONE)
+	{
+		direction.x = 1;
+		scale.x = -fabsf(scale.x);
 	}
 }
 

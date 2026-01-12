@@ -120,7 +120,7 @@ void EnemyBoss::state()
 		act = IDLE;
 
 	case IDLE:
-		if (animeUpdate(0,0,1, true))	act = ATTACK1_INIT;
+		if (animeUpdate(0,0,1, true))		act = ATTACK1_INIT;
 		if (fabsf(speed.x) > 0.0f)			act = WALK_INIT;
 		break;
 
