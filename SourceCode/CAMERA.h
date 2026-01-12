@@ -13,7 +13,7 @@ private:
 
 	const float DEADZONE_LEFT   = 300.0f;		//ƒJƒƒ‰‚ª“®‚©‚È‚¢”ÍˆÍ
 	const float DEADZONE_RIGHT  = 900.0f;
-	const float DEADZONE_TOP    = 200.0f;
+	const float DEADZONE_TOP    = 100.0f;
 	const float DEADZONE_BOTTOM = 540.0f;
 
 public:
