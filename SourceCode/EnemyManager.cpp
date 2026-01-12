@@ -83,7 +83,7 @@ VECTOR2 EnemyManager::setSpawnPos()
 	}
 
 	//y‚Íƒ‰ƒ“ƒ_ƒ€
-	pos.y = rand() % 600+50;
+	pos.y = rand() % 450+100;
 
 	return pos;
 }
