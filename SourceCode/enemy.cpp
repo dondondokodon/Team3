@@ -7,7 +7,7 @@
 Enemy::Enemy():coinReward(100),maxSpeedX(3)
 {
 	hp              = 100;
-	atk             = 50;
+	atk             = 20;
 	texSize         = { 320.0f,320.0f };
 	texPos          = { 0.0f,0.0f };
 	pos             = { 1000,500 };
@@ -33,7 +33,7 @@ Enemy::Enemy():coinReward(100),maxSpeedX(3)
 Enemy::Enemy(VECTOR2 Pos) :coinReward(100), maxSpeedX(3)
 {
 	hp              = 100;
-	atk             = 50;
+	atk             = 20;
 	texSize         = { 320.0f,320.0f };
 	texPos          = { 0.0f,0.0f };
 	pos             = { Pos.x,Pos.y};
@@ -60,7 +60,7 @@ Enemy::Enemy(VECTOR2 Pos) :coinReward(100), maxSpeedX(3)
 void Enemy::init()  
 {
 	hp				= 100;
-	atk				= 50;
+	atk				= 20;
 	texSize			= { 320.0f,320.0f };
 	texPos			= { 0.0f,0.0f };
 	//pos			= { 1000,500 };		引数付きコンストラクタで設定する場合があるのでinitでは書かない

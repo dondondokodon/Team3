@@ -327,7 +327,7 @@ void Player::state()
 		//4こまめから８こまめいないまでの時に後ろ方向に速度を入れる
 		if (animeTimer >= 3 * 5 + 1 && animeTimer < 7 * 5 + 1)
 		{
-			invincibleTimer = 1.5f;		//無敵時間
+			invincibleTimer = 1.5f;	//無敵時間
 			speed.x = 10.0f * -direction.x;
 
 			if(animeTimer%3==0)		//残像エフェクト

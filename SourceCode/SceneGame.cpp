@@ -140,8 +140,7 @@ void SceneGame::Collision()
 					}
 				}
 			}
-			debug::setString("Coin:%d", playerProjectileCount);
-
+			//debug::setString("Coin:%d", playerProjectileCount);
 		}
 	}
 
