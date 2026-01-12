@@ -17,11 +17,14 @@ private:
 
     const float maxSpeedX;
     const int   coinReward;   //撃破時のコイン
+    bool gravityOn = false;     //重量を呼ぶかどうか
 
 protected:
     int hp = 100;
     bool moveInCamera;      //カメラの中に入ろうとする動きの条件
-    bool isAttackOn=false;        //攻撃するか
+    bool isAttackOn=false;  //攻撃するか
+    bool isHitOn = false;   //trueで被弾
+    VECTOR2 hitPos;
     
 public:
     Enemy();
@@ -37,7 +40,8 @@ public:
     bool getIsAttackOn() { return isAttackOn; }
     void moveHorizontalInCamera(CAMERA& camera);
     void Destroy();
+    void setHitFlag(bool b) { isHitOn = b; }
+     
     virtual void ScaleReverse(VECTOR2 target);   //必要ないときは{}でoverride
     VECTOR2 shotDir(VECTOR2 targetPos);//発射方向
 };
-

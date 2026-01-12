@@ -40,7 +40,7 @@ void SceneGame::update()
 		//ターゲット設定
 		EnemyManager::instance().setTarget(player);
 		//エネミーセット　引数がステージ番号
-		EnemyManager::instance().setStage(2);	//1が最初
+		EnemyManager::instance().setStage(1);	//1が最初
 		/*EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ 1500.0f, 200.0f }));
 		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ -500.0f, 250.0f }));
 		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ -300.0f, 600.0f }));*/
@@ -123,6 +123,7 @@ void SceneGame::Collision()
 					p->Destroy();
 					e->degHp(p->getDamage());
 					e->setInvincibleTimer(1.5f);
+					e->setHitFlag(true);
 
 					//軽攻撃なら
 					if (p->GetOwnerId() == Projectile::kinds::light)
