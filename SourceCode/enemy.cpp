@@ -113,7 +113,7 @@ void Enemy::update(CAMERA& camera, VECTOR2 targetPos)
 		timer++;
 		if (hitPos.y<pos.y)
 		{
-			speed.y	  =-speed.y * 0.5f;
+			speed.y	  = -speed.y * 0.5f;
 		}
 		if (timer > 60)
 		{
