@@ -24,7 +24,7 @@ void SceneGame::init()
 	EnemyManager::instance().init();
 	EffektManager::Instance().init();
 	camera.init();
-	camera.setStageLimitX(SCREEN_W + 1500);
+	camera.setStageLimit(VECTOR2{ SCREEN_W + 1500.0f , 720.0f});
 	EnemyManager::instance().setCamera(camera);
 }
 

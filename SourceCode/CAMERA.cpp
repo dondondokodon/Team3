@@ -9,9 +9,9 @@ CAMERA::CAMERA() :pos({0,0}),height(SCREEN_H),width(SCREEN_W)
 
 void CAMERA::init()
 {
-	pos = { 0,0 };
+	pos    = { 0,0 };
 	height = SCREEN_H;
-	width = SCREEN_W;
+	width  = SCREEN_W;
 }
 
 void CAMERA::update(Character& target)
@@ -30,11 +30,32 @@ void CAMERA::update(Character& target)
 	{
 		pos.x = target.getPos().x - DEADZONE_LEFT;
 	}
+	
+	//プレイヤーの画面内Y座標
+	float playerScreenY = target.getPos().y - pos.y;
+	//上に押した
+	if (playerScreenY < DEADZONE_TOP)
+	{
+		pos.y = target.getPos().y - DEADZONE_TOP;
+	}
+	else if (playerScreenY > DEADZONE_BOTTOM)
+	{
+		pos.y = target.getPos().y - DEADZONE_BOTTOM;
+	}
 
 	// ステージ端制限
 	if (pos.x < 0)
 		pos.x = 0;
 	if (pos.x > stageLimitX - width)
 		pos.x = stageLimitX - width;
-	
+
+	if (pos.y < -200)
+		pos.y = -200;
+	if (pos.y > stageLimitY - height)
+		pos.y = stageLimitY - height;
+	debug::setString(
+		"camY=%.1f stageLimitY=%.1f height=%.1f",
+		pos.y, stageLimitY, height
+	);
+
 }
