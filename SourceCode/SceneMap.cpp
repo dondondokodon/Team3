@@ -8,10 +8,12 @@ int moveTile = 0;	//何マス進んだかをカウント
 int move5 = 0;
 int nemuturai = 0;
 int i;				//どのマスにいるか
+int j;				//どのカードを選んでいるか
 
 void SceneMap::init()
 {
 	i = 0;
+	j = 0;
 	//ShopAndBattle();	//後でランダムで出るようにしたら完成？
 	state = 0;
 	Map.setSprite(ImageManager::Instance().getSprite(ImageManager::SpriteNum::Map));
@@ -40,7 +42,7 @@ void SceneMap::update()
 					MiddleBoss();
 
 			}
-			else//ぜ～んぶ仮置き
+			else//ぜ～んぶ仮置き　後でランダムにしたい
 			{
 				if (moveTile % 2 == 0)
 					ShopAndBattle();
@@ -140,7 +142,7 @@ void Battle1_Tile::update()
 	}
 
 	
-	//debug::setString("battle");
+	debug::setString("battle");
 
 }
 
@@ -154,7 +156,7 @@ void Battle2_Tile::update()
 	}
 
 	
-	//debug::setString("battle");
+	debug::setString("battle");
 
 }
 void Battle3_Tile::update()
@@ -167,23 +169,33 @@ void Battle3_Tile::update()
 	}
 
 	
-	//debug::setString("battle");
+	debug::setString("battle");
 
 }
 
 void Shop_Tile::update()
 {
+	if (GameLib::input::TRG_RELEASE(0) & GameLib::input::PAD_START)
+	{
+		ISCENE::nextScene = SCENE_BUILD;
+	}
+	
+	debug::setString("shop");
+
+}
+
+void Build_Select::update()
+{
 	if (GameLib::input::TRG(0) & GameLib::input::PAD_START)
 	{
 		Build::extraJump = true;
-		//Build::extraCost = true;
 		Build::extraVeryCost = true;
 		Build::extraMotionRapid = true;
 		ISCENE::nextScene = SCENE_GAME;
 
 	}
 
-	//debug::setString("shop");
+	debug::setString("Build");
 
 }
 
@@ -191,15 +203,15 @@ void Event_Tile::update()
 {
 	if (GameLib::input::TRG(0) & GameLib::input::PAD_START)
 	{
-		Build::extraJump = true;
+		//Build::extraJump = true;
 		//Build::extraCost = true;
-		Build::extraVeryCost = true;
-		Build::extraMotionRapid = true;
+		//Build::extraVeryCost = true;
+		//Build::extraMotionRapid = true;
 		ISCENE::nextScene = SCENE_GAME;
 
 	}
 
-	//debug::setString("shop");
+	debug::setString("event");
 
 }
 
@@ -241,7 +253,7 @@ void SceneMap::LastBoss()			//本ボス
 
 }
 
-void SceneMap::inputSelect()
+void SceneMap::inputTileSelect()
 {
 
 	if (GameLib::input::TRG(0) & GameLib::input::PAD_UP)	//W
@@ -266,7 +278,7 @@ void SceneMap::inputSelect()
 
 void SceneMap::routePick()
 {
-	inputSelect();
+	inputTileSelect();
 
 	Tile* nowTile = GetTile(i);
 
@@ -289,7 +301,7 @@ void SceneMap::routePick()
 
 		tile->setLocalPos(WorldToLocal(tile->getWorldPos()));
 
-		tile->update();
+		//tile->update();
 		if (tile != nowTile)
 			tile->setScale({ 1,1 });
 
