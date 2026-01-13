@@ -18,11 +18,17 @@ void ImageManager::load()
 	spr[extraJump].reset(GameLib::sprite_load(L"./Data/Images/build1.png"));
 	spr[motionRapid].reset(GameLib::sprite_load(L"./Data/Images/build2.png"));
 
-	spr[back].reset(GameLib::sprite_load(L"./Data/Images/back.png"));
-	spr[backBack].reset(GameLib::sprite_load(L"./Data/Images/back-back.png"));
-	spr[middle].reset(GameLib::sprite_load(L"./Data/Images/back-middle.png"));
-	spr[front].reset(GameLib::sprite_load(L"./Data/Images/back-front.png"));
-	spr[ground].reset(GameLib::sprite_load(L"./Data/Images/ground.png"));
+	spr[billBack].reset(GameLib::sprite_load(L"./Data/Images/back.png"));
+	spr[billBackBack].reset(GameLib::sprite_load(L"./Data/Images/back-back.png"));
+	spr[billMiddle].reset(GameLib::sprite_load(L"./Data/Images/back-middle.png"));
+	spr[billFront].reset(GameLib::sprite_load(L"./Data/Images/back-front.png"));
+	spr[billGround].reset(GameLib::sprite_load(L"./Data/Images/ground.png"));
+
+	spr[casinoBack].reset(GameLib::sprite_load(L"./Data/Images/casinoBack.png"));
+	spr[casinoMiddle].reset(GameLib::sprite_load(L"./Data/Images/casinoMiddle.png"));
+	spr[casinoFront].reset(GameLib::sprite_load(L"./Data/Images/casinoFront.png"));
+
+
 	spr[boss].reset(GameLib::sprite_load(L"./Data/Images/boss.png"));
 	spr[coin].reset(GameLib::sprite_load(L"./Data/Images/coinUi.png"));
 }
