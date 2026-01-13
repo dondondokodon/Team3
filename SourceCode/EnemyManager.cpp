@@ -6,6 +6,7 @@
 #include"StageSpawnRules.h"
 #include"ImageManager.h"
 #include"EnemyBoss.h"
+#include"HitBox.h"
 
 void EnemyManager::update(CAMERA camera)
 {
@@ -17,12 +18,28 @@ void EnemyManager::update(CAMERA camera)
 		if (target)		//ターゲットがnullじゃなければ
 		(*it)->update(camera,target->getPos());
 		debug::setString("Enemy[%d]HP:%d", num,(*it)->getHp());
+		//ターゲットとして参照している球を全て消す
+		if ((*it)->getIsTargetRemoveOn())	ProjectileManager::Instance().targetRemove((*it).get());
 		//攻撃
 		if ((*it)->getIsAttackOn())
 		{
-			//球を打つ
-			ProjectileStraight* projectile=new ProjectileStraight(&ProjectileManager::Instance(), Projectile::Faction::enemy, (*it)->getATK(),Projectile::kinds::enemy,1.5f,enemyBullet,VECTOR2{44,66}, VECTOR2{ 1,1 },VECTOR2{8,8}, (*it)->getRadius());
-			projectile->Launch((*it)->shotDir(target->getPos()), (*it)->getPos());
+			switch ((*it)->getAttackType())
+			{
+			case Enemy::ATTACK_TYPE::bulet:
+			{
+				//球を打つ
+				ProjectileStraight* projectile = new ProjectileStraight(&ProjectileManager::Instance(), Projectile::Faction::enemy, (*it)->getATK(), Projectile::kinds::enemy, 1.5f, enemyBullet, VECTOR2{ 44,66 }, VECTOR2{ 1,1 }, VECTOR2{ 8,8 }, (*it)->getRadius());
+				projectile->Launch((*it)->shotDir(target->getPos()), (*it)->getPos());
+				break;
+			}
+			case Enemy::ATTACK_TYPE::melle:
+			{
+				//近接用
+				HitBox* melle = new HitBox(&ProjectileManager::Instance(), Projectile::Faction::enemy, (*it)->getATK(), Projectile::kinds::enemy, 0.0f, std::shared_ptr<Sprite>(nullptr), VECTOR2{ 100,100 }, VECTOR2{ 1,1 }, VECTOR2{ 0,0 }, (*it)->getMelleRadius(), (*it).get());
+				break;
+			}
+			}
+			
 		}
 		//死んでたら
 		if ((*it)->isDeath())

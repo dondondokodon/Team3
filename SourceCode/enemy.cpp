@@ -23,11 +23,16 @@ Enemy::Enemy():coinReward(100),maxSpeedX(3)
 	anime_state     = 0;
 	radius          = texSize.y * 0.5f;
 	spr             = nullptr;
+	isAttackOn      = false;
 	isHitOn         = false;
 	gravityOn       = false;
+	isTargetRemoveOn = false;
 	invincibleTimer = 1.0f;
 	direction       = { 1,0 };
 	hitPos          = { 0,0 };
+	attackType = -1;
+	mellePos = { 0,0 };
+	melleRadius = 0;
 }
 
 Enemy::Enemy(VECTOR2 Pos) :coinReward(100), maxSpeedX(3)
@@ -53,8 +58,12 @@ Enemy::Enemy(VECTOR2 Pos) :coinReward(100), maxSpeedX(3)
 	isHitOn         = false;
 	invincibleTimer = 1.0f;
 	gravityOn       = false;
+	isTargetRemoveOn = false;
 	direction       = {1,0};
 	hitPos          = { 0,0 };
+	attackType = -1;
+	mellePos = { 0,0 };
+	melleRadius = 0;
 }
 
 void Enemy::init()  
@@ -78,21 +87,27 @@ void Enemy::init()
 	radius			= texSize.y * 0.3f*scale.x;
 	isAttackOn		= false;
 	gravityOn		= false;
+	isTargetRemoveOn = false;
 	if (!spr)
 		spr         = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Enemy);
 	invincibleTimer = 1.0f;
 	direction       = { -1,0 };
 	hitPos          = { 0,0 };
+	attackType = -1;
+	mellePos = { 0,0 };
+	melleRadius = 0;
 }
 
 void Enemy::deinit()
 {
-
+	isTargetRemoveOn = true;
 }
 
 void Enemy::update(CAMERA& camera, VECTOR2 targetPos)
 {
+	attackType = none;
 	isAttackOn = false;
+	isTargetRemoveOn = false;
 
 	//ƒqƒbƒgŽž‚Ì‹““®
 	if (isHitOn)
@@ -138,8 +153,11 @@ void Enemy::update(CAMERA& camera, VECTOR2 targetPos)
 			moveHorizontalInCamera(camera);
 
 		// ‘¬“x§ŒÀ
-		if (speed.x > maxSpeedX) speed.x = maxSpeedX;
-		if (speed.x < -maxSpeedX) speed.x = -maxSpeedX;
+		if (ATTACK1!=act)
+		{
+			if (speed.x > maxSpeedX) speed.x = maxSpeedX;
+			if (speed.x < -maxSpeedX) speed.x = -maxSpeedX;
+		}
 
 		//–€ŽC
 		if (act != ATTACK1)
@@ -188,8 +206,11 @@ void Enemy::state()
 
 	case ATTACK1:
 		if (animeUpdate(0, 14, 6, false))	act = IDLE_INIT;
-		if (animeTimer ==8*6)	isAttackOn = true;
-
+		if (animeTimer == 8 * 6)
+		{
+			isAttackOn = true;
+			attackType = bulet;
+		}
 		if (animeTimer > 9 * 6)
 			speed.x = 5.0f * -direction.x;
 		break;

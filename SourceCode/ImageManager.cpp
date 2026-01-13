@@ -12,7 +12,7 @@ void ImageManager::load()
 	spr[middle].reset(GameLib::sprite_load(L"./Data/Images/back-middle.png"));
 	spr[front].reset(GameLib::sprite_load(L"./Data/Images/back-front.png"));
 	spr[ground].reset(GameLib::sprite_load(L"./Data/Images/ground.png"));
-	spr[boss].reset(GameLib::sprite_load(L"./Data/Images/boss.png"));
+	spr[boss].reset(GameLib::sprite_load(L"./Data/Images/eirian2.png"));
 }
 
 std::shared_ptr<GameLib::Sprite> ImageManager::getSprite(int num)

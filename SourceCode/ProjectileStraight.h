@@ -9,6 +9,6 @@ public:
     void deinit()override;
     void update()override;
     void render()override;
-    void Launch(VECTOR2 dir, VECTOR2 pos);
+   
 };
 

@@ -1,14 +1,14 @@
 #include "Projectile.h"
 #include "ProjectileManager.h"
 
-Projectile::Projectile(ProjectileManager* manager, Faction faction, int damage, kinds ownerId,float LifeLimit,std::shared_ptr<Sprite> s,VECTOR2 TEX_SIZE,VECTOR2 SCALE, VECTOR2 Speed, float Radius) : manager(manager), faction(faction), damage(damage), ownerId(ownerId),lifeLimit(LifeLimit)
+Projectile::Projectile(ProjectileManager* manager, Faction faction, int damage, kinds ownerId,float LifeLimit,std::shared_ptr<Sprite> s,VECTOR2 TEX_SIZE,VECTOR2 SCALE, VECTOR2 Speed, float Radius) : manager(manager), faction(faction), damage(damage), ownerId(ownerId),lifeLimit(LifeLimit),target(nullptr)
 {
 	speed = Speed;
 	scale = SCALE;
 	texSize = TEX_SIZE;
 	radius = Radius;
 	spr = s;
-	radius = texSize.x * 0.5f;
+	//radius = texSize.x * 0.5f;
 	manager->Register(this);
 }
 
@@ -20,4 +20,10 @@ void Projectile::Destroy()
 void Projectile::AnimeUpdate()
 {
 	animeUpdate(0, 5, 3, true);
+}
+
+void Projectile::Launch(VECTOR2 dir, VECTOR2 pos)
+{
+	this->dir = dir;
+	this->pos = pos;
 }

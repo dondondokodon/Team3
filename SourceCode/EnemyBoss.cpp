@@ -1,11 +1,13 @@
 #include "EnemyBoss.h"
 #include "ImageManager.h"
+#include "HitBox.h"
+#include "ProjectileManager.h"
 
 EnemyBoss::EnemyBoss() :coinReward(10000), maxSpeedX(10)
 {
 	hp              = 2000;
 	atk             = 100;
-	texSize         = { 1000.0f,500.0f };
+	texSize         = { 1000.0f,700.0f };
 	texPos          = { 0.0f,0.0f };
 	color           = { 1.0f,1.0f,1.0f,1.0f };
 	scale           = { 1.0f,1.0f };
@@ -21,15 +23,19 @@ EnemyBoss::EnemyBoss() :coinReward(10000), maxSpeedX(10)
 	spr             = nullptr;
 	invincibleTimer = 1.0f;
 	direction       = { 1,0 };
+	attackType = -1;
+	mellePos = { 0,0 };
+	melleRadius = 0;
+	isTargetRemoveOn = false;
 }
 
 EnemyBoss::EnemyBoss(VECTOR2 Pos) :coinReward(10000),maxSpeedX(10)
 {
 	hp              = 2000;
 	atk             = 100;
-	texSize         = { 1000.0f,500.0f };
+	texSize         = { 1000.0f,700.0f };
 	texPos          = { 0.0f,0.0f };
-	pos             = { 1000,500 };
+	pos             = { 1000,700 };
 	color           = { 1.0f,1.0f,1.0f,1.0f };
 	pivot           = { texSize.x * 0.5f,texSize.y * 0.5f };
 	speed           = { 0,0 };
@@ -44,6 +50,10 @@ EnemyBoss::EnemyBoss(VECTOR2 Pos) :coinReward(10000),maxSpeedX(10)
 	spr             = nullptr;
 	invincibleTimer = 1.0f;
 	direction       = { 1,0 };
+	attackType = -1;
+	mellePos = { 0,0 };
+	melleRadius = 0;
+	isTargetRemoveOn = false;
 }
 
 void EnemyBoss::init()
@@ -52,14 +62,14 @@ void EnemyBoss::init()
 		spr         = ImageManager::Instance().getSprite(ImageManager::SpriteNum::boss);
 	hp              = 2000;
 	atk             = 100;
-	texSize         = { 1000.0f,500.0f };
+	texSize         = { 1000.0f,700.0f };
 	texPos          = { 0.0f,0.0f };
 	color           = { 1.0f,1.0f,1.0f,1.0f };
 	scale           = { 1.0f,1.0f };
 	pivot           = { texSize.x * 0.5f,texSize.y * 0.5f };
 	speed           = { 0,0 };
 	offset          = { 0,0 };
-	act             = IDLE_INIT;
+	act             = WALK_INIT;
 	timer           = 0;
 	anime           = 0;
 	animeTimer      = 0;
@@ -68,17 +78,23 @@ void EnemyBoss::init()
 	invincibleTimer = 1.0f;
 	direction       = { 1,0 };
 	pos             = { 500,500 };
+	attackType      = -1;
+	mellePos = { 0,0 };
+	melleRadius = 0;
+	isTargetRemoveOn = false;
 }
 
 void EnemyBoss::deinit()
 {
-
+	isTargetRemoveOn = true;
 }
 
 void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 {
 	//攻撃出てない様にする
 	isAttackOn = false;
+	attackType = none;
+	isTargetRemoveOn = false;
 
 	//状態遷移
 	state();
@@ -120,7 +136,7 @@ void EnemyBoss::state()
 		act = IDLE;
 
 	case IDLE:
-		if (animeUpdate(0,0,1, true))		act = ATTACK1_INIT;
+		if (animeUpdate(5,16,6, true))		act = ATTACK1_INIT;
 		if (fabsf(speed.x) > 0.0f)			act = WALK_INIT;
 		break;
 
@@ -129,17 +145,27 @@ void EnemyBoss::state()
 		act = WALK;
 
 	case WALK:
-		animeUpdate(0,0,1, true);
+		animeUpdate(6,10,6, true);
 		if (fabsf(speed.x) <= 0.3f) act = IDLE_INIT;
 		break;
 
 	case ATTACK1_INIT:
 		anime_state = 0;
 		act = ATTACK1;
+		mellePos = { pos.x + (200 * direction.x),pos.y - 100 };
 
 	case ATTACK1:
-		if (animeUpdate(0, 0,1, false))	act = IDLE_INIT;
-		if (animeTimer == 8 * 6)	isAttackOn = true;	//球発射
+		if (animeUpdate(1, 9, 6, false))
+		{
+			act = IDLE_INIT;
+			isTargetRemoveOn = true;
+		}
+
+		if (animeTimer == 3 * 6)
+		{
+			isAttackOn = true;	//球発射
+			attackType = melle;
+		}
 
 		if (animeTimer > 9 * 6)
 			speed.x = 5.0f * -direction.x;				//ノックバック
@@ -148,6 +174,7 @@ void EnemyBoss::state()
 	case ATTACK2_INIT:
 		anime_state = 0;
 		act = ATTACK2;
+		
 
 	case ATTACK2:
 

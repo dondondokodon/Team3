@@ -38,6 +38,9 @@ public:
 	//íœƒŠƒXƒg‚É’Ç‰Á
 	void Remove(Projectile* projectile);
 
+	//target‚ª“¯‚¶Ò‚©‚ç‚Ìíœ—v¿
+	void targetRemove(Character* obj);
+
 	const std::vector<Projectile*>& GetPlayerProjectile() const { return playerProjectiles; }
 	const std::vector<Projectile*>& GetEnemyProjectile() const { return enemyProjectiles; }
 

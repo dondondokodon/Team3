@@ -98,3 +98,25 @@ void ProjectileManager::Remove(Projectile* projectile)
 {
 	removeList.insert(projectile);
 }
+
+//ターゲットが同じものを削除する
+void ProjectileManager::targetRemove(Character* obj)
+{
+	//敵
+	for (auto& p : enemyProjectiles)
+	{
+		if (p->getTarget() == obj)
+		{
+			Remove(p);
+		}
+	}
+
+	//プレイヤー
+	for (auto& p : playerProjectiles)
+	{
+		if (p->getTarget() == obj)
+		{
+			Remove(p);
+		}
+	}
+}

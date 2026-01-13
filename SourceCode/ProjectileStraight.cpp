@@ -6,12 +6,12 @@ ProjectileStraight::ProjectileStraight(ProjectileManager* manager, Faction facti
 	//spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load(L"./Data/Images/1213_coin6x6.png"));
 	pos = {SCREEN_W * 0.5f,SCREEN_H * 0.5f };
 	//scale = { 1,1 };
-	texPos = { 0,0 };
 	//texSize = { 44,66 };
 	//texSize = { 6,6 };
+	//speed = { 10,10 };
+	texPos = { 0,0 };
 	pivot = { texSize.x * 0.5f,texSize.y *0.5f};
 	color = { 1,1,1,1 };
-	//speed = { 10,10 };
 	offset = { 0,0 };
 	angle = 0;
 	act = 0;
@@ -47,9 +47,4 @@ void ProjectileStraight::render()
 {
 	//GameLib::primitive::circle(pos.x, pos.y, 50, 1, 1);
 	sprite_render(spr.get(), pos.x, pos.y, scale.x, scale.y, texPos.x, texPos.y, texSize.x, texSize.y, pivot.x, pivot.y, angle, color.x, color.y, color.z, color.w);
-}
-void ProjectileStraight::Launch(VECTOR2 dir, VECTOR2 pos)
-{
-	this->dir = dir;
-	this->pos = pos;
 }
