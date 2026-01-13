@@ -166,6 +166,7 @@
     <ClInclude Include="SourceCode\ProjectileManager.h" />
     <ClInclude Include="SourceCode\ProjectileStraight.h" />
     <ClInclude Include="SourceCode\Scene.h" />
+    <ClInclude Include="SourceCode\SceneBuildSlect.h" />
     <ClInclude Include="SourceCode\SceneGame.h" />
     <ClInclude Include="SourceCode\SceneMap.h" />
     <ClInclude Include="SourceCode\SceneTitle.h" />
@@ -208,6 +209,7 @@
     <ClCompile Include="SourceCode\ProjectileManager.cpp" />
     <ClCompile Include="SourceCode\ProjectileStraight.cpp" />
     <ClCompile Include="SourceCode\Scene.cpp" />
+    <ClCompile Include="SourceCode\SceneBuildSelect.cpp" />
     <ClCompile Include="SourceCode\SceneGame.cpp" />
     <ClCompile Include="SourceCode\SceneMap.cpp" />
     <ClCompile Include="SourceCode\SceneTitle.cpp" />

@@ -96,7 +96,7 @@ void Player::init()
 		addEffect(std::make_unique<VeryCostUp>());
 
 	//攻撃モーション短縮
-		if (Build::extraMotionRapid)
+	if (Build::extraMotionRapid)
 		addEffect(std::make_unique<MotionRapid>());
 
 	setHeavyCost();
@@ -129,7 +129,7 @@ void Player::update()
 	if (heavyAttack)
 	{
 		int useCoin = Coin::GetRatioCoin(getHeavyRatio());
-		//VECTOR2 bulletScale = (getAct() == Player::HEAVY_ATTACK2) ? VECTOR2{ 17.0f,17.0f } : VECTOR2{ 8.0f,8.0f };
+		heavyScale = (getAct() == Player::HEAVY_ATTACK2) ? VECTOR2{ 17.0f,17.0f } : VECTOR2{ 8.0f,8.0f };
 		ProjectileStraight* projectile = new ProjectileStraight(&ProjectileManager::Instance(), Projectile::Faction::player, Coin::calcDamage(10, useCoin), Projectile::kinds::heavy, heavyLifeLimit, playerBullet, heavyTexSize, heavyScale, heavySpeed, heavyRadius);
 		Coin::DegCoinNum(useCoin);
 		projectile->Launch(getDir(), getPos());
@@ -411,13 +411,19 @@ void Player::InputProjectile()
 	//Lで重攻撃
 	if (TRG(0) & PAD_TRG5)
 	{
-		act = HEAVY_ATTACK1_INIT;
+		if (Build::extraVeryCost)
+			act = HEAVY_ATTACK2_INIT;
+		else
+			act = HEAVY_ATTACK1_INIT;
 	}
 
 	//Jで重攻撃（重いバージョン　仮）
 	if (TRG(0) & PAD_TRG6)
 	{
-		act = HEAVY_ATTACK2_INIT;
+		if (Build::extraVeryCost)
+			act = HEAVY_ATTACK2_INIT;
+		else
+			act = HEAVY_ATTACK1_INIT;
 	}
 }
 
@@ -425,9 +431,9 @@ void Player::InputProjectile()
 /*-------------------------ビルド関連--------------------------*/
 int Player::GetMaxJump()
 {
-	int bouns = 0;
-	for (auto& e : builds) bouns += e->AddMaxJump();
-	return baseMaxJump + bouns;
+	int bounce = 0;
+	for (auto& e : builds) bounce += e->AddMaxJump();
+	return baseMaxJump + bounce;
 }
 
 void Player::setHeavyCost()

@@ -3,7 +3,7 @@
 #include"ImageManager.h"
 using namespace std;
 
-unique_ptr<ISCENE> scenes[SCENE_MAX] = { make_unique<SceneTitle>(),make_unique<SceneGame>(), make_unique<SceneMap>() };
+unique_ptr<ISCENE> scenes[SCENE_MAX] = { make_unique<SceneTitle>(),make_unique<SceneGame>(), make_unique<SceneMap>(), make_unique<SceneBuildSelect>()};
 
 
 int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)

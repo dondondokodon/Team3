@@ -19,8 +19,10 @@ protected:
 	VECTOR2 offset;
 	VECTOR2 direction;
 	int angle;
+	int type;
 
 	std::shared_ptr<GameLib::Sprite> spr;
+
 
 	int act;
 	int timer;
@@ -30,6 +32,8 @@ protected:
 	float radius;     // 半径
 
 public:
+	virtual ~Tile() = default;
+
 	void setSprite(std::shared_ptr<Sprite> s)
 	{
 		spr = s;
@@ -40,6 +44,15 @@ public:
 		if (!spr) return;
 		sprite_render(spr.get(), LocalPos.x, LocalPos.y, scale.x, scale.y, texPos.x, texPos.y, texSize.x, texSize.y, pivot.x, pivot.y, angle, color.x, color.y, color.z, color.w);
 	}
+
+	enum kinds
+	{
+		battle = 0,
+		middle,
+		last,
+		shop,
+		event
+	};
 
 	//void cameraRender(CAMERA& camera);
 
@@ -89,9 +102,24 @@ public:
 };
 
 //ビルド選択画面
-class Build_Tile : public Tile
+class Build_Select : public Tile
 {
 public:
+	Build_Select(VECTOR2 WPos)
+	{
+		spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load((L"./Data/Images/shop_room.png")));
+		LocalPos = WPos;
+		scale = { 1,1 };
+		texPos = { 0,0 };
+		texSize = { 1280,720 };
+		pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
+		color = { 1,1,1,1 };
+		speed = { 0,0 };
+		offset = { 0,0 };
+		direction = { 0,0 };
+	}
+	~Build_Select() {}
+
 	void update();
 	//void render();
 };
@@ -112,6 +140,8 @@ public:
 		speed = { 0,0 };
 		offset = { 0,0 };
 		direction = { 0,0 };
+		type = Tile::kinds::shop;
+
 	}
 	~Shop_Tile() {}
 
@@ -135,6 +165,8 @@ public:
 		speed = { 0,0 };
 		offset = { 0,0 };
 		direction = { 0,0 };
+		type = Tile::kinds::event;
+
 	}
 	~Event_Tile() {}
 
@@ -158,6 +190,8 @@ public:
 		speed = { 0,0 };
 		offset = { 0,0 };
 		direction = { 0,0 };
+		type = Tile::kinds::battle;
+
 	}
 	~Battle1_Tile() {}
 
@@ -181,6 +215,8 @@ public:
 		speed = { 0,0 };
 		offset = { 0,0 };
 		direction = { 0,0 };
+		type = Tile::kinds::middle;
+
 	}
 	~Battle2_Tile() {}
 
@@ -204,6 +240,8 @@ public:
 		speed = { 0,0 };
 		offset = { 0,0 };
 		direction = { 0,0 };
+		type = Tile::kinds::last;
+
 	}
 	~Battle3_Tile() {}
 
@@ -236,13 +274,14 @@ public:
 	void LastBoss();			//本ボス
 
 	//ルート分岐関連
-	void inputSelect();
+	void inputTileSelect();
 	void routePick();
 	void nextSpawn();
 
 	//数取得
 	int GetTileCount()const { return static_cast<int>(tiles.size()); }
 	int GetMovedTileCount()const { return static_cast<int>(movedTiles.size()); }
+
 
 	//本体取得
 	Tile* GetTile(int index) { return tiles.at(index).get(); }
@@ -264,5 +303,7 @@ private:
 
 	//マスを入れる配列
 	std::vector<std::unique_ptr<Tile>>	tiles;
+	//移動後のマスを入れる配列
 	std::vector<std::unique_ptr<Tile>>  movedTiles;
+
 };
