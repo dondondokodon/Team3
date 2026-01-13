@@ -29,6 +29,7 @@ public:
 		front,
 		ground,
 		boss,
+		coin,
 
 		Max
 	};

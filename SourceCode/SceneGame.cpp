@@ -6,6 +6,7 @@
 #include"common.h"
 #include"ProjectileManager.h"
 #include"EffektManager.h"
+#include"ImageManager.h"
 
 SceneGame::SceneGame()
 {
@@ -26,6 +27,8 @@ void SceneGame::init()
 	camera.init();
 	camera.setStageLimit(VECTOR2{ SCREEN_W + 1500.0f , 720.0f});
 	EnemyManager::instance().setCamera(camera);
+	coinUi.setSprite(ImageManager::Instance().getSprite(ImageManager::SpriteNum::coin));
+
 }
 
 void SceneGame::update()
@@ -82,6 +85,7 @@ void SceneGame::render()
 	player.cameraRender(camera);
 	player.hitAreaRender(camera);
 	ProjectileManager::Instance().Render(camera);
+	coinUi.render();
 }
 
 

@@ -6,6 +6,7 @@
 #include "CAMERA.h"
 #include "ProjectileManager.h"
 #include "ProjectileStraight.h"
+#include "Coin.h"
 
 class SceneGame:public ISCENE
 {
@@ -14,7 +15,7 @@ private:
 	Player player;
 	Stage01 stage;
 	CAMERA camera;
-
+	CoinUi coinUi;
 
 public:
 	SceneGame();
