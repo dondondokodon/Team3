@@ -6,6 +6,7 @@ void ImageManager::load()
 	spr[Enemy].reset(GameLib::sprite_load(L"./Data/Images/teki_motto_tadasii_sprite.png"));
 	spr[PlayerBullet].reset(GameLib::sprite_load(L"./Data/Images/1213_coin6x6.png"));
 	spr[EnemyBullet].reset(GameLib::sprite_load(L"./Data/Images/bullet.png"));
+
 	spr[Map].reset(GameLib::sprite_load(L"./Data/Images/map.png"));
 	spr[Shop].reset(GameLib::sprite_load(L"./Data/Images/shop.png"));
 	spr[Battle].reset(GameLib::sprite_load(L"./Data/Images/battle.png"));
@@ -23,6 +24,7 @@ void ImageManager::load()
 	spr[front].reset(GameLib::sprite_load(L"./Data/Images/back-front.png"));
 	spr[ground].reset(GameLib::sprite_load(L"./Data/Images/ground.png"));
 	spr[boss].reset(GameLib::sprite_load(L"./Data/Images/boss.png"));
+	spr[coin].reset(GameLib::sprite_load(L"./Data/Images/coinUi.png"));
 }
 
 std::shared_ptr<GameLib::Sprite> ImageManager::getSprite(int num)
