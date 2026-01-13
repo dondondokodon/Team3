@@ -8,6 +8,7 @@ void ImageManager::load()
 	spr[EnemyBullet].reset(GameLib::sprite_load(L"./Data/Images/bullet.png"));
 
 	spr[Map].reset(GameLib::sprite_load(L"./Data/Images/map.png"));
+	spr[boss].reset(GameLib::sprite_load(L"./Data/Images/eirian2.png"));
 	spr[Shop].reset(GameLib::sprite_load(L"./Data/Images/shop.png"));
 	spr[Battle].reset(GameLib::sprite_load(L"./Data/Images/battle.png"));
 	spr[MiddleBoss].reset(GameLib::sprite_load(L"./Data/Images/middleBoss.png"));
@@ -28,14 +29,12 @@ void ImageManager::load()
 	spr[casinoMiddle].reset(GameLib::sprite_load(L"./Data/Images/casinoMiddle.png"));
 	spr[casinoFront].reset(GameLib::sprite_load(L"./Data/Images/casinoFront.png"));
 
-
-	spr[boss].reset(GameLib::sprite_load(L"./Data/Images/boss.png"));
 	spr[coin].reset(GameLib::sprite_load(L"./Data/Images/coinUi.png"));
 }
 
 std::shared_ptr<GameLib::Sprite> ImageManager::getSprite(int num)
 {
-	//�͈͊O�`�F�b�N
+	//”ÍˆÍŠOƒ`ƒFƒbƒN
 	if (num >= Max)	return nullptr;
 	return spr[num];
 }

@@ -24,9 +24,17 @@ protected:
     bool moveInCamera;      //カメラの中に入ろうとする動きの条件
     bool isAttackOn=false;  //攻撃するか
     bool isHitOn = false;   //trueで被弾
+    bool isTargetRemoveOn = false;  //自分を参照しているターゲットを全て消す
     VECTOR2 hitPos;
+    int attackType = -1;
     
 public:
+    enum ATTACK_TYPE
+    {
+        none=-1,
+        bulet,
+        melle
+    };
     Enemy();
     Enemy(VECTOR2 Pos);
     virtual void init()override;
@@ -38,6 +46,8 @@ public:
     void degHp(int damage) { hp += -damage; }
     int getHp()const { return hp; }
     bool getIsAttackOn() { return isAttackOn; }
+    int getAttackType() { return attackType; }
+    bool getIsTargetRemoveOn() { return isTargetRemoveOn; }
     void moveHorizontalInCamera(CAMERA& camera);
     void Destroy();
     void setHitFlag(bool b) { isHitOn = b; }
