@@ -13,6 +13,10 @@ void ImageManager::load()
 	spr[LastBoss].reset(GameLib::sprite_load(L"./Data/Images/lastBoss.png"));
 	spr[Event].reset(GameLib::sprite_load(L"./Data/Images/event.png"));
 	spr[InShop].reset(GameLib::sprite_load(L"./Data/Images/shop_room.png"));
+	spr[veryCostUp].reset(GameLib::sprite_load(L"./Data/Images/build0.png"));
+	spr[extraJump].reset(GameLib::sprite_load(L"./Data/Images/build1.png"));
+	spr[motionRapid].reset(GameLib::sprite_load(L"./Data/Images/build2.png"));
+
 	spr[back].reset(GameLib::sprite_load(L"./Data/Images/back.png"));
 	spr[backBack].reset(GameLib::sprite_load(L"./Data/Images/back-back.png"));
 	spr[middle].reset(GameLib::sprite_load(L"./Data/Images/back-middle.png"));
