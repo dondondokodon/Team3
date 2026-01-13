@@ -214,6 +214,7 @@
     <ClCompile Include="SourceCode\SceneMap.cpp" />
     <ClCompile Include="SourceCode\SceneTitle.cpp" />
     <ClCompile Include="SourceCode\stage01.cpp" />
+    <ClCompile Include="SourceCode\Stage02.cpp" />
     <ClCompile Include="SourceCode\StageSpawnRules.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

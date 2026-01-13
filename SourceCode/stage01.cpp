@@ -5,7 +5,7 @@
 void Stage01::init()
 {
 	//”wŒiiƒOƒ‰ƒf[ƒVƒ‡ƒ“j
-	back.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::back);
+	back.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::billBack);
 	back.pos = { 0,0 };
 	back.scale = { 1,1 };
 	back.texPos = { 0,0 };
@@ -23,7 +23,7 @@ void Stage01::init()
 	back.radius = 0;
 
 	//‰“X”wŒi
-	back_back.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::backBack);
+	back_back.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::billBackBack);
 	back_back.pos = { 0,0 };
 	back_back.scale = { 1,1 };
 	back_back.texPos = { 0,0 };
@@ -41,7 +41,7 @@ void Stage01::init()
 	back_back.radius = 0;
 
 	//’†”wŒi
-	middle.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::middle);
+	middle.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::billMiddle);
 	middle.pos = { 0,0 };
 	middle.scale = { 1,1 };
 	middle.texPos = { 0,0 };
@@ -59,7 +59,7 @@ void Stage01::init()
 	middle.radius = 0;
 
 	//‹ß”wŒi
-	front.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::front);
+	front.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::billFront);
 	front.pos = { 0,0 };
 	front.scale = { 1,1 };
 	front.texPos = { 0,0 };
@@ -78,7 +78,7 @@ void Stage01::init()
 
 
 	//’n–Ê
-	ground.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::ground);
+	ground.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::billGround);
 	ground.pos = { 0,0 };
 	ground.scale = { 1,1 };
 	ground.texPos = { 0,0 };

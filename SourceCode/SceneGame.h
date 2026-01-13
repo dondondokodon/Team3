@@ -13,7 +13,8 @@ class SceneGame:public ISCENE
 private:
 	int frame;
 	Player player;
-	Stage01 stage;
+	Stage01 stage01;
+	Stage02 stage02;
 	CAMERA camera;
 	CoinUi coinUi;
 

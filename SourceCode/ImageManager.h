@@ -13,6 +13,7 @@ public:
 		Enemy,
 		PlayerBullet,
 		EnemyBullet,
+
 		Map,
 		Shop,
 		Battle,
@@ -20,15 +21,25 @@ public:
 		LastBoss,
 		Event,
 		InShop,
+
 		veryCostUp,
 		extraJump,
 		motionRapid,
-		back,
-		backBack,
-		middle,
-		front,
-		ground,
+
+		billBack,
+		billBackBack,
+		billMiddle,
+		billFront,
+		billGround,
+
+		casinoBack,
+		casinoBackBack,
+		casinoMiddle,
+		casinoFront,
+		casinoGround,
+
 		boss,
+
 		coin,
 
 		Max
