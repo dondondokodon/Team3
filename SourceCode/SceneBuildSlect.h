@@ -9,6 +9,21 @@ class BuildCard : public OBJ2D
 {
 public:
 	virtual void update() {};
+	enum kinds
+	{
+		veryCost,
+		extraJump,
+		motionRapid,
+	};
+
+	enum rank
+	{
+		weak,
+		strong
+	};
+
+	int build = -1;
+	int power = -1;
 };
 
 //ƒrƒ‹ƒh0
@@ -27,6 +42,8 @@ public:
 		speed = { 0,0 };
 		offset = { 0,0 };
 		direction = { 0,0 };
+		build = BuildCard::kinds::veryCost;
+		power = BuildCard::rank::strong;
 	}
 	~VeryCostUpBuild() {}
 
@@ -50,6 +67,8 @@ public:
 		speed = { 0,0 };
 		offset = { 0,0 };
 		direction = { 0,0 };
+		build = BuildCard::kinds::extraJump;
+		power = BuildCard::rank::weak;
 	}
 	~ExtraJumpBuild() {}
 
@@ -73,6 +92,8 @@ public:
 		speed = { 0,0 };
 		offset = { 0,0 };
 		direction = { 0,0 };
+		build = BuildCard::kinds::motionRapid;
+		power = BuildCard::rank::weak;
 	}
 	~MotionRapidBuild() {}
 
