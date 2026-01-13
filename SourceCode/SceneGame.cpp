@@ -6,6 +6,7 @@
 #include"common.h"
 #include"ProjectileManager.h"
 #include"EffektManager.h"
+#include"ImageManager.h"
 
 SceneGame::SceneGame()
 {
@@ -20,12 +21,15 @@ void SceneGame::init()
 	frame = 0;
 	timer = 0;
 	player.init();
-	stage.init();
+	stage01.init();
+	//stage02.init();
 	EnemyManager::instance().init();
 	EffektManager::Instance().init();
 	camera.init();
 	camera.setStageLimit(VECTOR2{ SCREEN_W + 1500.0f , 720.0f});
 	EnemyManager::instance().setCamera(camera);
+	coinUi.setSprite(ImageManager::Instance().getSprite(ImageManager::SpriteNum::coin));
+
 }
 
 void SceneGame::update()
@@ -56,7 +60,8 @@ void SceneGame::update()
 		player.update();
 		EnemyManager::instance().update(camera);
 		EffektManager::Instance().update(camera);
-		stage.update();
+		stage01.update();
+		//stage02.update();
 
 		//デバッグ用
 		if (TRG(0) & PAD_SELECT)
@@ -76,12 +81,14 @@ void SceneGame::update()
 void SceneGame::render()
 {
 	GameLib::clear(1, 0, 1);
-	stage.cameraRender(camera);
+	stage01.cameraRender(camera);
+	//stage02.cameraRender(camera);
 	EnemyManager::instance().render(camera);
 	EffektManager::Instance().render(camera);
 	player.cameraRender(camera);
 	player.hitAreaRender(camera);
 	ProjectileManager::Instance().Render(camera);
+	coinUi.render();
 }
 
 

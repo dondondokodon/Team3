@@ -1,7 +1,5 @@
 #include"SceneMap.h"
 #include "../GameLib/game_lib.h"
-#include "Build.h"
-#include"ImageManager.h"
 
 
 int moveTile = 0;	//何マス進んだかをカウント
@@ -40,7 +38,7 @@ void SceneMap::update()
 					MiddleBoss();
 
 			}
-			else//ぜ～んぶ仮置き
+			else//ぜ～んぶ仮置き　後でランダムにしたい
 			{
 				if (moveTile % 2 == 0)
 					ShopAndBattle();
@@ -140,7 +138,7 @@ void Battle1_Tile::update()
 	}
 
 	
-	//debug::setString("battle");
+	debug::setString("battle");
 
 }
 
@@ -154,7 +152,7 @@ void Battle2_Tile::update()
 	}
 
 	
-	//debug::setString("battle");
+	debug::setString("battle");
 
 }
 void Battle3_Tile::update()
@@ -167,23 +165,18 @@ void Battle3_Tile::update()
 	}
 
 	
-	//debug::setString("battle");
+	debug::setString("battle");
 
 }
 
 void Shop_Tile::update()
 {
-	if (GameLib::input::TRG(0) & GameLib::input::PAD_START)
+	if (GameLib::input::TRG_RELEASE(0) & GameLib::input::PAD_START)
 	{
-		Build::extraJump = true;
-		//Build::extraCost = true;
-		Build::extraVeryCost = true;
-		Build::extraMotionRapid = true;
-		ISCENE::nextScene = SCENE_GAME;
-
+		ISCENE::nextScene = SCENE_BUILD;
 	}
-
-	//debug::setString("shop");
+	
+	debug::setString("shop");
 
 }
 
@@ -191,15 +184,15 @@ void Event_Tile::update()
 {
 	if (GameLib::input::TRG(0) & GameLib::input::PAD_START)
 	{
-		Build::extraJump = true;
+		//Build::extraJump = true;
 		//Build::extraCost = true;
-		Build::extraVeryCost = true;
-		Build::extraMotionRapid = true;
+		//Build::extraVeryCost = true;
+		//Build::extraMotionRapid = true;
 		ISCENE::nextScene = SCENE_GAME;
 
 	}
 
-	//debug::setString("shop");
+	debug::setString("event");
 
 }
 
@@ -241,7 +234,7 @@ void SceneMap::LastBoss()			//本ボス
 
 }
 
-void SceneMap::inputSelect()
+void SceneMap::inputTileSelect()
 {
 
 	if (GameLib::input::TRG(0) & GameLib::input::PAD_UP)	//W
@@ -266,7 +259,7 @@ void SceneMap::inputSelect()
 
 void SceneMap::routePick()
 {
-	inputSelect();
+	inputTileSelect();
 
 	Tile* nowTile = GetTile(i);
 
@@ -289,7 +282,7 @@ void SceneMap::routePick()
 
 		tile->setLocalPos(WorldToLocal(tile->getWorldPos()));
 
-		tile->update();
+		//tile->update();
 		if (tile != nowTile)
 			tile->setScale({ 1,1 });
 

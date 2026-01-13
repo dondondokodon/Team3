@@ -13,13 +13,34 @@ public:
 		Enemy,
 		PlayerBullet,
 		EnemyBullet,
+
 		Map,
-		back,
-		backBack,
-		middle,
-		front,
-		ground,
+		Shop,
+		Battle,
+		MiddleBoss,
+		LastBoss,
+		Event,
+		InShop,
+
+		veryCostUp,
+		extraJump,
+		motionRapid,
+
+		billBack,
+		billBackBack,
+		billMiddle,
+		billFront,
+		billGround,
+
+		casinoBack,
+		casinoBackBack,
+		casinoMiddle,
+		casinoFront,
+		casinoGround,
+
 		boss,
+
+		coin,
 
 		Max
 	};

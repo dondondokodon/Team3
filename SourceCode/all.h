@@ -8,6 +8,7 @@
 #include"SceneGame.h"
 #include"SceneTitle.h"
 #include"SceneMap.h"
+#include"SceneBuildSlect.h"
 #include"stage.h"
 #include"Coin.h"
 

@@ -1,4 +1,5 @@
 #pragma once
+#include "OBJ2D.h"
 
 //コイン（HPも兼ねているMPみたいなイメージ）
 class Coin
@@ -26,3 +27,11 @@ public:
 
 };
 
+class CoinUi : public OBJ2D
+{
+public:
+	CoinUi();
+	~CoinUi() {}
+
+	void update(){}
+};

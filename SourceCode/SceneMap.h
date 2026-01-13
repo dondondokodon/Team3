@@ -2,6 +2,7 @@
 #include"Scene.h"
 #include"../GameLib/game_lib.h"
 #include "CAMERA.h"
+#include"ImageManager.h"
 
 
 
@@ -19,8 +20,10 @@ protected:
 	VECTOR2 offset;
 	VECTOR2 direction;
 	int angle;
+	int type;
 
 	std::shared_ptr<GameLib::Sprite> spr;
+
 
 	int act;
 	int timer;
@@ -30,6 +33,8 @@ protected:
 	float radius;     // 半径
 
 public:
+	virtual ~Tile() = default;
+
 	void setSprite(std::shared_ptr<Sprite> s)
 	{
 		spr = s;
@@ -40,6 +45,15 @@ public:
 		if (!spr) return;
 		sprite_render(spr.get(), LocalPos.x, LocalPos.y, scale.x, scale.y, texPos.x, texPos.y, texSize.x, texSize.y, pivot.x, pivot.y, angle, color.x, color.y, color.z, color.w);
 	}
+
+	enum kinds
+	{
+		battle = 0,
+		middle,
+		last,
+		shop,
+		event
+	};
 
 	//void cameraRender(CAMERA& camera);
 
@@ -88,21 +102,13 @@ public:
 	//void render();
 };
 
-//ビルド選択画面
-class Build_Tile : public Tile
-{
-public:
-	void update();
-	//void render();
-};
-
 //店
 class Shop_Tile : public Tile
 {
 public:
 	Shop_Tile(VECTOR2 WPos)
 	{
-		spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load((L"./Data/Images/shop.png")));
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Shop);
 		WorldPos = WPos;
 		scale = { 1,1 };
 		texPos = { 0,0 };
@@ -112,6 +118,8 @@ public:
 		speed = { 0,0 };
 		offset = { 0,0 };
 		direction = { 0,0 };
+		type = Tile::kinds::shop;
+
 	}
 	~Shop_Tile() {}
 
@@ -125,7 +133,7 @@ class Event_Tile : public Tile
 public:
 	Event_Tile(VECTOR2 WPos)
 	{
-		spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load((L"./Data/Images/event.png")));
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Event);
 		WorldPos = WPos;
 		scale = { 1,1 };
 		texPos = { 0,0 };
@@ -135,6 +143,8 @@ public:
 		speed = { 0,0 };
 		offset = { 0,0 };
 		direction = { 0,0 };
+		type = Tile::kinds::event;
+
 	}
 	~Event_Tile() {}
 
@@ -148,7 +158,7 @@ class Battle1_Tile : public Tile
 public:
 	Battle1_Tile(VECTOR2 WPos)
 	{
-		spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load((L"./Data/Images/battle.png")));
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Battle);
 		WorldPos = WPos;
 		scale = { 1,1 };
 		texPos = { 0,0 };
@@ -158,6 +168,8 @@ public:
 		speed = { 0,0 };
 		offset = { 0,0 };
 		direction = { 0,0 };
+		type = Tile::kinds::battle;
+
 	}
 	~Battle1_Tile() {}
 
@@ -171,7 +183,7 @@ class Battle2_Tile : public Tile
 public:
 	Battle2_Tile(VECTOR2 WPos)
 	{
-		spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load((L"./Data/Images/middleBoss.png")));
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::MiddleBoss);
 		WorldPos = WPos;
 		scale = { 1,1 };
 		texPos = { 0,0 };
@@ -181,6 +193,8 @@ public:
 		speed = { 0,0 };
 		offset = { 0,0 };
 		direction = { 0,0 };
+		type = Tile::kinds::middle;
+
 	}
 	~Battle2_Tile() {}
 
@@ -194,7 +208,7 @@ class Battle3_Tile : public Tile
 public:
 	Battle3_Tile(VECTOR2 WPos)
 	{
-		spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load((L"./Data/Images/lastBoss.png")));
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::LastBoss);
 		WorldPos = WPos;
 		scale = { 1,1 };
 		texPos = { 0,0 };
@@ -204,6 +218,8 @@ public:
 		speed = { 0,0 };
 		offset = { 0,0 };
 		direction = { 0,0 };
+		type = Tile::kinds::last;
+
 	}
 	~Battle3_Tile() {}
 
@@ -236,13 +252,14 @@ public:
 	void LastBoss();			//本ボス
 
 	//ルート分岐関連
-	void inputSelect();
+	void inputTileSelect();
 	void routePick();
 	void nextSpawn();
 
 	//数取得
 	int GetTileCount()const { return static_cast<int>(tiles.size()); }
 	int GetMovedTileCount()const { return static_cast<int>(movedTiles.size()); }
+
 
 	//本体取得
 	Tile* GetTile(int index) { return tiles.at(index).get(); }
@@ -264,5 +281,7 @@ private:
 
 	//マスを入れる配列
 	std::vector<std::unique_ptr<Tile>>	tiles;
+	//移動後のマスを入れる配列
 	std::vector<std::unique_ptr<Tile>>  movedTiles;
+
 };

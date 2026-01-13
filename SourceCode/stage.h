@@ -82,4 +82,25 @@ public:
 
 };
 
+//ステージ2
+class Stage02 : public Stage
+{
+private:
+	StageLayer back;		//背景（グラデーション）
+	//StageLayer back_back;	//遠々背景
+	StageLayer middle;		//中背景
+	StageLayer front;		//近背景
+	//StageLayer ground;		//地面
+
+public:
+	Stage02() {};
+	~Stage02()override {};
+	void init()override;
+	void update()override;
+	void deinit()override;
+	void render()override;
+	void cameraRender(CAMERA camera);
+
+};
+
 //以下、ステージを追加するときはStageを継承する
