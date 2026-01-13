@@ -20,7 +20,7 @@ void SceneBuildSelect::update()
 		state++;
 
 	case 1:
-		showWindow.emplace_back(std::make_unique<VeryCostUpBuild>(VECTOR2{ 200,360 }));
+		showWindow.emplace_back(std::make_unique<VeryCostUpBuild>(VECTOR2{ 240,360 }));
 		showWindow.emplace_back(std::make_unique<ExtraJumpBuild>(VECTOR2{ 640,360 }));
 		showWindow.emplace_back(std::make_unique<MotionRapidBuild>(VECTOR2{ 1040,360 }));
 		state++;
