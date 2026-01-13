@@ -1,7 +1,5 @@
 #include"SceneMap.h"
 #include "../GameLib/game_lib.h"
-#include "Build.h"
-#include"ImageManager.h"
 
 
 int moveTile = 0;	//何マス進んだかをカウント
@@ -181,21 +179,6 @@ void Shop_Tile::update()
 	}
 	
 	debug::setString("shop");
-
-}
-
-void Build_Select::update()
-{
-	if (GameLib::input::TRG(0) & GameLib::input::PAD_START)
-	{
-		Build::extraJump = true;
-		Build::extraVeryCost = true;
-		Build::extraMotionRapid = true;
-		ISCENE::nextScene = SCENE_GAME;
-
-	}
-
-	debug::setString("Build");
 
 }
 

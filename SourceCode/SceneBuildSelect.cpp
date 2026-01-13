@@ -1,11 +1,12 @@
 #include "SceneBuildSlect.h"
-
+#include "Build.h"
 #include "../GameLib/game_lib.h"
 using namespace input;
 
 void SceneBuildSelect::init()
 {
 	state = 0;
+	spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::InShop);
 
 }
 
@@ -33,7 +34,8 @@ void SceneBuildSelect::update()
 void SceneBuildSelect::render()
 {
 	GameLib::clear(0, 0.6, 1);
-
+	if (!spr) return;
+	sprite_render(spr.get(), 0, 0, 1, 1, 0, 0, 1280, 720, 0, 0, 0, 1, 1, 1, 1);
 
 
 }
