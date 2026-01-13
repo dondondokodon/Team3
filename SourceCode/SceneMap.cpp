@@ -6,12 +6,10 @@ int moveTile = 0;	//何マス進んだかをカウント
 int move5 = 0;
 int nemuturai = 0;
 int i;				//どのマスにいるか
-int j;				//どのカードを選んでいるか
 
 void SceneMap::init()
 {
 	i = 0;
-	j = 0;
 	//ShopAndBattle();	//後でランダムで出るようにしたら完成？
 	state = 0;
 	Map.setSprite(ImageManager::Instance().getSprite(ImageManager::SpriteNum::Map));
