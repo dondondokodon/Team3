@@ -2,6 +2,7 @@
 #include"Scene.h"
 #include"../GameLib/game_lib.h"
 #include "CAMERA.h"
+#include"ImageManager.h"
 
 
 
@@ -101,36 +102,13 @@ public:
 	//void render();
 };
 
-//ƒrƒ‹ƒh‘I‘ð‰æ–Ê
-class Build_Select : public Tile
-{
-public:
-	Build_Select(VECTOR2 WPos)
-	{
-		spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load((L"./Data/Images/shop_room.png")));
-		LocalPos = WPos;
-		scale = { 1,1 };
-		texPos = { 0,0 };
-		texSize = { 1280,720 };
-		pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
-		color = { 1,1,1,1 };
-		speed = { 0,0 };
-		offset = { 0,0 };
-		direction = { 0,0 };
-	}
-	~Build_Select() {}
-
-	void update();
-	//void render();
-};
-
 //“X
 class Shop_Tile : public Tile
 {
 public:
 	Shop_Tile(VECTOR2 WPos)
 	{
-		spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load((L"./Data/Images/shop.png")));
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Shop);
 		WorldPos = WPos;
 		scale = { 1,1 };
 		texPos = { 0,0 };
@@ -155,7 +133,7 @@ class Event_Tile : public Tile
 public:
 	Event_Tile(VECTOR2 WPos)
 	{
-		spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load((L"./Data/Images/event.png")));
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Event);
 		WorldPos = WPos;
 		scale = { 1,1 };
 		texPos = { 0,0 };
@@ -180,7 +158,7 @@ class Battle1_Tile : public Tile
 public:
 	Battle1_Tile(VECTOR2 WPos)
 	{
-		spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load((L"./Data/Images/battle.png")));
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Battle);
 		WorldPos = WPos;
 		scale = { 1,1 };
 		texPos = { 0,0 };
@@ -205,7 +183,7 @@ class Battle2_Tile : public Tile
 public:
 	Battle2_Tile(VECTOR2 WPos)
 	{
-		spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load((L"./Data/Images/middleBoss.png")));
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::MiddleBoss);
 		WorldPos = WPos;
 		scale = { 1,1 };
 		texPos = { 0,0 };
@@ -230,7 +208,7 @@ class Battle3_Tile : public Tile
 public:
 	Battle3_Tile(VECTOR2 WPos)
 	{
-		spr = std::shared_ptr<GameLib::Sprite>(GameLib::sprite_load((L"./Data/Images/lastBoss.png")));
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::LastBoss);
 		WorldPos = WPos;
 		scale = { 1,1 };
 		texPos = { 0,0 };

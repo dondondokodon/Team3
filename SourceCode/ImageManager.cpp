@@ -7,6 +7,12 @@ void ImageManager::load()
 	spr[PlayerBullet].reset(GameLib::sprite_load(L"./Data/Images/1213_coin6x6.png"));
 	spr[EnemyBullet].reset(GameLib::sprite_load(L"./Data/Images/bullet.png"));
 	spr[Map].reset(GameLib::sprite_load(L"./Data/Images/map.png"));
+	spr[Shop].reset(GameLib::sprite_load(L"./Data/Images/shop.png"));
+	spr[Battle].reset(GameLib::sprite_load(L"./Data/Images/battle.png"));
+	spr[MiddleBoss].reset(GameLib::sprite_load(L"./Data/Images/middleBoss.png"));
+	spr[LastBoss].reset(GameLib::sprite_load(L"./Data/Images/lastBoss.png"));
+	spr[Event].reset(GameLib::sprite_load(L"./Data/Images/event.png"));
+	spr[InShop].reset(GameLib::sprite_load(L"./Data/Images/shop_room.png"));
 	spr[back].reset(GameLib::sprite_load(L"./Data/Images/back.png"));
 	spr[backBack].reset(GameLib::sprite_load(L"./Data/Images/back-back.png"));
 	spr[middle].reset(GameLib::sprite_load(L"./Data/Images/back-middle.png"));
