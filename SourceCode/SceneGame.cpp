@@ -29,7 +29,7 @@ void SceneGame::init()
 	camera.setStageLimit(VECTOR2{ SCREEN_W + 1500.0f , 720.0f});
 	EnemyManager::instance().setCamera(camera);
 	coinUi.setSprite(ImageManager::Instance().getSprite(ImageManager::SpriteNum::coin));
-
+	//player.setDef(50);
 }
 
 void SceneGame::update()
@@ -128,7 +128,7 @@ void SceneGame::Collision()
 				if (hitCircle(p->getPos(), p->getRadius(), e->getPos(), e->getRadius()))
 				{
 					p->Destroy();
-					e->degHp(p->getDamage());
+					e->degHp(e->calcProtectingDamage(p->getDamage()));
 					e->setInvincibleTimer(1.5f);
 					e->setHitFlag(true);
 
@@ -165,7 +165,7 @@ void SceneGame::Collision()
 				if (hitCircle(player.getPos(), player.getRadius(), e->getPos(), e->getRadius()))
 				{
 					e->Destroy();
-					Coin::DegCoinNum(e->getDamage());
+					Coin::DegCoinNum(player.calcProtectingDamage(e->getDamage()));
 					player.setInvincibleTimer(1.5f);
 				}
 			}
