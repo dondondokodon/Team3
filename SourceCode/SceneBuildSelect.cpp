@@ -96,7 +96,8 @@ void MotionRapidBuild::update()
 {
 	if (TRG(0) & PAD_START)
 	{
-		Build::extraMotionRapid = true;
+		//Build::extraMotionRapid = true;
+		Build::extraMoonGravity = true;
 		ISCENE::nextScene = SCENE_GAME;
 	}
 

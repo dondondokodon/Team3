@@ -36,32 +36,32 @@ Player::Player():MAX_SPEED({7,25})
 
 void Player::init()
 {
-	pos			   = { SCREEN_W * 0.5f,SCREEN_H * 0.5f };
-	scale		   = { 1,1 };
-	texPos		   = { 0,0 };
-	texSize		   = { 320,320 };
-	pivot		   = { texSize.x * 0.5f,texSize.y * 0.5f};
-	color		   = { 1,1,1,1 };
-	speed		   = { 0,0 };
-	offset		   = { 0,50*scale.y };
-	angle		   = 0;
+	pos = { SCREEN_W * 0.5f,SCREEN_H * 0.5f };
+	scale = { 1,1 };
+	texPos = { 0,0 };
+	texSize = { 320,320 };
+	pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
+	color = { 1,1,1,1 };
+	speed = { 0,0 };
+	offset = { 0,50 * scale.y };
+	angle = 0;
 	if (!spr)
 		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player);
-	act            = 0;
-	timer          = 0;
-	anime          = 0;
-	animeTimer     = 0;
-	anime_state    = 0;
-	radius         = texSize.x * 0.2f*scale.x;
-	atk            = 0;
-	gold           = 0;
-	returnGold     = 0;
+	act = 0;
+	timer = 0;
+	anime = 0;
+	animeTimer = 0;
+	anime_state = 0;
+	radius = texSize.x * 0.2f * scale.x;
+	atk = 0;
+	gold = 0;
+	returnGold = 0;
 	attack2Reserve = false;
-	isGround       = false;
-	heavyAttack    = false;
-	baseMaxJump	   = 2;
-	jumpCount      = 0;
-	direction      = { 1,0 };
+	isGround = false;
+	heavyAttack = false;
+	baseMaxJump = 2;
+	jumpCount = 0;
+	direction = { 1,0 };
 	invincibleTimer = 1.0f;
 	attack_frame = 5;
 
@@ -82,6 +82,8 @@ void Player::init()
 	heavyTexSize = { 6,6 };
 	heavyRadius = 3.0f;
 
+	setFallEnergy(VECTOR2{ 0.0f,1.3f });
+	setDef(0);
 
 	//3段ジャンプ
 	if (Build::extraJump)
@@ -99,9 +101,15 @@ void Player::init()
 	if (Build::extraMotionRapid)
 		addEffect(std::make_unique<MotionRapid>());
 
+	//重力低下
+	if (Build::extraMoonGravity)
+		addEffect(std::make_unique<moonGravity>());
+
 	setHeavyCost();
 	setHeavyVeryCost();
 	setAttackFrame();
+	setGravity();
+	setDEF();
 }
 
 void Player::deinit()
@@ -144,7 +152,7 @@ void Player::update()
 
 	//重力と地面判定
 	if(!isGround)
-	gravity(this);
+	gravity(this, fallEnergy);
 	if (pos.y > GROUND_Y - pivot.y)
 	{
 		pos.y = GROUND_Y - pivot.y;
@@ -467,5 +475,24 @@ void Player::setAttackFrame()
 	int frame = 0;
 	for (auto& e : builds)	frame += e->degMotionFrameSpeed();
 	degAttackFrame(frame);
+
+}
+
+void Player::setGravity()
+{
+	VECTOR2 energy = {};
+	for (auto& e : builds)	energy += e->degGravity();
+	if (energy.y > 0)
+		setFallEnergy(calcFallEnergy(energy));
+	else
+		setFallEnergy(VECTOR2{ 0.0f, 1.3f });
+}
+
+void Player::setDEF()
+{
+	float def = 0;
+	for (auto& e : builds)	def += e->degDefense();
+	setDef(def);
+
 
 }

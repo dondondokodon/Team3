@@ -55,10 +55,10 @@ void OBJ2D::cameraRender(CAMERA& camera)
 }
 
 
-void gravity(OBJ2D* obj)
+void gravity(OBJ2D* obj, VECTOR2 energy)
 {
 	//‰º‚É‰Á‘¬
-	obj->setSpeed(obj->getSpeed() + VECTOR2{ 0,1.3f });
+	obj->setSpeed(obj->getSpeed() + energy);
 }
 
 void friction(OBJ2D* obj)	//–€ŽC

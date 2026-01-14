@@ -124,7 +124,7 @@ void Enemy::update(CAMERA& camera, VECTOR2 targetPos)
 	//èdóÕ
 	if (gravityOn)
 	{
-		gravity(this);
+		gravity(this, fallEnergy);
 		timer++;
 		if (hitPos.y<pos.y)
 		{

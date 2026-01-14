@@ -31,6 +31,8 @@ public:
 	void setHeavyCost();
 	void setHeavyVeryCost();
 	void setAttackFrame();
+	void setGravity();
+	void setDEF();
 
 	bool lightAttack = false;	//軽攻撃フラグ
 	bool heavyAttack = true;	//重攻撃フラグ
