@@ -31,15 +31,18 @@ public:
 	void invincibleTimerUpdate() { if (invincibleTimer > 0.0f)	invincibleTimer -= 0.1f; }
 
 	void setDef(float def) { this->def = def * 0.01f; }	//100•ª—¦‚É•ÏŠ·
-	void addDef(float def) { this->def += def; }
-	void degDef(float def) { this->def -= def; }
+	void addDef(float def) { this->def += def * 0.01f; }
+	void degDef(float def) { this->def -= def * 0.01f; }
 	float getDef()const { return def; }
 	int calcProtectingDamage(int damage);
 
+	void setFallEnergy(VECTOR2 energy) { fallEnergy = energy; }
+	VECTOR2 calcFallEnergy(VECTOR2 energy);
 protected:
 	int atk              = 0;	//UŒ‚—Í
 	float invincibleTimer=1.0f;	//–³“GŠÔ 0ˆÈã–³“Gó‘Ô
 	float def			 = 0;	//–hŒä—Í	“G‚à©‹@‚à‰Šú’l‚Í‚O
+	VECTOR2 fallEnergy = { 0.0f,1.3f };	//d—Í‚ğ‚¢‚¶‚è‚½‚­‚È‚Á‚½
 
 	VECTOR2 mellePos = { 0,0 };	//‹ßÚUŒ‚—p
 	float   melleRadius = 0;

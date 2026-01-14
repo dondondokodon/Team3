@@ -18,6 +18,7 @@ public:
 	static bool extraCost;
 	static bool extraVeryCost;
 	static bool extraMotionRapid;
+	static bool extraMoonGravity;
 
 	//’†g
 	virtual int AddMaxJump() const { return 0; }
@@ -28,6 +29,8 @@ public:
 	virtual float AddProjectileRadius() const { return  0.0f; }
 	virtual float DegProjectileLife()const { return 0.0f; }
 	virtual int degMotionFrameSpeed()const { return 0.0f; }
+	virtual VECTOR2 degGravity() const { return { 0.0f,0.0f }; }
+	virtual float degDefense() const { return 0.0f; }
 
 
 };
@@ -68,4 +71,13 @@ public:
 	~MotionRapid(){}
 	int degMotionFrameSpeed()const;
 	
+};
+
+//d—Í’á‰º+”íƒ_ƒ‘‰Á
+class moonGravity : public Build
+{
+public:
+	~moonGravity(){}
+	VECTOR2 degGravity() const;
+	float degDefense() const;
 };

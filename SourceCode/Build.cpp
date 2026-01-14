@@ -5,6 +5,7 @@ bool Build::extraJump = false;
 bool Build::extraCost = false;
 bool Build::extraVeryCost = false;
 bool Build::extraMotionRapid = false;
+bool Build::extraMoonGravity = false;
 
 
 //ƒWƒƒƒ“ƒv’Ç‰Á
@@ -47,4 +48,16 @@ float VeryCostUp::AddProjectileRadius() const
 int MotionRapid::degMotionFrameSpeed()const
 {
 	return 2;	//frame-2
+}
+
+//d—Í‚ğ6•ª‚Ì1‚É
+VECTOR2 moonGravity::degGravity() const
+{
+	return { 0.0f,0.6f };	//1.3 * 0.6
+}
+
+//–hŒä—Í‚ğ‰º‚°‚é
+float moonGravity::degDefense() const
+{
+	return -30.0f;	//30%down
 }

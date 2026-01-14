@@ -16,3 +16,7 @@ int Character::calcProtectingDamage(int damage)
 	if (calcDamage)	return calcDamage;
 	return 0;
 }
+VECTOR2 Character::calcFallEnergy(VECTOR2 energy)
+{
+	return { fallEnergy.x * energy.x, fallEnergy.y * energy.y };
+}
