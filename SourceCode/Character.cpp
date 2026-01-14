@@ -8,3 +8,11 @@
 // B「この３人で集まったんやったら心すぽいかん？」
 // 僕たち３人は心霊スポットに行きたいと普段から話している３人組でした。
 //機会がなくてついいつも逃してしまうが行きたいと私はよく話していました
+
+int Character::calcProtectingDamage(int damage)
+{
+	int calcDef = damage * def;
+	int calcDamage = damage - calcDef;
+	if (calcDamage)	return calcDamage;
+	return 0;
+}

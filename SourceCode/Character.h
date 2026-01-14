@@ -29,9 +29,17 @@ public:
 	VECTOR2 getMellePos() { return mellePos; }
 	void setInvincibleTimer(int num) { invincibleTimer = num; }
 	void invincibleTimerUpdate() { if (invincibleTimer > 0.0f)	invincibleTimer -= 0.1f; }
+
+	void setDef(float def) { this->def = def * 0.01f; }	//100•ª—¦‚É•ÏŠ·
+	void addDef(float def) { this->def += def; }
+	void degDef(float def) { this->def -= def; }
+	float getDef()const { return def; }
+	int calcProtectingDamage(int damage);
+
 protected:
 	int atk              = 0;	//UŒ‚—Í
 	float invincibleTimer=1.0f;	//–³“GŠÔ 0ˆÈã–³“Gó‘Ô
+	float def			 = 0;	//–hŒä—Í	“G‚à©‹@‚à‰Šú’l‚Í‚O
 
 	VECTOR2 mellePos = { 0,0 };	//‹ßÚUŒ‚—p
 	float   melleRadius = 0;
