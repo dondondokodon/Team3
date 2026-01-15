@@ -16,6 +16,7 @@ public:
 	{
 		light = 0,
 		heavy,
+		pursuit,
 		enemy
 	};
 
