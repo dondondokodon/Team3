@@ -48,6 +48,13 @@ public:
 
 	void degAttackFrame(int frame) { attack_frame -= frame; }
 
+	//’ÇŒ‚’e
+	float getPursuitLife()const { return lightLifeLimit; }
+	float getPursuitRadius()const { return lightRadius; }
+	VECTOR2 getPursuitSpeed()const { return lightSpeed; }
+	VECTOR2 getPursuitScale()const { return lightScale; }
+	VECTOR2 getPursuitSize()const { return lightTexSize; }
+
 	enum ACT
 	{
 		IDLE_INIT,

@@ -140,6 +140,15 @@ void SceneGame::Collision()
 					if (p->GetOwnerId() == Projectile::kinds::heavy)
 						Coin::AddCoinNum(Coin::HeavyAttackReward());
 
+					//UŒ‚‚ð“–‚Ä‚½‚ç’ÇŒ‚	Œ»Ý“–‚Ä‚Ä‚àƒRƒCƒ“‚Ì•ÔŠÒ‚Í–³‚µ
+					if (p->GetOwnerId() != Projectile::kinds::pursuit)
+					{
+						int useCoin = Coin::GetRatioCoin(0.005f);
+						ProjectileStraight* b = new ProjectileStraight(&ProjectileManager::Instance(), Projectile::Faction::player, Coin::calcDamage(2, useCoin), Projectile::kinds::pursuit, player.getPursuitLife(), ImageManager::Instance().getSprite(ImageManager::SpriteNum::PlayerBullet), player.getPursuitSize(), player.getPursuitScale(), player.getPursuitSpeed(), player.getPursuitRadius());
+						//Coin::DegCoinNum(useCoin);
+						b->Launch(player.getDir(), player.getPos());
+					}
+
 					if (e->isDeath())
 					{
 

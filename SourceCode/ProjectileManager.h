@@ -47,6 +47,7 @@ public:
 private:
 	std::vector<Projectile*> playerProjectiles;	//ƒvƒŒƒCƒ„[‚Ì’e
 	std::vector<Projectile*> enemyProjectiles;	//“G‚Ì’e
+	std::vector<Projectile*> pursuitProjectiles;//’ÇŒ‚’e
 	std::set<Projectile*> removeList;	//íœ‚·‚é‹…
 	ProjectileManager();
 };
