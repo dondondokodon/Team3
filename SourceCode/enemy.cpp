@@ -105,8 +105,8 @@ void Enemy::deinit()
 
 void Enemy::update(CAMERA& camera, VECTOR2 targetPos)
 {
-	attackType = none;
-	isAttackOn = false;
+	attackType       = none;
+	isAttackOn       = false;
 	isTargetRemoveOn = false;
 
 	//ƒqƒbƒgŽž‚Ì‹““®

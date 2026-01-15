@@ -1,5 +1,6 @@
 #pragma once
 #include "Enemy.h"
+#include <memory>
 
 class EnemyBoss :
     public Enemy
@@ -8,6 +9,8 @@ private:
     const float maxSpeedX;
     const int   coinReward;   //撃破時のコイン
     int animeCount=0;         //アニメが２段あるのに対応するため
+    std::shared_ptr<Sprite> sprTail;    //尻尾の画像
+    std::unique_ptr<Character> tails;   //尻尾当たり判定付き
 
     enum STATE
     {

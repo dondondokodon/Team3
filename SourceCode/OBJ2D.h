@@ -2,6 +2,7 @@
 #include<memory>
 #include "../GameLib/game_lib.h"
 #include"common.h"
+#include "ImageManager.h"
 
 class CAMERA;
 
@@ -52,7 +53,6 @@ public:
 	}
 
 	void hitAreaRender(CAMERA& camera);
-	
 
 	void cameraRender(CAMERA& camera);
 
@@ -62,17 +62,17 @@ public:
 	bool animeUpdate(int animeNo, int total, int frame, bool loop);
 
 	int                 hitPrimitive;//物の形
-	VECTOR2 getPos() { return pos; }
-	VECTOR2 getScale() { return scale; }
-	float getRadius() { return radius; }
-	VECTOR2 getTexPos() { return texPos; }
-	VECTOR2 getTexSize() { return texSize; }
-	VECTOR2 getOffset() { return offset; }
-	int getAct() { return act; }
-	int getAnime() { return anime; }
-	VECTOR2 getSpeed() { return speed; }
-	VECTOR2 getPivot() { return pivot; }
-	VECTOR2 getDir() { return direction; }
+	VECTOR2 getPos()const { return pos; }
+	VECTOR2 getScale()const { return scale; }
+	float getRadius()const { return radius; }
+	VECTOR2 getTexPos() const{ return texPos; }
+	VECTOR2 getTexSize() const{ return texSize; }
+	VECTOR2 getOffset() const{ return offset; }
+	int getAct()const { return act; }
+	int getAnime() const{ return anime; }
+	VECTOR2 getSpeed() const{ return speed; }
+	VECTOR2 getPivot() const{ return pivot; }
+	VECTOR2 getDir() const{ return direction; }
 
 	void setScale(VECTOR2 Scale) { scale = Scale; }
 	void setAct(int Act) { act = Act; }
@@ -80,6 +80,7 @@ public:
 
 	void setPosition(VECTOR2 p) { pos = p; }
 	void setSpeed(VECTOR2 Speed) { speed = Speed; }
+	void setSprite(int num) { if(num>=ImageManager::SpriteNum::Max) spr=ImageManager::Instance().getSprite(num); }	//イメージマネージャーのenum使って代入
 };
 
 void gravity(OBJ2D* obj, VECTOR2 energy);	//重力

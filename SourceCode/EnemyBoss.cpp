@@ -2,6 +2,7 @@
 #include "ImageManager.h"
 #include "HitBox.h"
 #include "ProjectileManager.h"
+#include "Tail.h"
 
 EnemyBoss::EnemyBoss() :coinReward(10000), maxSpeedX(10)
 {
@@ -28,6 +29,8 @@ EnemyBoss::EnemyBoss() :coinReward(10000), maxSpeedX(10)
 	melleRadius = 0;
 	isTargetRemoveOn = false;
 	animeCount = 0;
+
+	sprTail = nullptr;
 }
 
 EnemyBoss::EnemyBoss(VECTOR2 Pos) :coinReward(10000),maxSpeedX(10)
@@ -56,12 +59,17 @@ EnemyBoss::EnemyBoss(VECTOR2 Pos) :coinReward(10000),maxSpeedX(10)
 	melleRadius = 0;
 	isTargetRemoveOn = false;
 	animeCount = 0;
+	sprTail = nullptr;
 }
 
 void EnemyBoss::init()
 {
 	if (!spr)
 		spr          = ImageManager::Instance().getSprite(ImageManager::SpriteNum::boss);
+
+	if (!sprTail)
+		sprTail = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTail);
+
 	hp               = 2000;
 	atk              = 100;
 	texSize          = { 1000.0f,700.0f };
@@ -85,7 +93,7 @@ void EnemyBoss::init()
 	melleRadius      = 0;
 	isTargetRemoveOn = false;
 	animeCount       = 0;
-	act = ATTACK1_INIT;
+	act = ATTACK2_INIT;
 }
 
 void EnemyBoss::deinit()
@@ -96,8 +104,8 @@ void EnemyBoss::deinit()
 void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 {
 	//çUåÇèoÇƒÇ»Ç¢ólÇ…Ç∑ÇÈ
-	isAttackOn = false;
-	attackType = none;
+	isAttackOn       = false;
+	attackType       = none;
 	isTargetRemoveOn = false;
 
 	//èÛë‘ëJà⁄
@@ -244,27 +252,54 @@ void EnemyBoss::state()
 		act = ATTACK2;
 
 	case ATTACK2:
+	{
 		switch (animeCount)
 		{	//ÇµÇ¡Ç€ÇPíiñ⁄
 		case 0:
+		{
 			if (animeUpdate(5, 14, 6, true))
 			{
 				animeCount++;
 				anime_state = 0;
 			}
+
+			const int TAIL_SEG = 10;
+			const float SEG_LEN = 50.0f;
+			for (int i = 0;i < TAIL_SEG;i++)
+			{
+				if (animeTimer == 6 * 7)
+				{
+					TailHitCircle* c=new TailHitCircle(
+						&ProjectileManager::Instance(),
+						10,						//damage
+						Projectile::kinds::enemy,
+						0.3f,					//lifeLimit
+						sprTail,				//égÇ§âÊëú
+						{ 30,30 },				//TEX_SIZE
+						{ -1.5f,1.5f },					//Scale
+						{ 0,0 },					//Speed
+						25*1.5f,					//radius
+						this,					//owner
+						{ (i + 1) * SEG_LEN,-100 },			//offset
+						16.0f
+					);
+				}
+			}
+
 			break;
+		}
 			//ÇµÇ¡Ç€ÇQíiñ⁄
 		case 1:
 			if (animeUpdate(6, 2, 6, true))
 			{
 				act = IDLE_INIT;
+				act = ATTACK2_INIT;
 			}
 			break;
 		}
-		
 
 		break;
-
+	}
 	case ATTACK3_INIT:
 		anime_state = 0;
 		act = ATTACK2;

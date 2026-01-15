@@ -5,6 +5,7 @@
 #include "Ghost.h"
 #include "EffektManager.h"
 #include"ImageManager.h"
+#include "HitBox.h"
 
 Player::Player():MAX_SPEED({7,25})
 {
@@ -23,7 +24,7 @@ Player::Player():MAX_SPEED({7,25})
 	anime       = 0;
 	animeTimer  = 0;
 	anime_state = 0;
-	radius      = texSize.x * 0.2f * scale.x;;
+	radius      = texSize.x * 0.2f * scale.x;
 	atk         = 0;
 	gold        = 0;
 	returnGold  = 0;
@@ -32,6 +33,9 @@ Player::Player():MAX_SPEED({7,25})
 	jumpCount   = 0;
 	direction   = { 1,0 };
 	invincibleTimer = 1.0f;
+
+	//ヒットボックス いったんやめる
+	//Player_HitBox::Instance().setTarget(this);
 }
 
 void Player::init()
@@ -116,6 +120,9 @@ void Player::deinit()
 {
 	//ビルドを消す
 	clearEffect();
+
+	//PlayerTargetをヌルにする いったんやめる
+	//Player_HitBox::Instance().setTarget(nullptr);
 }
 
 void Player::update()

@@ -173,6 +173,7 @@
     <ClInclude Include="SourceCode\SceneTitle.h" />
     <ClInclude Include="SourceCode\stage.h" />
     <ClInclude Include="SourceCode\StageSpawnRules.h" />
+    <ClInclude Include="SourceCode\Tail.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameLib\debug.cpp" />
@@ -218,6 +219,7 @@
     <ClCompile Include="SourceCode\stage01.cpp" />
     <ClCompile Include="SourceCode\Stage02.cpp" />
     <ClCompile Include="SourceCode\StageSpawnRules.cpp" />
+    <ClCompile Include="SourceCode\Tail.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

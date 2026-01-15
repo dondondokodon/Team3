@@ -39,6 +39,7 @@ public:
 		casinoGround,
 
 		boss,
+		bossTail,
 
 		coin,
 
