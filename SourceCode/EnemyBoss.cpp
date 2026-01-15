@@ -27,6 +27,7 @@ EnemyBoss::EnemyBoss() :coinReward(10000), maxSpeedX(10)
 	mellePos = { 0,0 };
 	melleRadius = 0;
 	isTargetRemoveOn = false;
+	animeCount = 0;
 }
 
 EnemyBoss::EnemyBoss(VECTOR2 Pos) :coinReward(10000),maxSpeedX(10)
@@ -54,34 +55,37 @@ EnemyBoss::EnemyBoss(VECTOR2 Pos) :coinReward(10000),maxSpeedX(10)
 	mellePos = { 0,0 };
 	melleRadius = 0;
 	isTargetRemoveOn = false;
+	animeCount = 0;
 }
 
 void EnemyBoss::init()
 {
 	if (!spr)
-		spr         = ImageManager::Instance().getSprite(ImageManager::SpriteNum::boss);
-	hp              = 2000;
-	atk             = 100;
-	texSize         = { 1000.0f,700.0f };
-	texPos          = { 0.0f,0.0f };
-	color           = { 1.0f,1.0f,1.0f,1.0f };
-	scale           = { 1.0f,1.0f };
-	pivot           = { texSize.x * 0.5f,texSize.y * 0.5f };
-	speed           = { 0,0 };
-	offset          = { 0,0 };
-	act             = WALK_INIT;
-	timer           = 0;
-	anime           = 0;
-	animeTimer      = 0;
-	anime_state     = 0;
-	radius          = texSize.y * 0.5f;
-	invincibleTimer = 1.0f;
-	direction       = { 1,0 };
-	pos             = { 500,500 };
-	attackType      = -1;
-	mellePos = { 0,0 };
-	melleRadius = 0;
+		spr          = ImageManager::Instance().getSprite(ImageManager::SpriteNum::boss);
+	hp               = 2000;
+	atk              = 100;
+	texSize          = { 1000.0f,700.0f };
+	texPos           = { 0.0f,0.0f };
+	color            = { 1.0f,1.0f,1.0f,1.0f };
+	scale            = { 1.0f,1.0f };
+	pivot            = { texSize.x * 0.5f,texSize.y * 0.5f };
+	speed            = { 0,0 };
+	offset           = { 0,0 };
+	act              = IDLE_INIT;
+	timer            = 0;
+	anime            = 0;
+	animeTimer       = 0;
+	anime_state      = 0;
+	radius           = texSize.y * 0.5f;
+	invincibleTimer  = 1.0f;
+	direction        = { 1,0 };
+	pos              = { 500,500 };
+	attackType       = -1;
+	mellePos         = { 0,0 };
+	melleRadius      = 0;
 	isTargetRemoveOn = false;
+	animeCount       = 0;
+	act = ATTACK1_INIT;
 }
 
 void EnemyBoss::deinit()
@@ -123,7 +127,7 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 	{
 		Destroy();
 	}
-	debug::setString("Pos:%f:%f", pos.x, pos.y);
+	debug::setString("Pos,state:%f:%f:%d", pos.x, pos.y,act);
 }
 
 void EnemyBoss::state()
@@ -133,10 +137,27 @@ void EnemyBoss::state()
 	{
 	case IDLE_INIT:
 		anime_state = 0;
+		animeCount = 0;
 		act = IDLE;
 
 	case IDLE:
-		if (animeUpdate(5,16,6, true))		act = ATTACK1_INIT;
+		//2段アニメーション
+		if (!animeCount)
+		{
+			if (animeUpdate(7, 14, 6, true))
+			{
+				animeCount++;
+				anime_state = 0;
+			}
+		}	
+		else
+			if (animeUpdate(8, 1, 6, true))
+			{
+				animeCount = 0;
+				anime_state = 0;
+				//act = ATTACK1_INIT;	//仮
+			}
+
 		if (fabsf(speed.x) > 0.0f)			act = WALK_INIT;
 		break;
 
@@ -145,38 +166,102 @@ void EnemyBoss::state()
 		act = WALK;
 
 	case WALK:
-		animeUpdate(6,10,6, true);
+		animeUpdate(9,11,6, true);
 		if (fabsf(speed.x) <= 0.3f) act = IDLE_INIT;
 		break;
 
 	case ATTACK1_INIT:
 		anime_state = 0;
-		act = ATTACK1;
+		animeCount = 0;
 		mellePos = { pos.x + (200 * direction.x),pos.y - 100 };
-
+		act = ATTACK1;
+		
 	case ATTACK1:
-		if (animeUpdate(1, 9, 6, false))
+		switch (animeCount)
+		{	//とびかかり１段目
+		case 0:
+			if (animeUpdate(0, 14, 6, true))
+			{
+				animeCount++;
+				anime_state = 0;
+			}
+			break;
+			//とびかかり２段目
+		case 1:
+			if (animeUpdate(1, 2, 6, true))
+			{
+				animeCount++;
+				anime_state = 0;
+			}
+			break;
+			//とびかかり発生
+		case 2:
+			if (animeUpdate(2, 11, 6, true))
+			{
+				isTargetRemoveOn = true;
+				act = FALL_INIT;
+			}
+
+			//攻撃発生
+			if (animeTimer == 8 * 6)
+			{
+				isAttackOn = true;	//球発射
+				attackType = melle;
+			}
+			break;
+		}
+
+		break;
+
+	case FALL_INIT:
+		anime_state = 0;
+		act = FALL;
+
+	case FALL:
+		//接地しているかどうかの条件も後で追加する
+		if (animeUpdate(3, 4, 6, false))
+		{
+			act = LANDING_INIT;
+		}
+
+		break;
+
+	case LANDING_INIT:
+		anime_state = 0;
+		act = LANDING;
+
+	case LANDING:
+		if (animeUpdate(4, 4, 6, false))
 		{
 			act = IDLE_INIT;
-			isTargetRemoveOn = true;
 		}
 
-		if (animeTimer == 3 * 6)
-		{
-			isAttackOn = true;	//球発射
-			attackType = melle;
-		}
-
-		if (animeTimer > 9 * 6)
-			speed.x = 5.0f * -direction.x;				//ノックバック
 		break;
 
 	case ATTACK2_INIT:
 		anime_state = 0;
+		animeCount = 0;
 		act = ATTACK2;
-		
 
 	case ATTACK2:
+		switch (animeCount)
+		{	//しっぽ１段目
+		case 0:
+			if (animeUpdate(5, 14, 6, true))
+			{
+				animeCount++;
+				anime_state = 0;
+			}
+			break;
+			//しっぽ２段目
+		case 1:
+			if (animeUpdate(6, 2, 6, true))
+			{
+				act = IDLE_INIT;
+			}
+			break;
+		}
+		
 
 		break;
 
