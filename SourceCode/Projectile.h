@@ -32,6 +32,7 @@ public:
 	int getDamage()const { return damage; }
 	Character* getTarget() { return target; }
 	void AnimeUpdate();
+	void normalize(VECTOR2 pos1, VECTOR2 pos2);	//‚P¨‚Q
 	void Launch(VECTOR2 dir, VECTOR2 pos);
 
 protected:
@@ -40,7 +41,7 @@ protected:
 	bool alive;
 	
 	Character* target;		//HitBox‚È‚Ç‚Åg‚¤
-	VECTOR2 dir;//Œü‚«
+	//VECTOR2 dir;//Œü‚«
 	ProjectileManager* manager = nullptr;
 	Faction faction;
 	kinds ownerId;

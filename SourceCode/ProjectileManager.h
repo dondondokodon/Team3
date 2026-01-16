@@ -24,10 +24,12 @@ public:
 	//”æ“¾
 	int GetPlayerProjectileCount()const { return static_cast<int>(playerProjectiles.size()); }
 	int GetEnemyProjectileCount()const { return static_cast<int>(enemyProjectiles.size()); }
+	int GetPursuitProjectileCount()const { return static_cast<int>(pursuitProjectiles.size()); }
 
 	//‹…‚Ìæ“¾
 	Projectile* GetPlayerProjectile(int index) { return playerProjectiles.at(index); }
 	Projectile* GetEnemyProjectile(int index) { return enemyProjectiles.at(index); }
+	Projectile* GetPursuitProjectile(int index) { return pursuitProjectiles.at(index); }
 
 	//‘Síœ
 	void Clear();

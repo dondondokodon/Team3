@@ -19,6 +19,7 @@ public:
 	static bool extraVeryCost;
 	static bool extraMotionRapid;
 	static bool extraMoonGravity;
+	static bool extraBullet;
 
 	//íÜêg
 	virtual int AddMaxJump() const { return 0; }
