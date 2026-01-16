@@ -24,6 +24,15 @@ void Projectile::AnimeUpdate()
 
 void Projectile::Launch(VECTOR2 dir, VECTOR2 pos)
 {
-	this->dir = dir;
+	direction = dir;
 	this->pos = pos;
+}
+
+void Projectile::normalize(VECTOR2 pos1, VECTOR2 pos2)
+{
+	VECTOR2 Vector = pos2 - pos1;
+	float len = sqrtf(Vector.x * Vector.x + Vector.y * Vector.y);
+
+	direction.x = Vector.x / len;
+	direction.y = Vector.y / len;
 }

@@ -6,6 +6,7 @@ bool Build::extraCost = false;
 bool Build::extraVeryCost = false;
 bool Build::extraMotionRapid = false;
 bool Build::extraMoonGravity = false;
+bool Build::extraBullet = false;
 
 
 //ƒWƒƒƒ“ƒv’Ç‰Á

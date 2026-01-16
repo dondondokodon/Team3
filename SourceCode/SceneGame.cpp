@@ -115,7 +115,9 @@ void SceneGame::Collision()
 	EnemyManager& enemyManager = EnemyManager::instance();
 	int playerProjectileCount = ProjectileManager::Instance().GetPlayerProjectileCount();
 	int enemyCount = enemyManager.GetEnemyCount();
-	for (int i = 0;i < playerProjectileCount; i++)
+	int pursuitCount = ProjectileManager::Instance().GetPursuitProjectileCount();
+
+	for (int i = 0; i < playerProjectileCount; i++)
 	{
 		Projectile* p = ProjectileManager::Instance().GetPlayerProjectile(i);
 
@@ -141,12 +143,13 @@ void SceneGame::Collision()
 						Coin::AddCoinNum(Coin::HeavyAttackReward());
 
 					//çUåÇÇìñÇƒÇΩÇÁí«åÇ	åªç›ìñÇƒÇƒÇ‡ÉRÉCÉìÇÃï‘ä“ÇÕñ≥Çµ
-					if (p->GetOwnerId() != Projectile::kinds::pursuit)
+					if (p->GetOwnerId() != Projectile::kinds::pursuit && Build::extraBullet)
 					{
 						int useCoin = Coin::GetRatioCoin(0.005f);
 						ProjectileStraight* b = new ProjectileStraight(&ProjectileManager::Instance(), Projectile::Faction::player, Coin::calcDamage(2, useCoin), Projectile::kinds::pursuit, player.getPursuitLife(), ImageManager::Instance().getSprite(ImageManager::SpriteNum::PlayerBullet), player.getPursuitSize(), player.getPursuitScale(), player.getPursuitSpeed(), player.getPursuitRadius());
 						//Coin::DegCoinNum(useCoin);
-						b->Launch(player.getDir(), player.getPos());
+						b->normalize(player.getPos(), e->getPos());
+						b->Launch(b->getDir(), player.getPos());
 					}
 
 					if (e->isDeath())
@@ -154,28 +157,68 @@ void SceneGame::Collision()
 
 
 					}
+
+
 				}
+
 			}
 			//debug::setString("Coin:%d", playerProjectileCount);
 		}
 	}
 
-
-	//enemyÅ®player
-	if (player.getInvincibleTimer() <= 0)		//ñ≥ìGéûä‘íÜÇÃÇ›
+	//í«îˆíe
+	for (int l = 0; l < pursuitCount; l++)
 	{
-		int EnemyProjectileCount = ProjectileManager::Instance().GetEnemyProjectileCount();
-		for (int i = 0; i < EnemyProjectileCount; i++)
+		Projectile* k = ProjectileManager::Instance().GetPursuitProjectile(l);
+		for (int j = 0; j < enemyCount; j++)
 		{
-			Projectile* e = ProjectileManager::Instance().GetEnemyProjectile(i);
-			for (int j = 0; j < enemyCount; j++)
+			Enemy* e = enemyManager.GetEnemy(j);
+			if (e->getInvincibleTimer() <= 0)		//ñ≥ìGéûä‘íÜÇÕìñÇΩÇËîªíËÇéÊÇÁÇ»Ç¢
 			{
 				//ìñÇΩÇËîªíË
-				if (hitCircle(player.getPos(), player.getRadius(), e->getPos(), e->getRadius()))
+				if (hitCircle(k->getPos(), k->getRadius(), e->getPos(), e->getRadius()))
 				{
-					e->Destroy();
-					Coin::DegCoinNum(player.calcProtectingDamage(e->getDamage()));
-					player.setInvincibleTimer(1.5f);
+					if (hitCircle(k->getPos(), k->getRadius(), e->getPos(), e->getRadius()))
+					{
+						k->Destroy();
+						e->degHp(e->calcProtectingDamage(k->getDamage()));
+						e->setInvincibleTimer(1.5f);
+						e->setHitFlag(true);
+
+						if (k->GetOwnerId() == Projectile::kinds::pursuit)
+							Coin::AddCoinNum(0);
+					}
+					if (e->isDeath())
+					{
+
+
+					}
+
+
+				}
+
+			}
+
+
+		}
+
+
+		//enemyÅ®player
+		if (player.getInvincibleTimer() <= 0)		//ñ≥ìGéûä‘íÜÇÃÇ›
+		{
+			int EnemyProjectileCount = ProjectileManager::Instance().GetEnemyProjectileCount();
+			for (int i = 0; i < EnemyProjectileCount; i++)
+			{
+				Projectile* e = ProjectileManager::Instance().GetEnemyProjectile(i);
+				for (int j = 0; j < enemyCount; j++)
+				{
+					//ìñÇΩÇËîªíË
+					if (hitCircle(player.getPos(), player.getRadius(), e->getPos(), e->getRadius()))
+					{
+						e->Destroy();
+						Coin::DegCoinNum(player.calcProtectingDamage(e->getDamage()));
+						player.setInvincibleTimer(1.5f);
+					}
 				}
 			}
 		}
