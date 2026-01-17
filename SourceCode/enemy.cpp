@@ -256,7 +256,7 @@ void Enemy::moveHorizontalInCamera(CAMERA& camera)
 			targetX = safeLeft;
 		else if (pos.x > safeRight)
 			targetX = safeRight;
-		else if (rand() % 60 == 0)		//ここで右に行ったらびくびくするバグある
+		else if (rand() % 40 == 0)		
 		{
 			// 安全ラインに入ったら終了
 			moveInCamera = false;

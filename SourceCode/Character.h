@@ -46,5 +46,6 @@ protected:
 
 	VECTOR2 mellePos = { 0,0 };	//‹ßÚUŒ‚—p
 	float   melleRadius = 0;
+	bool isGround = false;		//’n–Ê”»’è
 };
 

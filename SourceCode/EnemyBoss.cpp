@@ -30,7 +30,7 @@ EnemyBoss::EnemyBoss() :coinReward(10000), maxSpeedX(10)
 	isTargetRemoveOn = false;
 	animeCount = 0;
 
-	sprTail = nullptr;
+	//sprTail = nullptr;
 }
 
 EnemyBoss::EnemyBoss(VECTOR2 Pos) :coinReward(10000),maxSpeedX(10)
@@ -59,7 +59,7 @@ EnemyBoss::EnemyBoss(VECTOR2 Pos) :coinReward(10000),maxSpeedX(10)
 	melleRadius = 0;
 	isTargetRemoveOn = false;
 	animeCount = 0;
-	sprTail = nullptr;
+	//sprTail = nullptr;
 }
 
 void EnemyBoss::init()
@@ -87,14 +87,17 @@ void EnemyBoss::init()
 	radius           = texSize.y * 0.5f;
 	invincibleTimer  = 1.0f;
 	direction        = { 1,0 };
-	pos              = { 500,500 };
+	pos              = { 500,360 };
 	attackType       = -1;
 	mellePos         = { 0,0 };
 	melleRadius      = 0;
 	isTargetRemoveOn = false;
 	animeCount       = 0;
-	tailPos          = { 0,0 };
-	act              = ATTACK2_INIT;
+	//tailPos          = { 0,0 };
+	//tailTexSize = { 0,0 };
+	//act              = ATTACK2_INIT;
+	posYFlag = false;
+	isGround = false;
 }
 
 void EnemyBoss::deinit()
@@ -109,14 +112,22 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 	attackType       = none;
 	isTargetRemoveOn = false;
 
+	if (posYFlag)
+	{
+		drawPosYOffset += 50;
+		posYFlag = false;
+	}
+
+
 	//状態遷移
 	state();
 
 	//無敵時間更新
 	invincibleTimerUpdate();
 
-	//画面外に出た場合移動 攻撃時は移動しない
-	moveHorizontalInCamera(camera);
+	//画面外に出た場合移動
+	if (act == IDLE||act==WALK)
+		moveHorizontalInCamera(camera);
 
 	// 速度制限
 	if (speed.x > maxSpeedX) speed.x = maxSpeedX;
@@ -125,8 +136,22 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 	//摩擦
 	friction(this);
 
+	//重力
+	if(!isGround)
+		gravity(this, { 0,1.3f });
+
 	//位置に速度足す
 	pos += speed;
+
+	//地面判定		120は補正の数字
+	if (pos.y > GROUND_Y - pivot.y+120)
+	{
+		pos.y = GROUND_Y - pivot.y + 120;
+		speed.y = 0;
+		isGround = true;
+	}
+
+	
 
 	//スケール反転
 	ScaleReverse(targetPos);
@@ -146,6 +171,7 @@ void EnemyBoss::state()
 	{
 	case IDLE_INIT:
 		anime_state = 0;
+		drawPosYOffset -= 50;
 		animeCount = 0;
 		act = IDLE;
 
@@ -164,21 +190,40 @@ void EnemyBoss::state()
 			{
 				animeCount = 0;
 				anime_state = 0;
+				posYFlag = true;
+				decideAttack();
 				//act = ATTACK1_INIT;	//仮
 			}
 
-		if (fabsf(speed.x) > 0.0f)			act = WALK_INIT;
+		//いったんなし
+		if (fabsf(speed.x) > 3.0f)
+		{
+			posYFlag = true;
+			act = WALK_INIT;
+		}
 		break;
 
 	case WALK_INIT:
 		anime_state = 0;
 		act = WALK;
+		
 
 	case WALK:
-		animeUpdate(9,11,6, true);
-		if (fabsf(speed.x) <= 0.3f) act = IDLE_INIT;
-		break;
+	{
+		//移動
+		speed.x = direction.x * 6.5f;
+		if (animeUpdate(9, 11, 6, true)&&!moveInCamera)
+		{
+			speed.x = 0;
+			decideAttack();
+		}
 
+		if (fabsf(speed.x) <= 0.3f)
+		{
+			act=IDLE_INIT;
+		}
+		break;
+	}
 	case ATTACK1_INIT:
 		anime_state = 0;
 		animeCount = 0;
@@ -199,6 +244,7 @@ void EnemyBoss::state()
 		case 1:
 			if (animeUpdate(1, 2, 6, true))
 			{
+				isGround = false;
 				animeCount++;
 				anime_state = 0;
 			}
@@ -242,7 +288,10 @@ void EnemyBoss::state()
 	case LANDING:
 		if (animeUpdate(4, 4, 6, false))
 		{
-			act = IDLE_INIT;
+			if (rand() % 2)
+				decideAttack();
+			else
+				act = ATTACK2_INIT;
 		}
 
 		break;
@@ -254,6 +303,8 @@ void EnemyBoss::state()
 
 	case ATTACK2:
 	{
+		//尻尾のやり方変えるのでコメントにしておく　いらなくなったら消す
+		//constexpr float tailPlusNum = 25;
 		switch (animeCount)
 		{	//しっぽ１段目
 		case 0:
@@ -287,11 +338,12 @@ void EnemyBoss::state()
 			//		);
 			//	}
 			//}
-			if (animeTimer == 6 * 12)
+			/*if (animeTimer == 6 * 12)
 			{
 				sprTail = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTail);
-				tailPos = { pos.x+(300*direction.x),pos.y - 77};
-			}
+				tailPos = { pos.x+(250*direction.x),pos.y - 75};
+				tailTexSize = { 80,50 };
+			}*/
 
 			break;
 		}
@@ -299,22 +351,23 @@ void EnemyBoss::state()
 		case 1:
 			if (animeUpdate(6, 2, 6, true))
 			{
-				act = IDLE_INIT;
-				sprTail = nullptr;
-				act = ATTACK2_INIT;
+				decideAttack();
+				//sprTail = nullptr;
+				//act = ATTACK2_INIT;
 			}
 			break;
 		}
 
-		//尻尾のアップデート
-		if (sprTail&&animeTimer%6==0)
-		{
-			tailPos.x += (80 * direction.x);
-		}
+		////尻尾のアップデート
+		//if (sprTail&&animeTimer%6==0)
+		//{
+		//	tailPos.x += (tailPlusNum * direction.x);
+		//	tailTexSize.x += tailPlusNum;
+		//}
 
 		break;
 	}
-	case ATTACK3_INIT:
+	/*case ATTACK3_INIT:
 		anime_state = 0;
 		act = ATTACK2;
 
@@ -326,16 +379,48 @@ void EnemyBoss::state()
 		anime_state = 0;
 		act = ATTACK2;
 
-	case ATTACK4:
+	case ATTACK4:*/
 
 		break;
 	}
 }
 
+void EnemyBoss::decideAttack()
+{
+	if (act == WALK || act == ATTACK2 || act == ATTACK1)
+	{
+		act = IDLE_INIT;
+		return;
+	}
+
+	int r = rand() % 100;
+	if (r < 40)
+		act = WALK_INIT;
+	else if (r < 70)
+		act = ATTACK1_INIT;
+	else 
+		act = ATTACK2_INIT;
+
+}
+
+//尻尾も描画したいので
 void EnemyBoss::cameraRender(CAMERA& camera)
 {
-	OBJ2D::cameraRender(camera);
-	VECTOR2 scale = {direction.x,1.0f};
-	if(sprTail)
-	sprite_render(sprTail.get(), tailPos.x-camera.getPos().x, tailPos.y-camera.getPos().y, scale.x, scale.y, 0, 0, 1280, 50,1280,25,ToRadian(0),1,1,1,1);
+	VECTOR2 drawPos = pos;
+	drawPos.y += drawPosYOffset;
+
+	sprite_render(
+		spr.get(),
+		drawPos.x - camera.getPos().x,
+		drawPos.y - camera.getPos().y,
+		scale.x, scale.y,
+		texPos.x, texPos.y,
+		texSize.x, texSize.y,
+		pivot.x, pivot.y,
+		angle,
+		color.x, color.y, color.z, color.w
+	);
+	//VECTOR2 scale = {-direction.x,1.0f};	//元が左向きなので-
+	//if(sprTail)
+	//sprite_render(sprTail.get(), tailPos.x-camera.getPos().x, tailPos.y-camera.getPos().y, scale.x, scale.y, 0, 0, tailTexSize.x, tailTexSize.y,0,25,ToRadian(0),1,1,1,1);
 }
