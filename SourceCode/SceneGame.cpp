@@ -201,24 +201,23 @@ void SceneGame::Collision()
 
 
 		}
+	}
 
-
-		//enemyÅ®player
-		if (player.getInvincibleTimer() <= 0)		//ñ≥ìGéûä‘íÜÇÃÇ›
+	//enemyÅ®player
+	if (player.getInvincibleTimer() <= 0)		//ñ≥ìGéûä‘íÜÇÃÇ›
+	{
+		int EnemyProjectileCount = ProjectileManager::Instance().GetEnemyProjectileCount();
+		for (int i = 0; i < EnemyProjectileCount; i++)
 		{
-			int EnemyProjectileCount = ProjectileManager::Instance().GetEnemyProjectileCount();
-			for (int i = 0; i < EnemyProjectileCount; i++)
+			Projectile* e = ProjectileManager::Instance().GetEnemyProjectile(i);
+			for (int j = 0; j < enemyCount; j++)
 			{
-				Projectile* e = ProjectileManager::Instance().GetEnemyProjectile(i);
-				for (int j = 0; j < enemyCount; j++)
+				//ìñÇΩÇËîªíË
+				if (hitCircle(player.getPos(), player.getRadius(), e->getPos(), e->getRadius()))
 				{
-					//ìñÇΩÇËîªíË
-					if (hitCircle(player.getPos(), player.getRadius(), e->getPos(), e->getRadius()))
-					{
-						e->Destroy();
-						Coin::DegCoinNum(player.calcProtectingDamage(e->getDamage()));
-						player.setInvincibleTimer(1.5f);
-					}
+					e->Destroy();
+					Coin::DegCoinNum(player.calcProtectingDamage(e->getDamage()));
+					player.setInvincibleTimer(1.5f);
 				}
 			}
 		}
