@@ -1,5 +1,4 @@
 #include "SceneBuildSlect.h"
-#include "Build.h"
 #include "../GameLib/game_lib.h"
 using namespace input;
 int j;				//どのカードを選んでいるか
@@ -20,9 +19,8 @@ void SceneBuildSelect::update()
 		state++;
 
 	case 1:
-		showWindow.emplace_back(std::make_unique<VeryCostUpBuild>(VECTOR2{ 240,360 }));
-		showWindow.emplace_back(std::make_unique<ExtraJumpBuild>(VECTOR2{ 640,360 }));
-		showWindow.emplace_back(std::make_unique<MotionRapidBuild>(VECTOR2{ 1040,360 }));
+		srand(unsigned int(time(NULL)));
+		setBuild();
 		state++;
 
 	case 2:
@@ -72,37 +70,6 @@ void SceneBuildSelect::deleteSprite()
 }
 
 
-void VeryCostUpBuild::update()
-{
-	if (TRG(0) & PAD_START)
-	{
-		Build::extraVeryCost = true;
-		ISCENE::nextScene = SCENE_GAME;
-	}
-
-}
-
-void ExtraJumpBuild::update()
-{
-	if (TRG(0) & PAD_START)
-	{
-		Build::extraJump = true;
-		ISCENE::nextScene = SCENE_GAME;
-	}
-
-}
-
-void MotionRapidBuild::update()
-{
-	if (TRG(0) & PAD_START)
-	{
-		//Build::extraMotionRapid = true;
-		//Build::extraMoonGravity = true;
-		Build::extraBullet = true;
-		ISCENE::nextScene = SCENE_GAME;
-	}
-
-}
 
 void SceneBuildSelect::inputCardSelect()
 {
@@ -134,7 +101,26 @@ void SceneBuildSelect::cardPick()
 	BuildCard* nowCard = GetCard(j);
 
 	nowCard->setScale({ 1.1,1.1 });
-	nowCard->update();
+	//nowCard->update();
+	if (TRG(0) & PAD_START)
+	{
+		auto bought = std::move(showWindow.at(j));
+
+		//効果反映
+		bought->update();
+
+		//購入済み
+		soldOut.push_back(std::move(bought));
+
+		//showWindowからなくす
+		showWindow.erase(showWindow.begin() + j);
+
+		//選んだビルドがshowWindowの範囲を超えていたら
+		if (j >= (int)showWindow.size())	j = 0;
+
+		//次のシーンへ
+		nextScene = SCENE_GAME;
+	}
 
 	for (int j = 0; j <= GetCardCount() - 1; j++)
 	{
@@ -145,4 +131,15 @@ void SceneBuildSelect::cardPick()
 		if (card != nowCard)
 			card->setScale({ 1,1 });
 	}
+}
+
+void SceneBuildSelect::setBuild()
+{
+	VECTOR2 left = { 240, 400 };
+	VECTOR2 right = { 780, 400 };
+
+
+	showWindow.emplace_back(std::make_unique<VeryCostUpBuild>(left));
+	showWindow.emplace_back(std::make_unique<ExtraJumpBuild>(right));
+
 }
