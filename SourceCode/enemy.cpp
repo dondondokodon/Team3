@@ -261,7 +261,7 @@ void Enemy::moveHorizontalInCamera(CAMERA& camera)
 		else 
 		{
 			//oldSpeedX = speed.x;
-			if (rand() % 100000 == 0)
+			if (rand() % 40 == 0)
 			{
 				// ˆÀ‘Sƒ‰ƒCƒ“‚É“ü‚Á‚½‚çI—¹
 				moveInCamera = false;

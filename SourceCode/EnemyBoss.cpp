@@ -100,6 +100,7 @@ void EnemyBoss::init()
 	isGround = false;
 	acceleration = false;
 	//texSize = { 2600,700 };
+	jumpTargetX = 0.0f;
 }
 
 void EnemyBoss::deinit()
@@ -122,7 +123,7 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 
 
 	//状態遷移
-	state();
+	state(targetPos);
 
 	//無敵時間更新
 	invincibleTimerUpdate();
@@ -132,11 +133,15 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 		moveHorizontalInCamera(camera);
 
 	// 速度制限
-	if (speed.x > maxSpeedX) speed.x = maxSpeedX;
-	if (speed.x < -maxSpeedX) speed.x = -maxSpeedX;
-
+	if (act != ATTACK1)
+	{
+		if (speed.x > maxSpeedX) speed.x = maxSpeedX;
+		if (speed.x < -maxSpeedX) speed.x = -maxSpeedX;
+	}
+	
 	//摩擦
-	friction(this);
+	if(ATTACK1!=act||!isGround)
+		friction(this);
 
 	//重力
 	if(!isGround)
@@ -166,7 +171,7 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 	debug::setString("Pos,state:%f:%f:%d", pos.x, pos.y,act);
 }
 
-void EnemyBoss::state()
+void EnemyBoss::state(VECTOR2 targetPos)
 {
 	//モーションないからanimieUpdateのなかとか適当　超仮
 	switch (act)
@@ -221,19 +226,24 @@ void EnemyBoss::state()
 			decideAttack();
 		}
 
-		if (fabsf(speed.x) <= 0.3f)
+		if (fabsf(speed.x) <= 0.5f)
 		{
 			act=IDLE_INIT;
 		}
 		break;
 	}
 	case ATTACK1_INIT:
+	{
 		anime_state = 0;
 		animeCount = 0;
-		mellePos = { pos.x + (200 * direction.x),pos.y - 100 };
+
+		// case2 で速度を決めるので、ここでは止めておく
+		speed.x = 0.0f;
+
 		act = ATTACK1;
-		
+	}
 	case ATTACK1:
+	{
 		switch (animeCount)
 		{	//とびかかり１段目
 		case 0:
@@ -245,6 +255,19 @@ void EnemyBoss::state()
 			break;
 			//とびかかり２段目
 		case 1:
+
+			//一回だけ
+			if (animeTimer == 0)
+			{
+				// プレイヤーの前に着地させる
+				const float FRONT_OFFSET = 400.0f;
+				jumpTargetX = targetPos.x - (FRONT_OFFSET * direction.x);
+
+				const int CASE2_ATTACK_FRAME = 8 * 6;
+				float dx = jumpTargetX - pos.x;
+				speed.x = dx / CASE2_ATTACK_FRAME;
+			}
+
 			if (animeUpdate(1, 2, 6, true))
 			{
 				isGround = false;
@@ -254,6 +277,7 @@ void EnemyBoss::state()
 			break;
 			//とびかかり発生
 		case 2:
+
 			if (animeUpdate(2, 11, 6, true))
 			{
 				isTargetRemoveOn = true;
@@ -263,6 +287,8 @@ void EnemyBoss::state()
 			//攻撃発生
 			if (animeTimer == 8 * 6)
 			{
+				speed.x = 0;
+				mellePos = { pos.x + (200 * direction.x),pos.y - 100 };
 				isAttackOn = true;	//球発射
 				attackType = melle;
 			}
@@ -270,14 +296,14 @@ void EnemyBoss::state()
 		}
 
 		break;
-
+	}
 	case FALL_INIT:
 		anime_state = 0;
 		act = FALL;
 
 	case FALL:
 		//接地しているかどうかの条件も後で追加する
-		if (animeUpdate(3, 4, 6, false))
+		if (animeUpdate(3, 4, 6, false)&&isGround)
 		{
 			act = LANDING_INIT;
 		}
@@ -372,10 +398,33 @@ void EnemyBoss::state()
 	}
 	case JUMP_INIT:
 		anime_state = 0;
-		
-		act = ATTACK2;
+		animeCount = 0;
+		//ボスジャンプの画像
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossJump);
+		act = JUMP;
 
 	case JUMP:
+		switch (animeCount)
+		{
+		case 0:
+			if (animeUpdate(0, 14, 6, true))
+			{
+				animeCount++;
+				anime_state = 0;
+			}
+				
+			break;
+
+		case 1:
+			speed.y = -50;
+			if (animeUpdate(1, 1, 6, true))
+			{
+				spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::boss);
+				isGround = false;
+				animeCount = 0;
+				act = FALL_INIT;
+			}
+		}
 
 		break;
 
@@ -425,13 +474,15 @@ void EnemyBoss::decideAttack()
 		return;
 	}
 
-	int r = rand() % 100;
+	int r = rand() % 150;
 	if (r < 40)
 		act = WALK_INIT;
 	else if (r < 70)
 		act = ATTACK1_INIT;
-	else 
+	else if (r < 100)
 		act = ATTACK2_INIT;
+	else if (r < 150)
+		act = JUMP_INIT;
 
 }
 
