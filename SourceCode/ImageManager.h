@@ -22,9 +22,9 @@ public:
 		Event,
 		InShop,
 
-		veryCostUp,
-		extraJump,
-		motionRapid,
+		STRONG,
+		WEAK,
+		selectingGetPark,
 
 		billBack,
 		billBackBack,
