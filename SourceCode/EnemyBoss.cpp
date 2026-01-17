@@ -67,8 +67,8 @@ void EnemyBoss::init()
 	if (!spr)
 		spr          = ImageManager::Instance().getSprite(ImageManager::SpriteNum::boss);
 
-	if (!sprTail)
-		sprTail = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTail);
+	/*if (!sprTail)
+		sprTail = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTail);*/
 
 	hp               = 2000;
 	atk              = 100;
@@ -93,7 +93,8 @@ void EnemyBoss::init()
 	melleRadius      = 0;
 	isTargetRemoveOn = false;
 	animeCount       = 0;
-	act = ATTACK2_INIT;
+	tailPos          = { 0,0 };
+	act              = ATTACK2_INIT;
 }
 
 void EnemyBoss::deinit()
@@ -263,27 +264,33 @@ void EnemyBoss::state()
 				anime_state = 0;
 			}
 
-			const int TAIL_SEG = 10;
-			const float SEG_LEN = 50.0f;
-			for (int i = 0;i < TAIL_SEG;i++)
+			//const int TAIL_SEG = 10;
+			//const float SEG_LEN = 50.0f;
+			//for (int i = 0;i < TAIL_SEG;i++)
+			//{
+			//	if (animeTimer == 6 * 7)
+			//	{
+			//		
+			//		TailHitCircle* c=new TailHitCircle(
+			//			&ProjectileManager::Instance(),
+			//			10,						//damage
+			//			Projectile::kinds::enemy,
+			//			0.3f,					//lifeLimit
+			//			sprTail,				//使う画像
+			//			{ 30,30 },				//TEX_SIZE
+			//			{ -1.5f,1.5f },					//Scale
+			//			{ 0,0 },					//Speed
+			//			25*1.5f,					//radius
+			//			this,					//owner
+			//			{ (i + 1) * SEG_LEN,-100 },			//offset
+			//			16.0f
+			//		);
+			//	}
+			//}
+			if (animeTimer == 6 * 12)
 			{
-				if (animeTimer == 6 * 7)
-				{
-					TailHitCircle* c=new TailHitCircle(
-						&ProjectileManager::Instance(),
-						10,						//damage
-						Projectile::kinds::enemy,
-						0.3f,					//lifeLimit
-						sprTail,				//使う画像
-						{ 30,30 },				//TEX_SIZE
-						{ -1.5f,1.5f },					//Scale
-						{ 0,0 },					//Speed
-						25*1.5f,					//radius
-						this,					//owner
-						{ (i + 1) * SEG_LEN,-100 },			//offset
-						16.0f
-					);
-				}
+				sprTail = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTail);
+				tailPos = { pos.x+(300*direction.x),pos.y - 77};
 			}
 
 			break;
@@ -293,9 +300,16 @@ void EnemyBoss::state()
 			if (animeUpdate(6, 2, 6, true))
 			{
 				act = IDLE_INIT;
+				sprTail = nullptr;
 				act = ATTACK2_INIT;
 			}
 			break;
+		}
+
+		//尻尾のアップデート
+		if (sprTail&&animeTimer%6==0)
+		{
+			tailPos.x += (80 * direction.x);
 		}
 
 		break;
@@ -316,4 +330,12 @@ void EnemyBoss::state()
 
 		break;
 	}
+}
+
+void EnemyBoss::cameraRender(CAMERA& camera)
+{
+	OBJ2D::cameraRender(camera);
+	VECTOR2 scale = {direction.x,1.0f};
+	if(sprTail)
+	sprite_render(sprTail.get(), tailPos.x-camera.getPos().x, tailPos.y-camera.getPos().y, scale.x, scale.y, 0, 0, 1280, 50,1280,25,ToRadian(0),1,1,1,1);
 }

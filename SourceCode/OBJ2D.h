@@ -54,7 +54,7 @@ public:
 
 	void hitAreaRender(CAMERA& camera);
 
-	void cameraRender(CAMERA& camera);
+	virtual void cameraRender(CAMERA& camera);
 
 	virtual void init() {}
 	virtual void deinit() {}

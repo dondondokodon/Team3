@@ -25,8 +25,8 @@ void TailHitCircle::update()
 {
     if (!owner) { Destroy(); return; }
 
-    dir = owner->getDir();               // ‘OŒã•ûŒü
-    VECTOR2 up = { -dir.y, dir.x };      // ã•ûŒü
+    dir = { owner->getDir().x ,0.0f};               // ‘OŒã•ûŒü
+    VECTOR2 up = { dir.y, -dir.x };      // ã•ûŒü
 
     pos =
         owner->getPos()
