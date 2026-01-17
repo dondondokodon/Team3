@@ -251,17 +251,25 @@ void Enemy::moveHorizontalInCamera(CAMERA& camera)
 
 		const float MIN_PULL_SPEED = 2.0f;	//最低速度
 
+		float oldSpeedX = 0;
+
 
 		if (pos.x < safeLeft)
 			targetX = safeLeft;
 		else if (pos.x > safeRight)
 			targetX = safeRight;
-		else if (rand() % 40 == 0)		
+		else 
 		{
-			// 安全ラインに入ったら終了
-			moveInCamera = false;
-			return;
+			//oldSpeedX = speed.x;
+			if (rand() % 100000 == 0)
+			{
+				// 安全ラインに入ったら終了
+				moveInCamera = false;
+				return;
+			}
 		}
+		//if (oldSpeedX)
+			//return;
 
 		//目標地点との距離に応じて引き寄せ速度を変える
 		float dx = targetX - pos.x;
@@ -299,6 +307,8 @@ void Enemy::ScaleReverse(VECTOR2 target)
 	}*/
 
 	//真上に来た時に左右になりまくるのがいやなのでデッドゾーンを付けたver
+	if (fabsf(speed.x) > 0.5f)	return;		//スピードがあるときは変えない
+
 	const float DEAD_ZONE = 20.0f; // この範囲では向きを変えない
 	float dx = target.x - pos.x;
 

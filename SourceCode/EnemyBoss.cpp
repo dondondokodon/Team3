@@ -96,8 +96,10 @@ void EnemyBoss::init()
 	//tailPos          = { 0,0 };
 	//tailTexSize = { 0,0 };
 	//act              = ATTACK2_INIT;
-	posYFlag = false;
+	//posYFlag = false;
 	isGround = false;
+	acceleration = false;
+	//texSize = { 2600,700 };
 }
 
 void EnemyBoss::deinit()
@@ -112,11 +114,11 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 	attackType       = none;
 	isTargetRemoveOn = false;
 
-	if (posYFlag)
+	/*if (posYFlag)
 	{
 		drawPosYOffset += 50;
 		posYFlag = false;
-	}
+	}*/
 
 
 	//èÛë‘ëJà⁄
@@ -171,7 +173,7 @@ void EnemyBoss::state()
 	{
 	case IDLE_INIT:
 		anime_state = 0;
-		drawPosYOffset -= 50;
+		//drawPosYOffset -= 50;
 		animeCount = 0;
 		act = IDLE;
 
@@ -190,7 +192,7 @@ void EnemyBoss::state()
 			{
 				animeCount = 0;
 				anime_state = 0;
-				posYFlag = true;
+				//posYFlag = true;
 				decideAttack();
 				//act = ATTACK1_INIT;	//âº
 			}
@@ -198,20 +200,21 @@ void EnemyBoss::state()
 		//Ç¢Ç¡ÇΩÇÒÇ»Çµ
 		if (fabsf(speed.x) > 3.0f)
 		{
-			posYFlag = true;
+			//posYFlag = true;
 			act = WALK_INIT;
 		}
 		break;
 
 	case WALK_INIT:
 		anime_state = 0;
+		acceleration = direction.x * 6.5f;
 		act = WALK;
-		
 
 	case WALK:
 	{
 		//à⁄ìÆ
-		speed.x = direction.x * 6.5f;
+		speed.x = acceleration;
+
 		if (animeUpdate(9, 11, 6, true)&&!moveInCamera)
 		{
 			speed.x = 0;
@@ -367,22 +370,51 @@ void EnemyBoss::state()
 
 		break;
 	}
-	/*case ATTACK3_INIT:
+	case JUMP_INIT:
 		anime_state = 0;
+		
 		act = ATTACK2;
 
-	case ATTACK3:
+	case JUMP:
 
 		break;
 
-	case ATTACK4_INIT:
+	/*case ATTACK4_INIT:
 		anime_state = 0;
 		act = ATTACK2;
 
-	case ATTACK4:*/
+	case ATTACK4:
 
-		break;
+		break;*/
+		
 	}
+	/*switch(animeCount)
+	{
+	case 0:
+		if (animeUpdate(0, 4, 6, false))
+			animeCount++;
+		break;
+	case 1:
+		if (animeUpdate(1, 4, 6, false))
+			animeCount++;
+		break;
+	case 2:
+		if (animeUpdate(2, 4, 6, false))
+			animeCount++;
+		break;
+	case 3:
+		if (animeUpdate(3, 4, 6, false))
+			animeCount++;
+		break;
+	case 4:
+		if (animeUpdate(4, 4, 6, false))
+			animeCount++;
+		break;
+	case 5:
+		if (animeUpdate(5, 4, 6, false))
+			animeCount++;
+		break;*/
+	//}
 }
 
 void EnemyBoss::decideAttack()
@@ -404,23 +436,23 @@ void EnemyBoss::decideAttack()
 }
 
 //êKîˆÇ‡ï`âÊÇµÇΩÇ¢ÇÃÇ≈
-void EnemyBoss::cameraRender(CAMERA& camera)
-{
-	VECTOR2 drawPos = pos;
-	drawPos.y += drawPosYOffset;
-
-	sprite_render(
-		spr.get(),
-		drawPos.x - camera.getPos().x,
-		drawPos.y - camera.getPos().y,
-		scale.x, scale.y,
-		texPos.x, texPos.y,
-		texSize.x, texSize.y,
-		pivot.x, pivot.y,
-		angle,
-		color.x, color.y, color.z, color.w
-	);
-	//VECTOR2 scale = {-direction.x,1.0f};	//å≥Ç™ç∂å¸Ç´Ç»ÇÃÇ≈-
-	//if(sprTail)
-	//sprite_render(sprTail.get(), tailPos.x-camera.getPos().x, tailPos.y-camera.getPos().y, scale.x, scale.y, 0, 0, tailTexSize.x, tailTexSize.y,0,25,ToRadian(0),1,1,1,1);
-}
+//void EnemyBoss::cameraRender(CAMERA& camera)
+//{
+//	VECTOR2 drawPos = pos;
+//	drawPos.y += drawPosYOffset;
+//
+//	sprite_render(
+//		spr.get(),
+//		drawPos.x - camera.getPos().x,
+//		drawPos.y - camera.getPos().y,
+//		scale.x, scale.y,
+//		texPos.x, texPos.y,
+//		texSize.x, texSize.y,
+//		pivot.x, pivot.y,
+//		angle,
+//		color.x, color.y, color.z, color.w
+//	);
+//	//VECTOR2 scale = {-direction.x,1.0f};	//å≥Ç™ç∂å¸Ç´Ç»ÇÃÇ≈-
+//	//if(sprTail)
+//	//sprite_render(sprTail.get(), tailPos.x-camera.getPos().x, tailPos.y-camera.getPos().y, scale.x, scale.y, 0, 0, tailTexSize.x, tailTexSize.y,0,25,ToRadian(0),1,1,1,1);
+//}
