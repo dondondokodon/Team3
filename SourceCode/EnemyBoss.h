@@ -11,6 +11,7 @@ private:
     int animeCount=0;         //ƒAƒjƒ‚ª‚Q’i‚ ‚é‚Ì‚É‘Î‰‚·‚é‚½‚ß
     std::shared_ptr<Sprite> sprTail;    //K”ö‚Ì‰æ‘œ
     std::unique_ptr<Character> tails;   //K”ö“–‚½‚è”»’è•t‚«
+    VECTOR2 tailPos;
 
     enum STATE
     {
@@ -42,5 +43,6 @@ public:
     void deinit()override;
     void update(CAMERA& camera,VECTOR2 targetPos)override;
     void state()override;
+    void cameraRender(CAMERA& camera)override;
 };
 
