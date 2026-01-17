@@ -86,7 +86,7 @@ private:
 	float heavyBetRatio = 0.1f;	//重攻撃消費コイン割合
 	const VECTOR2 MAX_SPEED;	//最高速度
 	bool attack2Reserve = false;// 次弾攻撃予約
-	bool isGround = false;		//地面判定
+	
 	int baseMaxJump = 2;		//最大のジャンプ回数
 	int jumpCount = 2;			//残りのジャンプ回数
 	int attack_frame = 5;		//攻撃時のフレーム数
