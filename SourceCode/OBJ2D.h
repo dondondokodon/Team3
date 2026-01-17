@@ -85,3 +85,4 @@ public:
 
 void gravity(OBJ2D* obj, VECTOR2 energy);	//èdóÕ
 void friction(OBJ2D* obj);	//ñÄéC
+void NumbersRender(int num, Sprite* spr, VECTOR2 pos, VECTOR2 scale, VECTOR2 texPos, VECTOR2 texSize, VECTOR2 pivot, int angle, VECTOR4 color);

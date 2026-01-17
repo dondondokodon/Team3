@@ -88,3 +88,31 @@ void friction(OBJ2D* obj)	//摩擦
 	obj->setSpeed(v);
 }
 
+//小さい桁から
+void NumbersRender(int num, Sprite* spr, VECTOR2 pos, VECTOR2 scale, VECTOR2 texPos, VECTOR2 texSize, VECTOR2 pivot, int angle, VECTOR4 color)
+{
+	if (!num)
+	{
+		sprite_render(spr,
+			pos.x, pos.y, scale.x, scale.y,
+			texPos.x, texPos.y, texSize.x, texSize.y,
+			pivot.x, pivot.y, angle,
+			color.x, color.y, color.z, color.w);
+		return;
+	}
+	int offset = 0;
+	while (num > 0)
+	{
+		int number = num % 10;  // 1の位から取り出す
+		num /= 10;              // 次の桁へ
+
+		// 桁ごとに少しずつ右にずらす（40ピクセル単位など）
+		sprite_render(spr,
+			pos.x - offset, pos.y, scale.x, scale.y,
+			texPos.x + texSize.x * number, texPos.y, texSize.x, texSize.y,
+			pivot.x, pivot.y, angle,
+			color.x, color.y, color.z, color.w);
+
+		offset += texSize.x; // 次の桁の位置調整
+	}
+}

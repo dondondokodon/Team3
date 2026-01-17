@@ -45,6 +45,7 @@ protected:
 	VECTOR2 fallEnergy = { 0.0f,1.3f };	//重力をいじりたくなった
 
 	VECTOR2 mellePos = { 0,0 };	//近接攻撃用
+	float acceleration;	//スピードの上昇量
 	float   melleRadius = 0;
 	bool isGround = false;		//地面判定
 };
