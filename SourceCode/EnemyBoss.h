@@ -9,6 +9,8 @@ private:
     const float maxSpeedX;
     const int   coinReward;   //撃破時のコイン
     int animeCount=0;         //アニメが２段あるのに対応するため
+    float jumpTargetX;
+    //std::shared_ptr<Sprite> sprJump;    //ジャンプ
    // bool posYFlag;              //高さを画像に合わせるためのフラグ
    // float drawPosYOffset;           //描画だけ変える
     //std::shared_ptr<Sprite> sprTail;    //尻尾の画像
@@ -45,7 +47,7 @@ public:
     void init()override;
     void deinit()override;
     void update(CAMERA& camera,VECTOR2 targetPos)override;
-    void state()override;
+    void state(VECTOR2 targetPos);
     void decideAttack();
    // void cameraRender(CAMERA& camera)override;
 };
