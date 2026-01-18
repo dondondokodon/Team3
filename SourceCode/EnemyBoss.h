@@ -13,8 +13,8 @@ private:
     bool isCanFlip;           //反転していいか（スケールリバース）
     bool isSprChange;                //画像差し替えのタイミング
     //std::shared_ptr<Sprite> sprJump;    //ジャンプ
-    bool posYFlag;              //高さを画像に合わせるためのフラグ
-    float drawPosYOffset;           //描画だけ変える
+    bool posFlag;              //高さを画像に合わせるためのフラグ
+    VECTOR2 drawPosOffset;           //描画だけ変える
     //std::shared_ptr<Sprite> sprTail;    //尻尾の画像
     //std::unique_ptr<Character> tails;   //尻尾当たり判定付き
    // VECTOR2 tailPos;
