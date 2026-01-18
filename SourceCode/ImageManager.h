@@ -10,6 +10,7 @@ public:
 	enum SpriteNum
 	{
 		Player,
+		Player_ATTACK_Effect,
 		Enemy,
 		PlayerBullet,
 		EnemyBullet,
