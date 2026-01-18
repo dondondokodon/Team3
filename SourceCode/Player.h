@@ -14,6 +14,7 @@ public:
 	void init();
 	void deinit();
 	void update();
+	void cameraRender(CAMERA& camera);
 	void betCoin(int gold,float atkMultiple,float goldMultiple);		//攻撃するときにかけるお金 引数　掛け金　攻撃力倍率　帰ってくるお金倍率
 	bool isDeath() { return (gold <= 0 && returnGold <= 0); }
 	void inputMove();
@@ -90,6 +91,7 @@ private:
 	int baseMaxJump = 2;		//最大のジャンプ回数
 	int jumpCount = 2;			//残りのジャンプ回数
 	int attack_frame = 5;		//攻撃時のフレーム数
+	int animeCount;
 
 	//球関連
 	VECTOR2 lightSpeed = { 15,15 };
@@ -103,6 +105,9 @@ private:
 	float heavyLifeLimit = 0.5f;
 	VECTOR2 heavyTexSize = { 6,6 };
 	float heavyRadius = 3.0f;
+	VECTOR2 drawPos;
+	bool drawPosFlag;
+	const VECTOR2 drawPosOffet = { -100,-90 };
 
 
 	std::shared_ptr<Sprite> playerBullet;
