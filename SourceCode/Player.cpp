@@ -283,48 +283,81 @@ void Player::state()
 	case ATTACK1_INIT:
 		anime_state = 0;
 		attack2Reserve = false;
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player_ATTACK_Effect);
+		texSize = { 512.0f,512.0f };
 		act = ATTACK1;
 
 	case ATTACK1:
 	{
 		InputProjectile();	//ここでattack2Reserveを更新してる
 		//lightAttack = false;
-		if (animeUpdate(0, 16, attack_frame, false))		act = IDLE_INIT;
+		if (animeUpdate(0, 11, attack_frame, false))
+		{
+			texSize = { 320.0f,320.0f };
+			spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player);
+			act = IDLE_INIT;
+		}
 		if (animeTimer == 3* attack_frame)	lightAttack = true;	//４コマ目に射撃
 		
 		
 		//連撃
-		if (anime >= 11 && attack2Reserve)		act = ATTACK2_INIT;
-		
-		
+		if (anime >= 11 && attack2Reserve)
+		{
+			{
+				texSize = { 320.0f,320.0f };
+				spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player);
+				act = ATTACK2_INIT;
+			}
+		}
 		break;
 	}
 
 	case ATTACK2_INIT:
 		anime_state = 0;
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player_ATTACK_Effect);
+		texSize = { 512.0f,512.0f };
 		act = ATTACK2;
 
 	case ATTACK2:
-		if (animeUpdate(6, 13, attack_frame, false))	act = IDLE_INIT;
+		if (animeUpdate(1, 13, attack_frame, false))
+		{
+			texSize = { 320.0f,320.0f };
+			spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player);
+			act = IDLE_INIT;
+		}
 		if (animeTimer == 3 * attack_frame)			lightAttack = true;	//４コマ目に射撃
 		break;
 
 	case HEAVY_ATTACK1_INIT:
 		anime_state = 0;
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player_ATTACK_Effect);
+		texSize = { 512.0f,512.0f };
 		act = HEAVY_ATTACK1;
 
 	case HEAVY_ATTACK1:
-		if (animeUpdate(7, 40, attack_frame, false))	act = IDLE_INIT;
+		if (animeUpdate(2, 40, attack_frame, false))
+		{
+			texSize = { 320.0f,320.0f };
+			spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player);
+			act = IDLE_INIT;
+		}
 		if (animeTimer == 20* attack_frame+1)			heavyAttack = true; //20コマ目に射撃
 		if (animeTimer == 20 * attack_frame + 1)	speed.x = 20 * -direction.x;
 		break;
 
 	case HEAVY_ATTACK2_INIT:
 		anime_state = 0;
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player_ATTACK_Effect);
+		texSize = { 512.0f,512.0f };
 		act = HEAVY_ATTACK2;
 
 	case HEAVY_ATTACK2:
-		if (animeUpdate(8, 40, attack_frame, false))	act = IDLE_INIT;
+		if (animeUpdate(3, 40, attack_frame, false))
+		{
+			texSize = { 320.0f,320.0f };
+			spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player);
+			act = IDLE_INIT;
+		}
 		if (animeTimer == 20 * attack_frame + 1)		heavyAttack = true; //20コマ目に射撃
 		if (animeTimer == 20 * attack_frame + 1)	speed.x = 20 * -direction.x;
 		break;
