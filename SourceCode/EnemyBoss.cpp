@@ -75,7 +75,7 @@ void EnemyBoss::init()
 	texSize          = { 500.0f,350.0f };
 	texPos           = { 0.0f,0.0f };
 	color            = { 1.0f,1.0f,1.0f,1.0f };
-	scale            = { 2.0f,2.0f };
+	scale            = { 1.5f,1.5f };
 	pivot            = { texSize.x * 0.5f,texSize.y * 0.5f };
 	speed            = { 0,0 };
 	offset           = { 0,0 };
@@ -84,7 +84,7 @@ void EnemyBoss::init()
 	anime            = 0;
 	animeTimer       = 0;
 	anime_state      = 0;
-	radius           = texSize.y * 0.5f*scale.y;
+	radius           = texSize.y * 0.3f*scale.y;
 	invincibleTimer  = 1.0f;
 	direction        = { 1,0 };
 	pos              = { 500,360 };
@@ -96,13 +96,18 @@ void EnemyBoss::init()
 	//tailPos          = { 0,0 };
 	//tailTexSize = { 0,0 };
 	//act              = ATTACK2_INIT;
-	posYFlag = false;
-	drawPosYOffset = 0.0f;
+	posFlag = false;
+	drawPosOffset = { 0,0 };
 	isGround = false;
 	isCanFlip = false;
 	acceleration = false;
 	//texSize = { 2600,700 };
 	jumpTargetX = 0.0f;
+
+	//texSize = { 500,350 };
+	//scale = { 1.0f,1.0f };
+	/*pos = { 1000,360 };
+	act = ATTACK2_INIT;*/
 }
 
 void EnemyBoss::deinit()
@@ -117,15 +122,20 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 	attackType       = none;
 	isTargetRemoveOn = false;
 
-	if (posYFlag)
+	//オフセット更新
+	//offset = { -fabsf(50) * direction.x,0 };
+
+	if (posFlag&& act != ATTACK2 && act != ATTACK2_INIT)
 	{
-		drawPosYOffset = 0.0f;
-		posYFlag = false;
+		drawPosOffset = { 0,0 };
+		posFlag = false;
 	}
 
 	if (isSprChange)
 	{
 		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::boss);
+		texSize = { 500.0f,350.0f };
+		isSprChange = false;
 	}
 
 	//状態遷移
@@ -157,14 +167,12 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 	pos += speed;
 
 	//地面判定		120は補正の数字
-	if (pos.y > GROUND_Y - pivot.y*scale.y+120)
+	if (pos.y > GROUND_Y - pivot.y*scale.y+100)
 	{
-		pos.y = GROUND_Y - pivot.y * scale.y + 120;
+		pos.y = GROUND_Y - pivot.y * scale.y + 100;
 		speed.y = 0;
 		isGround = true;
 	}
-
-	
 
 	//スケール反転
 	if(isCanFlip)
@@ -175,7 +183,8 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 	{
 		Destroy();
 	}
-	debug::setString("Pos,state:%f:%f:%d", pos.x, pos.y,act);
+	debug::setString("Pos,state,DrawOFFset:%f:%f:%d", pos.x, pos.y,act);
+	debug::setString("DrawOFFset:%f:%f", drawPosOffset.x,drawPosOffset.y);
 }
 
 void EnemyBoss::state(VECTOR2 targetPos)
@@ -185,7 +194,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 	{
 	case IDLE_INIT:
 		anime_state = 0;
-		drawPosYOffset -= 50;
+		drawPosOffset.y -= 50;
 		animeCount = 0;
 		isCanFlip = true;
 		act = IDLE;
@@ -201,11 +210,11 @@ void EnemyBoss::state(VECTOR2 targetPos)
 			}
 		}	
 		else
-			if (animeUpdate(8, 1, 6, true))
+			if (animeUpdate(8, 1, 6, true))		
 			{
 				animeCount = 0;
 				anime_state = 0;
-				posYFlag = true;
+				posFlag = true;
 				decideAttack();
 				//act = ATTACK1_INIT;	//仮
 				isCanFlip = false;
@@ -214,7 +223,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		//いったんなし
 		if (fabsf(speed.x) > 3.0f)
 		{
-			posYFlag = true;
+			posFlag = true;
 			act = WALK_INIT;
 			isCanFlip = false;
 		}
@@ -250,6 +259,8 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		// case2 で速度を決めるので、ここでは止めておく
 		speed.x = 0.0f;
 		isCanFlip = true;
+		
+		drawPosOffset = { 100 * direction.x,0 };
 
 		act = ATTACK1;
 	}
@@ -340,8 +351,12 @@ void EnemyBoss::state(VECTOR2 targetPos)
 	case ATTACK2_INIT:
 		anime_state = 0;
 		animeCount = 0;
-		//spr= spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTail);
+		texSize = { 1300.0f,350.0f };
+		drawPosOffset = { 1200.0f * direction.x,0 };
+		scale.x = fabsf(scale.x)* - direction.x;
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTail);
 		act = ATTACK2;
+		//break;
 
 	case ATTACK2:
 	{
@@ -351,7 +366,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		{	//しっぽ１段目
 		case 0:
 		{
-			if (animeUpdate(5, 14, 6, true))
+			if (animeUpdate(0, 2, 6, false))
 			{
 				animeCount++;
 				anime_state = 0;
@@ -391,12 +406,62 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		}
 			//しっぽ２段目
 		case 1:
-			if (animeUpdate(6, 2, 6, true))
+			if (animeUpdate(2, 1, 6, false))
 			{
-				//isSprChange = true;
-				decideAttack();
+				animeCount++;
+				anime_state = 0;
 				//sprTail = nullptr;
 				//act = ATTACK2_INIT;
+			}
+			break;
+
+		case 2:
+			if (animeUpdate(3, 2, 6, false))
+			{
+				animeCount++;
+				anime_state = 0;
+			}
+			break;
+		case 3:
+			if (animeUpdate(4, 2, 6, false))
+			{
+				animeCount++;
+				anime_state = 0;
+			}
+			break;
+
+		case 4:
+			if (animeUpdate(5, 2, 6, false))
+			{
+				animeCount++;
+				anime_state = 0;
+			}
+			break;
+
+		case 5:
+			if (animeUpdate(6, 2, 6, false))
+			{
+				animeCount++;
+				anime_state = 0;
+			}
+			break;
+
+		case 6:
+			if (animeUpdate(7, 2, 6, false))
+			{
+				animeCount++;
+				anime_state = 0;
+			}
+			break;
+
+		case 7:
+			if (animeUpdate(8, 2, 6, false))
+			{
+				//texSize = { 500.0f,350.0f };
+				posFlag = true;
+				isSprChange = true;
+				//act = ATTACK2_INIT;		//デバッグ用
+				decideAttack();
 			}
 			break;
 		}
@@ -504,7 +569,7 @@ void EnemyBoss::decideAttack()
 void EnemyBoss::cameraRender(CAMERA& camera)
 {
 	VECTOR2 drawPos = pos;
-	drawPos.y += drawPosYOffset;
+	drawPos += drawPosOffset;
 
 	sprite_render(
 		spr.get(),
