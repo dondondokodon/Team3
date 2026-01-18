@@ -72,10 +72,10 @@ void EnemyBoss::init()
 
 	hp               = 2000;
 	atk              = 100;
-	texSize          = { 1000.0f,700.0f };
+	texSize          = { 500.0f,350.0f };
 	texPos           = { 0.0f,0.0f };
 	color            = { 1.0f,1.0f,1.0f,1.0f };
-	scale            = { 1.0f,1.0f };
+	scale            = { 2.0f,2.0f };
 	pivot            = { texSize.x * 0.5f,texSize.y * 0.5f };
 	speed            = { 0,0 };
 	offset           = { 0,0 };
@@ -84,7 +84,7 @@ void EnemyBoss::init()
 	anime            = 0;
 	animeTimer       = 0;
 	anime_state      = 0;
-	radius           = texSize.y * 0.5f;
+	radius           = texSize.y * 0.5f*scale.y;
 	invincibleTimer  = 1.0f;
 	direction        = { 1,0 };
 	pos              = { 500,360 };
@@ -96,8 +96,10 @@ void EnemyBoss::init()
 	//tailPos          = { 0,0 };
 	//tailTexSize = { 0,0 };
 	//act              = ATTACK2_INIT;
-	//posYFlag = false;
+	posYFlag = false;
+	drawPosYOffset = 0.0f;
 	isGround = false;
+	isCanFlip = false;
 	acceleration = false;
 	//texSize = { 2600,700 };
 	jumpTargetX = 0.0f;
@@ -115,12 +117,16 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 	attackType       = none;
 	isTargetRemoveOn = false;
 
-	/*if (posYFlag)
+	if (posYFlag)
 	{
-		drawPosYOffset += 50;
+		drawPosYOffset = 0.0f;
 		posYFlag = false;
-	}*/
+	}
 
+	if (isSprChange)
+	{
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::boss);
+	}
 
 	//ó‘Ô‘JˆÚ
 	state(targetPos);
@@ -151,9 +157,9 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 	pos += speed;
 
 	//’n–Ê”»’è		120‚Í•â³‚Ì”Žš
-	if (pos.y > GROUND_Y - pivot.y+120)
+	if (pos.y > GROUND_Y - pivot.y*scale.y+120)
 	{
-		pos.y = GROUND_Y - pivot.y + 120;
+		pos.y = GROUND_Y - pivot.y * scale.y + 120;
 		speed.y = 0;
 		isGround = true;
 	}
@@ -161,6 +167,7 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 	
 
 	//ƒXƒP[ƒ‹”½“]
+	if(isCanFlip)
 	ScaleReverse(targetPos);
 
 	//Ž€‚ñ‚¾‚ç”jŠü
@@ -178,8 +185,9 @@ void EnemyBoss::state(VECTOR2 targetPos)
 	{
 	case IDLE_INIT:
 		anime_state = 0;
-		//drawPosYOffset -= 50;
+		drawPosYOffset -= 50;
 		animeCount = 0;
+		isCanFlip = true;
 		act = IDLE;
 
 	case IDLE:
@@ -197,16 +205,18 @@ void EnemyBoss::state(VECTOR2 targetPos)
 			{
 				animeCount = 0;
 				anime_state = 0;
-				//posYFlag = true;
+				posYFlag = true;
 				decideAttack();
 				//act = ATTACK1_INIT;	//‰¼
+				isCanFlip = false;
 			}
 
 		//‚¢‚Á‚½‚ñ‚È‚µ
 		if (fabsf(speed.x) > 3.0f)
 		{
-			//posYFlag = true;
+			posYFlag = true;
 			act = WALK_INIT;
+			isCanFlip = false;
 		}
 		break;
 
@@ -226,7 +236,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 			decideAttack();
 		}
 
-		if (fabsf(speed.x) <= 0.5f)
+		if (fabsf(speed.x) <= 0.6f)
 		{
 			act=IDLE_INIT;
 		}
@@ -239,6 +249,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 
 		// case2 ‚Å‘¬“x‚ðŒˆ‚ß‚é‚Ì‚ÅA‚±‚±‚Å‚ÍŽ~‚ß‚Ä‚¨‚­
 		speed.x = 0.0f;
+		isCanFlip = true;
 
 		act = ATTACK1;
 	}
@@ -259,6 +270,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 			//ˆê‰ñ‚¾‚¯
 			if (animeTimer == 0)
 			{
+				isCanFlip = false;
 				// ƒvƒŒƒCƒ„[‚Ì‘O‚É’…’n‚³‚¹‚é
 				const float FRONT_OFFSET = 400.0f;
 				jumpTargetX = targetPos.x - (FRONT_OFFSET * direction.x);
@@ -328,6 +340,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 	case ATTACK2_INIT:
 		anime_state = 0;
 		animeCount = 0;
+		//spr= spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTail);
 		act = ATTACK2;
 
 	case ATTACK2:
@@ -380,6 +393,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		case 1:
 			if (animeUpdate(6, 2, 6, true))
 			{
+				//isSprChange = true;
 				decideAttack();
 				//sprTail = nullptr;
 				//act = ATTACK2_INIT;
@@ -487,23 +501,23 @@ void EnemyBoss::decideAttack()
 }
 
 //K”ö‚à•`‰æ‚µ‚½‚¢‚Ì‚Å
-//void EnemyBoss::cameraRender(CAMERA& camera)
-//{
-//	VECTOR2 drawPos = pos;
-//	drawPos.y += drawPosYOffset;
-//
-//	sprite_render(
-//		spr.get(),
-//		drawPos.x - camera.getPos().x,
-//		drawPos.y - camera.getPos().y,
-//		scale.x, scale.y,
-//		texPos.x, texPos.y,
-//		texSize.x, texSize.y,
-//		pivot.x, pivot.y,
-//		angle,
-//		color.x, color.y, color.z, color.w
-//	);
-//	//VECTOR2 scale = {-direction.x,1.0f};	//Œ³‚ª¶Œü‚«‚È‚Ì‚Å-
-//	//if(sprTail)
-//	//sprite_render(sprTail.get(), tailPos.x-camera.getPos().x, tailPos.y-camera.getPos().y, scale.x, scale.y, 0, 0, tailTexSize.x, tailTexSize.y,0,25,ToRadian(0),1,1,1,1);
-//}
+void EnemyBoss::cameraRender(CAMERA& camera)
+{
+	VECTOR2 drawPos = pos;
+	drawPos.y += drawPosYOffset;
+
+	sprite_render(
+		spr.get(),
+		drawPos.x - camera.getPos().x,
+		drawPos.y - camera.getPos().y,
+		scale.x, scale.y,
+		texPos.x, texPos.y,
+		texSize.x, texSize.y,
+		pivot.x, pivot.y,
+		angle,
+		color.x, color.y, color.z, color.w
+	);
+	//VECTOR2 scale = {-direction.x,1.0f};	//Œ³‚ª¶Œü‚«‚È‚Ì‚Å-
+	//if(sprTail)
+	//sprite_render(sprTail.get(), tailPos.x-camera.getPos().x, tailPos.y-camera.getPos().y, scale.x, scale.y, 0, 0, tailTexSize.x, tailTexSize.y,0,25,ToRadian(0),1,1,1,1);
+}

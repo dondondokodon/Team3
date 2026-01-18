@@ -68,6 +68,7 @@ void Player::init()
 	direction = { 1,0 };
 	invincibleTimer = 1.0f;
 	attack_frame = 5;
+	animeCount = 0;
 
 	playerBullet = ImageManager::Instance().getSprite(ImageManager::SpriteNum::PlayerBullet);
 
@@ -79,6 +80,8 @@ void Player::init()
 	lightLifeLimit = 0.7f;
 	lightTexSize = { 6,6 };
 	lightRadius = 3.0f;
+	drawPos = { 0,0 };
+	drawPosFlag = false;
 
 	heavySpeed = { 10,10 };
 	heavyScale = { 8.0,8.0 };
@@ -127,6 +130,16 @@ void Player::deinit()
 
 void Player::update()
 {
+	//描画位置補正 状態遷移より上に置かないとサイズとかが更新されてから描画されるので上に置く
+	if (drawPosFlag)
+	{
+		drawPos = { 0,0 };
+		drawPosFlag = false;
+
+		texSize = { 320.0f,320.0f };
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player);
+	}
+
 	//状態遷移
 	state();
 
@@ -285,6 +298,7 @@ void Player::state()
 		attack2Reserve = false;
 		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player_ATTACK_Effect);
 		texSize = { 512.0f,512.0f };
+		drawPos = { drawPosOffet.x * direction.x,drawPosOffet.y };
 		act = ATTACK1;
 
 	case ATTACK1:
@@ -293,8 +307,7 @@ void Player::state()
 		//lightAttack = false;
 		if (animeUpdate(0, 11, attack_frame, false))
 		{
-			texSize = { 320.0f,320.0f };
-			spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player);
+			drawPosFlag = true;
 			act = IDLE_INIT;
 		}
 		if (animeTimer == 3* attack_frame)	lightAttack = true;	//４コマ目に射撃
@@ -304,8 +317,6 @@ void Player::state()
 		if (anime >= 11 && attack2Reserve)
 		{
 			{
-				texSize = { 320.0f,320.0f };
-				spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player);
 				act = ATTACK2_INIT;
 			}
 		}
@@ -316,13 +327,13 @@ void Player::state()
 		anime_state = 0;
 		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player_ATTACK_Effect);
 		texSize = { 512.0f,512.0f };
+		drawPos = { drawPosOffet.x * direction.x,drawPosOffet.y };
 		act = ATTACK2;
 
 	case ATTACK2:
-		if (animeUpdate(1, 13, attack_frame, false))
+		if (animeUpdate(1, 11, attack_frame, false))
 		{
-			texSize = { 320.0f,320.0f };
-			spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player);
+			drawPosFlag = true;
 			act = IDLE_INIT;
 		}
 		if (animeTimer == 3 * attack_frame)			lightAttack = true;	//４コマ目に射撃
@@ -332,34 +343,78 @@ void Player::state()
 		anime_state = 0;
 		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player_ATTACK_Effect);
 		texSize = { 512.0f,512.0f };
+		drawPos = { drawPosOffet.x * direction.x,drawPosOffet.y };
+		animeCount = 0;
 		act = HEAVY_ATTACK1;
 
 	case HEAVY_ATTACK1:
-		if (animeUpdate(2, 40, attack_frame, false))
+		switch (animeCount)
 		{
-			texSize = { 320.0f,320.0f };
-			spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player);
-			act = IDLE_INIT;
+		case 0:
+			if (animeUpdate(2, 14, attack_frame, false))
+			{
+				anime_state = 0;
+				animeCount++;
+			}
+			break;
+
+		case 1:
+			if (animeUpdate(3, 14, attack_frame, false))
+			{
+				anime_state = 0;
+				animeCount++;
+			}
+			if (animeTimer == 5 * attack_frame + 1)			heavyAttack = true; //20コマ目に射撃
+			if (animeTimer == 5 * attack_frame + 1)			speed.x = 20 * -direction.x;
+			break;
+		case 2:
+			if (animeUpdate(4, 10, attack_frame, false))
+			{
+				drawPosFlag = true;
+				act = IDLE_INIT;
+			}
+			break;
 		}
-		if (animeTimer == 20* attack_frame+1)			heavyAttack = true; //20コマ目に射撃
-		if (animeTimer == 20 * attack_frame + 1)	speed.x = 20 * -direction.x;
+
+		
 		break;
 
 	case HEAVY_ATTACK2_INIT:
 		anime_state = 0;
+		animeCount = 0;
+		drawPos = { drawPosOffet.x*direction.x,drawPosOffet.y };
 		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player_ATTACK_Effect);
 		texSize = { 512.0f,512.0f };
 		act = HEAVY_ATTACK2;
 
 	case HEAVY_ATTACK2:
-		if (animeUpdate(3, 40, attack_frame, false))
+		switch (animeCount)
 		{
-			texSize = { 320.0f,320.0f };
-			spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player);
-			act = IDLE_INIT;
+		case 0:
+			if (animeUpdate(5, 14, attack_frame, false))
+			{
+				anime_state = 0;
+				animeCount++;
+			}
+			break;
+
+		case 1:
+			if (animeUpdate(6, 14, attack_frame, false))
+			{
+				anime_state = 0;
+				animeCount++;
+			}
+			if (animeTimer == 5 * attack_frame + 1)			heavyAttack = true; //20コマ目に射撃
+			if (animeTimer == 5 * attack_frame + 1)			speed.x = 20 * -direction.x;
+			break;
+		case 2:
+			if (animeUpdate(7, 10, attack_frame, false))
+			{
+				drawPosFlag = true;
+				act = IDLE_INIT;
+			}
+			break;
 		}
-		if (animeTimer == 20 * attack_frame + 1)		heavyAttack = true; //20コマ目に射撃
-		if (animeTimer == 20 * attack_frame + 1)	speed.x = 20 * -direction.x;
 		break;
 
 	case DODGE_INIT:
@@ -383,6 +438,24 @@ void Player::state()
 		}
 		break;
 	}
+}
+
+void Player::cameraRender(CAMERA& camera)
+{
+	VECTOR2 dPos = pos;
+	dPos+= drawPos;
+	
+	sprite_render(
+		spr.get(),
+		dPos.x - camera.getPos().x,
+		dPos.y - camera.getPos().y,
+		scale.x, scale.y,
+		texPos.x, texPos.y,
+		texSize.x, texSize.y,
+		pivot.x, pivot.y,
+		angle,
+		color.x, color.y, color.z, color.w
+	);
 }
 
 void Player::inputMove()
