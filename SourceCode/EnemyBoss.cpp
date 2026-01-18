@@ -164,8 +164,6 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 		isGround = true;
 	}
 
-	
-
 	//ÉXÉPÅ[ÉãîΩì]
 	if(isCanFlip)
 	ScaleReverse(targetPos);
@@ -340,7 +338,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 	case ATTACK2_INIT:
 		anime_state = 0;
 		animeCount = 0;
-		//spr= spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTail);
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTail);
 		act = ATTACK2;
 
 	case ATTACK2:
@@ -393,7 +391,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		case 1:
 			if (animeUpdate(6, 2, 6, true))
 			{
-				//isSprChange = true;
+				isSprChange = true;
 				decideAttack();
 				//sprTail = nullptr;
 				//act = ATTACK2_INIT;
