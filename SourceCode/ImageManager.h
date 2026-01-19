@@ -25,6 +25,8 @@ public:
 
 		STRONG,
 		WEAK,
+		buff,
+		debuff,
 		selectingGetPark,
 
 		billBack,

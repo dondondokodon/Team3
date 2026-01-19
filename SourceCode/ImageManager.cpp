@@ -20,6 +20,8 @@ void ImageManager::load()
 	spr[InShop].reset(GameLib::sprite_load(L"./Data/Images/shop_room.png"));
 	spr[STRONG].reset(GameLib::sprite_load(L"./Data/Images/build0.png"));
 	spr[WEAK].reset(GameLib::sprite_load(L"./Data/Images/build2.png"));
+	spr[buff].reset(GameLib::sprite_load(L"./Data/Images/buff.png"));
+	spr[debuff].reset(GameLib::sprite_load(L"./Data/Images/debuff.png"));
 	spr[selectingGetPark].reset(GameLib::sprite_load(L"./Data/Images/selectingGetPark.png"));
 
 	spr[billBack].reset(GameLib::sprite_load(L"./Data/Images/back.png"));
