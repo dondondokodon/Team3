@@ -32,7 +32,7 @@ void SceneBuildSelect::update()
 
 		cardPick();
 
-		debug::setString("Build");
+		//debug::setString("Build");
 
 		break;
 
@@ -50,7 +50,7 @@ void SceneBuildSelect::render()
 		BuildCard* card = GetCard(i);
 		card->render();
 	}
-
+	
 }
 
 
@@ -91,7 +91,6 @@ void SceneBuildSelect::inputCardSelect()
 			j = 0;
 
 	}
-
 
 
 }
@@ -137,9 +136,6 @@ void SceneBuildSelect::cardPick()
 
 void SceneBuildSelect::setBuild()
 {
-	VECTOR2 left = { 240, 400 };
-	VECTOR2 right = { 780, 400 };
-
 	//購入済みかどうかを確認する関数(ラムダ式 ->boolはこの関数はbool型ですよーって意味)
 	auto isSoldOut = [&](int kind) ->bool
 		{
@@ -178,7 +174,7 @@ void SceneBuildSelect::setBuild()
 	std::vector<Factory> weakCandidates;
 	for (auto& it : weakPool) if (!isSoldOut(it.first)) weakCandidates.push_back(it.second);
 
-	//さっき作ったビルド群が空だった場合
+	//さっき作ったビルド群が空だった場合 
 	if (strongCandidates.empty())
 		for (auto& it : strongPool) strongCandidates.push_back(it.second);
 
@@ -192,6 +188,10 @@ void SceneBuildSelect::setBuild()
 	//範囲の設定
 	std::uniform_int_distribution<int> ds(0, (int)strongCandidates.size() - 1);
 	std::uniform_int_distribution<int> dw(0, (int)weakCandidates.size() - 1);
+
+	//出現位置
+	VECTOR2 left = { 340, 400 };
+	VECTOR2 right = { 940, 400 };
 
 	//左に強いビルド・右に弱いビルド
 	showWindow.clear();

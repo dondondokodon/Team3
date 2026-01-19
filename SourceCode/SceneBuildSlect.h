@@ -26,7 +26,7 @@ public:
 		strong
 	};
 
-	int value = 0;
+	int price = 0;
 	int build = -1;
 	int power = -1;
 };
@@ -61,14 +61,14 @@ public:
 		direction = { 0,0 };
 		build = BuildCard::kinds::VERYCOST;
 		power = BuildCard::rank::strong;
-		value = 500;
+		price = 500;
 	}
 	~VeryCostUpBuild() {}
 
 	void update()override
 	{ 
 		Build::extraVeryCost = true; 
-	    Coin::DegCoinNum(value);
+	    Coin::DegCoinNum(price);
 	};
 	//void render();
 };
@@ -91,7 +91,7 @@ public:
 		direction = { 0,0 };
 		build = BuildCard::kinds::EXTRAJUMP;
 		power = BuildCard::rank::weak;
-		value =200;
+		price =200;
 
 	}
 	~ExtraJumpBuild() {}
@@ -99,7 +99,7 @@ public:
 	void update()override
 	{
 		Build::extraJump = true;
-		Coin::DegCoinNum(value);
+		Coin::DegCoinNum(price);
 
 	};
 	//void render();
@@ -123,7 +123,7 @@ public:
 		direction = { 0,0 };
 		build = BuildCard::kinds::MOTIONRAPID;
 		power = BuildCard::rank::weak;
-		value = 200;
+		price = 200;
 
 	}
 	~MotionRapidBuild() {}
@@ -131,7 +131,7 @@ public:
 	void update()override 
 	{
 		Build::extraMotionRapid = true;
-		Coin::DegCoinNum(value);
+		Coin::DegCoinNum(price);
 	};
 	//void render();
 };
@@ -154,7 +154,7 @@ public:
 		direction = { 0,0 };
 		build = BuildCard::kinds::MOONGRAVITY;
 		power = BuildCard::rank::weak;
-		value = 200;
+		price = 200;
 
 	}
 	~MoonGravityBuild() {}
@@ -162,7 +162,7 @@ public:
 	void update()override 
 	{
 		Build::extraMoonGravity = true;
-		Coin::DegCoinNum(value);
+		Coin::DegCoinNum(price);
 	};
 	//void render();
 };
@@ -185,7 +185,7 @@ public:
 		direction = { 0,0 };
 		build = BuildCard::kinds::EXTRABULLET;
 		power = BuildCard::rank::strong;
-		value = 500;
+		price = 500;
 
 	}
 	~ExtraBulletBuild() {}
@@ -193,7 +193,7 @@ public:
 	void update()override 
 	{
 		Build::extraBullet = true; 
-		Coin::DegCoinNum(value);
+		Coin::DegCoinNum(price);
 	};
 	//void render();
 };
