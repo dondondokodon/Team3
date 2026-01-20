@@ -46,10 +46,23 @@ class Tail:public Character
 private:
     VECTOR2 velocity;
     bool alive;
+    std::shared_ptr<AttackContext> ac;
+    typedef void (Tail::*moveAlg) (CAMERA&);
+    moveAlg move;
 
 public:
+    enum funcNum
+    {
+        MOVE_UP,
+
+        MAX
+    };
     void init();
-    void update();
+    void update(CAMERA& camera);
+    void deinit();
+    bool isDeath()override;
+    void setFunction(int num);
+    void moveUp(CAMERA& camera);
 };
 
 class TailBigActionHitBox :public TailHitCircle
@@ -77,4 +90,3 @@ public:
     //void init();
     void update();
 };
-

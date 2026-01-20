@@ -65,8 +65,8 @@ EnemyBoss::EnemyBoss(VECTOR2 Pos) :coinReward(10000),maxSpeedX(10)
 
 void EnemyBoss::init()
 {
-	if (!spr)
-		spr          = ImageManager::Instance().getSprite(ImageManager::SpriteNum::boss);
+	//if (!spr)
+	spr          = ImageManager::Instance().getSprite(ImageManager::SpriteNum::boss);
 
 	/*if (!sprTail)
 		sprTail = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTail);*/
@@ -108,11 +108,14 @@ void EnemyBoss::init()
 	isGravityOn = true;
 	ac = std::make_shared<AttackContext>();
 
+	tail.init();
+
 	//ここより下デバッグ用
 	//texSize = { 500,350 };
 	//scale = { 1.0f,1.0f };
 	//pos = { 1000,360 };
 	//act = ATTACK2_INIT;
+	act = JUMP_INIT;
 }
 
 void EnemyBoss::deinit()
@@ -145,6 +148,8 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 
 	//状態遷移
 	state(targetPos);
+
+	tail.update(camera);
 
 	//無敵時間更新
 	invincibleTimerUpdate();
@@ -590,19 +595,28 @@ void EnemyBoss::state(VECTOR2 targetPos)
 				spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::boss);
 				isGround = false;
 				animeCount = 0;
-				act = FALL_INIT;
+				act = ATTACK4_INIT;
 			}
 		}
 
 		break;
 
-	/*case ATTACK4_INIT:
+	case ATTACK4_INIT:
 		anime_state = 0;
+		isGravityOn = false;
+		tail.setFunction(Tail::funcNum::MOVE_UP);
+		timer = 0;
 		act = ATTACK2;
 
 	case ATTACK4:
-
-		break;*/
+		timer++;
+		if (timer > 60 * 10)
+		{
+			act = FALL_INIT;
+			isGravityOn = true;
+		}
+		
+		break;
 		
 	}
 	/*switch(animeCount)
@@ -672,6 +686,7 @@ void EnemyBoss::cameraRender(CAMERA& camera)
 		angle,
 		color.x, color.y, color.z, color.w
 	);
+	tail.cameraRender(camera);
 	//VECTOR2 scale = {-direction.x,1.0f};	//元が左向きなので-
 	//if(sprTail)
 	//sprite_render(sprTail.get(), tailPos.x-camera.getPos().x, tailPos.y-camera.getPos().y, scale.x, scale.y, 0, 0, tailTexSize.x, tailTexSize.y,0,25,ToRadian(0),1,1,1,1);
