@@ -9,6 +9,7 @@
 #include"SceneTitle.h"
 #include"SceneMap.h"
 #include"SceneBuildSlect.h"
+#include"SceneResult.h"
 #include"stage.h"
 #include"Coin.h"
 

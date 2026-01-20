@@ -170,6 +170,7 @@
     <ClInclude Include="SourceCode\SceneBuildSlect.h" />
     <ClInclude Include="SourceCode\SceneGame.h" />
     <ClInclude Include="SourceCode\SceneMap.h" />
+    <ClInclude Include="SourceCode\SceneResult.h" />
     <ClInclude Include="SourceCode\SceneTitle.h" />
     <ClInclude Include="SourceCode\stage.h" />
     <ClInclude Include="SourceCode\StageSpawnRules.h" />
@@ -215,6 +216,7 @@
     <ClCompile Include="SourceCode\SceneBuildSelect.cpp" />
     <ClCompile Include="SourceCode\SceneGame.cpp" />
     <ClCompile Include="SourceCode\SceneMap.cpp" />
+    <ClCompile Include="SourceCode\SceneResult.cpp" />
     <ClCompile Include="SourceCode\SceneTitle.cpp" />
     <ClCompile Include="SourceCode\stage01.cpp" />
     <ClCompile Include="SourceCode\Stage02.cpp" />
