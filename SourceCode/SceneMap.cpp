@@ -1,11 +1,13 @@
 #include"SceneMap.h"
 #include "../GameLib/game_lib.h"
+#include "Build.h"
 
 
 int moveTile = 0;	//何マス進んだかをカウント
 int move5 = 0;
 int nemuturai = 0;
 int i;				//どのマスにいるか
+bool resetMap = false;
 
 void SceneMap::init()
 {
@@ -25,6 +27,11 @@ void SceneMap::update()
 
 	case 1:
 		setBlendMode(Blender::BS_ALPHA);
+
+		if (resetMap)
+			Clear();
+		resetMap = false;
+
 		if (!moveTile)
 			startBattle();
 		else
@@ -60,7 +67,7 @@ void SceneMap::update()
 
 		pos.x = 200 * nemuturai;
 
-		debug::setString("inTile:%d", GetTileCount());
+		debug::setString("moved:%d", movedTiles.size());
 		debug::setString("moveTile:%d", moveTile);
 		break;
 	}
@@ -104,8 +111,26 @@ void SceneMap::deleteSprite()
 
 
 
+//全削除
+void SceneMap::Clear()
+{
+	tiles.clear();
+	movedTiles.clear();
+	moveTile = 0;	//何マス進んだかをカウント
+	move5 = 0;
+	nemuturai = 0;
+	i = 0;				//どのマスにいるか
 
+	Build::extraJump = false;
+	Build::extraCost = false;
+	Build::extraVeryCost = false;
+	Build::extraMotionRapid = false;
+	Build::extraMoonGravity = false;
+	Build::extraBullet = false;
 
+	debug::setString("SceneMap::Clear CALLED");
+
+}
 
 
 
