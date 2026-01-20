@@ -50,7 +50,7 @@ void OBJ2D::hitAreaRender(CAMERA& camera)
 void OBJ2D::cameraRender(CAMERA& camera)
 {
 	//primitive::rect(pos.x, pos.y, texSize.x, texSize.y, pivot.x, pivot.y, angle, color.x);
-	if (!spr)return;
+	if (!spr)	return;
 	sprite_render(spr.get(), pos.x - camera.getPos().x, pos.y - camera.getPos().y, scale.x, scale.y, texPos.x, texPos.y, texSize.x, texSize.y, pivot.x, pivot.y, angle, color.x, color.y, color.z, color.w);
 }
 

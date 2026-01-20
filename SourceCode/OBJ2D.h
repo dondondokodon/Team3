@@ -28,7 +28,7 @@ protected:
 	VECTOR2 speed;
 	VECTOR2 offset;
 	VECTOR2 direction;
-	int angle;
+	float angle;
 	std::shared_ptr<GameLib::Sprite> spr;
 	
 	int act;
@@ -73,7 +73,7 @@ public:
 	VECTOR2 getSpeed() const{ return speed; }
 	VECTOR2 getPivot() const{ return pivot; }
 	VECTOR2 getDir() const{ return direction; }
-	int getAngle()const { return angle; }
+	float getAngle()const { return angle; }
 
 	void setScale(VECTOR2 Scale) { scale = Scale; }
 	void setAct(int Act) { act = Act; }

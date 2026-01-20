@@ -21,6 +21,7 @@ private:
     //std::unique_ptr<Character> tails;   //尻尾当たり判定付き
    // VECTOR2 tailPos;
    // VECTOR2 tailTexSize;
+    Tail tail;                          //ウルト用の尻尾
 
     enum STATE
     {

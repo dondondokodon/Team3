@@ -43,6 +43,7 @@ public:
 
 		boss,
 		bossTail,
+		bossUltTail,
 		bossTailPull,
 		bossJump,
 
