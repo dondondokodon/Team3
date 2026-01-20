@@ -56,7 +56,7 @@ public:
 
 	virtual void cameraRender(CAMERA& camera);
 
-	virtual void init() {}
+	virtual void init();
 	virtual void deinit() {}
 	virtual void update() =0;
 	bool animeUpdate(int animeNo, int total, int frame, bool loop);
@@ -73,6 +73,7 @@ public:
 	VECTOR2 getSpeed() const{ return speed; }
 	VECTOR2 getPivot() const{ return pivot; }
 	VECTOR2 getDir() const{ return direction; }
+	int getAngle()const { return angle; }
 
 	void setScale(VECTOR2 Scale) { scale = Scale; }
 	void setAct(int Act) { act = Act; }

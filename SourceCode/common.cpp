@@ -31,3 +31,13 @@ VECTOR2 normalize(const VECTOR2& v)
 
 	return { v.x / len, v.y / len };
 }
+
+
+VECTOR2 rotate(const VECTOR2& v, float rad)
+{
+	float c = cosf(rad);
+	float s = sinf(rad);
+
+	return { v.x * c - v.y * s,
+			v.x * s + v.y * c };
+}

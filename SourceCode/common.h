@@ -30,3 +30,4 @@ extern float(* const ToDegree)(float);// ƒ‰ƒWƒAƒ“‚ðŠp“x‚É
 
 bool hitCircle(VECTOR2 pos1, float r1, VECTOR2 pos2, float r2);
 VECTOR2 normalize(const VECTOR2& v);
+VECTOR2 rotate(const VECTOR2& v, float rad);

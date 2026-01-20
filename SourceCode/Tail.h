@@ -9,7 +9,7 @@ public:
     bool hasHit = false;
 };
 
-
+//ATTACK2Ç≈égÇ§Ç‡ÇÃ
 class TailHitCircle : public Projectile
 {
 public:
@@ -38,5 +38,43 @@ public:
 
     void update() override;
     bool onHit()override;
+};
+
+//ëÂãZÇ≈égÇ§Å@ï`âÊÇ†ÇË
+class Tail:public Character
+{
+private:
+    VECTOR2 velocity;
+    bool alive;
+
+public:
+    void init();
+    void update();
+};
+
+class TailBigActionHitBox :public TailHitCircle
+{
+public:
+
+    TailBigActionHitBox(
+        ProjectileManager* manager,
+        int damage,
+        Projectile::kinds
+        ownerId,
+        float LifeLimit,
+        std::shared_ptr<Sprite> s,
+        VECTOR2 TEX_SIZE,
+        VECTOR2 SCALE,
+        VECTOR2 Speed,
+        float Dadius,
+        Character* owner,
+        VECTOR2 offset,
+        float radius,
+        Character* Target,
+        std::shared_ptr<AttackContext> ac
+    );
+
+    //void init();
+    void update();
 };
 

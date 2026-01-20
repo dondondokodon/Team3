@@ -92,6 +92,8 @@ void Player::init()
 	setFallEnergy(VECTOR2{ 0.0f,1.3f });
 	setDef(0);
 
+	//texSize = { 320,320 };
+
 	//3段ジャンプ
 	if (Build::extraJump)
 		addEffect(std::make_unique<ExtraJump>());
@@ -265,7 +267,7 @@ void Player::state()
 		//攻撃
 		InputProjectile();
 		break;
-
+		
 	case FALL_INIT:
 		anime_state = 0;
 		act = FALL;
