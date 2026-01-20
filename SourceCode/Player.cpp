@@ -40,15 +40,15 @@ Player::Player():MAX_SPEED({7,25})
 
 void Player::init()
 {
-	pos = { SCREEN_W * 0.5f,SCREEN_H * 0.5f };
-	scale = { 1,1 };
-	texPos = { 0,0 };
+	pos     = { SCREEN_W * 0.5f,SCREEN_H * 0.5f };
+	scale   = { 1,1 };
+	texPos  = { 0,0 };
 	texSize = { 320,320 };
-	pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
-	color = { 1,1,1,1 };
-	speed = { 0,0 };
-	offset = { 0,50 * scale.y };
-	angle = 0;
+	pivot   = { texSize.x * 0.5f,texSize.y * 0.5f };
+	color   = { 1,1,1,1 };
+	speed   = { 0,0 };
+	offset  = { 0,50 * scale.y };
+	angle   = 0;
 	
 	spr             = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player);
 	act             = 0;
@@ -70,24 +70,21 @@ void Player::init()
 	attack_frame    = 5;
 	animeCount      = 0;
 
-	playerBullet = ImageManager::Instance().getSprite(ImageManager::SpriteNum::PlayerBullet);
-
-	lightBetRatio = 0.01f;
-	heavyBetRatio = 0.1f;
-
-	lightSpeed = { 15,15 };
-	lightScale = { 3,3 };
+	playerBullet   = ImageManager::Instance().getSprite(ImageManager::SpriteNum::PlayerBullet);
+	lightBetRatio  = 0.01f;
+	heavyBetRatio  = 0.1f;
+	lightSpeed     = { 15,15 };
+	lightScale     = { 3,3 };
 	lightLifeLimit = 0.7f;
-	lightTexSize = { 6,6 };
-	lightRadius = 3.0f;
-	drawPos = { 0,0 };
-	drawPosFlag = false;
-
-	heavySpeed = { 10,10 };
-	heavyScale = { 8.0,8.0 };
+	lightTexSize   = { 6,6 };
+	lightRadius    = 3.0f;
+	drawPos        = { 0,0 };
+	drawPosFlag    = false;
+	heavySpeed     = { 10,10 };
+	heavyScale     = { 8.0,8.0 };
 	heavyLifeLimit = 0.5f;
-	heavyTexSize = { 6,6 };
-	heavyRadius = 3.0f;
+	heavyTexSize   = { 6,6 };
+	heavyRadius    = 3.0f;
 
 	setFallEnergy(VECTOR2{ 0.0f,1.3f });
 	setDef(0);
