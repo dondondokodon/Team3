@@ -3,6 +3,7 @@
 #include "HitBox.h"
 #include "ProjectileManager.h"
 #include "Tail.h"
+#include "Scene.h"
 
 EnemyBoss::EnemyBoss() :coinReward(10000), maxSpeedX(10)
 {
@@ -182,6 +183,9 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 	if (isDeath())
 	{
 		Destroy();
+		//“|‚³‚ê‚½‚çƒŠƒUƒ‹ƒg‚Ö
+		ISCENE::nextScene = SCENE_RESULT;
+
 	}
 	debug::setString("Pos,state,DrawOFFset:%f:%f:%d", pos.x, pos.y,act);
 	debug::setString("DrawOFFset:%f:%f", drawPosOffset.x,drawPosOffset.y);

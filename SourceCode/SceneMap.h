@@ -266,7 +266,7 @@ public:
 	Tile* GetMovedTile(int index) { return movedTiles.at(index).get(); }
 
 	//‘Síœ
-	//void Clear();
+	void Clear();
 
 	VECTOR2 WorldToLocal(VECTOR2 WPos) { return WPos - pos; }
 

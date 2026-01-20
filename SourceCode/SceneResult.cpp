@@ -1,9 +1,11 @@
 #include "SceneResult.h"
+#include "SceneMap.h"
+#include "Coin.h"
 
+extern bool resetMap;
 void SceneResult::init()
 {
-	state = 0;
-
+	resetMap = true;
 }
 
 void SceneResult::update()
@@ -14,13 +16,16 @@ void SceneResult::update()
 		state++;
 
 	case 1:
+
 		state++;
 
 	case 2:
 		//デバッグ用
 		if (TRG(0) & PAD_START)
 			ISCENE::nextScene = SCENE_TITLE;
+		//SceneMap::Instance().Clear();
 
+		debug::setString("result");
 
 		break;
 
@@ -30,10 +35,12 @@ void SceneResult::update()
 
 void SceneResult::render()
 {
-	GameLib::clear(0, 1, 1);
+	GameLib::clear(0, 0.5, 0.5);
 
 }
 
 void SceneResult::deinit()
 {
+	Coin::SetCoinNum(1500);
+
 }

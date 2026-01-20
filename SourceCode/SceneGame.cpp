@@ -70,6 +70,11 @@ void SceneGame::update()
 
 		}
 
+		//“|‚³‚ê‚½‚çƒŠƒUƒ‹ƒg‚Ö
+		if (Coin::GetCoinNum() <= 0)
+			ISCENE::nextScene = SCENE_RESULT;
+
+
 		ProjectileManager::Instance().update();
 		Collision();
 		debug::setString("time:%d", timer);
