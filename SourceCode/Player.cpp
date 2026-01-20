@@ -49,8 +49,8 @@ void Player::init()
 	speed = { 0,0 };
 	offset = { 0,50 * scale.y };
 	angle = 0;
-	if (!spr)
-		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player);
+	
+	spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player);
 	act = 0;
 	timer = 0;
 	anime = 0;
