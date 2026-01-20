@@ -116,3 +116,25 @@ void NumbersRender(int num, Sprite* spr, VECTOR2 pos, VECTOR2 scale, VECTOR2 tex
 		offset += texSize.x; // éüÇÃåÖÇÃà íuí≤êÆ
 	}
 }
+
+void OBJ2D::init()
+{
+	pos        = { 0.0f,0.0f };
+	scale      = { 1.0f,1.0f };
+	texPos     = { 0.0f,0.0f };
+	texSize    = {0.0f,0.0f};
+	pivot      = { 0.0f,0.0f };
+	color      ={ 1.0f,1.0f,1.0f,1.0f };
+	speed      = { 0.0f,0.0f };
+	offset     = {0.0f,0.0f};
+	direction  = { 0.0f,0.0f };
+	angle      =0.0f;
+	spr        =nullptr;
+
+	act        =0;
+	timer      =0;
+	anime      =0;
+	animeTimer =0;
+	anime_state=0;
+	radius     =0;     // îºåa
+}
