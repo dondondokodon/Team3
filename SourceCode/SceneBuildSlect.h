@@ -31,17 +31,27 @@ public:
 	int power = -1;
 };
 
-////ビルド強
-//class strongCard :public BuildCard
-//{
-//
-//};
-//
-////ビルド弱
-//class weakCard :public BuildCard
-//{
-//
-//};
+//追加のスプライト
+class extraSprite : public OBJ2D
+{
+public:
+	extraSprite(std::shared_ptr<GameLib::Sprite> spr, VECTOR2 pos, VECTOR2 scale, VECTOR2 texPos, VECTOR2 texSize, VECTOR4 color, VECTOR2 speed, VECTOR2 offset, VECTOR2 direction)
+	{
+		this->spr = spr;
+		this->pos = pos;
+		this->scale = scale;
+		this->texPos = texPos;
+		this->texSize = texSize;
+		pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
+		this->color = color;
+		this->speed = speed;
+		this->offset = offset;
+		this->direction = direction;
+	}
+	~extraSprite() {}
+
+	void update()override {}
+};
 
 //コストアップ
 class VeryCostUpBuild : public BuildCard
@@ -91,7 +101,7 @@ public:
 		direction = { 0,0 };
 		build = BuildCard::kinds::EXTRAJUMP;
 		power = BuildCard::rank::weak;
-		price =200;
+		price = 200;
 
 	}
 	~ExtraJumpBuild() {}
@@ -198,6 +208,7 @@ public:
 	//void render();
 };
 
+
 class SceneBuildSelect :public ISCENE
 {
 private:
@@ -209,6 +220,7 @@ public:
 	void deinit();
 	void deleteSprite();
 	std::shared_ptr<GameLib::Sprite> spr;
+	//extraSprite* selectingMessage = new extraSprite{ VECTOR2{SCREEN_W * 0.5f,200.0f},VECTOR2{1,1},{0,0}, VECTOR2{684,93},VECTOR4{1,1,1,1},VECTOR2{0,0},VECTOR2{0,0},VECTOR2{0,0} };
 
 	void inputCardSelect();
 	void cardPick();
