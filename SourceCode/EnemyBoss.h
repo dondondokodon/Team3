@@ -1,7 +1,7 @@
 #pragma once
 #include "Enemy.h"
 #include <memory>
-
+#include "Tail.h"
 class EnemyBoss :
     public Enemy
 {
@@ -9,12 +9,14 @@ private:
     const float maxSpeedX;
     const int   coinReward;   //撃破時のコイン
     int animeCount=0;         //アニメが２段あるのに対応するため
-    float jumpTargetX;
+    VECTOR2 jumpTarget;
     bool isCanFlip;           //反転していいか（スケールリバース）
     bool isSprChange;                //画像差し替えのタイミング
+    bool isGravityOn;
     //std::shared_ptr<Sprite> sprJump;    //ジャンプ
     bool posFlag;              //高さを画像に合わせるためのフラグ
     VECTOR2 drawPosOffset;           //描画だけ変える
+    std::shared_ptr<AttackContext> ac;                //尻尾の攻撃の当たり判定の弾で使う
     //std::shared_ptr<Sprite> sprTail;    //尻尾の画像
     //std::unique_ptr<Character> tails;   //尻尾当たり判定付き
    // VECTOR2 tailPos;

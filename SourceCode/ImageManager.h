@@ -41,6 +41,7 @@ public:
 
 		boss,
 		bossTail,
+		bossTailPull,
 		bossJump,
 
 		coin,
