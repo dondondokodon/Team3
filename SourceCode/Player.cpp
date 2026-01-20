@@ -50,25 +50,25 @@ void Player::init()
 	offset = { 0,50 * scale.y };
 	angle = 0;
 	
-	spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player);
-	act = 0;
-	timer = 0;
-	anime = 0;
-	animeTimer = 0;
-	anime_state = 0;
-	radius = texSize.x * 0.2f * scale.x;
-	atk = 0;
-	gold = 0;
-	returnGold = 0;
-	attack2Reserve = false;
-	isGround = false;
-	heavyAttack = false;
-	baseMaxJump = 2;
-	jumpCount = 0;
-	direction = { 1,0 };
+	spr             = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player);
+	act             = 0;
+	timer           = 0;
+	anime           = 0;
+	animeTimer      = 0;
+	anime_state     = 0;
+	radius          = texSize.x * 0.2f * scale.x;
+	atk             = 0;
+	gold            = 0;
+	returnGold      = 0;
+	attack2Reserve  = false;
+	isGround        = false;
+	heavyAttack     = false;
+	baseMaxJump     = 2;
+	jumpCount       = 0;
+	direction       = { 1,0 };
 	invincibleTimer = 1.0f;
-	attack_frame = 5;
-	animeCount = 0;
+	attack_frame    = 5;
+	animeCount      = 0;
 
 	playerBullet = ImageManager::Instance().getSprite(ImageManager::SpriteNum::PlayerBullet);
 
