@@ -104,12 +104,14 @@ void EnemyBoss::init()
 	//texSize = { 2600,700 };
 	jumpTarget = {0.0f,0.0f};
 
+	isGravityOn = true;
+	ac = std::make_shared<AttackContext>();
+
+	//ここより下デバッグ用
 	//texSize = { 500,350 };
 	//scale = { 1.0f,1.0f };
 	//pos = { 1000,360 };
-	act = ATTACK2_INIT;
-	isGravityOn = true;
-	ac= std::make_shared<AttackContext>();
+	//act = ATTACK2_INIT;
 }
 
 void EnemyBoss::deinit()
@@ -431,7 +433,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 				{
 					TailHitCircle* c = new TailHitCircle(
 						&ProjectileManager::Instance(),
-						10,						//damage
+						atk,						//damage
 						Projectile::kinds::enemy,
 						0.3f,					//lifeLimit
 						nullptr,				//使う画像
@@ -542,8 +544,8 @@ void EnemyBoss::state(VECTOR2 targetPos)
 				posFlag = true;
 				isSprChange = true;
 				ac->hasHit = false;
-				//decideAttack();
-				act = ATTACK2_INIT;
+				decideAttack();
+				//act = ATTACK2_INIT;
 			}	
 
 			break;
