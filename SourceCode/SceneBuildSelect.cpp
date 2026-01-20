@@ -4,12 +4,24 @@
 #include <random>
 using namespace input;
 int j;				//どのカードを選んでいるか
+std::unique_ptr<extraSprite> selectingMessage;
 
 void SceneBuildSelect::init()
 {
 	j = 0;
 	state = 0;
 	spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::InShop);
+
+	selectingMessage = std::make_unique<extraSprite>( 
+		ImageManager::Instance().getSprite(ImageManager::SpriteNum::selectingGetPark),
+		VECTOR2{SCREEN_W * 0.5f,50.0f},
+		VECTOR2{1,1},
+		VECTOR2{0,0},
+		VECTOR2{684,93},
+		VECTOR4{1,1,1,1},
+		VECTOR2{0,0},VECTOR2{0,0},
+		VECTOR2{0,0} );
+	//selectingMessage->setSprite(ImageManager::Instance().getSprite(ImageManager::SpriteNum::selectingGetPark));
 
 }
 
@@ -45,6 +57,8 @@ void SceneBuildSelect::render()
 	if (!spr) return;
 	sprite_render(spr.get(), 0, 0, 1, 1, 0, 0, 1280, 720, 0, 0, 0, 1, 1, 1, 1);
 
+	selectingMessage->render();
+
 	for (int i = 0; i <= GetCardCount() - 1; i++)
 	{
 		BuildCard* card = GetCard(i);
@@ -61,7 +75,6 @@ void SceneBuildSelect::deinit()
 	//{
 	//	soldOut.push_back(std::move(showWindow[i]));
 	//}
-
 
 	showWindow.clear();
 }
