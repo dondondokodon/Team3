@@ -34,7 +34,7 @@ public:
 	void AnimeUpdate();
 	void normalize(VECTOR2 pos1, VECTOR2 pos2);	//ÇPÅ®ÇQ
 	void Launch(VECTOR2 dir, VECTOR2 pos);
-
+	virtual bool onHit();
 protected:
 	float lifeLimit;
 	int damage;

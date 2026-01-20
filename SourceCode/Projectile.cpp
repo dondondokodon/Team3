@@ -36,3 +36,10 @@ void Projectile::normalize(VECTOR2 pos1, VECTOR2 pos2)
 	direction.x = Vector.x / len;
 	direction.y = Vector.y / len;
 }
+
+//ˆø”‚P‚ªUŒ‚‚·‚é‚Ù‚¤
+bool Projectile::onHit()
+{
+	this->Destroy();
+	return true;
+}

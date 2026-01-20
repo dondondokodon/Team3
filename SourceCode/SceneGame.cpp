@@ -129,36 +129,38 @@ void SceneGame::Collision()
 				//“–‚½‚è”»’è
 				if (hitCircle(p->getPos(), p->getRadius(), e->getPos(), e->getRadius()))
 				{
-					p->Destroy();
-					e->degHp(e->calcProtectingDamage(p->getDamage()));
-					e->setInvincibleTimer(1.5f);
-					e->setHitFlag(true);
-
-					//ŒyUŒ‚‚È‚ç
-					if (p->GetOwnerId() == Projectile::kinds::light)
-						Coin::AddCoinNum(Coin::LightAttackReward());
-
-					//dUŒ‚‚È‚ç
-					if (p->GetOwnerId() == Projectile::kinds::heavy)
-						Coin::AddCoinNum(Coin::HeavyAttackReward());
-
-					//UŒ‚‚ð“–‚Ä‚½‚ç’ÇŒ‚	Œ»Ý“–‚Ä‚Ä‚àƒRƒCƒ“‚Ì•ÔŠÒ‚Í–³‚µ
-					if (p->GetOwnerId() != Projectile::kinds::pursuit && Build::extraBullet)
+					//p->Destroy();
+					if (p->onHit())
 					{
-						int useCoin = Coin::GetRatioCoin(0.005f);
-						ProjectileStraight* b = new ProjectileStraight(&ProjectileManager::Instance(), Projectile::Faction::player, Coin::calcDamage(2, useCoin), Projectile::kinds::pursuit, player.getPursuitLife(), ImageManager::Instance().getSprite(ImageManager::SpriteNum::PlayerBullet), player.getPursuitSize(), player.getPursuitScale(), player.getPursuitSpeed(), player.getPursuitRadius());
-						//Coin::DegCoinNum(useCoin);
-						b->normalize(player.getPos(), e->getPos());
-						b->Launch(b->getDir(), player.getPos());
+						e->degHp(e->calcProtectingDamage(p->getDamage()));
+						e->setInvincibleTimer(1.5f);
+						e->setHitFlag(true);
+
+						//ŒyUŒ‚‚È‚ç
+						if (p->GetOwnerId() == Projectile::kinds::light)
+							Coin::AddCoinNum(Coin::LightAttackReward());
+
+						//dUŒ‚‚È‚ç
+						if (p->GetOwnerId() == Projectile::kinds::heavy)
+							Coin::AddCoinNum(Coin::HeavyAttackReward());
+
+						//UŒ‚‚ð“–‚Ä‚½‚ç’ÇŒ‚	Œ»Ý“–‚Ä‚Ä‚àƒRƒCƒ“‚Ì•ÔŠÒ‚Í–³‚µ
+						if (p->GetOwnerId() != Projectile::kinds::pursuit && Build::extraBullet)
+						{
+							int useCoin = Coin::GetRatioCoin(0.005f);
+							ProjectileStraight* b = new ProjectileStraight(&ProjectileManager::Instance(), Projectile::Faction::player, Coin::calcDamage(2, useCoin), Projectile::kinds::pursuit, player.getPursuitLife(), ImageManager::Instance().getSprite(ImageManager::SpriteNum::PlayerBullet), player.getPursuitSize(), player.getPursuitScale(), player.getPursuitSpeed(), player.getPursuitRadius());
+							//Coin::DegCoinNum(useCoin);
+							b->normalize(player.getPos(), e->getPos());
+							b->Launch(b->getDir(), player.getPos());
+						}
+
+						if (e->isDeath())
+						{
+
+
+						}
 					}
-
-					if (e->isDeath())
-					{
-
-
-					}
-
-
+					
 				}
 
 			}
@@ -180,13 +182,16 @@ void SceneGame::Collision()
 				{
 					if (hitCircle(k->getPos(), k->getRadius(), e->getPos(), e->getRadius()))
 					{
-						k->Destroy();
-						e->degHp(e->calcProtectingDamage(k->getDamage()));
-						e->setInvincibleTimer(1.5f);
-						e->setHitFlag(true);
+						//k->Destroy();
+						if (k->onHit())
+						{
+							e->degHp(e->calcProtectingDamage(k->getDamage()));
+							e->setInvincibleTimer(1.5f);
+							e->setHitFlag(true);
 
-						if (k->GetOwnerId() == Projectile::kinds::pursuit)
-							Coin::AddCoinNum(0);
+							if (k->GetOwnerId() == Projectile::kinds::pursuit)
+								Coin::AddCoinNum(0);
+						}
 					}
 					if (e->isDeath())
 					{
@@ -215,9 +220,12 @@ void SceneGame::Collision()
 				//“–‚½‚è”»’è
 				if (hitCircle(player.getPos(), player.getRadius(), e->getPos(), e->getRadius()))
 				{
-					e->Destroy();
-					Coin::DegCoinNum(player.calcProtectingDamage(e->getDamage()));
-					player.setInvincibleTimer(1.5f);
+					//e->Destroy();
+					if (e->onHit())
+					{
+						Coin::DegCoinNum(player.calcProtectingDamage(e->getDamage()));
+						player.setInvincibleTimer(1.5f);
+					}
 				}
 			}
 		}
