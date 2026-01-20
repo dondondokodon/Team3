@@ -2,7 +2,7 @@
 
 #include "../GameLib/game_lib.h"
 using namespace GameLib;
-
+using namespace input;
 //  ƒV[ƒ“‚Ìƒ‰ƒxƒ‹
 enum
 {
@@ -11,6 +11,7 @@ enum
 	SCENE_GAME,
 	SCENE_MAP,
 	SCENE_BUILD,
+	SCENE_RESULT,
 	
 	SCENE_MAX
 };
