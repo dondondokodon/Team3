@@ -109,13 +109,14 @@ void EnemyBoss::init()
 	ac = std::make_shared<AttackContext>();
 
 	tail.init();
+	gravityScale = 1.3f;
 
 	//ここより下デバッグ用
 	//texSize = { 500,350 };
 	//scale = { 1.0f,1.0f };
 	//pos = { 1000,360 };
 	//act = ATTACK2_INIT;
-	act = JUMP_INIT;
+	act = ATTACK1_INIT;
 }
 
 void EnemyBoss::deinit()
@@ -171,7 +172,7 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 
 	//重力
 	if(!isGround&&isGravityOn)
-		gravity(this, { 0,1.3f });
+		gravity(this, { 0,gravityScale });
 
 	//位置に速度足す
 	pos += speed;
@@ -301,7 +302,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 				jumpTarget.x = targetPos.x - (FRONT_OFFSET_X * direction.x);
 
 				//少し上
-				const float FRONT_OFFSET_Y = 80;
+				const float FRONT_OFFSET_Y = 250;
 				jumpTarget.y = targetPos.y - (FRONT_OFFSET_Y);
 
 				const int CASE2_ATTACK_FRAME = 8 * 6;
@@ -327,6 +328,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 
 			if (animeUpdate(2, 11, 6, true))
 			{
+				isGravityOn = true;
 				isTargetRemoveOn = true;
 				act = FALL_INIT;
 			}
@@ -336,7 +338,8 @@ void EnemyBoss::state(VECTOR2 targetPos)
 			{
 				speed.x = 0;
 				speed.y = 0;
-				isGravityOn = true;
+				
+				gravityScale = 0.3f;
 				mellePos = { pos.x + (250 * direction.x),pos.y};
 				isAttackOn = true;	//球発射
 				attackType = melle;
@@ -352,7 +355,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 
 	case FALL:
 		//接地しているかどうかの条件も後で追加する
-		if (animeUpdate(3, 4, 6, false)&&isGround)
+		if (animeUpdate(3, 4, 3, false)&&isGround)
 		{
 			act = LANDING_INIT;
 		}
@@ -361,15 +364,21 @@ void EnemyBoss::state(VECTOR2 targetPos)
 
 	case LANDING_INIT:
 		anime_state = 0;
+		//drawPosOffset.y = -100.0f;
 		act = LANDING;
 
 	case LANDING:
+		timer++;
+		animeUpdate(4, 4, 6, false);		//ここ2個飛ばしにするために２個読んでる
 		if (animeUpdate(4, 4, 6, false))
 		{
+			gravityScale = 1.3f;
+			//posFlag = true;
 			if (rand() % 2)
 				decideAttack();
 			else
 				act = ATTACK2_INIT;
+			
 		}
 
 		break;

@@ -17,6 +17,7 @@ private:
     bool posFlag;              //‚‚³‚ğ‰æ‘œ‚É‡‚í‚¹‚é‚½‚ß‚Ìƒtƒ‰ƒO
     VECTOR2 drawPosOffset;           //•`‰æ‚¾‚¯•Ï‚¦‚é
     std::shared_ptr<AttackContext> ac;                //K”ö‚ÌUŒ‚‚Ì“–‚½‚è”»’è‚Ì’e‚Åg‚¤
+    float gravityScale;
     //std::shared_ptr<Sprite> sprTail;    //K”ö‚Ì‰æ‘œ
     //std::unique_ptr<Character> tails;   //K”ö“–‚½‚è”»’è•t‚«
    // VECTOR2 tailPos;
