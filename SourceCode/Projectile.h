@@ -31,7 +31,7 @@ public:
 	void update()override  = 0;
 	int getDamage()const { return damage; }
 	Character* getTarget() { return target; }
-	void AnimeUpdate();
+	void AnimeUpdate(int num);
 	void normalize(VECTOR2 pos1, VECTOR2 pos2);	//ÇPÅ®ÇQ
 	void Launch(VECTOR2 dir, VECTOR2 pos);
 	virtual bool onHit();

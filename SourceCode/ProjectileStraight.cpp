@@ -19,7 +19,7 @@ ProjectileStraight::ProjectileStraight(ProjectileManager* manager, Faction facti
 	anime = 0;
 	animeTimer = 0;
 	anime_state = 0;
-	radius = texSize.x *scale.x* 0.5f;
+	//radius = texSize.x *scale.x* 0.5f;
 	//lifeLimit = 0.5f;
 }
 void ProjectileStraight::init()  
@@ -41,6 +41,9 @@ void ProjectileStraight::update()
 	//発射
 	pos.x += direction.x * speed.x;
 	pos.y += direction.y * speed.y;
+
+	// 向きに合わせて回転
+	angle = atan2(direction.y, direction.x)+DirectX::XM_PI;
 }
 
 void ProjectileStraight::render()

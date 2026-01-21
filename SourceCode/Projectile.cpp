@@ -3,11 +3,11 @@
 
 Projectile::Projectile(ProjectileManager* manager, Faction faction, int damage, kinds ownerId,float LifeLimit,std::shared_ptr<Sprite> s,VECTOR2 TEX_SIZE,VECTOR2 SCALE, VECTOR2 Speed, float Radius) : manager(manager), faction(faction), damage(damage), ownerId(ownerId),lifeLimit(LifeLimit),target(nullptr)
 {
-	speed = Speed;
-	scale = SCALE;
-	texSize = TEX_SIZE;
-	radius = Radius;
-	spr = s;
+	speed    = Speed;
+	scale    = SCALE;
+	texSize  = TEX_SIZE;
+	radius   = Radius;
+	spr      = s;
 	//radius = texSize.x * 0.5f;
 	manager->Register(this);
 }
@@ -17,9 +17,13 @@ void Projectile::Destroy()
 	manager->Remove(this);
 }
 
-void Projectile::AnimeUpdate()
+//ˆø”‚Å•ª‚¯‚é@“K“–
+void Projectile::AnimeUpdate(int num)
 {
-	animeUpdate(0, 5, 3, true);
+	if (num)
+		animeUpdate(0, 5, 3, true);
+	else
+		animeUpdate(0, 3, 3, true);
 }
 
 void Projectile::Launch(VECTOR2 dir, VECTOR2 pos)

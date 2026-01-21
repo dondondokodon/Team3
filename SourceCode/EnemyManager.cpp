@@ -28,7 +28,7 @@ void EnemyManager::update(CAMERA camera)
 			case Enemy::ATTACK_TYPE::bulet:
 			{
 				//‹…‚ð‘Å‚Â
-				ProjectileStraight* projectile = new ProjectileStraight(&ProjectileManager::Instance(), Projectile::Faction::enemy, (*it)->getATK(), Projectile::kinds::enemy, 1.5f, enemyBullet, VECTOR2{ 44,66 }, VECTOR2{ 1,1 }, VECTOR2{ 8,8 }, (*it)->getRadius());
+				ProjectileStraight* projectile = new ProjectileStraight(&ProjectileManager::Instance(), Projectile::Faction::enemy, (*it)->getATK(), Projectile::kinds::enemy, 1.5f, enemyBullet, VECTOR2{ 90,52 }, VECTOR2{ 1,1 }, VECTOR2{ 8,8 }, ((*it)->getRadius()*0.3f));
 				projectile->Launch((*it)->shotDir(target->getPos()), (*it)->getPos());
 				break;
 			}

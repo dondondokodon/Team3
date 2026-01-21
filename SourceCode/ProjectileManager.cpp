@@ -46,13 +46,13 @@ void ProjectileManager::update()
 	for (Projectile* p : playerProjectiles)
 	{
 		p->update();
-		p->AnimeUpdate();
+		p->AnimeUpdate(1);
 	}
 		
 	for (Projectile* p : enemyProjectiles)
 	{
 		p->update();
-		//p->AnimeUpdate();		敵は今のところアニメーションないからこれしてない
+		p->AnimeUpdate(0);		//敵は今のところアニメーションないからこれしてない
 	}
 
 	for (Projectile* p : pursuitProjectiles)
