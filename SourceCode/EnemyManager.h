@@ -46,6 +46,7 @@ public:
 
 private:
 	std::vector<std::unique_ptr<Enemy>> enemies;
+	std::set<Enemy*> removeList;
 	//コンストラクタ系禁止　シングルトン
 	EnemyManager(){}
 	EnemyManager(const EnemyManager& e){}

@@ -25,7 +25,7 @@ public:
 	}
 	int getATK() { return atk; }
 	float getInvincibleTimer() { return invincibleTimer; }
-	float getMelleRadius() { return radius; }
+	virtual float getMelleRadius() { return radius; }
 	VECTOR2 getMellePos() { return mellePos; }
 	void setInvincibleTimer(int num) { invincibleTimer = num; }
 	void invincibleTimerUpdate() { if (invincibleTimer > 0.0f)	invincibleTimer -= 0.1f; }

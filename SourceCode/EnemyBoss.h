@@ -22,7 +22,9 @@ private:
     //std::unique_ptr<Character> tails;   //尻尾当たり判定付き
    // VECTOR2 tailPos;
    // VECTOR2 tailTexSize;
-    Tail tail;                          //ウルト用の尻尾
+    static constexpr int TailMAX=5;
+    Tail tails[TailMAX];                          //ウルト用の尻尾
+    float meleeRadius;
 
     enum STATE
     {
@@ -50,11 +52,13 @@ private:
 public:
     EnemyBoss();
     EnemyBoss(VECTOR2 Pos);
+    ~EnemyBoss();
     void init()override;
     void deinit()override;
     void update(CAMERA& camera,VECTOR2 targetPos)override;
     void state(VECTOR2 targetPos);
     void decideAttack();
     void cameraRender(CAMERA& camera)override;
+    float getMelleRadius() { return meleeRadius; }
 };
 

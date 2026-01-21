@@ -108,8 +108,10 @@ void EnemyBoss::init()
 	isGravityOn = true;
 	ac = std::make_shared<AttackContext>();
 
+	for (auto& tail : tails)
 	tail.init();
 	gravityScale = 1.3f;
+	meleeRadius  = radius;
 
 	//ここより下デバッグ用
 	//texSize = { 500,350 };
@@ -119,8 +121,15 @@ void EnemyBoss::init()
 	act = ATTACK1_INIT;
 }
 
+EnemyBoss::~EnemyBoss()
+{
+	deinit();
+}
+
 void EnemyBoss::deinit()
 {
+	for (auto& tail : tails)
+	tail.setDeath();
 	isTargetRemoveOn = true;
 }
 
@@ -150,6 +159,7 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 	//状態遷移
 	state(targetPos);
 
+	for (auto& tail : tails)
 	tail.update(camera);
 
 	//無敵時間更新
@@ -273,6 +283,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		// case2 で速度を決めるので、ここでは止めておく
 		speed.x = 0.0f;
 		isCanFlip = true;
+		meleeRadius = radius + 100;
 		
 		drawPosOffset = { 100 * direction.x,0 };
 
@@ -340,7 +351,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 				speed.y = 0;
 				
 				gravityScale = 0.3f;
-				mellePos = { pos.x + (250 * direction.x),pos.y};
+				mellePos = { pos.x + (150 * direction.x),pos.y};
 				isAttackOn = true;	//球発射
 				attackType = melle;
 			}
@@ -354,7 +365,6 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		act = FALL;
 
 	case FALL:
-		//接地しているかどうかの条件も後で追加する
 		if (animeUpdate(3, 4, 3, false)&&isGround)
 		{
 			act = LANDING_INIT;
@@ -377,8 +387,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 			if (rand() % 2)
 				decideAttack();
 			else
-				act = ATTACK2_INIT;
-			
+				act = ATTACK2_INIT;	
 		}
 
 		break;
@@ -598,8 +607,8 @@ void EnemyBoss::state(VECTOR2 targetPos)
 			break;
 
 		case 1:
-			speed.y = -50;
-			if (animeUpdate(1, 1, 6, true))
+			speed.y = -30;
+			if (animeUpdate(1, 1, 6, true)&&pos.y<-300)
 			{
 				spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::boss);
 				isGround = false;
@@ -613,14 +622,23 @@ void EnemyBoss::state(VECTOR2 targetPos)
 	case ATTACK4_INIT:
 		anime_state = 0;
 		isGravityOn = false;
-		tail.setFunction(Tail::funcNum::MOVE_UP);
+		for (auto& tail : tails)
+		{
+			tail.setNone(false);
+			tail.setFunction(rand() % Tail::funcNum::MAX);
+		}
+		
+		//tail.setFunction(Tail::funcNum::MOVE_LEFT);
 		timer = 0;
-		act = ATTACK2;
+		act = ATTACK4;
 
 	case ATTACK4:
+		if (pos.y < -500)	speed.y = 0.0f;
 		timer++;
 		if (timer > 60 * 10)
 		{
+			for(auto& tail:tails)
+			tail.setNone(true);
 			act = FALL_INIT;
 			isGravityOn = true;
 		}
@@ -695,6 +713,7 @@ void EnemyBoss::cameraRender(CAMERA& camera)
 		angle,
 		color.x, color.y, color.z, color.w
 	);
+	for(auto& tail:tails)
 	tail.cameraRender(camera);
 	//VECTOR2 scale = {-direction.x,1.0f};	//元が左向きなので-
 	//if(sprTail)
