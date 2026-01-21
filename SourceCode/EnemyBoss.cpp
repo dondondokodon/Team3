@@ -143,7 +143,7 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 	//オフセット更新
 	//offset = { -fabsf(50) * direction.x,0 };
 
-	if (posFlag&& act != ATTACK2 && act != ATTACK2_INIT)
+	if (posFlag && act != ATTACK2 && act != ATTACK2_INIT)	//これactのやつら条件に書いた意味忘れた　消してもなんも出なさそうやったら消す
 	{
 		drawPosOffset = { 0,0 };
 		posFlag = false;
@@ -384,6 +384,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		{
 			gravityScale = 1.3f;
 			//posFlag = true;
+			isCanFlip = true;
 			if (rand() % 2)
 				decideAttack();
 			else
@@ -622,6 +623,8 @@ void EnemyBoss::state(VECTOR2 targetPos)
 	case ATTACK4_INIT:
 		anime_state = 0;
 		isGravityOn = false;
+		isCanFlip   = true;
+		
 		for (auto& tail : tails)
 		{
 			tail.setNone(false);
