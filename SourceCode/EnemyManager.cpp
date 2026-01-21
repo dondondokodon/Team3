@@ -44,6 +44,7 @@ void EnemyManager::update(CAMERA camera)
 		//€‚ñ‚Å‚½‚ç
 		if ((*it)->isDeath())
 		{
+			ProjectileManager::Instance().targetRemove(it->get());
 			(*it)->deinit();
 			//it = enemies.erase(it); // erase‚ÍŸ‚Ìiterator‚ğ•Ô‚·
 			removeList.insert(it->get());
@@ -52,6 +53,18 @@ void EnemyManager::update(CAMERA camera)
 		++num;
 	}
 
+	//Á‚·
+	for (auto it = enemies.begin(); it != enemies.end(); )
+	{
+		if (removeList.count(it->get()) > 0)
+		{
+			it = enemies.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
 	removeList.clear();
 }
 

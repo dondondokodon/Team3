@@ -141,7 +141,7 @@ void Tail::setFunction(int num)
 
     if (num < MAX)
     {
-        ProjectileManager::Instance().targetRemove(this);
+        //ProjectileManager::Instance().targetRemove(this);
         spawnHitBox();
         move = inputFunc[num];
     }

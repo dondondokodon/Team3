@@ -13,24 +13,6 @@ ProjectileManager::~ProjectileManager()
 //更新
 void ProjectileManager::update()
 {
-	//球の一斉更新
-	for (Projectile* p : playerProjectiles)
-	{
-		p->update();
-		p->AnimeUpdate();
-	}
-		
-	for (Projectile* p : enemyProjectiles)
-	{
-		p->update();
-		//p->AnimeUpdate();		敵は今のところアニメーションないからこれしてない
-	}
-
-	for (Projectile* p : pursuitProjectiles)
-	{
-		p->update();
-	}
-
 	//破棄処理
 	for (Projectile* projectile : removeList)
 	{
@@ -51,14 +33,32 @@ void ProjectileManager::update()
 		auto it = std::find(vec->begin(), vec->end(), projectile);
 		if (it != vec->end())
 			vec->erase(it);
-			
+
 		delete projectile;
-		
-		
+
+
 	}
 
 	//破棄リストをクリア
 	removeList.clear();
+
+	//球の一斉更新
+	for (Projectile* p : playerProjectiles)
+	{
+		p->update();
+		p->AnimeUpdate();
+	}
+		
+	for (Projectile* p : enemyProjectiles)
+	{
+		p->update();
+		//p->AnimeUpdate();		敵は今のところアニメーションないからこれしてない
+	}
+
+	for (Projectile* p : pursuitProjectiles)
+	{
+		p->update();
+	}
 }
 
 //描画処理
