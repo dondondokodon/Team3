@@ -34,7 +34,7 @@ void SceneTitle::render()
 	GameLib::clear(0, 0, 1);
 
 	
-
+	text_out(7, "!", 500, 500);
 }
 
 
