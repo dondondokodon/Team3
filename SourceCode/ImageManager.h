@@ -41,6 +41,11 @@ public:
 		casinoFront,
 		casinoGround,
 
+		footing,
+
+		resultBack,
+		scoreDDprite,
+
 		boss,
 		bossTail,
 		bossUltTail,

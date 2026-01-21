@@ -56,7 +56,7 @@ public:
 	void cameraRender(CAMERA& camera)
 	{
 		if (!spr)return;
-		sprite_render(spr.get(), pos.x - camera.getPos().x, pos.y - camera.getPos().y, scale.x, scale.y, texPos.x, texPos.y, texSize.x, texSize.y, pivot.x, pivot.y, angle, color.x, color.y, color.z, color.w);
+		sprite_render(spr.get(), pos.x - camera.getPos().x * speed.x, pos.y - camera.getPos().y * speed.y, scale.x, scale.y, texPos.x, texPos.y, texSize.x, texSize.y, pivot.x, pivot.y, angle, color.x, color.y, color.z, color.w);
 	}
 
 };
@@ -70,6 +70,7 @@ private:
 	StageLayer middle;		//’†”wŒi
 	StageLayer front;		//‹ß”wŒi
 	StageLayer ground;		//’n–Ê
+	StageLayer footing;		//‘«ê
 
 public:
 	Stage01() {};
@@ -86,7 +87,7 @@ public:
 class Stage02 : public Stage
 {
 private:
-	StageLayer back;		//”wŒiiƒOƒ‰ƒf[ƒVƒ‡ƒ“j
+	StageLayer back;		//”wŒi
 	//StageLayer back_back;	//‰“X”wŒi
 	StageLayer middle;		//’†”wŒi
 	StageLayer front;		//‹ß”wŒi

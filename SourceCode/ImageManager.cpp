@@ -31,10 +31,13 @@ void ImageManager::load()
 	spr[billMiddle].reset(GameLib::sprite_load(L"./Data/Images/back-middle.png"));
 	spr[billFront].reset(GameLib::sprite_load(L"./Data/Images/back-front.png"));
 	spr[billGround].reset(GameLib::sprite_load(L"./Data/Images/ground.png"));
+	spr[footing].reset(GameLib::sprite_load(L"./Data/Images/footing.png"));
 
 	spr[casinoBack].reset(GameLib::sprite_load(L"./Data/Images/casinoBack.png"));
 	spr[casinoMiddle].reset(GameLib::sprite_load(L"./Data/Images/casinoMiddle.png"));
 	spr[casinoFront].reset(GameLib::sprite_load(L"./Data/Images/casinoFront.png"));
+
+	spr[resultBack].reset(GameLib::sprite_load(L"./Data/Images/result.png"));
 
 	spr[coin].reset(GameLib::sprite_load(L"./Data/Images/coinUi.png"));
 }
