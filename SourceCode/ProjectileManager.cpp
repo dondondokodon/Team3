@@ -68,8 +68,6 @@ void ProjectileManager::Render(CAMERA& camera)
 	{
 		projectile->cameraRender(camera);
 		GameLib::primitive::circle(projectile->getPos() - camera.getPos(), projectile->getRadius(), { 1, 1 }, 0, { 1, 1, 1, 0.5f });
-		/*debug::setString("radius:%f", projectile->getRadius());
-		debug::setString("TexSizeX:%f", projectile->getTexSize().x);*/
 	}
 	for (Projectile* projectile : enemyProjectiles)
 	{

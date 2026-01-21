@@ -50,10 +50,19 @@ private:
     typedef void (Tail::*moveAlg) (CAMERA&);
     moveAlg move;
 
+    const VECTOR2 offset = {200.0f,2000.0f};        //縦移動の時
+    const VECTOR2 SideOffset = { 1500.0f,250.f };   //横移動の時
+    float exitPos;                                //終了ポジション
+    bool noneFlag;
+
+
 public:
     enum funcNum
     {
         MOVE_UP,
+        MOVE_DOWWN,
+        MOVE_RIGHT,
+        MOVE_LEFT,
 
         MAX
     };
@@ -63,6 +72,13 @@ public:
     bool isDeath()override;
     void setFunction(int num);
     void moveUp(CAMERA& camera);
+    void moveDown(CAMERA& camera);
+    void moveRight(CAMERA& camera);
+    void moveLeft(CAMERA& camera);
+    void moveNone(CAMERA& camera);
+    void setDeath();
+    void setNone(bool set);
+    void spawnHitBox();
 };
 
 class TailBigActionHitBox :public TailHitCircle

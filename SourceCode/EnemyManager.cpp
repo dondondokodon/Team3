@@ -45,14 +45,14 @@ void EnemyManager::update(CAMERA camera)
 		if ((*it)->isDeath())
 		{
 			(*it)->deinit();
-			it = enemies.erase(it); // erase‚ÍŽŸ‚Ìiterator‚ð•Ô‚·
+			//it = enemies.erase(it); // erase‚ÍŽŸ‚Ìiterator‚ð•Ô‚·
+			removeList.insert(it->get());
 		}
-		else
-		{
-			++it;
-			++num;
-		}
+		++it;
+		++num;
 	}
+
+	removeList.clear();
 }
 
 
