@@ -155,68 +155,34 @@ void Map_Tile::update()
 /// </summary>
 void Battle1_Tile::update()
 {
-	if (GameLib::input::TRG(0) & GameLib::input::PAD_START)
-	{
-		//Build::extraJump = true;
-		ISCENE::nextScene = SCENE_GAME;
-
-	}
-
-	
+	ISCENE::nextScene = SCENE_GAME;
 	debug::setString("battle");
 
 }
 
 void Battle2_Tile::update()
 {
-	if (GameLib::input::TRG(0) & GameLib::input::PAD_START)
-	{
-		//Build::extraJump = true;
-		ISCENE::nextScene = SCENE_GAME;
-
-	}
-
-	
+	ISCENE::nextScene = SCENE_GAME;	
 	debug::setString("battle");
 
 }
 void Battle3_Tile::update()
 {
-	if (GameLib::input::TRG(0) & GameLib::input::PAD_START)
-	{
-		//Build::extraJump = true;
-		ISCENE::nextScene = SCENE_GAME;
-
-	}
-
-	
+	ISCENE::nextScene = SCENE_GAME;
 	debug::setString("battle");
 
 }
 
 void Shop_Tile::update()
 {
-	if (GameLib::input::TRG_RELEASE(0) & GameLib::input::PAD_START)
-	{
-		ISCENE::nextScene = SCENE_BUILD;
-	}
-	
+	ISCENE::nextScene = SCENE_BUILD;
 	debug::setString("shop");
 
 }
 
 void Event_Tile::update()
 {
-	if (GameLib::input::TRG(0) & GameLib::input::PAD_START)
-	{
-		//Build::extraJump = true;
-		//Build::extraCost = true;
-		//Build::extraVeryCost = true;
-		//Build::extraMotionRapid = true;
-		ISCENE::nextScene = SCENE_GAME;
-
-	}
-
+	ISCENE::nextScene = SCENE_GAME;
 	debug::setString("event");
 
 }
@@ -289,7 +255,9 @@ void SceneMap::routePick()
 	Tile* nowTile = GetTile(i);
 
 	nowTile->setScale({ 1.2,1.2 });
-	nowTile->update();
+
+	if (GameLib::input::TRG(0) & GameLib::input::PAD_START)
+		nowTile->update();
 
 	for (int i = 0; i <= GetTileCount() - 1; i++)
 	{

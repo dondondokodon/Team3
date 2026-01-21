@@ -24,13 +24,13 @@ void Stage01::init()
 
 	//âìÅXîwåi
 	back_back.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::billBackBack);
-	back_back.pos = { 0,0 };
+	back_back.pos = { 0,100 };
 	back_back.scale = { 1,1 };
 	back_back.texPos = { 0,0 };
 	back_back.texSize = { 2560 * 2, 720 };
 	back_back.pivot = { 0,0 };
 	back_back.color = { 1,1,1,1 };
-	back_back.speed = { 0,0 };
+	back_back.speed = { 0.1,0.1 };
 	back_back.offset = { 0,0 };
 	back_back.angle = 0;
 	back_back.act = 0;
@@ -42,13 +42,13 @@ void Stage01::init()
 
 	//íÜîwåi
 	middle.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::billMiddle);
-	middle.pos = { 0,0 };
+	middle.pos = { 0,100 };
 	middle.scale = { 1,1 };
 	middle.texPos = { 0,0 };
 	middle.texSize = { 2560 * 2, 720 };
 	middle.pivot = { 0,0 };
 	middle.color = { 1,1,1,1 };
-	middle.speed = { 0,0 };
+	middle.speed = { 0.3,0.3 };
 	middle.offset = { 0,0 };
 	middle.angle = 0;
 	middle.act = 0;
@@ -66,7 +66,7 @@ void Stage01::init()
 	front.texSize = { 2560 * 2, 720 };
 	front.pivot = { 0,0 };
 	front.color = { 1,1,1,1 };
-	front.speed = { 0,0 };
+	front.speed = { 0.5,0.5 };
 	front.offset = { 0,0 };
 	front.angle = 0;
 	front.act = 0;
@@ -85,7 +85,7 @@ void Stage01::init()
 	ground.texSize = { 1280 * 2+300, 720 };
 	ground.pivot = { 0,0 };
 	ground.color = { 1,1,1,1 };
-	ground.speed = { 0,0 };
+	ground.speed = { 1,0.5 };
 	ground.offset = { 0,0 };
 	ground.angle = 0;
 	ground.act = 0;
@@ -94,6 +94,24 @@ void Stage01::init()
 	ground.animeTimer = 0;
 	ground.anime_state = 0;
 	ground.radius = 0;
+
+	//ë´èÍ
+	footing.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::footing);
+	footing.pos = { 500,500 };
+	footing.scale = { 1,1 };
+	footing.texPos = { 0,0 };
+	footing.texSize = { 240, 50 };
+	footing.pivot = { 0,0 };
+	footing.color = { 1,1,1,1 };
+	footing.speed = { 1,1 };
+	footing.offset = { 0,0 };
+	footing.angle = 0;
+	footing.act = 0;
+	footing.timer = 0;
+	footing.anime = 0;
+	footing.animeTimer = 0;
+	footing.anime_state = 0;
+	footing.radius = 0;
 
 }
 
@@ -116,11 +134,11 @@ void Stage01::deinit()
 void Stage01::render()
 {
 	GameLib::setBlendMode(GameLib::Blender::BS_ALPHA);	
-	back.render();
-	back_back.render();
-	middle.render();
-	front.render();
-	ground.render();
+	//back.render();
+	//back_back.render();
+	//middle.render();
+	//front.render();
+	//ground.render();
 }
 
 void Stage01::cameraRender(CAMERA camera)
@@ -131,4 +149,5 @@ void Stage01::cameraRender(CAMERA camera)
 	middle.cameraRender(camera);
 	front. cameraRender(camera);
 	ground.cameraRender(camera);
+	//footing.cameraRender(camera);	//Ç±Ç¢Ç¬Ç…ìñÇΩÇËîªíËÇÇ¬ÇØÇ»Ç¢Ç∆Ç¢ÇØÇ»Ç¢
 }

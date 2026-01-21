@@ -133,7 +133,7 @@ void SceneBuildSelect::cardPick()
 		if (j >= (int)showWindow.size())	j = 0;
 
 		//Ÿ‚ÌƒV[ƒ“‚Ö
-		nextScene = SCENE_GAME;
+		nextScene = SCENE_MAP;
 	}
 
 	for (int j = 0; j <= GetCardCount() - 1; j++)
