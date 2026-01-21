@@ -9,7 +9,7 @@ void Stage01::init()
 	back.pos = { 0,0 };
 	back.scale = { 1,1 };
 	back.texPos = { 0,0 };
-	back.texSize = { 1280, 720 };
+	back.texSize = { 1280 * 2, 720 };
 	back.pivot = { 0,0 };
 	back.color = { 1,1,1,1 };
 	back.speed = { 0,0 };
@@ -27,7 +27,7 @@ void Stage01::init()
 	back_back.pos = { 0,0 };
 	back_back.scale = { 1,1 };
 	back_back.texPos = { 0,0 };
-	back_back.texSize = { 2560, 720 };
+	back_back.texSize = { 2560 * 2, 720 };
 	back_back.pivot = { 0,0 };
 	back_back.color = { 1,1,1,1 };
 	back_back.speed = { 0,0 };
@@ -45,7 +45,7 @@ void Stage01::init()
 	middle.pos = { 0,0 };
 	middle.scale = { 1,1 };
 	middle.texPos = { 0,0 };
-	middle.texSize = { 2560, 720 };
+	middle.texSize = { 2560 * 2, 720 };
 	middle.pivot = { 0,0 };
 	middle.color = { 1,1,1,1 };
 	middle.speed = { 0,0 };
@@ -63,7 +63,7 @@ void Stage01::init()
 	front.pos = { 0,0 };
 	front.scale = { 1,1 };
 	front.texPos = { 0,0 };
-	front.texSize = { 2560, 720 };
+	front.texSize = { 2560 * 2, 720 };
 	front.pivot = { 0,0 };
 	front.color = { 1,1,1,1 };
 	front.speed = { 0,0 };
@@ -82,7 +82,7 @@ void Stage01::init()
 	ground.pos = { 0,0 };
 	ground.scale = { 1,1 };
 	ground.texPos = { 0,0 };
-	ground.texSize = { 1280, 720 };
+	ground.texSize = { 1280 * 2+300, 720 };
 	ground.pivot = { 0,0 };
 	ground.color = { 1,1,1,1 };
 	ground.speed = { 0,0 };
@@ -100,9 +100,12 @@ void Stage01::init()
 
 void Stage01::update()
 {
-	back_back.pos.x += -0.1f;
-	middle.pos.x += -0.5f;
-	front.pos.x += -0.7f;
+	back.pos.x += -0.2f;
+	//middle.pos.x += -0.5f;
+	//front.pos.x += -0.7f;
+
+	if (back.pos.x <= -1280)
+		back.pos.x = 0;
 }
 
 void Stage01::deinit()
@@ -123,7 +126,7 @@ void Stage01::render()
 void Stage01::cameraRender(CAMERA camera)
 {
 	GameLib::setBlendMode(GameLib::Blender::BS_ALPHA);
-	back.cameraRender(camera);
+	back.render();
 	back_back.cameraRender(camera);
 	middle.cameraRender(camera);
 	front. cameraRender(camera);
