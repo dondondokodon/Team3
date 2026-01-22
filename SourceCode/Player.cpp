@@ -64,6 +64,7 @@ void Player::init()
 	attack2Reserve  = false;
 	isGround        = false;
 	heavyAttack     = false;
+	isDeathOn       = false;
 	baseMaxJump     = 2;
 	jumpCount       = 0;
 	direction       = { 1,0 };
@@ -123,7 +124,7 @@ void Player::deinit()
 {
 	//ビルドを消す
 	clearEffect();
-
+	isDeathOn = false;
 	//PlayerTargetをヌルにする いったんやめる
 	//Player_HitBox::Instance().setTarget(nullptr);
 }
@@ -142,6 +143,8 @@ void Player::update()
 
 	//状態遷移
 	state();
+	if (Coin::GetCoinNum() <= 0&&act!=DEATH)
+		act = DEATH_INIT;
 
 	//軽攻撃
 	if (lightAttack)
@@ -443,6 +446,17 @@ void Player::state()
 
 			if(animeTimer%3==0)		//残像エフェクト
 			EffektManager::Instance().Register(new Ghost(*this));
+		}
+		break;
+
+	case DEATH_INIT:
+		anime_state = 0;
+		act = DEATH;
+
+	case DEATH:
+		if (animeUpdate(8, 20, 6, false))
+		{
+			isDeathOn = true;
 		}
 		break;
 	}
