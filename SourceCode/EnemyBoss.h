@@ -11,7 +11,7 @@ private:
     int animeCount=0;         //アニメが２段あるのに対応するため
     VECTOR2 jumpTarget;
     bool isCanFlip;           //反転していいか（スケールリバース）
-    bool isSprChange;                //画像差し替えのタイミング
+    bool isSprChange;         //画像差し替えのタイミング
     bool isGravityOn;
     //std::shared_ptr<Sprite> sprJump;    //ジャンプ
     bool posFlag;              //高さを画像に合わせるためのフラグ
@@ -46,7 +46,8 @@ private:
         JUMP,
         ATTACK4_INIT,
         ATTACK4,
-       
+        DEATH_INIT,
+        DEATH
     };
 
 public:
@@ -60,5 +61,6 @@ public:
     void decideAttack();
     void cameraRender(CAMERA& camera)override;
     float getMelleRadius() { return meleeRadius; }
+    HitWall getHitWall()const { return hitWall; }
 };
 

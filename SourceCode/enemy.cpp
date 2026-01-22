@@ -97,6 +97,7 @@ void Enemy::init()
 	mellePos = { 0,0 };
 	melleRadius = 0;
 	exitRnd = 40;
+	isDeathOn = false;
 }
 
 void Enemy::deinit()
@@ -106,6 +107,8 @@ void Enemy::deinit()
 
 void Enemy::update(CAMERA& camera, VECTOR2 targetPos)
 {
+	if (hp <= 0)	isDeathOn = true;
+
 	attackType       = none;
 	isAttackOn       = false;
 	isTargetRemoveOn = false;

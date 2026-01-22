@@ -28,6 +28,7 @@ protected:
     VECTOR2 hitPos;
     int attackType = -1;
     int exitRnd;
+    bool isDeathOn;
     
 public:
     enum ATTACK_TYPE
@@ -43,7 +44,7 @@ public:
     virtual void update(CAMERA& camera, VECTOR2 targetPos);
     virtual void state();
     int getCoinReward()const { return coinReward; }
-    bool isDeath()override { return (hp <= 0); }
+    bool isDeath()override { return isDeathOn; }
     void degHp(int damage) { hp += -damage; }
     int getHp()const { return hp; }
     bool getIsAttackOn() { return isAttackOn; }

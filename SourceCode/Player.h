@@ -22,6 +22,7 @@ public:
 	void inputDodge();
 	void state();
 	void InputProjectile();
+	void CheckHitWall(const HitWall& wall);
 
 	//ビルド関連
 	void addEffect(std::unique_ptr<Build> e) { builds.push_back(std::move(e)); }	//追加
@@ -98,6 +99,7 @@ private:
 	int jumpCount = 2;			//残りのジャンプ回数
 	int attack_frame = 5;		//攻撃時のフレーム数
 	int animeCount;
+	HitWall beforeWall;		//１フレーム前の
 
 	//球関連
 	VECTOR2 lightSpeed = { 15,15 };
