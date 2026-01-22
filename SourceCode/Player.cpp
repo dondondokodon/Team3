@@ -150,7 +150,7 @@ void Player::update()
 		ProjectileStraight* b = new ProjectileStraight(&ProjectileManager::Instance(), Projectile::Faction::player, Coin::calcDamage(2, useCoin), Projectile::kinds::light, lightLifeLimit, playerBullet, lightTexSize, lightScale, lightSpeed, lightRadius);
 		Coin::DegCoinNum(useCoin);
 		b->Launch(getDir(), getPos());
-		textUI_Manager::Instance().spawnDegText(*this);
+		textUI_Manager::Instance().spawnDegText(*this, -useCoin);
 
 	}
 	lightAttack = false;
@@ -163,7 +163,7 @@ void Player::update()
 		ProjectileStraight* projectile = new ProjectileStraight(&ProjectileManager::Instance(), Projectile::Faction::player, Coin::calcDamage(10, useCoin), Projectile::kinds::heavy, heavyLifeLimit, playerBullet, heavyTexSize, heavyScale, heavySpeed, heavyRadius);
 		Coin::DegCoinNum(useCoin);
 		projectile->Launch(getDir(), getPos());
-		textUI_Manager::Instance().spawnDegText(*this);
+		textUI_Manager::Instance().spawnDegText(*this, -useCoin);
 
 	}
 	heavyAttack = false;
