@@ -74,6 +74,7 @@ public:
 	VECTOR2 getPivot() const{ return pivot; }
 	VECTOR2 getDir() const{ return direction; }
 	float getAngle()const { return angle; }
+	VECTOR4 getColor()const { return color; }
 
 	void setScale(VECTOR2 Scale) { scale = Scale; }
 	void setAct(int Act) { act = Act; }

@@ -7,6 +7,7 @@
 #include"ProjectileManager.h"
 #include"EffektManager.h"
 #include"ImageManager.h"
+#include"UI_Manager.h"
 
 SceneGame::SceneGame()
 {
@@ -48,6 +49,7 @@ void SceneGame::update()
 		/*EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ 1500.0f, 200.0f }));
 		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ -500.0f, 250.0f }));
 		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ -300.0f, 600.0f }));*/
+
 		state++;
 
 	case 2:
@@ -74,6 +76,7 @@ void SceneGame::update()
 		if (Coin::GetCoinNum() <= 0)
 			ISCENE::nextScene = SCENE_RESULT;
 
+		textUI_Manager::Instance().update();
 
 		ProjectileManager::Instance().update();
 		Collision();
@@ -94,6 +97,8 @@ void SceneGame::render()
 	player.hitAreaRender(camera);
 	ProjectileManager::Instance().Render(camera);
 	coinUi.render();
+	textUI_Manager::Instance().render(camera);
+
 }
 
 
@@ -140,6 +145,7 @@ void SceneGame::Collision()
 						e->degHp(e->calcProtectingDamage(p->getDamage()));
 						e->setInvincibleTimer(1.5f);
 						e->setHitFlag(true);
+						textUI_Manager::Instance().spawnAddText(player);
 
 						//ŒyUŒ‚‚È‚ç
 						if (p->GetOwnerId() == Projectile::kinds::light)

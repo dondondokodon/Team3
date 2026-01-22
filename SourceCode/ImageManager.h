@@ -53,6 +53,7 @@ public:
 		bossJump,
 
 		coin,
+		lostCoinText,
 
 		Max
 	};

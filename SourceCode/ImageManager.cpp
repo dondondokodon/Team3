@@ -40,6 +40,7 @@ void ImageManager::load()
 	spr[resultBack].reset(GameLib::sprite_load(L"./Data/Images/result.png"));
 
 	spr[coin].reset(GameLib::sprite_load(L"./Data/Images/coinUi.png"));
+	spr[lostCoinText].reset(GameLib::sprite_load(L"./Data/Images/lostCoinText.png"));
 }
 
 std::shared_ptr<GameLib::Sprite> ImageManager::getSprite(int num)
