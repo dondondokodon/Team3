@@ -120,3 +120,22 @@ public:
 };
 
 //以下、ステージを追加するときはStageを継承する
+
+class resultScene :public Stage
+{
+private:
+	StageLayer back;		//背景
+	//StageLayer back_back;	//遠々背景
+	StageLayer rank;		//ランクの文字
+	StageLayer resultMassage;//リザルトメッセージ
+
+public:
+	resultScene() {};
+	~resultScene()override {};
+	void init()override;
+	void update()override;
+	void deinit()override;
+	void render()override;
+	void cameraRender(CAMERA camera);
+
+};

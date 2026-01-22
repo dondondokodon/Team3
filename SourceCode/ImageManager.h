@@ -44,7 +44,7 @@ public:
 		footing,
 
 		resultBack,
-		scoreDDprite,
+		scoreSprite,
 
 		boss,
 		bossTail,
