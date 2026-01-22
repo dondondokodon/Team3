@@ -149,7 +149,7 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 		posFlag = false;
 	}
 
-	if (isSprChange)
+	if (isSprChange&&ATTACK2!=act&&act!=ATTACK2_INIT)		//‚½‚Ü‚ÉK”ö‘Å‚Â‚Æ‚«‰æ‘œ‚È‚­‚È‚é‚©‚ç‚µ‚ÉactğŒ‚Â‚¯‚Ä‚İ‚Ä‚é
 	{
 		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::boss);
 		texSize = { 500.0f,350.0f };

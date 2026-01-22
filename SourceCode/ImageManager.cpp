@@ -2,8 +2,8 @@
 
 void ImageManager::load()
 {
-	spr[Player].reset(GameLib::sprite_load(L"./Data/Images/ziki_motto_tadasii_sprite.png"));
-	spr[Player_ATTACK_Effect].reset(GameLib::sprite_load(L"./Data/Images/atk_1234_ef.png"));
+	spr[Player].reset(GameLib::sprite_load(L"./Data/Images/jiki_motto_tadasii_sprite.png"));
+	spr[Player_ATTACK_Effect].reset(GameLib::sprite_load(L"./Data/Images/atk_1234_efct.png"));
 	spr[Enemy].reset(GameLib::sprite_load(L"./Data/Images/teki_motto_tadasii_sprite.png"));
 	spr[PlayerBullet].reset(GameLib::sprite_load(L"./Data/Images/1213_coin6x6.png"));
 	spr[EnemyBullet].reset(GameLib::sprite_load(L"./Data/Images/bullet.png"));

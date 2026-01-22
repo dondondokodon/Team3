@@ -87,6 +87,9 @@ private:
 	float heavyBetRatio = 0.1f;	//重攻撃消費コイン割合
 	const VECTOR2 MAX_SPEED;	//最高速度
 	bool attack2Reserve = false;// 次弾攻撃予約
+
+	const float  moveLimitLeft =20; //移動できる範囲左
+	const float  moveLimitRight=SCREEN_W*2+200; //移動できる範囲左
 	
 	int baseMaxJump = 2;		//最大のジャンプ回数
 	int jumpCount = 2;			//残りのジャンプ回数

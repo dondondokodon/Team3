@@ -174,6 +174,10 @@ void Player::update()
 	//位置に速度足す
 	pos += speed;
 
+	//範囲制限
+	if (moveLimitLeft > pos.x -	 radius)	pos.x = moveLimitLeft  + radius;
+	if (moveLimitRight < pos.x +radius)	pos.x = moveLimitRight - radius;
+
 	//重力と地面判定
 	if(!isGround)
 	gravity(this, fallEnergy);
@@ -426,7 +430,7 @@ void Player::state()
 		act = DODGE;
 
 	case DODGE:
-		if (animeUpdate(9, 10, 5, false))
+		if (animeUpdate(7, 10, 5, false))
 		{
 			act = IDLE_INIT;
 		}
