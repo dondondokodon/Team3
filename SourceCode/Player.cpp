@@ -6,6 +6,7 @@
 #include "EffektManager.h"
 #include"ImageManager.h"
 #include "HitBox.h"
+#include "UI_Manager.h"
 
 Player::Player():MAX_SPEED({7,25})
 {
@@ -149,6 +150,8 @@ void Player::update()
 		ProjectileStraight* b = new ProjectileStraight(&ProjectileManager::Instance(), Projectile::Faction::player, Coin::calcDamage(2, useCoin), Projectile::kinds::light, lightLifeLimit, playerBullet, lightTexSize, lightScale, lightSpeed, lightRadius);
 		Coin::DegCoinNum(useCoin);
 		b->Launch(getDir(), getPos());
+		textUI_Manager::Instance().spawnDegText(*this);
+
 	}
 	lightAttack = false;
 
@@ -160,6 +163,8 @@ void Player::update()
 		ProjectileStraight* projectile = new ProjectileStraight(&ProjectileManager::Instance(), Projectile::Faction::player, Coin::calcDamage(10, useCoin), Projectile::kinds::heavy, heavyLifeLimit, playerBullet, heavyTexSize, heavyScale, heavySpeed, heavyRadius);
 		Coin::DegCoinNum(useCoin);
 		projectile->Launch(getDir(), getPos());
+		textUI_Manager::Instance().spawnDegText(*this);
+
 	}
 	heavyAttack = false;
 
