@@ -12,6 +12,8 @@ void SceneBuildSelect::init()
 	state = 0;
 	spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::InShop);
 
+	money.setSprite(ImageManager::Instance().getSprite(ImageManager::SpriteNum::coin));
+
 	selectingMessage = std::make_unique<extraSprite>( 
 		ImageManager::Instance().getSprite(ImageManager::SpriteNum::selectingGetPark),
 		VECTOR2{SCREEN_W * 0.5f,50.0f},
@@ -65,6 +67,8 @@ void SceneBuildSelect::render()
 		card->render();
 	}
 	
+	money.render();
+
 }
 
 
@@ -115,8 +119,9 @@ void SceneBuildSelect::cardPick()
 	BuildCard* nowCard = GetCard(j);
 
 	nowCard->setScale({ 1.1,1.1 });
-	//nowCard->update();
-	if (TRG(0) & PAD_START)
+
+	//お金がないと買えない
+	if (TRG(0) & PAD_START && Coin::GetCoinNum() > nowCard->getPrice())
 	{
 		auto bought = std::move(showWindow.at(j));
 
@@ -133,6 +138,16 @@ void SceneBuildSelect::cardPick()
 		if (j >= (int)showWindow.size())	j = 0;
 
 		//次のシーンへ
+		nextScene = SCENE_MAP;
+	}
+	else
+	{
+
+	}
+
+	//メニュー
+	if (TRG(0) & PAD_SELECT)
+	{
 		nextScene = SCENE_MAP;
 	}
 
