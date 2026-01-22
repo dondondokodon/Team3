@@ -27,6 +27,7 @@ protected:
     bool isTargetRemoveOn = false;  //自分を参照しているターゲットを全て消す
     VECTOR2 hitPos;
     int attackType = -1;
+    int exitRnd;
     
 public:
     enum ATTACK_TYPE

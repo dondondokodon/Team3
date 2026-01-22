@@ -16,7 +16,7 @@ public:
 	void update();
 	void cameraRender(CAMERA& camera);
 	void betCoin(int gold,float atkMultiple,float goldMultiple);		//UŒ‚‚·‚é‚Æ‚«‚É‚©‚¯‚é‚¨‹à ˆø”@Š|‚¯‹à@UŒ‚—Í”{—¦@‹A‚Á‚Ä‚­‚é‚¨‹à”{—¦
-	bool isDeath() { return (gold <= 0 && returnGold <= 0); }
+	bool isDeath() { return isDeathOn; }
 	void inputMove();
 	void inputJump();
 	void inputDodge();
@@ -78,6 +78,8 @@ public:
 		HEAVY_ATTACK2,
 		DODGE_INIT,
 		DODGE,
+		DEATH_INIT,
+		DEATH
 	};
 
 private:
@@ -87,6 +89,7 @@ private:
 	float heavyBetRatio = 0.1f;	//dUŒ‚Á”ïƒRƒCƒ“Š„‡
 	const VECTOR2 MAX_SPEED;	//Å‚‘¬“x
 	bool attack2Reserve = false;// Ÿ’eUŒ‚—\–ñ
+	bool isDeathOn      = false;
 
 	const float  moveLimitLeft =20; //ˆÚ“®‚Å‚«‚é”ÍˆÍ¶
 	const float  moveLimitRight=SCREEN_W*2+200; //ˆÚ“®‚Å‚«‚é”ÍˆÍ¶

@@ -73,7 +73,7 @@ void SceneGame::update()
 		}
 
 		//“|‚³‚ê‚½‚çƒŠƒUƒ‹ƒg‚Ö
-		if (Coin::GetCoinNum() <= 0)
+		if (player.isDeath())
 			ISCENE::nextScene = SCENE_RESULT;
 
 		textUI_Manager::Instance().update();

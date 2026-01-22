@@ -96,6 +96,7 @@ void Enemy::init()
 	attackType = -1;
 	mellePos = { 0,0 };
 	melleRadius = 0;
+	exitRnd = 40;
 }
 
 void Enemy::deinit()
@@ -261,7 +262,7 @@ void Enemy::moveHorizontalInCamera(CAMERA& camera)
 		else 
 		{
 			//oldSpeedX = speed.x;
-			if (rand() % 40 == 0)
+			if (rand() % exitRnd == 0)
 			{
 				// ˆÀ‘Sƒ‰ƒCƒ“‚É“ü‚Á‚½‚çI—¹
 				moveInCamera = false;

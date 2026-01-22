@@ -112,13 +112,14 @@ void EnemyBoss::init()
 	tail.init();
 	gravityScale = 1.3f;
 	meleeRadius  = radius;
+	exitRnd = 1;
 
 	//ここより下デバッグ用
 	//texSize = { 500,350 };
 	//scale = { 1.0f,1.0f };
 	//pos = { 1000,360 };
 	//act = ATTACK2_INIT;
-	act = ATTACK1_INIT;
+	//act = ATTACK1_INIT;
 }
 
 EnemyBoss::~EnemyBoss()
@@ -149,7 +150,7 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 		posFlag = false;
 	}
 
-	if (isSprChange&&ATTACK2!=act&&act!=ATTACK2_INIT)		//たまに尻尾打つとき画像なくなるから試しにact条件つけてみてる
+	if (isSprChange && ATTACK2 != act && act != ATTACK2_INIT)		//たまに尻尾打つとき画像なくなるから試しにact条件つけてみてる
 	{
 		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::boss);
 		texSize = { 500.0f,350.0f };
@@ -367,6 +368,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 	case FALL:
 		if (animeUpdate(3, 4, 3, false)&&isGround)
 		{
+			posFlag = true;
 			act = LANDING_INIT;
 		}
 
@@ -401,16 +403,14 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		scale.x = fabsf(scale.x)* - direction.x;
 		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTail);
 		act = ATTACK2;
-		//break;
 
 	case ATTACK2:
 	{
-		//尻尾のやり方変えるのでコメントにしておく　いらなくなったら消す
-		//constexpr float tailPlusNum = 25;
 		switch (animeCount)
 		{	//しっぽ１段目
 		case 0:
 		{
+			spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTail);	//画像差し替えてもsprChangeかの関係で画像おかしくなることあるから無理やり
 			if (animeUpdate(0, 2, 6, false))
 			{
 				animeCount++;
@@ -520,9 +520,11 @@ void EnemyBoss::state(VECTOR2 targetPos)
 				spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTailPull);
 				animeCount++;
 			}
+			break;
 
 			//尻尾引き戻し
 		case 8:
+			//spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTailPull);	//画像差し替えてもsprChangeかの関係で画像おかしくなることあるから無理やり
 			if (animeUpdate(0, 2, 6, false))
 			{
 				anime_state = 0;
