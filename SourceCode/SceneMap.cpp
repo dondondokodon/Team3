@@ -38,11 +38,11 @@ void SceneMap::update()
 		{
 			if (moveTile % 5 == 0)
 			{
-				move5++;
-				if (move5 % 3 == 0)
+				//move5++;
+				//if (move5 % 3 == 0)
 					LastBoss();
-				else
-					MiddleBoss();
+				//else
+				//	MiddleBoss();
 
 			}
 			else//ぜ～んぶ仮置き　後でランダムにしたい
@@ -65,7 +65,7 @@ void SceneMap::update()
 
 		routePick();
 
-		pos.x = 200 * nemuturai;
+		//pos.x = 200 * nemuturai;
 
 		debug::setString("moved:%d", movedTiles.size());
 		debug::setString("moveTile:%d", moveTile);
@@ -78,17 +78,25 @@ void SceneMap::render()
 {
 	GameLib::clear(0, 1, 0);
 	Map.render();
-	for (int i = 0; i <= GetTileCount()-1; i++)
+	routeMapping();
+	for (int i = 0; i < GetTileCount(); i++)
 	{
 		Tile* tile = GetTile(i);
 		tile->render();
 	}
 
-	for (int i = 0; i <= GetMovedTileCount()-1; i++)
+	for (int i = 0; i < GetMovedTileCount(); i++)
 	{
 		Tile* tile = GetMovedTile(i);
 		tile->render();
 	}
+
+	for (int i = 0; i < GetNonMovedTileCount(); i++)
+	{
+		Tile* tile = GetNonMovedTile(i);
+		tile->render();
+	}
+
 }
 
 void SceneMap::deinit()
@@ -116,6 +124,7 @@ void SceneMap::Clear()
 {
 	tiles.clear();
 	movedTiles.clear();
+	nonMovedTiles.clear();
 	moveTile = 0;	//何マス進んだかをカウント
 	move5 = 0;
 	nemuturai = 0;
@@ -128,7 +137,6 @@ void SceneMap::Clear()
 	Build::extraMoonGravity = false;
 	Build::extraBullet = false;
 
-	debug::setString("SceneMap::Clear CALLED");
 
 }
 
@@ -257,9 +265,12 @@ void SceneMap::routePick()
 	nowTile->setScale({ 1.2,1.2 });
 
 	if (GameLib::input::TRG(0) & GameLib::input::PAD_START)
+	{
 		nowTile->update();
 
-	for (int i = 0; i <= GetTileCount() - 1; i++)
+	}
+
+	for (int i = 0; i < GetTileCount(); i++)
 	{
 		Tile* tile = GetTile(i);
 
@@ -269,7 +280,7 @@ void SceneMap::routePick()
 			tile->setScale({ 1,1 });
 	}
 
-	for (int i = 0; i <= GetMovedTileCount() - 1; i++)
+	for (int i = 0; i < GetMovedTileCount(); i++)
 	{
 		Tile* tile = GetMovedTile(i);
 
@@ -305,11 +316,41 @@ void SceneMap::nextSpawn()
 
 	}
 
+	movedTiles.push_back(std::move(tiles[i]));
 
-	for (int i = 0; i <= GetTileCount() - 1; i++)	//別の配列に譲渡
+	for (auto& t : tiles)
 	{
-		movedTiles.push_back(std::move(tiles[i]));
+		if (t) nonMovedTiles.push_back(std::move(t));
 	}
 
 	tiles.clear();
+}
+
+void SceneMap::routeMapping()
+{
+	Tile* preTile = GetTile(i);
+	Tile* nowTile = GetTile(i);
+	if (!movedTiles.empty())
+		preTile = GetMovedTile(GetMovedTileCount() - 1);
+
+	primitive::line(
+		preTile->getWorldPos(), 
+		nowTile->getWorldPos(),
+		VECTOR4{1,1,1,1},
+		7);
+
+	Signpost();
+}
+
+void SceneMap::Signpost()
+{
+	int lest = GetMovedTileCount();
+	for (int i = 0; i < GetMovedTileCount(); i++)
+	{
+		if (lest < 2)
+			return;
+
+		lest--;
+		primitive::line(GetMovedTile(i)->getWorldPos(), GetMovedTile(i + 1)->getWorldPos(),VECTOR4{1,1,1,1}, 5);
+	}
 }

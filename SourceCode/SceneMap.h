@@ -255,15 +255,19 @@ public:
 	void inputTileSelect();
 	void routePick();
 	void nextSpawn();
+	void routeMapping();
+	void Signpost();
 
 	//数取得
 	int GetTileCount()const { return static_cast<int>(tiles.size()); }
 	int GetMovedTileCount()const { return static_cast<int>(movedTiles.size()); }
+	int GetNonMovedTileCount()const { return static_cast<int>(nonMovedTiles.size()); }
 
 
 	//本体取得
 	Tile* GetTile(int index) { return tiles.at(index).get(); }
 	Tile* GetMovedTile(int index) { return movedTiles.at(index).get(); }
+	Tile* GetNonMovedTile(int index) { return nonMovedTiles.at(index).get(); }
 
 	//全削除
 	void Clear();
@@ -281,6 +285,8 @@ private:
 
 	//マスを入れる配列
 	std::vector<std::unique_ptr<Tile>>	tiles;
+	//通らなかったマスを入れる配列
+	std::vector<std::unique_ptr<Tile>> nonMovedTiles;
 	//移動後のマスを入れる配列
 	std::vector<std::unique_ptr<Tile>>  movedTiles;
 
