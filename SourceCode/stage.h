@@ -83,6 +83,19 @@ public:
 
 };
 
+//ƒ‰ƒ“ƒ^ƒ“‚Ì–¾‚©‚è
+class light 
+{
+public:
+	light(){}
+	~light(){}
+	void init(VECTOR2 pos);
+	void update();
+
+	StageLayer lamp[4];
+	void render(CAMERA& camera);
+};
+
 //ƒXƒe[ƒW2
 class Stage02 : public Stage
 {
@@ -91,7 +104,9 @@ private:
 	//StageLayer back_back;	//‰“X”wŒi
 	StageLayer middle;		//’†”wŒi
 	StageLayer front;		//‹ß”wŒi
-	//StageLayer ground;		//’n–Ê
+	light Light1;
+	light Light2;
+	light Light3;
 
 public:
 	Stage02() {};

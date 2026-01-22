@@ -39,7 +39,7 @@ public:
 		casinoBackBack,
 		casinoMiddle,
 		casinoFront,
-		casinoGround,
+		casinoLnthanum,
 
 		footing,
 

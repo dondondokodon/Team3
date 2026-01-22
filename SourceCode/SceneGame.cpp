@@ -22,8 +22,8 @@ void SceneGame::init()
 	frame = 0;
 	timer = 0;
 	player.init();
-	stage01.init();
-	//stage02.init();
+	//stage01.init();
+	stage02.init();
 	EnemyManager::instance().init();
 	EffektManager::Instance().init();
 	camera.init();
@@ -62,8 +62,8 @@ void SceneGame::update()
 		player.update();
 		EnemyManager::instance().update(camera);
 		EffektManager::Instance().update(camera);
-		stage01.update();
-		//stage02.update();
+		//stage01.update();
+		stage02.update();
 
 		//デバッグ用
 		if (TRG(0) & PAD_SELECT)
@@ -89,8 +89,8 @@ void SceneGame::update()
 void SceneGame::render()
 {
 	GameLib::clear(1, 0, 1);
-	stage01.cameraRender(camera);
-	//stage02.cameraRender(camera);
+	//stage01.cameraRender(camera);
+	stage02.cameraRender(camera);
 	EnemyManager::instance().render(camera);
 	EffektManager::Instance().render(camera);
 	player.cameraRender(camera);
