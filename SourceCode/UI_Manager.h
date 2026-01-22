@@ -17,15 +17,19 @@ public:
 		add
 	};
 
+	void textRender(CAMERA& camera, std::string coin);
 	virtual void update() override {}
 	int getKind()const { return kind; }
 	int kind = -1;
+	int moveCoin = 0;
+	int getMoveCoin()const { return moveCoin; }
+
 };
 
 class DegMoneyText : public textUI
 {
 public:
-	DegMoneyText(VECTOR2 pos);
+	DegMoneyText(VECTOR2 pos, int coin);
 	~DegMoneyText() override {}
 
 };
@@ -33,7 +37,7 @@ public:
 class AddMoneyText : public textUI
 {
 public:
-	AddMoneyText(VECTOR2 pos);
+	AddMoneyText(VECTOR2 pos, int coin);
 	~AddMoneyText() override {}
 
 };
@@ -48,8 +52,8 @@ public:
 		return instance;
 	}
 
-	void spawnDegText(Character& target);
-	void spawnAddText(Character& target);
+	void spawnDegText(Character& target, int coin);
+	void spawnAddText(Character& target, int coin);
 
 	int textCount()const { return texts.size(); }
 	textUI* getText(int index) { return texts.at(index).get(); }

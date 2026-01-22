@@ -112,6 +112,8 @@ void SceneGame::deinit()
 	ProjectileManager::Instance().Clear();
 
 	EnemyManager::instance().setCameraNull();
+
+	textUI_Manager::Instance().Clear();
 }
 
 void SceneGame::deleteSprite()
@@ -145,15 +147,22 @@ void SceneGame::Collision()
 						e->degHp(e->calcProtectingDamage(p->getDamage()));
 						e->setInvincibleTimer(1.5f);
 						e->setHitFlag(true);
-						textUI_Manager::Instance().spawnAddText(player);
+						//textUI_Manager::Instance().spawnAddText(player);
+						//textUI_Manager::Instance().spawnDegText(*e);
 
 						//ŒyUŒ‚‚È‚ç
 						if (p->GetOwnerId() == Projectile::kinds::light)
+						{
 							Coin::AddCoinNum(Coin::LightAttackReward());
+							textUI_Manager::Instance().spawnAddText(player, Coin::LightAttackReward());
+						}
 
 						//dUŒ‚‚È‚ç
 						if (p->GetOwnerId() == Projectile::kinds::heavy)
+						{
 							Coin::AddCoinNum(Coin::HeavyAttackReward());
+							textUI_Manager::Instance().spawnAddText(player, Coin::HeavyAttackReward());
+						}
 
 						//UŒ‚‚ð“–‚Ä‚½‚ç’ÇŒ‚	Œ»Ý“–‚Ä‚Ä‚àƒRƒCƒ“‚Ì•ÔŠÒ‚Í–³‚µ
 						if (p->GetOwnerId() != Projectile::kinds::pursuit && Build::extraBullet)
@@ -191,19 +200,16 @@ void SceneGame::Collision()
 				//“–‚½‚è”»’è
 				if (hitCircle(k->getPos(), k->getRadius(), e->getPos(), e->getRadius()))
 				{
-					if (hitCircle(k->getPos(), k->getRadius(), e->getPos(), e->getRadius()))
+					if (k->onHit())
 					{
-						//k->Destroy();
-						if (k->onHit())
-						{
-							e->degHp(e->calcProtectingDamage(k->getDamage()));
-							e->setInvincibleTimer(1.5f);
-							e->setHitFlag(true);
-
-							if (k->GetOwnerId() == Projectile::kinds::pursuit)
-								Coin::AddCoinNum(0);
-						}
+						//textUI_Manager::Instance().spawnDegText(*e);
+						e->degHp(e->calcProtectingDamage(k->getDamage()));
+						e->setInvincibleTimer(1.5f);
+						e->setHitFlag(true);
+						if (k->GetOwnerId() == Projectile::kinds::pursuit)
+							Coin::AddCoinNum(0);
 					}
+					
 					if (e->isDeath())
 					{
 
@@ -235,6 +241,7 @@ void SceneGame::Collision()
 					if (e->onHit())
 					{
 						Coin::DegCoinNum(player.calcProtectingDamage(e->getDamage()));
+						textUI_Manager::Instance().spawnDegText(player, -e->getDamage());
 						player.setInvincibleTimer(1.5f);
 					}
 				}

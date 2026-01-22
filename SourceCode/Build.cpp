@@ -42,7 +42,7 @@ VECTOR2 VeryCostUp::AddProjectileScale() const
 //当たり判定拡大
 float VeryCostUp::AddProjectileRadius() const
 {
-	return  120;	//仮置き
+	return  50;	//仮置き
 }
 
 //モーション短縮

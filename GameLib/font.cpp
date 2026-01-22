@@ -23,6 +23,7 @@ namespace GameLib
         { FONTNO::FONT4, L"./Data/Fonts/font4.png" }, // フォント
         { FONTNO::FONT5, L"./Data/Fonts/font5.png" }, // フォント
         { FONTNO::FONT6, L"./Data/Fonts/font6.png" }, // フォント
+        { FONTNO::FONT7, L"./Data/Fonts/font7.png" }, // フォント
         { -1,            nullptr                   }  // 終了フラグ
     };
 

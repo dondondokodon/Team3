@@ -16,7 +16,7 @@
 namespace GameLib
 {
 
-    const UINT FONT_NUM = 7;
+    const UINT FONT_NUM = 8;
     const UINT FONT_MAX_INSTANCE = 256;
 
     // フォントロードデータ
@@ -37,6 +37,7 @@ namespace GameLib
         FONT4,
         FONT5,
         FONT6,
+        FONT7
     };
 
     //==========================================================================
