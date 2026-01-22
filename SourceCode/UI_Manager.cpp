@@ -40,7 +40,7 @@ void textUI_Manager::spawnDegText(Character& target, int coin)
 	if (target.getDir() == VECTOR2{ 1,0 })	//‰EŒü‚«‚È‚ç
 	{
 		VECTOR2 spawnPos = {};
-		spawnPos = target.getPos() + VECTOR2{ -70, -70 };
+		spawnPos = target.getPos() + VECTOR2{ -120, -70 };
 		texts.emplace_back(std::make_unique<DegMoneyText>(spawnPos, coin));
 	}
 	else if (target.getDir() == VECTOR2{ -1,0 })	//¶Œü‚«‚È‚ç
@@ -63,7 +63,7 @@ void textUI_Manager::spawnAddText(Character& target, int coin)
 	else if (target.getDir() == VECTOR2{ -1,0 })	//¶Œü‚«‚È‚ç
 	{
 		VECTOR2 spawnPos = {};
-		spawnPos = target.getPos() + VECTOR2{ -70, -70 };
+		spawnPos = target.getPos() + VECTOR2{ -120, -70 };
 		texts.emplace_back(std::make_unique<AddMoneyText>(spawnPos, coin));
 	}
 

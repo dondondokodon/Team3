@@ -36,6 +36,7 @@ void ImageManager::load()
 	spr[casinoBack].reset(GameLib::sprite_load(L"./Data/Images/casinoBack.png"));
 	spr[casinoMiddle].reset(GameLib::sprite_load(L"./Data/Images/casinoMiddle.png"));
 	spr[casinoFront].reset(GameLib::sprite_load(L"./Data/Images/casinoFront.png"));
+	spr[casinoLnthanum].reset(GameLib::sprite_load(L"./Data/Images/lanthanum.png"));
 
 	spr[resultBack].reset(GameLib::sprite_load(L"./Data/Images/result.png"));
 
@@ -45,7 +46,7 @@ void ImageManager::load()
 
 std::shared_ptr<GameLib::Sprite> ImageManager::getSprite(int num)
 {
-	//”ÍˆÍŠOƒ`ƒFƒbƒN
+	//”ÍˁE�ŠOƒ`ƒFƒbƒN
 	if (num >= Max)	return nullptr;
 	return spr[num];
 }
