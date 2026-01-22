@@ -39,6 +39,7 @@ void ImageManager::load()
 	spr[casinoLnthanum].reset(GameLib::sprite_load(L"./Data/Images/lanthanum.png"));
 
 	spr[resultBack].reset(GameLib::sprite_load(L"./Data/Images/result.png"));
+	spr[scoreSprite].reset(GameLib::sprite_load(L"./Data/Images/scoreSprite.png"));
 
 	spr[coin].reset(GameLib::sprite_load(L"./Data/Images/coinUi.png"));
 	spr[lostCoinText].reset(GameLib::sprite_load(L"./Data/Images/lostCoinText.png"));
