@@ -26,6 +26,8 @@ public:
 		strong
 	};
 
+	int getPrice()const { return price; }
+
 	int price = 0;
 	int build = -1;
 	int power = -1;
@@ -77,8 +79,8 @@ public:
 
 	void update()override
 	{ 
-		Build::extraVeryCost = true; 
-	    Coin::DegCoinNum(price);
+		Build::extraVeryCost = true;
+		Coin::DegCoinNum(price);
 	};
 	//void render();
 };
@@ -110,7 +112,6 @@ public:
 	{
 		Build::extraJump = true;
 		Coin::DegCoinNum(price);
-
 	};
 	//void render();
 };
@@ -202,7 +203,7 @@ public:
 
 	void update()override 
 	{
-		Build::extraBullet = true; 
+		Build::extraBullet = true;
 		Coin::DegCoinNum(price);
 	};
 	//void render();
@@ -221,6 +222,7 @@ public:
 	void deleteSprite();
 	std::shared_ptr<GameLib::Sprite> spr;
 	//extraSprite* selectingMessage = new extraSprite{ VECTOR2{SCREEN_W * 0.5f,200.0f},VECTOR2{1,1},{0,0}, VECTOR2{684,93},VECTOR4{1,1,1,1},VECTOR2{0,0},VECTOR2{0,0},VECTOR2{0,0} };
+	CoinUi money;
 
 	void inputCardSelect();
 	void cardPick();
