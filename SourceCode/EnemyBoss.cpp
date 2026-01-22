@@ -113,6 +113,7 @@ void EnemyBoss::init()
 	gravityScale = 1.3f;
 	meleeRadius  = radius;
 	exitRnd = 1;
+	isDeathOn = false;
 
 	//ここより下デバッグ用
 	//texSize = { 500,350 };
@@ -160,6 +161,8 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 	//状態遷移
 	state(targetPos);
 
+	if (hp <= 0&&act!=DEATH)	act = DEATH_INIT;
+
 	for (auto& tail : tails)
 	tail.update(camera);
 
@@ -187,6 +190,9 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 
 	//位置に速度足す
 	pos += speed;
+
+	//当たり判定体更新
+	HitWallUpdate();
 
 	//地面判定		120は補正の数字
 	if (pos.y > GROUND_Y - pivot.y*scale.y+100)
@@ -219,7 +225,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 	{
 	case IDLE_INIT:
 		anime_state = 0;
-		drawPosOffset.y -= 50;
+		drawPosOffset.y -= 30;
 		animeCount = 0;
 		isCanFlip = true;
 		act = IDLE;
@@ -228,14 +234,14 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		//2段アニメーション
 		if (!animeCount)
 		{
-			if (animeUpdate(7, 14, 6, true))
+			if (animeUpdate(5, 14, 6, true))
 			{
 				animeCount++;
 				anime_state = 0;
 			}
 		}	
 		else
-			if (animeUpdate(8, 1, 6, true))		
+			if (animeUpdate(6, 1, 6, true))		
 			{
 				animeCount = 0;
 				anime_state = 0;
@@ -264,7 +270,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		//移動
 		speed.x = acceleration;
 
-		if (animeUpdate(9, 11, 6, true)&&!moveInCamera)
+		if (animeUpdate(7, 11, 6, true)&&!moveInCamera)
 		{
 			speed.x = 0;
 			decideAttack();
@@ -496,6 +502,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		case 6:
 			if (animeUpdate(7, 2, 6, false))
 			{
+				isTargetRemoveOn = true;	//1判定長いから１つ上にあげた
 				animeCount++;
 				anime_state = 0;
 			}
@@ -515,7 +522,6 @@ void EnemyBoss::state(VECTOR2 targetPos)
 			if (animeUpdate(8, 2, 6, false))
 			{
 				//texSize = { 500.0f,350.0f };
-				isTargetRemoveOn = true;
 				anime_state = 0;
 				spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTailPull);
 				animeCount++;
@@ -649,6 +655,33 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		}
 		
 		break;
+		
+	case DEATH_INIT:
+		anime_state   = 0;
+		animeCount    = 0;
+		spr           = ImageManager::Instance().getSprite(ImageManager::SpriteNum::boss);
+		texSize       = { 500.0f,350.0f };
+		drawPosOffset = { 0.0f,0.0f };
+
+		act = DEATH;
+
+	case DEATH:
+		switch (animeCount)
+		{
+		case 0:
+			if (animeUpdate(10, 14, 6, false))
+			{
+				anime_state = 0;
+				animeCount++;
+			}
+			break;
+
+		case 1:
+			if (animeUpdate(11, 14, 6, false))
+			{
+				isDeathOn = true;
+			}
+		}
 		
 	}
 	/*switch(animeCount)

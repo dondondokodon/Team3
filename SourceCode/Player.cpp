@@ -177,6 +177,10 @@ void Player::update()
 	//位置に速度足す
 	pos += speed;
 
+	//当たり判定壁更新
+	beforeWall = hitWall;
+	HitWallUpdate();
+
 	//範囲制限
 	if (moveLimitLeft > pos.x -	 radius)	pos.x = moveLimitLeft  + radius;
 	if (moveLimitRight < pos.x +radius)	pos.x = moveLimitRight - radius;
@@ -462,6 +466,15 @@ void Player::state()
 	}
 }
 
+void Player::CheckHitWall(const HitWall& wall)
+{
+	//高さがあっているか
+	if (beforeWall.top<wall.bottom || beforeWall.bottom>wall.top)
+		return;
+
+	//if(beforeWall.x)
+}
+
 void Player::cameraRender(CAMERA& camera)
 {
 	VECTOR2 dPos = pos;
@@ -550,6 +563,9 @@ void Player::InputProjectile()
 		act = ATTACK1_INIT;
 		//b->init();
 	}
+
+	//ATTACK1中に重攻撃でないようにした
+	if (act == ATTACK1)	return;
 
 	//Lで重攻撃
 	if (TRG(0) & PAD_TRG5)

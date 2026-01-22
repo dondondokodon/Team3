@@ -1,5 +1,7 @@
 #pragma once
 #include "OBJ2D.h"
+#include "HitWall.h"
+
 class Character :
     public OBJ2D
 {
@@ -38,6 +40,7 @@ public:
 
 	void setFallEnergy(VECTOR2 energy) { fallEnergy = energy; }
 	VECTOR2 calcFallEnergy(VECTOR2 energy);
+	virtual void HitWallUpdate();
 protected:
 	int atk              = 0;	//UŒ‚—Í
 	float invincibleTimer=1.0f;	//–³“GŠÔ 0ˆÈã–³“Gó‘Ô
@@ -48,5 +51,6 @@ protected:
 	float acceleration;	//ƒXƒs[ƒh‚Ìã¸—Ê
 	float   melleRadius = 0;
 	bool isGround = false;		//’n–Ê”»’è
+	HitWall hitWall;            //’Ç‚¢‰z‚µ‹Ö~
 };
 
