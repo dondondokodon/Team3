@@ -25,6 +25,7 @@ void ImageManager::load()
 	spr[WEAK].reset(GameLib::sprite_load(L"./Data/Images/build2.png"));
 	spr[buff].reset(GameLib::sprite_load(L"./Data/Images/buff.png"));
 	spr[debuff].reset(GameLib::sprite_load(L"./Data/Images/debuff.png"));
+	spr[priceBoard].reset(GameLib::sprite_load(L"./Data/Images/price.png"));
 	spr[selectingGetPark].reset(GameLib::sprite_load(L"./Data/Images/selectingGetPark.png"));
 
 	spr[billBack].reset(GameLib::sprite_load(L"./Data/Images/back.png"));

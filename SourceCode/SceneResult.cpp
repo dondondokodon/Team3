@@ -6,6 +6,7 @@
 extern bool resetMap;
 void SceneResult::init()
 {
+	state = 0;
 	sprite.init();
 	resetMap = true;
 }

@@ -28,6 +28,7 @@ public:
 		WEAK,
 		buff,
 		debuff,
+		priceBoard,
 		selectingGetPark,
 
 		billBack,

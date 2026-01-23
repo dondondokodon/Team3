@@ -190,7 +190,7 @@ void Shop_Tile::update()
 
 void Event_Tile::update()
 {
-	ISCENE::nextScene = SCENE_GAME;
+	ISCENE::nextScene = SCENE_EVENT;
 	debug::setString("event");
 
 }
