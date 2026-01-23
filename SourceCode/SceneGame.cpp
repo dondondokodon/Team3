@@ -47,8 +47,8 @@ void SceneGame::update()
 		//ターゲット設定
 		EnemyManager::instance().setTarget(player);
 		//エネミーセット　引数がステージ番号
-		//EnemyManager::instance().setStage(2);	//1が最初
-		SwitchEnemyType();
+		EnemyManager::instance().setStage(2);	//1が最初
+		//SwitchEnemyType();	//ここで敵の種類を切り替えてる　デバッグの際は消してOK
 		/*EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ 1500.0f, 200.0f }));
 		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ -500.0f, 250.0f }));
 		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ -300.0f, 600.0f }));*/
