@@ -122,7 +122,7 @@ void EnemyBoss::init()
 	//scale = { 1.0f,1.0f };
 	//pos = { 1000,360 };
 	//act = ATTACK2_INIT;
-	//act = ATTACK1_INIT;
+	act = ATTACK1_INIT;
 }
 
 EnemyBoss::~EnemyBoss()
@@ -159,6 +159,10 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 		texSize = { 500.0f,350.0f };
 		isSprChange = false;
 	}
+
+	//ƒXƒP[ƒ‹”½“]
+	if (isCanFlip)
+		ScaleReverse(targetPos);
 
 	//ó‘Ô‘JˆÚ
 	state(targetPos);
@@ -204,9 +208,6 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 		isGround = true;
 	}
 
-	//ƒXƒP[ƒ‹”½“]
-	if(isCanFlip)
-	ScaleReverse(targetPos);
 
 	//Ž€‚ñ‚¾‚ç”jŠü
 	if (isDeath())
@@ -219,6 +220,7 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 	debug::setString("Pos,state,DrawOFFset:%f:%f:%d", pos.x, pos.y,act);
 	debug::setString("DrawOFFset:%f:%f", drawPosOffset.x,drawPosOffset.y);
 	debug::setString("BossSpeed:%f", speed.x);
+	debug::setString("directionX:%f", direction.x);
 }
 
 void EnemyBoss::state(VECTOR2 targetPos)
@@ -406,6 +408,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 				decideAttack();
 			else
 				act = ATTACK2_INIT;	
+				act = ATTACK2_INIT;	
 		}
 
 		break;
@@ -414,6 +417,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		anime_state = 0;
 		animeCount = 0;
 		texSize = { 1300.0f,350.0f };
+		isCanFlip = false;
 		drawPosOffset = { 1100.0f * direction.x,0 };
 		scale.x = fabsf(scale.x)* - direction.x;
 		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTail);
@@ -427,7 +431,8 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		case 0:
 		{
 			drawPosOffset = { 1100.0f * direction.x,0 };
-			spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTail);	//‰æ‘œ·‚µ‘Ö‚¦‚Ä‚àsprChange‚©‚ÌŠÖŒW‚Å‰æ‘œ‚¨‚©‚µ‚­‚È‚é‚±‚Æ‚ ‚é‚©‚ç–³—‚â‚è
+			texSize       = { 1300.0f,350.0f };
+			spr           = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTail);	//‰æ‘œ·‚µ‘Ö‚¦‚Ä‚àsprChange‚©‚ÌŠÖŒW‚Å‰æ‘œ‚¨‚©‚µ‚­‚È‚é‚±‚Æ‚ ‚é‚©‚ç–³—‚â‚è
 			if (animeUpdate(0, 2, 6, false))
 			{
 				animeCount++;
@@ -542,6 +547,8 @@ void EnemyBoss::state(VECTOR2 targetPos)
 			//K”öˆø‚«–ß‚µ
 		case 8:
 			drawPosOffset = { 1100.0f * direction.x,0 };
+			texSize = { 1300.0f,350.0f };
+			drawPosOffset = { 1100.0f * direction.x,0 };
 			spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTailPull);	//‰æ‘œ·‚µ‘Ö‚¦‚Ä‚àsprChange‚©‚ÌŠÖŒW‚Å‰æ‘œ‚¨‚©‚µ‚­‚È‚é‚±‚Æ‚ ‚é‚©‚ç–³—‚â‚è
 			if (animeUpdate(0, 2, 6, false))
 			{
@@ -591,6 +598,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 			{
 				posFlag = true;
 				isSprChange = true;
+				isCanFlip = true;
 				ac->hasHit = false;
 				decideAttack();
 				//act = ATTACK2_INIT;

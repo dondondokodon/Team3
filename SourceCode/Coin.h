@@ -13,7 +13,7 @@ public:
 	static int GetCoinNum() { return CoinNum; }				//ゲッター
 	static void SetCoinNum(int coin) { CoinNum = coin; }	//セッター（多分使わない）
 
-	static void AddCoinNum(int add) { CoinNum += add;  music::play(coinGet, true);}		//加算
+	static void AddCoinNum(int add) { CoinNum += add;  music::play(coinGet);}		//加算
 	static void DegCoinNum(int deg) { CoinNum -= deg; }		//減算
 
 	static int GetRatioCoin(float ratio);	//割合で取りだす
