@@ -131,6 +131,7 @@ void Stage01::deinit()
 
 }
 
+//ステージのrender１も２も使ってへん
 void Stage01::render()
 {
 	GameLib::setBlendMode(GameLib::Blender::BS_ALPHA);	

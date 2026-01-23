@@ -12,6 +12,7 @@ public:
 	virtual void update() = 0;
 	virtual void deinit() = 0;
 	virtual void render() = 0;
+	virtual void cameraRender(CAMERA camera) = 0;
 
 };
 
@@ -115,7 +116,7 @@ public:
 	void update()override;
 	void deinit()override;
 	void render()override;
-	void cameraRender(CAMERA camera);
+	void cameraRender(CAMERA camera)override;
 
 };
 
@@ -136,6 +137,6 @@ public:
 	void update()override;
 	void deinit()override;
 	void render()override;
-	void cameraRender(CAMERA camera);
+	void cameraRender(CAMERA camera)override {};
 
 };
