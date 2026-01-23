@@ -6,6 +6,7 @@
 #include"StageSpawnRules.h"
 #include"ImageManager.h"
 #include"EnemyBoss.h"
+#include "EnemySlip.h"
 #include"HitBox.h"
 
 void EnemyManager::update(CAMERA camera)
@@ -128,6 +129,10 @@ void EnemyManager::Spawn(EnemyType type, VECTOR2 pos)
 
 	case EnemyType::BOSS:
 		add(std::make_unique<EnemyBoss>(pos));
+		break;
+
+	case EnemyType::Slip:
+		add(std::make_unique<EnemySlip>(pos));
 		break;
 	}
 }

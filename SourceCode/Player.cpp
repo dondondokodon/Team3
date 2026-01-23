@@ -464,6 +464,10 @@ void Player::state()
 
 	case DEATH_INIT:
 		anime_state = 0;
+		drawPos = { 0,0 };
+		drawPosFlag = false;
+		texSize = { 320.0f,320.0f };
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player);
 		act = DEATH;
 
 	case DEATH:

@@ -253,7 +253,7 @@ void Enemy::moveHorizontalInCamera(CAMERA& camera)
 	{
 		float targetX=pos.x;				//目標地点
 
-		const float MIN_PULL_SPEED = 2.0f;	//最低速度
+		const float MIN_PULL_SPEED = 0.5f;	//最低速度
 
 		float oldSpeedX = 0;
 
@@ -277,12 +277,13 @@ void Enemy::moveHorizontalInCamera(CAMERA& camera)
 
 		//目標地点との距離に応じて引き寄せ速度を変える
 		float dx = targetX - pos.x;
-		float pull = dx * 0.02f;
+		float pull = dx * 0.01f;
 
 		// 最低速度保証
 		if (fabsf(pull) < MIN_PULL_SPEED)
 		{
 			pull = (direction.x>0) ? MIN_PULL_SPEED : -MIN_PULL_SPEED;
+			//pull = (dx > 0) ? MIN_PULL_SPEED : -MIN_PULL_SPEED;
 		}
 
 		speed.x += pull;
