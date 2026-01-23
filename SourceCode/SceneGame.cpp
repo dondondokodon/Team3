@@ -54,7 +54,7 @@ void SceneGame::update()
 		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ -500.0f, 250.0f }));
 		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ -300.0f, 600.0f }));*/
 		SwitchStage();
-		EnemyManager::instance().setStage(2);	//1‚ªÅ‰
+		EnemyManager::instance().setStage(stages.back().get()->getStageNo());	//1‚ªÅ‰
 		stages.at(0).get()->init();
 
 		state++;
