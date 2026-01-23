@@ -125,6 +125,8 @@ void Tail::setFunction(int num)
 {
     ac->hasHit = false;
     act = 0;
+    //‹…Á‚·
+    ProjectileManager::Instance().targetRemove(this);
  
     if (noneFlag)
     {

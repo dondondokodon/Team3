@@ -579,8 +579,8 @@ void Player::cameraRender(CAMERA& camera)
 	);
 
 	//壁判定
-	primitive::line(hitWall.x-camera.getPos().x, hitWall.top - camera.getPos().y, hitWall.x - camera.getPos().x, hitWall.bottom - camera.getPos().y);
-	primitive::line(beforeWall.x-camera.getPos().x, beforeWall.top - camera.getPos().y, beforeWall.x - camera.getPos().x, beforeWall.bottom - camera.getPos().y);
+	//primitive::line(hitWall.x-camera.getPos().x, hitWall.top - camera.getPos().y, hitWall.x - camera.getPos().x, hitWall.bottom - camera.getPos().y);
+	//primitive::line(beforeWall.x-camera.getPos().x, beforeWall.top - camera.getPos().y, beforeWall.x - camera.getPos().x, beforeWall.bottom - camera.getPos().y);
 }
 
 void Player::inputMove()

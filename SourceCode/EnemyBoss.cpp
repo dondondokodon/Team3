@@ -524,14 +524,14 @@ void EnemyBoss::state(VECTOR2 targetPos)
 			{
 				//texSize = { 500.0f,350.0f };
 				anime_state = 0;
-				spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTailPull);
+				//spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTailPull);
 				animeCount++;
 			}
 			break;
 
 			//K”öˆø‚«–ß‚µ
 		case 8:
-			//spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTailPull);	//‰æ‘œ·‚µ‘Ö‚¦‚Ä‚àsprChange‚©‚ÌŠÖŒW‚Å‰æ‘œ‚¨‚©‚µ‚­‚È‚é‚±‚Æ‚ ‚é‚©‚ç–³—‚â‚è
+			spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTailPull);	//‰æ‘œ·‚µ‘Ö‚¦‚Ä‚àsprChange‚©‚ÌŠÖŒW‚Å‰æ‘œ‚¨‚©‚µ‚­‚È‚é‚±‚Æ‚ ‚é‚©‚ç–³—‚â‚è
 			if (animeUpdate(0, 2, 6, false))
 			{
 				anime_state = 0;
@@ -756,7 +756,7 @@ void EnemyBoss::cameraRender(CAMERA& camera)
 	tail.cameraRender(camera);
 
 	//“–‚½‚è”»’è•Ç
-	primitive::line(hitWall.x - camera.getPos().x, hitWall.top - camera.getPos().y, hitWall.x - camera.getPos().x, hitWall.bottom - camera.getPos().y);
+	//primitive::line(hitWall.x - camera.getPos().x, hitWall.top - camera.getPos().y, hitWall.x - camera.getPos().x, hitWall.bottom - camera.getPos().y);
 	//VECTOR2 scale = {-direction.x,1.0f};	//Œ³‚ª¶Œü‚«‚È‚Ì‚Å-
 	//if(sprTail)
 	//sprite_render(sprTail.get(), tailPos.x-camera.getPos().x, tailPos.y-camera.getPos().y, scale.x, scale.y, 0, 0, tailTexSize.x, tailTexSize.y,0,25,ToRadian(0),1,1,1,1);
