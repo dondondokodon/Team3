@@ -14,9 +14,9 @@ void audio_init()
 	music::load(P_jump, L"./Data/Sounds/ジャンプ　自機.wav");
 	music::load(P_jump2, L"./Data/Sounds/自機キャラのジャンプ.wav");
 	music::load(P_doge, L"./Data/Sounds/回避サウンド.wav");
-	music::load(P_lightA, L"./Data/Sounds/軽攻撃サウンド.wav");
+	music::load(P_lightA, L"./Data/Sounds/軽攻撃サウンド.wav");//ヒット音
 	music::load(P_hit, L"./Data/Sounds/自機被弾.wav");
-	music::load(P_HeavyA, L"./Data/Sounds/重攻撃サウンド.wav");
+	music::load(P_HeavyA, L"./Data/Sounds/重攻撃サウンド.wav");//ヒット音
 	music::load(B_jumpA1, L"./Data/Sounds/ボスとびかかり.wav");
 	music::load(B_jumpA2, L"./Data/Sounds/ボスとびかかり2.wav");		
 	music::load(B_Jump,L"./Data/Sounds/ボスのジャンプ時のサウンド.wav");
@@ -32,7 +32,7 @@ void audio_init()
 	music::load(zako2_A,L"./Data/Sounds/雑魚キャラ２の打撃.wav");
 	music::load(zakoFlyA,L"./Data/Sounds/飛ぶ雑魚キャラの飛ばす攻撃.wav");
 	music::load(pic,L"./Data/Sounds/選択音.wav");
-	music::load(bigAttack,L"./Data/Sounds/大技の溜め.wav");
+	music::load(bigAttack,L"./Data/Sounds/大技の溜め.wav");		//重攻撃のためらしい
 	music::load(score,L"./Data/Sounds/評価表示音.wav");
 }
 
