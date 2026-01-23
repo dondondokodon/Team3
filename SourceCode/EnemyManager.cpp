@@ -136,3 +136,13 @@ void EnemyManager::setStage(int stageNo)
 {
 	spawnRule = SpawnRuleFactory::create(stageNo);
 }
+
+EnemyBoss* EnemyManager::getBoss()
+{
+	for (auto& e : enemies)
+	{
+		if (auto boss = dynamic_cast<EnemyBoss*>(e.get()))
+			return boss;
+	}
+	return nullptr;
+}

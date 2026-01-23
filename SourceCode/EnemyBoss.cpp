@@ -114,6 +114,7 @@ void EnemyBoss::init()
 	meleeRadius  = radius;
 	exitRnd = 1;
 	isDeathOn = false;
+	
 
 	//ここより下デバッグ用
 	//texSize = { 500,350 };
@@ -753,6 +754,9 @@ void EnemyBoss::cameraRender(CAMERA& camera)
 	);
 	for(auto& tail:tails)
 	tail.cameraRender(camera);
+
+	//当たり判定壁
+	primitive::line(hitWall.x - camera.getPos().x, hitWall.top - camera.getPos().y, hitWall.x - camera.getPos().x, hitWall.bottom - camera.getPos().y);
 	//VECTOR2 scale = {-direction.x,1.0f};	//元が左向きなので-
 	//if(sprTail)
 	//sprite_render(sprTail.get(), tailPos.x-camera.getPos().x, tailPos.y-camera.getPos().y, scale.x, scale.y, 0, 0, tailTexSize.x, tailTexSize.y,0,25,ToRadian(0),1,1,1,1);

@@ -35,6 +35,7 @@ public:
 	void setAttackFrame();
 	void setGravity();
 	void setDEF();
+	void setHitWall(HitWall set) { targetHitWall = set; }
 
 	bool lightAttack = false;	//軽攻撃フラグ
 	bool heavyAttack = true;	//重攻撃フラグ
@@ -116,6 +117,7 @@ private:
 	VECTOR2 drawPos;
 	bool drawPosFlag;
 	const VECTOR2 drawPosOffet = { -100,-90 };
+	HitWall targetHitWall;
 
 
 	std::shared_ptr<Sprite> playerBullet;
