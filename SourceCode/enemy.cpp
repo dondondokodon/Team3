@@ -277,7 +277,7 @@ void Enemy::moveHorizontalInCamera(CAMERA& camera)
 
 		//目標地点との距離に応じて引き寄せ速度を変える
 		float dx = targetX - pos.x;
-		float pull = dx * 0.01f;
+		float pull = dx * 0.02f;
 
 		// 最低速度保証
 		if (fabsf(pull) < MIN_PULL_SPEED)

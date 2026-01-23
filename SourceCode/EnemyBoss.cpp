@@ -666,6 +666,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 	case DEATH_INIT:
 		anime_state   = 0;
 		animeCount    = 0;
+		speed         = { 0.0f,0.0f };
 		spr           = ImageManager::Instance().getSprite(ImageManager::SpriteNum::boss);
 		texSize       = { 500.0f,350.0f };
 		drawPosOffset = { 0.0f,0.0f };
