@@ -151,8 +151,7 @@ void Player::update()
 	//当たり判定壁
 	beforeWall = hitWall;
 
-	//状態遷移
-	state();
+	
 	if (Coin::GetCoinNum() <= 0&&act!=DEATH)
 		act = DEATH_INIT;
 
@@ -197,10 +196,11 @@ void Player::update()
 	if (moveLimitRight < pos.x +radius)	pos.x = moveLimitRight - radius;
 
 
+	//重力
 	if(!isGround)
 	gravity(this, fallEnergy);
 
-	//重力と地面判定
+	//地面判定
 	if (pos.y > GROUND_Y - pivot.y)
 	{
 		pos.y = GROUND_Y - pivot.y;
@@ -210,11 +210,15 @@ void Player::update()
 		ResetJumpCount();
 	}
 
+	//地面接地
 	if (isGround)
 	{
 		//ジャンプ回数リセット
 		ResetJumpCount();
 	}
+
+	//状態遷移
+	state();
 
 	//摩擦
 	friction(this);

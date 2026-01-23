@@ -101,6 +101,30 @@ void Stage02::init()
 	//ground.anime_state = 0;
 	//ground.radius = 0;
 
+	//‘«ê
+	footings.clear();	//ˆê‰ƒNƒŠƒA
+
+	for (int i = 0;i < 3;i++)
+	{
+		StageLayer f;
+		f.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::footing);
+		f.pos = { 300+ i * 1000.0f,500.0f };
+		f.scale = { 1,1 };
+		f.texPos = { 0,0 };
+		f.texSize = { 240, 50 };
+		f.pivot = { f.texSize.x * 0.5f,f.texSize.y * 0.5f };
+		f.color = { 1,1,1,1 };
+		f.speed = { 1,1 };
+		f.offset = { 0,0 };
+		f.angle = 0;
+		f.act = 0;
+		f.timer = 0;
+		f.anime = 0;
+		f.animeTimer = 0;
+		f.anime_state = 0;
+		f.radius = 0;
+		footings.push_back(f);
+	}
 }
 
 void light::update()
@@ -148,7 +172,7 @@ void Stage02::update()
 
 void Stage02::deinit()
 {
-
+	footings.clear();
 }
 
 void Stage02::render()
@@ -176,6 +200,7 @@ void Stage02::cameraRender(CAMERA camera)
 	GameLib::setBlendMode(GameLib::Blender::BS_ADD);
 	primitive::rect(0, 0, 1280, 720, 0, 0, 0, 0, 0, 0, 0.7);
 	GameLib::setBlendMode(GameLib::Blender::BS_ALPHA);
-
+	for (auto& footing : footings)
+		footing.cameraRender(camera);
 	//ground.cameraRender(camera);
 }
