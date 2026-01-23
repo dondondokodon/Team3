@@ -1,7 +1,8 @@
 #pragma once
 #include<vector>
 #include<memory>
-#include"Enemy.h"
+//#include"Enemy.h"
+#include "EnemyBoss.h"
 #include"CAMERA.h"
 #include"ProjectileManager.h"
 #include"EnemySpawnRule.h"
@@ -43,6 +44,7 @@ public:
 	void Spawn(EnemyType type,VECTOR2 pos);
 	//void setSpawnRule(std::unique_ptr<IEnemySpawnRule> rule);
 	void setStage(int stageNo);
+	EnemyBoss* getBoss();
 
 private:
 	std::vector<std::unique_ptr<Enemy>> enemies;

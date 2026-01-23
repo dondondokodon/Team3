@@ -59,6 +59,13 @@ void SceneGame::update()
 		if (frame % 60 == 0)
 			timer++;
 		camera.update(player);
+
+		//player@boss@Õ“Ë”»’è
+		/*EnemyBoss* b = EnemyManager::instance().getBoss();
+		if (b)
+		{
+			player.setHitWall(b->getHitWall());
+		}*/
 		player.update();
 		EnemyManager::instance().update(camera);
 		EffektManager::Instance().update(camera);

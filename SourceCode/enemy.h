@@ -39,6 +39,7 @@ public:
     };
     Enemy();
     Enemy(VECTOR2 Pos);
+    virtual ~Enemy(){}
     virtual void init()override;
     virtual void deinit()override;
     virtual void update(CAMERA& camera, VECTOR2 targetPos);
