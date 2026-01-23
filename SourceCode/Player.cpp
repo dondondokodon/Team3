@@ -196,15 +196,23 @@ void Player::update()
 	if (moveLimitLeft > pos.x -	 radius)	pos.x = moveLimitLeft  + radius;
 	if (moveLimitRight < pos.x +radius)	pos.x = moveLimitRight - radius;
 
-	//重力と地面判定
+
 	if(!isGround)
 	gravity(this, fallEnergy);
+
+	//重力と地面判定
 	if (pos.y > GROUND_Y - pivot.y)
 	{
 		pos.y = GROUND_Y - pivot.y;
 		speed.y = 0;
 		isGround = true;
 		//jumpCount = 2;
+		ResetJumpCount();
+	}
+
+	if (isGround)
+	{
+		//ジャンプ回数リセット
 		ResetJumpCount();
 	}
 
@@ -302,7 +310,8 @@ void Player::state()
 		inputJump();
 
 		//アイドル
-		if (GROUND_Y - pivot.y <= pos.y)
+		//if (GROUND_Y - pivot.y <= pos.y)
+		if(isGround)
 			act = LANDING_INIT;
 
 		//攻撃
@@ -486,88 +495,53 @@ void Player::state()
 
 void Player::CheckHitWall(const HitWall& wall)
 {
+	//横方向の壁との衝突
+	//debug::setString("wall.x:%f dirX:%f top:%f bottom:%f",
+	//	wall.x, wall.dirX, wall.top, wall.bottom);
 
-	debug::setString("wall.x:%f dirX:%f top:%f bottom:%f",
-		wall.x, wall.dirX, wall.top, wall.bottom);
-
-	//高さがあっているか
-	//if (beforeWall.top<wall.bottom || beforeWall.bottom>wall.top)
-	if (beforeWall.bottom < wall.top || beforeWall.top > wall.bottom)
-		return;
-
-	float dPrev = (beforeWall.x - wall.x) * wall.dirX;
-	float dNow = (hitWall.x - wall.x) * wall.dirX;
-	debug::setString("dPrev:%f dNow:%f", dPrev, dNow);
-	debug::setString("pos.x:%f hitWall.x:%f wall.x:%f",
-		pos.x, hitWall.x, wall.x);
-
-
-
-	if (dPrev > 0 && dNow <= 0)
-	{
-		//pos.x -= dNow * wall.dirX;
-		//pos.x -= 20;
-		/*float halfW = pivot.x * scale.x;
-		pos.x = wall.x + halfW * wall.dirX;*/
-
-		float halfW = pivot.x * fabsf(scale.x);
-
-		// 壁の手前に押し戻す
-		pos.x = wall.x - halfW * wall.dirX;
-
-		speed.x = 0;
-	}
-
-	//float halfW = pivot.x * fabsf(scale.x);
-
-	//// 右 → 左 に壁を跨いだ
-	//if (beforeWall.x > wall.x && hitWall.x <= wall.x)
-	//{
-	//	pos.x = wall.x + halfW;   // 壁の右側に押し戻す
-	//	speed.x = 0;
-	//}
-
-	//// 左 → 右 に壁を跨いだ
-	//if (beforeWall.x < wall.x && hitWall.x >= wall.x)
-	//{
-	//	pos.x = wall.x - halfW;   // 壁の左側に押し戻す
-	//	speed.x = 0;
-	//}
-
-	//float halfW = pivot.x * fabsf(scale.x);
-	//float frontX = pos.x + halfW * direction.x;
-	//float prevFrontX = beforeWall.x + halfW * direction.x;
-
-	//// 前方向に動いてる？
-	//if (speed.x * direction.x > 0)
-	//{
-	//	// 前面が制限ラインを越えた？
-	//	if (prevFrontX <= wall.x && frontX > wall.x)
-	//	{
-	//		pos.x = wall.x - halfW * direction.x;
-	//		speed.x = 0;
-	//	}
-	//}
-
-	//// 高さ判定
+	////高さがあっているか
+	////if (beforeWall.top<wall.bottom || beforeWall.bottom>wall.top)
 	//if (beforeWall.bottom < wall.top || beforeWall.top > wall.bottom)
 	//	return;
 
-	//float halfW = pivot.x * fabsf(scale.x);
+	//float dPrev = (beforeWall.x - wall.x) * wall.dirX;
+	//float dNow = (hitWall.x - wall.x) * wall.dirX;
+	//debug::setString("dPrev:%f dNow:%f", dPrev, dNow);
+	//debug::setString("pos.x:%f hitWall.x:%f wall.x:%f",
+	//	pos.x, hitWall.x, wall.x);
 
-	//// 前面位置
-	//float frontX = pos.x + halfW * direction.x;
 
-	//// 前方向に動いている？
-	//if (speed.x * direction.x <= 0)
-	//	return;
 
-	//// 前面が壁を越えたら止める
-	//if ((frontX - wall.x) * direction.x > 0)
+	//if (dPrev > 0 && dNow <= 0)
 	//{
-	//	pos.x = wall.x - halfW * direction.x;
+	//	//pos.x -= dNow * wall.dirX;
+	//	//pos.x -= 20;
+	//	/*float halfW = pivot.x * scale.x;
+	//	pos.x = wall.x + halfW * wall.dirX;*/
+
+	//	float halfW = pivot.x * fabsf(scale.x);
+
+	//	// 壁の手前に押し戻す
+	//	pos.x = wall.x - halfW * wall.dirX;
+
 	//	speed.x = 0;
 	//}
+
+	// 床（下方向）との衝突
+	if (beforeWall.bottom <= wall.top && hitWall.bottom >= wall.top && speed.y > 0) {
+		// 床の上にピッタリ合わせる
+		pos.y = wall.top - (hitWall.bottom - pos.y);
+		speed.y = 0;
+		isGround = true;
+		// 必要なら着地時の処理（例：ResetJumpCount()など）
+	}
+
+	// 天井（上方向）との衝突
+	if (beforeWall.top >= wall.bottom && hitWall.top <= wall.bottom && speed.y < 0) {
+		// 天井の下にピッタリ合わせる
+		pos.y = wall.bottom + (pos.y - hitWall.top);
+		speed.y = 0;
+	}
 }
 
 void Player::cameraRender(CAMERA& camera)

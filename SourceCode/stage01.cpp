@@ -1,6 +1,6 @@
 #include "stage.h"
 #include"ImageManager.h"
-
+#include "Player.h"
 
 void Stage01::init()
 {
@@ -101,7 +101,7 @@ void Stage01::init()
 	footing.scale = { 1,1 };
 	footing.texPos = { 0,0 };
 	footing.texSize = { 240, 50 };
-	footing.pivot = { 0,0 };
+	footing.pivot = { footing.texSize.x*0.5f,footing.texSize.y * 0.5f };
 	footing.color = { 1,1,1,1 };
 	footing.speed = { 1,1 };
 	footing.offset = { 0,0 };
@@ -124,6 +124,7 @@ void Stage01::update()
 
 	if (back.pos.x <= -1280)
 		back.pos.x = 0;
+
 }
 
 void Stage01::deinit()
@@ -150,5 +151,49 @@ void Stage01::cameraRender(CAMERA camera)
 	middle.cameraRender(camera);
 	front. cameraRender(camera);
 	ground.cameraRender(camera);
-	//footing.cameraRender(camera);	//こいつに当たり判定をつけないといけない
+	footing.cameraRender(camera);	//こいつに当たり判定をつけないといけない
+}
+
+// Stage01.cpp に追加
+void Stage01::checkFootingCollision(Player& character)
+{
+	// 足場の中心座標・サイズ		マジックナンバーはマジで適当な調整
+	float fx = footing.pos.x-40;
+	float fy = footing.pos.y;
+	float fw = footing.texSize.x * footing.scale.x;
+	float fh = footing.texSize.y * footing.scale.y-80;
+
+	// 足場の上端（pivot中心なら）
+	float footingTop = fy - fh * 0.5f;
+
+	// キャラの足元Y
+	float footY = character.getPos().y + character.getPivot().y * character.getScale().y;
+
+	// キャラの横幅
+	float cw = character.getTexSize().x * character.getScale().x * 0.3f; // 必要なら調整
+	float cx = character.getPos().x;
+	float charLeft = cx - cw * 0.5f;
+	float charRight = cx + cw * 0.5f;
+
+	// 横方向の重なり
+	bool isOverlapX = (charRight > fx - fw * 0.5f) && (charLeft < fx + fw * 0.5f);
+
+	// 前フレームの足元Y
+	float prevFootY = character.getBeforePos().y + character.getPivot().y * character.getScale().y;
+	float deltaY = footY - prevFootY;
+
+	// 足場の上に乗る条件
+	bool isOnFooting = isOverlapX && prevFootY <= footingTop && footY >= footingTop && character.getSpeed().y > 2;	//2は小さすぎると横移動だけで乗れるから
+
+
+	// まず毎フレームfalseにしておく（地面や他の足場で上書きされる前提）
+	character.setIsGround(false);
+
+	if (isOnFooting) {
+		// 足場の上に乗る
+		character.setPos(VECTOR2{ character.getPos().x, footingTop - character.getPivot().y * character.getScale().y });
+		float speedX = character.getSpeed().x;
+		character.setSpeed(VECTOR2{ speedX, 0 });
+		character.setIsGround(true);
+	}
 }

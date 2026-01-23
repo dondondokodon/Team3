@@ -6,6 +6,8 @@ public:
 	float x;
 	float top;
 	float bottom;
+	float left;
+	float right;
 	float dirX;
 	HitWall()
 	{
@@ -13,6 +15,8 @@ public:
 		top    = 0.0f;
 		bottom = 0.0f;
 		dirX   = 1;
+		left   = 0.0f;
+		right  = 0.0f;
 	}
 };
 

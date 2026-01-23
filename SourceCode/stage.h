@@ -1,6 +1,8 @@
 #pragma once
 #include"../GameLib/game_lib.h"
 #include "CAMERA.h"
+#include "Player.h"
+#include "HitWall.h"
 
 //抽象クラス 背景
 class Stage
@@ -16,6 +18,7 @@ public:
 	virtual void render() = 0;
 	virtual void cameraRender(CAMERA camera) = 0;
 	int getStageNo() { return stageNo; }
+	virtual void checkFootingCollision(Player& character) {};
 };
 
 //スプライトの読み込み用
@@ -75,6 +78,8 @@ private:
 	StageLayer ground;		//地面
 	StageLayer footing;		//足場
 
+	HitWall footingWall; //足場の当たり判定
+
 public:
 	Stage01() { stageNo = 1; };
 	~Stage01()override {};
@@ -83,6 +88,7 @@ public:
 	void deinit()override;
 	void render()override;
 	void cameraRender(CAMERA camera);
+	void checkFootingCollision(Player& character);
 
 };
 

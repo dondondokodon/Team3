@@ -74,6 +74,10 @@ void SceneGame::update()
 			player.setHitWall(b->getHitWall());
 		}*/
 		player.update();
+
+		//“y‘ä‚Ì“–‚½‚è”»’è
+		stages.back().get()->checkFootingCollision(player);
+
 		EnemyManager::instance().update(camera);
 		EffektManager::Instance().update(camera);
 		//stage01.update();
