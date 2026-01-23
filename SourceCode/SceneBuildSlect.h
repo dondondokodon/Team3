@@ -26,6 +26,7 @@ public:
 		strong
 	};
 
+	int getRank()const { return power; }
 	int getPrice()const { return price; }
 
 	int price = 0;
@@ -51,6 +52,10 @@ public:
 		this->direction = direction;
 	}
 	~extraSprite() {}
+
+	std::string ShowPrice;
+	VECTOR2 textPos;
+	VECTOR4 textColor;
 
 	void update()override {}
 };

@@ -5,6 +5,7 @@
 using namespace input;
 int j;				//どのカードを選んでいるか
 std::unique_ptr<extraSprite> selectingMessage;
+std::unique_ptr<extraSprite> price_board;
 
 void SceneBuildSelect::init()
 {
@@ -23,6 +24,16 @@ void SceneBuildSelect::init()
 		VECTOR4{1,1,1,1},
 		VECTOR2{0,0},VECTOR2{0,0},
 		VECTOR2{0,0} );
+
+	price_board = std::make_unique<extraSprite>(
+		ImageManager::Instance().getSprite(ImageManager::SpriteNum::priceBoard),
+		VECTOR2{ -800, -800 },
+		VECTOR2{ 1,1 },
+		VECTOR2{ 0,0 },
+		VECTOR2{ 237,229 },
+		VECTOR4{ 1,1,1,1 },
+		VECTOR2{ 0,0 }, VECTOR2{ 0,0 },
+		VECTOR2{ 0,0 });
 	//selectingMessage->setSprite(ImageManager::Instance().getSprite(ImageManager::SpriteNum::selectingGetPark));
 
 }
@@ -67,6 +78,8 @@ void SceneBuildSelect::render()
 		card->render();
 	}
 	
+	price_board->render();
+	text_out(3, price_board->ShowPrice, price_board->textPos.x, price_board->textPos.y, 3, 3, price_board->textColor.x, price_board->textColor.y,price_board->textColor.z, price_board->textColor.w);
 	money.render();
 
 }
@@ -120,6 +133,21 @@ void SceneBuildSelect::cardPick()
 
 	nowCard->setScale({ 1.1,1.1 });
 
+	//価格を表示
+	if (nowCard->getRank() == BuildCard::rank::strong)
+	{
+		price_board->setPosition(VECTOR2{ 540, 600 });
+	}
+	else
+	{
+		price_board->setPosition(VECTOR2{ 1130, 600 });
+	}
+
+	price_board->ShowPrice = std::to_string(nowCard->getPrice());
+	price_board->textPos = VECTOR2{ price_board->getPos().x - 55,price_board->getPos().y - 10 };
+	price_board->textColor = VECTOR4{ 1,0.8,0,1};
+
+
 	//お金がないと買えない
 	if (TRG(0) & PAD_START && Coin::GetCoinNum() > nowCard->getPrice())
 	{
@@ -142,7 +170,7 @@ void SceneBuildSelect::cardPick()
 	}
 	else
 	{
-
+		//何かしらの演出入れたい
 	}
 
 	//メニュー
@@ -218,8 +246,10 @@ void SceneBuildSelect::setBuild()
 	std::uniform_int_distribution<int> dw(0, (int)weakCandidates.size() - 1);
 
 	//出現位置
-	VECTOR2 left = { 340, 400 };
-	VECTOR2 right = { 940, 400 };
+	//VECTOR2 left = { 340, 400 };
+	//VECTOR2 right = { 940, 400 };
+	VECTOR2 left = { 240, 400 };
+	VECTOR2 right = { 840, 400 };
 
 	//左に強いビルド・右に弱いビルド
 	showWindow.clear();

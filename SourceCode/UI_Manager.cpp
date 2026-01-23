@@ -74,10 +74,9 @@ void textUI_Manager::update()
 	float up = -1.0f;
 	float down = 1.0f;
 	float alpha = -0.03f;
-	int TextCount = textCount();
-	for (int i = 0; i < TextCount; i++)
+	for (auto it = texts.begin(); it != texts.end();)
 	{
-		textUI* text = getText(i);
+		textUI* text = it->get();
 		VECTOR4 c = text->getColor();
 		c.w += alpha;
 		//c.z += 0.1f;
@@ -96,6 +95,10 @@ void textUI_Manager::update()
 
 		text->setColor(c);
 
+		if (c.w <= 0.0f)
+			it = texts.erase(it);
+		else
+			it++;
 	}
 }
 void textUI::textRender(CAMERA& camera, std::string coin)
