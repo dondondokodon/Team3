@@ -85,10 +85,10 @@ void EnemyBoss::init()
 	anime            = 0;
 	animeTimer       = 0;
 	anime_state      = 0;
-	radius           = texSize.y * 0.3f*scale.y;
+	radius           = texSize.y * 0.2f*scale.y;
 	invincibleTimer  = 1.0f;
 	direction        = { 1,0 };
-	pos              = { 500,360 };
+	//pos              = { 500,360 };
 	attackType       = -1;
 	mellePos         = { 0,0 };
 	melleRadius      = 0;
@@ -217,6 +217,7 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 	}
 	debug::setString("Pos,state,DrawOFFset:%f:%f:%d", pos.x, pos.y,act);
 	debug::setString("DrawOFFset:%f:%f", drawPosOffset.x,drawPosOffset.y);
+	debug::setString("BossSpeed:%f", speed.x);
 }
 
 void EnemyBoss::state(VECTOR2 targetPos)
@@ -263,22 +264,27 @@ void EnemyBoss::state(VECTOR2 targetPos)
 
 	case WALK_INIT:
 		anime_state = 0;
+		if (!moveInCamera)	//‰æ–Ê“à‚É“ü‚ë‚¤‚Æ‚µ‚Ä‚¢‚é‚Æ‚«‚Í–³‚µ
 		acceleration = direction.x * 3.5f;
+		drawPosOffset = { 0, -40.0f };		//’Ç‰Á‚µ‚½
 		act = WALK;
 
 	case WALK:
 	{
 		//ˆÚ“®
+		if(!moveInCamera)	//‰æ–Ê“à‚É“ü‚ë‚¤‚Æ‚µ‚Ä‚¢‚é‚Æ‚«‚Í–³‚µ
 		speed.x = acceleration;
 
 		if (animeUpdate(7, 11, 6, true)&&!moveInCamera)
 		{
+			posFlag = true;
 			speed.x = 0;
 			decideAttack();
 		}
 
 		if (fabsf(speed.x) <= 0.6f)
 		{
+			posFlag = true;
 			act=IDLE_INIT;
 		}
 		break;
@@ -293,7 +299,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		isCanFlip = true;
 		meleeRadius = radius + 100;
 		
-		drawPosOffset = { 100 * direction.x,0 };
+		drawPosOffset = { 30 * direction.x,0 };
 
 		act = ATTACK1;
 	}
@@ -406,7 +412,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		anime_state = 0;
 		animeCount = 0;
 		texSize = { 1300.0f,350.0f };
-		drawPosOffset = { 1200.0f * direction.x,0 };
+		drawPosOffset = { 1100.0f * direction.x,0 };
 		scale.x = fabsf(scale.x)* - direction.x;
 		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTail);
 		act = ATTACK2;

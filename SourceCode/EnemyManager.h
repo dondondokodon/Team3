@@ -3,6 +3,7 @@
 #include<memory>
 //#include"Enemy.h"
 #include "EnemyBoss.h"
+#include "EnemySlip.h"
 #include"CAMERA.h"
 #include"ProjectileManager.h"
 #include"EnemySpawnRule.h"
@@ -11,6 +12,7 @@ enum class EnemyType
 {
 	FlyEye,
 	BOSS,
+	Slip
 };
 
 class EnemyManager

@@ -28,7 +28,18 @@ void Statge1SpawnRule::update()
 	VECTOR2 pos = EnemyManager::instance().setSpawnPos();
 
 	//ê∂ê¨
-	EnemyManager::instance().Spawn(EnemyType::FlyEye, pos);
+	int rnd = rand() % 2;
+	switch (rnd)
+	{
+	case 0:
+		EnemyManager::instance().Spawn(EnemyType::FlyEye, pos);
+		break;
+
+	case 1:
+		EnemyManager::instance().Spawn(EnemyType::Slip, pos);
+		break;
+	}
+	
 }
 
 

@@ -17,7 +17,7 @@ private:
 
     const float maxSpeedX;
     const int   coinReward;   //撃破時のコイン
-    bool gravityOn = false;     //重量を呼ぶかどうか
+  
 
 protected:
     int hp = 100;
@@ -29,6 +29,7 @@ protected:
     int attackType = -1;
     int exitRnd;
     bool isDeathOn;
+    bool gravityOn = false;     //重量を呼ぶかどうか
     
 public:
     enum ATTACK_TYPE

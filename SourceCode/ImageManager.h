@@ -12,6 +12,7 @@ public:
 		Player,
 		Player_ATTACK_Effect,
 		Enemy,
+		EnemySlip,
 		PlayerBullet,
 		EnemyBullet,
 

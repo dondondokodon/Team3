@@ -255,4 +255,19 @@ void SceneGame::Collision()
 			}
 		}
 	}
+
+	//boss->player‘Ì‚Ì”»’è
+	EnemyBoss* b = EnemyManager::instance().getBoss();
+	if (b)
+	{
+		if (player.getInvincibleTimer()<=0)
+		{
+			if (hitCircle(player.getPos(), player.getRadius(), b->getPos(), b->getRadius()))
+			{
+				Coin::DegCoinNum(player.calcProtectingDamage(b->getATK()));
+				textUI_Manager::Instance().spawnDegText(player, -b->getATK());
+				player.setInvincibleTimer(5.5f);
+			}
+		}
+	}
 }
