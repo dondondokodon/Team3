@@ -7,6 +7,7 @@
 #include"ImageManager.h"
 #include "HitBox.h"
 #include "UI_Manager.h"
+#include "audio.h"
 
 Player::Player():MAX_SPEED({7,25})
 {
@@ -369,6 +370,7 @@ void Player::state()
 		texSize = { 512.0f,512.0f };
 		drawPos = { drawPosOffet.x * direction.x,drawPosOffet.y };
 		animeCount = 0;
+		music::play(bigAttack);
 		act = HEAVY_ATTACK1;
 
 	case HEAVY_ATTACK1:
@@ -409,6 +411,7 @@ void Player::state()
 		drawPos = { drawPosOffet.x*direction.x,drawPosOffet.y };
 		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player_ATTACK_Effect);
 		texSize = { 512.0f,512.0f };
+		music::play(bigAttack);
 		act = HEAVY_ATTACK2;
 
 	case HEAVY_ATTACK2:
@@ -623,6 +626,7 @@ void Player::inputJump()
 	//キー入力でジャンプ
 	if (TRG(0) & PAD_TRG1&&jumpCount>0)
 	{
+		isGround ? music::play(P_jumpGround) : music::play(P_jump, false);
 		speed.y = -MAX_SPEED.y;
 		jumpCount--;
 		isGround = false;
@@ -636,6 +640,7 @@ void Player::inputDodge()
 	if (TRG(0) & PAD_TRG7)
 	{
 		act = DODGE_INIT;
+		music::play(P_doge);
 	}
 }
 

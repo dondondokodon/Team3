@@ -4,6 +4,7 @@
 #include "ProjectileManager.h"
 #include "Tail.h"
 #include "Scene.h"
+#include "audio.h"
 
 EnemyBoss::EnemyBoss() :coinReward(10000), maxSpeedX(10)
 {
@@ -300,6 +301,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		meleeRadius = radius + 100;
 		
 		drawPosOffset = { 30 * direction.x,0 };
+		music::play(B_jumpA1);
 
 		act = ATTACK1;
 	}
@@ -415,6 +417,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		drawPosOffset = { 1100.0f * direction.x,0 };
 		scale.x = fabsf(scale.x)* - direction.x;
 		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTail);
+		music::play(B_tailA);
 		act = ATTACK2;
 
 	case ATTACK2:
@@ -423,6 +426,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		{	//‚µ‚Á‚Û‚P’i–Ú
 		case 0:
 		{
+			drawPosOffset = { 1100.0f * direction.x,0 };
 			spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTail);	//‰æ‘œ·‚µ‘Ö‚¦‚Ä‚àsprChange‚©‚ÌŠÖŒW‚Å‰æ‘œ‚¨‚©‚µ‚­‚È‚é‚±‚Æ‚ ‚é‚©‚ç–³—‚â‚è
 			if (animeUpdate(0, 2, 6, false))
 			{
@@ -537,6 +541,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 
 			//K”öˆø‚«–ß‚µ
 		case 8:
+			drawPosOffset = { 1100.0f * direction.x,0 };
 			spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTailPull);	//‰æ‘œ·‚µ‘Ö‚¦‚Ä‚àsprChange‚©‚ÌŠÖŒW‚Å‰æ‘œ‚¨‚©‚µ‚­‚È‚é‚±‚Æ‚ ‚é‚©‚ç–³—‚â‚è
 			if (animeUpdate(0, 2, 6, false))
 			{
@@ -608,6 +613,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		animeCount = 0;
 		//ƒ{ƒXƒWƒƒƒ“ƒv‚Ì‰æ‘œ
 		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossJump);
+		music::play(B_Jump);
 		act = JUMP;
 
 	case JUMP:

@@ -1,5 +1,6 @@
 #include "SceneResult.h"
 #include "SceneMap.h"
+#include "audio.h"
 #include "Coin.h"
 
 
@@ -19,7 +20,7 @@ void SceneResult::update()
 		state++;
 
 	case 1:
-
+		music::play(result,true);
 		state++;
 
 	case 2:
@@ -45,6 +46,7 @@ void SceneResult::render()
 void SceneResult::deinit()
 {
 	Coin::SetCoinNum(1500);
+	music::stop();
 
 }
 
