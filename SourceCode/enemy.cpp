@@ -3,6 +3,7 @@
 #include "CAMERA.h"
 #include<cstdlib>
 #include"ImageManager.h"
+#include "audio.h"
 
 Enemy::Enemy():coinReward(100),maxSpeedX(3)
 {
@@ -206,6 +207,7 @@ void Enemy::state()
 
 	case ATTACK1_INIT:
 		anime_state = 0;
+		music::play(zakoFlyA);
 		act = ATTACK1;
 
 	case ATTACK1:

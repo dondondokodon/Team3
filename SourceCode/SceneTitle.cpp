@@ -1,5 +1,6 @@
 #include"SceneTitle.h"
 #include "../GameLib/game_lib.h"
+#include "audio.h"
 using namespace input;
 
 void SceneTitle::init()
@@ -16,6 +17,7 @@ void SceneTitle::update()
 		state++;
 
 	case 1:
+		music::play(main, true);
 		state++;
 
 	case 2:
@@ -40,7 +42,7 @@ void SceneTitle::render()
 
 void SceneTitle::deinit()
 {
-
+	music::stop();
 }
 
 void SceneTitle::deleteSprite()

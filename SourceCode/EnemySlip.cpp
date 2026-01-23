@@ -1,5 +1,6 @@
 #include "EnemySlip.h"
 #include "Tail.h"
+#include "audio.h"
 
 EnemySlip::EnemySlip()
 {
@@ -219,6 +220,7 @@ void EnemySlip::state()
 		anime_state = 0;
 		attackTimer = 0;
 		speed.x     = 0.0f;
+		music::play(zako2_A);
 		act         = ATTACK;
 
 	case ATTACK:

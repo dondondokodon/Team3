@@ -12,6 +12,7 @@ void audio_init()
 	//SE
 	music::load(coinGet, L"./Data/Sounds/コイン獲得時のエフェクト.wav");
 	music::load(P_jump, L"./Data/Sounds/ジャンプ　自機.wav");
+	music::load(P_jumpGround, L"./Data/Sounds/自機キャラ地面を蹴ってジャンプ.wav");
 	music::load(P_jump2, L"./Data/Sounds/自機キャラのジャンプ.wav");
 	music::load(P_doge, L"./Data/Sounds/回避サウンド.wav");
 	music::load(P_lightA, L"./Data/Sounds/軽攻撃サウンド.wav");//ヒット音

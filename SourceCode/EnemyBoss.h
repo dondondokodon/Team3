@@ -2,6 +2,7 @@
 #include "Enemy.h"
 #include <memory>
 #include "Tail.h"
+#include "audio.h"
 class EnemyBoss :
     public Enemy
 {
@@ -54,6 +55,7 @@ public:
     EnemyBoss();
     EnemyBoss(VECTOR2 Pos);
     ~EnemyBoss();
+    void degHp(int damage)override { hp += -damage; music::play(B_hit); }
     void init()override;
     void deinit()override;
     void update(CAMERA& camera,VECTOR2 targetPos)override;

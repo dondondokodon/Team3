@@ -1,6 +1,7 @@
 #include"SceneMap.h"
 #include "../GameLib/game_lib.h"
 #include "Build.h"
+#include"audio.h"
 
 
 int moveTile = 0;	//何マス進んだかをカウント
@@ -26,6 +27,7 @@ void SceneMap::update()
 		state++;
 
 	case 1:
+		music::play(main, true);
 		setBlendMode(Blender::BS_ALPHA);
 
 		if (resetMap)
@@ -103,6 +105,8 @@ void SceneMap::deinit()
 {
 	if (!moveTile)
 		posMemory_y0 = GetTile(0)->getWorldPos().y;
+
+	music::stop();
 
 	nextSpawn();
 	moveTile++;

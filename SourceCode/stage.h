@@ -5,6 +5,8 @@
 //抽象クラス 背景
 class Stage
 {
+protected:
+	int stageNo;
 public:
 
 	virtual ~Stage() {};
@@ -13,7 +15,7 @@ public:
 	virtual void deinit() = 0;
 	virtual void render() = 0;
 	virtual void cameraRender(CAMERA camera) = 0;
-
+	int getStageNo() { return stageNo; }
 };
 
 //スプライトの読み込み用
@@ -74,7 +76,7 @@ private:
 	StageLayer footing;		//足場
 
 public:
-	Stage01() {};
+	Stage01() { stageNo = 1; };
 	~Stage01()override {};
 	void init()override;
 	void update()override;
@@ -110,7 +112,7 @@ private:
 	light Light3;
 
 public:
-	Stage02() {};
+	Stage02() { stageNo = 2; };
 	~Stage02()override {};
 	void init()override;
 	void update()override;
