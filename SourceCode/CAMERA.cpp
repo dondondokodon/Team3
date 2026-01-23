@@ -49,8 +49,8 @@ void CAMERA::update(Character& target)
 	if (pos.x > stageLimitX - width)
 		pos.x = stageLimitX - width;
 
-	if (pos.y < -200)
-		pos.y = -200;
+	if (pos.y < -800)
+		pos.y = -800;
 	if (pos.y > stageLimitY - height)
 		pos.y = stageLimitY - height;
 	debug::setString(

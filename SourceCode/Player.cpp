@@ -43,6 +43,7 @@ Player::Player():MAX_SPEED({7,25})
 void Player::init()
 {
 	pos     = { SCREEN_W * 0.5f,SCREEN_H * 0.5f };
+	pos     = { SCREEN_W * 0.5f,0.0f };
 	scale   = { 1,1 };
 	texPos  = { 0,0 };
 	texSize = { 320,320 };
