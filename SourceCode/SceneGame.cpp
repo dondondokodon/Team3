@@ -8,6 +8,8 @@
 #include"EffektManager.h"
 #include"ImageManager.h"
 #include"UI_Manager.h"
+#include"SceneMap.h"
+extern int moveTile;	//何マス進んだかをカウント
 
 SceneGame::SceneGame()
 {
@@ -23,7 +25,7 @@ void SceneGame::init()
 	timer = 0;
 	player.init();
 	//stage01.init();
-	stage02.init();
+	//stage02.init();
 	EnemyManager::instance().init();
 	EffektManager::Instance().init();
 	camera.init();
@@ -45,10 +47,13 @@ void SceneGame::update()
 		//ターゲット設定
 		EnemyManager::instance().setTarget(player);
 		//エネミーセット　引数がステージ番号
-		EnemyManager::instance().setStage(2);	//1が最初
+		//EnemyManager::instance().setStage(2);	//1が最初
+		SwitchEnemyType();
 		/*EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ 1500.0f, 200.0f }));
 		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ -500.0f, 250.0f }));
 		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ -300.0f, 600.0f }));*/
+		SwitchStage();
+		stages.at(0).get()->init();
 
 		state++;
 
@@ -70,7 +75,8 @@ void SceneGame::update()
 		EnemyManager::instance().update(camera);
 		EffektManager::Instance().update(camera);
 		//stage01.update();
-		stage02.update();
+		//stage02.update();
+		stages.at(0).get()->update();
 
 		//デバッグ用
 		if (TRG(0) & PAD_SELECT)
@@ -78,6 +84,11 @@ void SceneGame::update()
 			ISCENE::nextScene = SCENE_MAP;
 
 		}
+
+
+		//2分くらいたったらゲーム終了　マップへ遷移
+		if (timer == 120)
+			ISCENE::nextScene = SCENE_MAP;
 
 		//倒されたらリザルトへ
 		if (player.isDeath())
@@ -96,8 +107,7 @@ void SceneGame::update()
 void SceneGame::render()
 {
 	GameLib::clear(1, 0, 1);
-	//stage01.cameraRender(camera);
-	stage02.cameraRender(camera);
+	stages.at(0).get()->cameraRender(camera);
 	EnemyManager::instance().render(camera);
 	EffektManager::Instance().render(camera);
 	player.cameraRender(camera);
@@ -121,6 +131,8 @@ void SceneGame::deinit()
 	EnemyManager::instance().setCameraNull();
 
 	textUI_Manager::Instance().Clear();
+
+	stages.clear();
 }
 
 void SceneGame::deleteSprite()
@@ -209,12 +221,12 @@ void SceneGame::Collision()
 				{
 					if (k->onHit())
 					{
-						//textUI_Manager::Instance().spawnDegText(*e);
+						textUI_Manager::Instance().spawnAddText(player, 15);
 						e->degHp(e->calcProtectingDamage(k->getDamage()));
 						e->setInvincibleTimer(1.5f);
 						e->setHitFlag(true);
 						if (k->GetOwnerId() == Projectile::kinds::pursuit)
-							Coin::AddCoinNum(0);
+							Coin::AddCoinNum(15);
 					}
 					
 					if (e->isDeath())
@@ -256,3 +268,21 @@ void SceneGame::Collision()
 		}
 	}
 }
+
+void SceneGame::SwitchStage()
+{
+	if (moveTile > 3)
+		stages.emplace_back(std::make_unique<Stage02>());
+	else
+		stages.emplace_back(std::make_unique<Stage01>());
+}
+
+void SceneGame::SwitchEnemyType()
+{
+	if (moveTile == 6)
+		EnemyManager::instance().setStage(2);	//2がぼす
+
+	else
+		EnemyManager::instance().setStage(1);	//1がざこ
+}
+

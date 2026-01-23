@@ -5,6 +5,8 @@ class SceneResult :public ISCENE
 {
 private:
 	resultScene sprite;
+	static std::string textTime;
+
 public:
 	void update()override;
 	void render()override;
