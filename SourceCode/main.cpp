@@ -1,5 +1,6 @@
 #include"all.h"
 #include<memory>
+#include"audio.h"
 #include"ImageManager.h"
 using namespace std;
 
@@ -18,7 +19,7 @@ int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
 	srand((unsigned int)time(NULL));
 
 	//オーディオの初期設定
-	//audio_init();
+	audio_init();
 
 	
 
@@ -65,7 +66,7 @@ int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
 
 
 	//音楽の開放
-	//audio_deinit();
+	audio_deinit();
 
 	//ゲームライブラリの終了処理
 	GameLib::uninit();
