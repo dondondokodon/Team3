@@ -89,6 +89,7 @@ void Player::init()
 	heavyLifeLimit       = 0.5f;
 	heavyTexSize         = { 6,6 };
 	heavyRadius          = 3.0f;
+	beforeLayer          = nullptr;
 
 	targetHitWall.x      = -1000.0f;
 	targetHitWall.top    = 0.0f;

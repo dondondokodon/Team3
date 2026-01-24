@@ -107,22 +107,22 @@ void Stage02::init()
 	for (int i = 0;i < 3;i++)
 	{
 		StageLayer f;
-		f.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::footing);
-		f.pos = { 300+ i * 1000.0f,500.0f };
-		f.scale = { 1,1 };
-		f.texPos = { 0,0 };
-		f.texSize = { 240, 50 };
-		f.pivot = { f.texSize.x * 0.5f,f.texSize.y * 0.5f };
-		f.color = { 1,1,1,1 };
-		f.speed = { 1,1 };
-		f.offset = { 0,0 };
-		f.angle = 0;
-		f.act = 0;
-		f.timer = 0;
-		f.anime = 0;
-		f.animeTimer = 0;
+		f.spr         = ImageManager::Instance().getSprite(ImageManager::SpriteNum::footing);
+		f.pos         = { 300+ i * 1000.0f,500.0f };
+		f.scale       = { 1,1 };
+		f.texPos      = { 0,0 };
+		f.texSize     = { 240, 50 };
+		f.pivot       = { f.texSize.x * 0.5f,f.texSize.y * 0.5f };
+		f.color       = { 1,1,1,1 };
+		f.speed       = { 1,1 };
+		f.offset      = { 0,0 };
+		f.angle       = 0;
+		f.act         = 0;
+		f.timer       = 0;
+		f.anime       = 0;
+		f.animeTimer  = 0;
 		f.anime_state = 0;
-		f.radius = 0;
+		f.radius      = 0;
 		footings.push_back(f);
 	}
 }

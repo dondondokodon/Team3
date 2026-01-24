@@ -6,6 +6,8 @@
 #include "Build.h"
 #include "ProjectileManager.h"
 
+class StageLayer;
+
 class Player :
     public Character
 {
@@ -39,6 +41,8 @@ public:
 	void setSpeed(VECTOR2 set) { speed = set; }
 	void setIsGround(bool set) { isGround = set; }
 	void setPos(VECTOR2 set) { pos = set; }
+	void setBeforeLayer(StageLayer* layer) { beforeLayer = layer; }
+	StageLayer* getBeforeLayer()const { return beforeLayer; }
 
 	bool lightAttack = false;	//ŒyUŒ‚ƒtƒ‰ƒO
 	bool heavyAttack = true;	//dUŒ‚ƒtƒ‰ƒO
@@ -123,6 +127,7 @@ private:
 	bool drawPosFlag;
 	const VECTOR2 drawPosOffet = { -100,-90 };
 	HitWall targetHitWall;
+	StageLayer* beforeLayer=nullptr;
 
 
 	std::shared_ptr<Sprite> playerBullet;
