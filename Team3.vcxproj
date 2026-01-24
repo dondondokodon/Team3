@@ -179,7 +179,7 @@
     <ClInclude Include="SourceCode\stage.h" />
     <ClInclude Include="SourceCode\StageSpawnRules.h" />
     <ClInclude Include="SourceCode\Tail.h" />
-    <ClInclude Include="SourceCode\UI_Manager.h" />
+    <ClInclude Include="SourceCode\textUI_Manager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameLib\debug.cpp" />
@@ -231,7 +231,7 @@
     <ClCompile Include="SourceCode\Stage02.cpp" />
     <ClCompile Include="SourceCode\StageSpawnRules.cpp" />
     <ClCompile Include="SourceCode\Tail.cpp" />
-    <ClCompile Include="SourceCode\UI_Manager.cpp" />
+    <ClCompile Include="SourceCode\textUI_Manager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

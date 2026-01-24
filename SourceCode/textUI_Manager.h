@@ -5,7 +5,7 @@
 #include "../GameLib/game_lib.h"
 #include"CAMERA.h"
 
-//各uiの基底クラス
+//各textUiの基底クラス
 class textUI : public OBJ2D
 {
 public:

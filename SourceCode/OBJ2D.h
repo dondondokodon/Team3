@@ -79,9 +79,12 @@ public:
 	void setScale(VECTOR2 Scale) { scale = Scale; }
 	void setAct(int Act) { act = Act; }
 	void setColor(VECTOR4 c) { color = c; }
-
+	void setTexPos(VECTOR2 TexPos) { texPos = TexPos; }
+	void setTexSize(VECTOR2 TexSize) { texSize = TexSize; }
+	void setPivot(VECTOR2 Pivot) { pivot = Pivot; }
 	void setPosition(VECTOR2 p) { pos = p; }
 	void setSpeed(VECTOR2 Speed) { speed = Speed; }
+	void setAngle(float Angle) { angle = Angle; }
 	void setSprite(int num) { if(num>=ImageManager::SpriteNum::Max) spr=ImageManager::Instance().getSprite(num); }	//イメージマネージャーのenum使って代入
 };
 

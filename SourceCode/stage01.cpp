@@ -4,7 +4,7 @@
 
 void Stage01::init()
 {
-	//”wŒiiƒOƒ‰ƒf[ƒVƒ‡ƒ“j
+	//èƒŒæ™¯ï¼ˆã‚°ãƒ©ãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³ï¼‰
 	back.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::billBack);
 	back.pos = { 0,0 };
 	back.scale = { 1,1 };
@@ -22,7 +22,7 @@ void Stage01::init()
 	back.anime_state = 0;
 	back.radius = 0;
 
-	//‰“X”wŒi
+	//é ã€…èƒŒæ™¯
 	back_back.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::billBackBack);
 	back_back.pos = { 0,100 };
 	back_back.scale = { 1,1 };
@@ -40,7 +40,7 @@ void Stage01::init()
 	back_back.anime_state = 0;
 	back_back.radius = 0;
 
-	//’†”wŒi
+	//ä¸­èƒŒæ™¯
 	middle.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::billMiddle);
 	middle.pos = { 0,100 };
 	middle.scale = { 1,1 };
@@ -58,7 +58,7 @@ void Stage01::init()
 	middle.anime_state = 0;
 	middle.radius = 0;
 
-	//‹ß”wŒi
+	//è¿‘èƒŒæ™¯
 	front.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::billFront);
 	front.pos = { 0,0 };
 	front.scale = { 1,1 };
@@ -77,7 +77,7 @@ void Stage01::init()
 	front.radius = 0;
 
 
-	//’n–Ê
+	//åœ°é¢
 	ground.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::billGround);
 	ground.pos = { 0,0 };
 	ground.scale = { 1,1 };
@@ -95,8 +95,8 @@ void Stage01::init()
 	ground.anime_state = 0;
 	ground.radius = 0;
 
-	//‘«ê
-	footings.clear();	//ˆê‰ƒNƒŠƒA
+	//è¶³å ´
+	footings.clear();	//ä¸€å¿œã‚¯ãƒªã‚¢
 
 	StageLayer f;
 
@@ -137,7 +137,7 @@ void Stage01::deinit()
 	footings.clear();
 }
 
-//ƒXƒe[ƒW‚Ìrender‚P‚à‚Q‚àg‚Á‚Ä‚Ö‚ñ
+//ã‚¹ãƒ†ãƒ¼ã‚¸ã®renderï¼‘ã‚‚ï¼’ã‚‚ä½¿ã£ã¦ã¸ã‚“
 void Stage01::render()
 {
 	GameLib::setBlendMode(GameLib::Blender::BS_ALPHA);	
@@ -157,13 +157,13 @@ void Stage01::cameraRender(CAMERA camera)
 	front. cameraRender(camera);
 	ground.cameraRender(camera);
 	for (auto& footing : footings)
-	footing.cameraRender(camera);	//‚±‚¢‚Â‚É“–‚½‚è”»’è‚ğ‚Â‚¯‚È‚¢‚Æ‚¢‚¯‚È‚¢
+	footing.cameraRender(camera);	//ã“ã„ã¤ã«å½“ãŸã‚Šåˆ¤å®šã‚’ã¤ã‘ãªã„ã¨ã„ã‘ãªã„
 }
 
-// Stage‚Ì‚à‚Ì
+// Stageã®ã‚‚ã®
 void Stage::checkFootingCollision(Player& character)
 {
-	// ‚Ü‚¸–ˆƒtƒŒ[ƒ€false‚É‚µ‚Ä‚¨‚­i’n–Ê‚â‘¼‚Ì‘«ê‚Åã‘‚«‚³‚ê‚é‘O’ñj
+	// ã¾ãšæ¯ãƒ•ãƒ¬ãƒ¼ãƒ falseã«ã—ã¦ãŠãï¼ˆåœ°é¢ã‚„ä»–ã®è¶³å ´ã§ä¸Šæ›¸ãã•ã‚Œã‚‹å‰æï¼‰
 	character.setIsGround(false);
 	bool onAnyFooting = false;
 	for (auto& footing : footings)
@@ -172,51 +172,51 @@ void Stage::checkFootingCollision(Player& character)
 			character.getSpeed().y > 3)
 		{
 			onAnyFooting = true;
-			continue;	// ‘O‰ñæ‚Á‚Ä‚½‘«ê‚Í–³‹‚·‚é
+			continue;	// å‰å›ä¹—ã£ã¦ãŸè¶³å ´ã¯ç„¡è¦–ã™ã‚‹
 		}
 
-		// ‘«ê‚Ì’†SÀ•WEƒTƒCƒY		ƒ}ƒWƒbƒNƒiƒ“ƒo[‚Íƒ}ƒW‚Å“K“–‚È’²®
+		// è¶³å ´ã®ä¸­å¿ƒåº§æ¨™ãƒ»ã‚µã‚¤ã‚º		ãƒã‚¸ãƒƒã‚¯ãƒŠãƒ³ãƒãƒ¼ã¯ãƒã‚¸ã§é©å½“ãªèª¿æ•´
 		float fx = footing.pos.x - 12.5f;
 		float fy = footing.pos.y;
 		float fw = footing.texSize.x * footing.scale.x;
 		float fh = footing.texSize.y * footing.scale.y - 80;
 
-		// ‘«ê‚Ìã’[ipivot’†S‚È‚çj
+		// è¶³å ´ã®ä¸Šç«¯ï¼ˆpivotä¸­å¿ƒãªã‚‰ï¼‰
 		float footingTop = fy - fh * 0.5f;
 
-		// ƒLƒƒƒ‰‚Ì‘«Œ³Y
+		// ã‚­ãƒ£ãƒ©ã®è¶³å…ƒY
 		float footY = character.getPos().y + character.getPivot().y * character.getScale().y;
 
-		// ƒLƒƒƒ‰‚Ì‰¡•
-		float cw = character.getTexSize().x * character.getScale().x * 0.3f; // •K—v‚È‚ç’²®
+		// ã‚­ãƒ£ãƒ©ã®æ¨ªå¹…
+		float cw = character.getTexSize().x * character.getScale().x * 0.3f; // å¿…è¦ãªã‚‰èª¿æ•´
 		float cx = character.getPos().x;
 		float charLeft = cx - cw * 0.5f;
 		float charRight = cx + cw * 0.5f;
 
-		// ‰¡•ûŒü‚Ìd‚È‚è
+		// æ¨ªæ–¹å‘ã®é‡ãªã‚Š
 		bool isOverlapX = (charRight > fx - fw * 0.5f) && (charLeft < fx + fw * 0.5f);
 
-		// ‘OƒtƒŒ[ƒ€‚Ì‘«Œ³Y
+		// å‰ãƒ•ãƒ¬ãƒ¼ãƒ ã®è¶³å…ƒY
 		float prevFootY = character.getBeforePos().y + character.getPivot().y * character.getScale().y;
 		float deltaY = footY - prevFootY;
 
-		// ‘«ê‚Ìã‚Éæ‚éğŒ
-		bool isOnFooting = isOverlapX && prevFootY <= footingTop && footY >= footingTop && character.getSpeed().y > 2;	//2‚Í¬‚³‚·‚¬‚é‚Æ‰¡ˆÚ“®‚¾‚¯‚Åæ‚ê‚é‚©‚ç
+		// è¶³å ´ã®ä¸Šã«ä¹—ã‚‹æ¡ä»¶
+		bool isOnFooting = isOverlapX && prevFootY <= footingTop && footY >= footingTop && character.getSpeed().y > 2;	//2ã¯å°ã•ã™ãã‚‹ã¨æ¨ªç§»å‹•ã ã‘ã§ä¹—ã‚Œã‚‹ã‹ã‚‰
 
-		//‚·‚Å‚É—§‚Á‚Ä‚¢‚é‚Æ‚«
+		//ã™ã§ã«ç«‹ã£ã¦ã„ã‚‹ã¨ã
 		bool isStanding =
 			isOverlapX &&
 			fabs(footY - footingTop) < 1.0f &&
 			character.getSpeed().y >= 0;
 
 		if (isOnFooting||isStanding) {
-			// ‘«ê‚Ìã‚Éæ‚é
+			// è¶³å ´ã®ä¸Šã«ä¹—ã‚‹
 			character.setBeforeLayer(&footing);
 			character.setPos(VECTOR2{ character.getPos().x, footingTop - character.getPivot().y * character.getScale().y });
 			float speedX = character.getSpeed().x;
 			character.setSpeed(VECTOR2{ speedX, 0 });
 			character.setIsGround(true);
-			return; // ˆê‚Â‚Ì‘«ê‚Éæ‚Á‚½‚ç‘¼‚Íƒ`ƒFƒbƒN‚µ‚È‚¢
+			return; // ä¸€ã¤ã®è¶³å ´ã«ä¹—ã£ãŸã‚‰ä»–ã¯ãƒã‚§ãƒƒã‚¯ã—ãªã„
 		}
 	}
 
