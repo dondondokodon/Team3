@@ -45,7 +45,7 @@ public:
 	void cameraRender(CAMERA& camera)
 	{
 		if (!spr)return;
-		sprite_render(spr.get(), pos.x - camera.getPos().x * speed.x, pos.y - camera.getPos().y * speed.y, scale.x, scale.y, texPos.x, texPos.y, texSize.x, texSize.y, pivot.x, pivot.y, angle, color.x, color.y, color.z, color.w);
+		sprite_render(spr.get(), pos.x - camera.getDrawPos().x * speed.x, pos.y - camera.getDrawPos().y * speed.y, scale.x, scale.y, texPos.x, texPos.y, texSize.x, texSize.y, pivot.x, pivot.y, angle, color.x, color.y, color.z, color.w);
 	}
 
 };

@@ -556,8 +556,8 @@ void Player::cameraRender(CAMERA& camera)
 	
 	sprite_render(
 		spr.get(),
-		dPos.x - camera.getPos().x,
-		dPos.y - camera.getPos().y,
+		dPos.x - camera.getDrawPos().x,
+		dPos.y - camera.getDrawPos().y,
 		scale.x, scale.y,
 		texPos.x, texPos.y,
 		texSize.x, texSize.y,
