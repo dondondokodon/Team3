@@ -7,7 +7,7 @@
 #include"ProjectileManager.h"
 #include"EffektManager.h"
 #include"ImageManager.h"
-#include"UI_Manager.h"
+#include"textUI_Manager.h"
 #include"SceneMap.h"
 #include"audio.h"
 extern int moveTile;	//何マス進んだかをカウント

@@ -1,4 +1,4 @@
-#include "UI_Manager.h"
+#include "textUI_Manager.h"
 
 DegMoneyText::DegMoneyText(VECTOR2 pos, int coin)
 {
