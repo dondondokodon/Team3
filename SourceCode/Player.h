@@ -6,6 +6,8 @@
 #include "Build.h"
 #include "ProjectileManager.h"
 
+class StageLayer;
+
 class Player :
     public Character
 {
@@ -36,12 +38,18 @@ public:
 	void setGravity();
 	void setDEF();
 	void setHitWall(HitWall set) { targetHitWall = set; }
+	void setSpeed(VECTOR2 set) { speed = set; }
+	void setIsGround(bool set) { isGround = set; }
+	void setPos(VECTOR2 set) { pos = set; }
+	void setBeforeLayer(StageLayer* layer) { beforeLayer = layer; }
+	StageLayer* getBeforeLayer()const { return beforeLayer; }
 
 	bool lightAttack = false;	//軽攻撃フラグ
 	bool heavyAttack = true;	//重攻撃フラグ
 
 	float getLightRatio()const { return lightBetRatio; }
 	float getHeavyRatio()const { return heavyBetRatio; }
+	VECTOR2 getBeforePos()const { return beforePos; }
 	void addLightRatio(float ratio) { lightBetRatio += ratio; }
 	void addHeavyRatio(float ratio) { heavyBetRatio += ratio; }
 
@@ -101,6 +109,7 @@ private:
 	int attack_frame = 5;		//攻撃時のフレーム数
 	int animeCount;
 	HitWall beforeWall;		//１フレーム前の
+	VECTOR2 beforePos;		//１フレーム前の位置
 
 	//球関連
 	VECTOR2 lightSpeed = { 15,15 };
@@ -118,6 +127,7 @@ private:
 	bool drawPosFlag;
 	const VECTOR2 drawPosOffet = { -100,-90 };
 	HitWall targetHitWall;
+	StageLayer* beforeLayer=nullptr;
 
 
 	std::shared_ptr<Sprite> playerBullet;

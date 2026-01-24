@@ -47,7 +47,7 @@ public:
     virtual void state();
     int getCoinReward()const { return coinReward; }
     bool isDeath()override { return isDeathOn; }
-    void degHp(int damage) { hp += -damage; }
+    virtual void degHp(int damage) { hp += -damage; }
     int getHp()const { return hp; }
     bool getIsAttackOn() { return isAttackOn; }
     int getAttackType() { return attackType; }

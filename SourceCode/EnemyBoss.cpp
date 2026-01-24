@@ -4,6 +4,7 @@
 #include "ProjectileManager.h"
 #include "Tail.h"
 #include "Scene.h"
+#include "audio.h"
 
 EnemyBoss::EnemyBoss() :coinReward(10000), maxSpeedX(10)
 {
@@ -121,7 +122,7 @@ void EnemyBoss::init()
 	//scale = { 1.0f,1.0f };
 	//pos = { 1000,360 };
 	//act = ATTACK2_INIT;
-	//act = ATTACK1_INIT;
+	act = ATTACK1_INIT;
 }
 
 EnemyBoss::~EnemyBoss()
@@ -158,6 +159,10 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 		texSize = { 500.0f,350.0f };
 		isSprChange = false;
 	}
+
+	//ƒXƒP[ƒ‹”½“]
+	if (isCanFlip)
+		ScaleReverse(targetPos);
 
 	//ó‘Ô‘JˆÚ
 	state(targetPos);
@@ -203,9 +208,6 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 		isGround = true;
 	}
 
-	//ƒXƒP[ƒ‹”½“]
-	if(isCanFlip)
-	ScaleReverse(targetPos);
 
 	//€‚ñ‚¾‚ç”jŠü
 	if (isDeath())
@@ -218,6 +220,7 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 	debug::setString("Pos,state,DrawOFFset:%f:%f:%d", pos.x, pos.y,act);
 	debug::setString("DrawOFFset:%f:%f", drawPosOffset.x,drawPosOffset.y);
 	debug::setString("BossSpeed:%f", speed.x);
+	debug::setString("directionX:%f", direction.x);
 }
 
 void EnemyBoss::state(VECTOR2 targetPos)
@@ -300,6 +303,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		meleeRadius = radius + 100;
 		
 		drawPosOffset = { 30 * direction.x,0 };
+		music::play(B_jumpA1);
 
 		act = ATTACK1;
 	}
@@ -404,6 +408,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 				decideAttack();
 			else
 				act = ATTACK2_INIT;	
+				act = ATTACK2_INIT;	
 		}
 
 		break;
@@ -412,9 +417,11 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		anime_state = 0;
 		animeCount = 0;
 		texSize = { 1300.0f,350.0f };
+		isCanFlip = false;
 		drawPosOffset = { 1100.0f * direction.x,0 };
 		scale.x = fabsf(scale.x)* - direction.x;
 		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTail);
+		music::play(B_tailA);
 		act = ATTACK2;
 
 	case ATTACK2:
@@ -423,7 +430,9 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		{	//‚µ‚Á‚Û‚P’i–Ú
 		case 0:
 		{
-			spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTail);	//‰æ‘œ·‚µ‘Ö‚¦‚Ä‚àsprChange‚©‚ÌŠÖŒW‚Å‰æ‘œ‚¨‚©‚µ‚­‚È‚é‚±‚Æ‚ ‚é‚©‚ç–³—‚â‚è
+			drawPosOffset = { 1100.0f * direction.x,0 };
+			texSize       = { 1300.0f,350.0f };
+			spr           = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTail);	//‰æ‘œ·‚µ‘Ö‚¦‚Ä‚àsprChange‚©‚ÌŠÖŒW‚Å‰æ‘œ‚¨‚©‚µ‚­‚È‚é‚±‚Æ‚ ‚é‚©‚ç–³—‚â‚è
 			if (animeUpdate(0, 2, 6, false))
 			{
 				animeCount++;
@@ -537,6 +546,9 @@ void EnemyBoss::state(VECTOR2 targetPos)
 
 			//K”öˆø‚«–ß‚µ
 		case 8:
+			drawPosOffset = { 1100.0f * direction.x,0 };
+			texSize = { 1300.0f,350.0f };
+			drawPosOffset = { 1100.0f * direction.x,0 };
 			spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTailPull);	//‰æ‘œ·‚µ‘Ö‚¦‚Ä‚àsprChange‚©‚ÌŠÖŒW‚Å‰æ‘œ‚¨‚©‚µ‚­‚È‚é‚±‚Æ‚ ‚é‚©‚ç–³—‚â‚è
 			if (animeUpdate(0, 2, 6, false))
 			{
@@ -586,6 +598,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 			{
 				posFlag = true;
 				isSprChange = true;
+				isCanFlip = true;
 				ac->hasHit = false;
 				decideAttack();
 				//act = ATTACK2_INIT;
@@ -608,6 +621,8 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		animeCount = 0;
 		//ƒ{ƒXƒWƒƒƒ“ƒv‚Ì‰æ‘œ
 		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossJump);
+		music::play(B_Jump);
+		CAMERA::shake(VECTOR2{	rand()%15+7.5f, static_cast<float>( - rand() % 60)});
 		act = JUMP;
 
 	case JUMP:
@@ -670,6 +685,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		spr           = ImageManager::Instance().getSprite(ImageManager::SpriteNum::boss);
 		texSize       = { 500.0f,350.0f };
 		drawPosOffset = { 0.0f,0.0f };
+		radius        = 0.0f;	//€‚ñ‚¾‚ç“–‚½‚è”»’èÁ‚·
 
 		act = DEATH;
 

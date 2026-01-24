@@ -1,6 +1,7 @@
 #include"SceneTitle.h"
 #include "../GameLib/game_lib.h"
 #include "ImageManager.h"
+#include "audio.h"
 using namespace input;
 
 void SceneTitle::init()
@@ -26,10 +27,11 @@ void SceneTitle::update()
 
 	case 1:
 		GameLib::setBlendMode(GameLib::Blender::BS_ALPHA);
+		music::play(main, true);
 		state++;
 
 	case 2:
-		//デバッグ用
+		//ﾂデﾂバﾂッﾂグ窶廃
 		if (TRG(0) & PAD_START)
 			ISCENE::nextScene = SCENE_MAP;
 		
@@ -54,7 +56,7 @@ void SceneTitle::render()
 
 void SceneTitle::deinit()
 {
-
+	music::stop();
 }
 
 void SceneTitle::deleteSprite()

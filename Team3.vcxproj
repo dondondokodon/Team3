@@ -148,6 +148,7 @@
     <ClInclude Include="GameLib\view_settings.h" />
     <ClInclude Include="SourceCode\all.h" />
     <ClInclude Include="SourceCode\Attack.h" />
+    <ClInclude Include="SourceCode\audio.h" />
     <ClInclude Include="SourceCode\Build.h" />
     <ClInclude Include="SourceCode\CAMERA.h" />
     <ClInclude Include="SourceCode\Character.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="GameLib\view_settings.cpp" />
     <ClCompile Include="GameLib\wnd_proc.cpp" />
     <ClCompile Include="SourceCode\Attack.cpp" />
+    <ClCompile Include="SourceCode\audio.cpp" />
     <ClCompile Include="SourceCode\Build.cpp" />
     <ClCompile Include="SourceCode\CAMERA.cpp" />
     <ClCompile Include="SourceCode\Character.cpp" />

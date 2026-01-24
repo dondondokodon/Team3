@@ -9,6 +9,7 @@
 #include"ImageManager.h"
 #include"UI_Manager.h"
 #include"SceneMap.h"
+#include"audio.h"
 extern int moveTile;	//何マス進んだかをカウント
 
 SceneGame::SceneGame()
@@ -43,16 +44,17 @@ void SceneGame::update()
 		state++;
 
 	case 1:
+		music::play(battle,true);
 		setBlendMode(Blender::BS_ALPHA);
 		//ターゲット設定
 		EnemyManager::instance().setTarget(player);
 		//エネミーセット　引数がステージ番号
-		EnemyManager::instance().setStage(2);	//1が最初
 		//SwitchEnemyType();	//ここで敵の種類を切り替えてる　デバッグの際は消してOK
 		/*EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ 1500.0f, 200.0f }));
 		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ -500.0f, 250.0f }));
 		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ -300.0f, 600.0f }));*/
 		SwitchStage();
+		EnemyManager::instance().setStage(stages.back().get()->getStageNo());	//1が最初
 		stages.at(0).get()->init();
 
 		state++;
@@ -72,6 +74,10 @@ void SceneGame::update()
 			player.setHitWall(b->getHitWall());
 		}*/
 		player.update();
+
+		//土台の当たり判定
+		stages.back().get()->checkFootingCollision(player);
+
 		EnemyManager::instance().update(camera);
 		EffektManager::Instance().update(camera);
 		//stage01.update();
@@ -132,6 +138,8 @@ void SceneGame::deinit()
 
 	textUI_Manager::Instance().Clear();
 
+	music::stop();
+
 	stages.clear();
 }
 
@@ -172,6 +180,7 @@ void SceneGame::Collision()
 						//軽攻撃なら
 						if (p->GetOwnerId() == Projectile::kinds::light)
 						{
+							music::play(P_lightA);
 							Coin::AddCoinNum(Coin::LightAttackReward());
 							textUI_Manager::Instance().spawnAddText(player, Coin::LightAttackReward());
 						}
@@ -179,6 +188,7 @@ void SceneGame::Collision()
 						//重攻撃なら
 						if (p->GetOwnerId() == Projectile::kinds::heavy)
 						{
+							music::play(P_HeavyA);
 							Coin::AddCoinNum(Coin::HeavyAttackReward());
 							textUI_Manager::Instance().spawnAddText(player, Coin::HeavyAttackReward());
 						}
@@ -189,6 +199,7 @@ void SceneGame::Collision()
 							int useCoin = Coin::GetRatioCoin(0.005f);
 							ProjectileStraight* b = new ProjectileStraight(&ProjectileManager::Instance(), Projectile::Faction::player, Coin::calcDamage(2, useCoin), Projectile::kinds::pursuit, player.getPursuitLife(), ImageManager::Instance().getSprite(ImageManager::SpriteNum::PlayerBullet), player.getPursuitSize(), player.getPursuitScale(), player.getPursuitSpeed(), player.getPursuitRadius());
 							//Coin::DegCoinNum(useCoin);
+							music::play(tranpFly);
 							b->normalize(player.getPos(), e->getPos());
 							b->Launch(b->getDir(), player.getPos());
 						}
@@ -227,6 +238,7 @@ void SceneGame::Collision()
 						e->setHitFlag(true);
 						if (k->GetOwnerId() == Projectile::kinds::pursuit)
 							Coin::AddCoinNum(15);
+						music::play(P_lightA);
 					}
 					
 					if (e->isDeath())
@@ -245,7 +257,7 @@ void SceneGame::Collision()
 	}
 
 	//enemy→player
-	if (player.getInvincibleTimer() <= 0)		//無敵時間中のみ
+	if (player.getInvincibleTimer() <= 0&&player.getAct()!=Player::ACT::DEATH)		//無敵時間中のみ
 	{
 		int EnemyProjectileCount = ProjectileManager::Instance().GetEnemyProjectileCount();
 		for (int i = 0; i < EnemyProjectileCount; i++)
@@ -259,6 +271,8 @@ void SceneGame::Collision()
 					//e->Destroy();
 					if (e->onHit())
 					{
+						music::play(P_hit);
+						CAMERA::shake(VECTOR2{ rand() % 10 - 5.0f, -static_cast<float>(rand() % 20) });
 						Coin::DegCoinNum(player.calcProtectingDamage(e->getDamage()));
 						textUI_Manager::Instance().spawnDegText(player, -e->getDamage());
 						player.setInvincibleTimer(1.5f);
@@ -272,10 +286,12 @@ void SceneGame::Collision()
 	EnemyBoss* b = EnemyManager::instance().getBoss();
 	if (b)
 	{
-		if (player.getInvincibleTimer()<=0)
+		if (player.getInvincibleTimer()<=0 && player.getAct() != Player::ACT::DEATH)
 		{
 			if (hitCircle(player.getPos(), player.getRadius(), b->getPos(), b->getRadius()))
 			{
+				music::play(P_hit);
+				CAMERA::shake(VECTOR2{ rand() % 10 - 5.0f, -static_cast<float>(rand() % 20) });
 				Coin::DegCoinNum(player.calcProtectingDamage(b->getATK()));
 				textUI_Manager::Instance().spawnDegText(player, -b->getATK());
 				player.setInvincibleTimer(5.5f);

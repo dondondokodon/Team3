@@ -1,20 +1,8 @@
 #pragma once
 #include"../GameLib/game_lib.h"
 #include "CAMERA.h"
-
-//抽象クラス 背景
-class Stage
-{
-public:
-
-	virtual ~Stage() {};
-	virtual void init() = 0;
-	virtual void update() = 0;
-	virtual void deinit() = 0;
-	virtual void render() = 0;
-	virtual void cameraRender(CAMERA camera) = 0;
-
-};
+#include "Player.h"
+#include "HitWall.h"
 
 //スプライトの読み込み用
 //ステージレイヤークラス
@@ -62,6 +50,24 @@ public:
 
 };
 
+//抽象クラス 背景
+class Stage
+{
+protected:
+	int stageNo;
+	std::vector<StageLayer> footings;		//足場
+public:
+
+	virtual ~Stage() {};
+	virtual void init() = 0;
+	virtual void update() = 0;
+	virtual void deinit() = 0;
+	virtual void render() = 0;
+	virtual void cameraRender(CAMERA camera) = 0;
+	int getStageNo() { return stageNo; }
+	void checkFootingCollision(Player& character);
+};
+
 //ステージ１
 class Stage01 : public Stage
 {
@@ -71,17 +77,15 @@ private:
 	StageLayer middle;		//中背景
 	StageLayer front;		//近背景
 	StageLayer ground;		//地面
-	StageLayer footing;		//足場
 
 public:
-	Stage01() {};
+	Stage01() { stageNo = 1; };
 	~Stage01()override {};
 	void init()override;
 	void update()override;
 	void deinit()override;
 	void render()override;
 	void cameraRender(CAMERA camera);
-
 };
 
 //ランタンの明かり
@@ -110,7 +114,7 @@ private:
 	light Light3;
 
 public:
-	Stage02() {};
+	Stage02() { stageNo = 2; };
 	~Stage02()override {};
 	void init()override;
 	void update()override;

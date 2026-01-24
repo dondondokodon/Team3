@@ -2,6 +2,7 @@
 #include "../GameLib/game_lib.h"
 #include <functional>
 #include <random>
+#include "audio.h"
 using namespace input;
 int j;				//どのカードを選んでいるか
 std::unique_ptr<extraSprite> selectingMessage;
@@ -47,6 +48,7 @@ void SceneBuildSelect::update()
 
 	case 1:
 		//srand(unsigned int(time(NULL)));
+		music::play(main, true);
 		setBuild();
 		state++;
 
@@ -93,6 +95,7 @@ void SceneBuildSelect::deinit()
 	//	soldOut.push_back(std::move(showWindow[i]));
 	//}
 
+	music::stop();
 	showWindow.clear();
 }
 
@@ -151,6 +154,8 @@ void SceneBuildSelect::cardPick()
 	//お金がないと買えない
 	if (TRG(0) & PAD_START && Coin::GetCoinNum() > nowCard->getPrice())
 	{
+		music::play(buy);
+
 		auto bought = std::move(showWindow.at(j));
 
 		//効果反映

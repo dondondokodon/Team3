@@ -46,4 +46,6 @@ void Character::HitWallUpdate()
 	hitWall.x = pos.x + halfW * direction.x;
 	hitWall.bottom = pos.y + halfH;
 	hitWall.top = pos.y - halfH;
+
+
 }

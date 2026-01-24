@@ -11,6 +11,9 @@ private:
 	float stageLimitX;	//ステージの一番右
 	float stageLimitY;	//ステージの一番上
 
+	VECTOR2 drawOffset;
+	static VECTOR2 shakeVelocity;		//めんどいからstatic
+
 	const float DEADZONE_LEFT   = 300.0f;		//カメラが動かない範囲
 	const float DEADZONE_RIGHT  = 900.0f;
 	const float DEADZONE_TOP    = 100.0f;
@@ -21,6 +24,7 @@ public:
 	void init();
 	void update(Character& target);
 	void setStageLimit(VECTOR2 xy) { stageLimitX = xy.x;	stageLimitY = xy.y; }
-	VECTOR2 getPos() { return pos; }
+	VECTOR2 getPos() { return (pos+drawOffset); }	//イージング込み
+	static void shake(VECTOR2 vel) { shakeVelocity = vel; }
 };
 

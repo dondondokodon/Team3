@@ -29,6 +29,7 @@ public:
 	float getInvincibleTimer() { return invincibleTimer; }
 	virtual float getMelleRadius() { return radius; }
 	VECTOR2 getMellePos() { return mellePos; }
+	VECTOR2 getSpeed() { return speed; }
 	void setInvincibleTimer(int num) { invincibleTimer = num; }
 	void invincibleTimerUpdate() { if (invincibleTimer > 0.0f)	invincibleTimer -= 0.1f; }
 
