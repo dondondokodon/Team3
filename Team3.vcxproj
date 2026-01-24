@@ -154,6 +154,7 @@
     <ClInclude Include="SourceCode\Character.h" />
     <ClInclude Include="SourceCode\Coin.h" />
     <ClInclude Include="SourceCode\common.h" />
+    <ClInclude Include="SourceCode\Effect.h" />
     <ClInclude Include="SourceCode\EffektManager.h" />
     <ClInclude Include="SourceCode\Enemy.h" />
     <ClInclude Include="SourceCode\EnemyBoss.h" />
@@ -204,6 +205,7 @@
     <ClCompile Include="SourceCode\Character.cpp" />
     <ClCompile Include="SourceCode\Coin.cpp" />
     <ClCompile Include="SourceCode\common.cpp" />
+    <ClCompile Include="SourceCode\Effect.cpp" />
     <ClCompile Include="SourceCode\EffektManager.cpp" />
     <ClCompile Include="SourceCode\Enemy.cpp" />
     <ClCompile Include="SourceCode\EnemyBoss.cpp" />

@@ -16,6 +16,9 @@ public:
 		PlayerBullet,
 		EnemyBullet,
 
+		hitEffectE,
+		hitEffectP,
+
 		Map,
 		Shop,
 		Battle,

@@ -40,7 +40,7 @@ namespace GameLib
         { PAD_TRG4      , Keyboard::K },            // 'K'
         { PAD_TRG5      , Keyboard::L },            // 'L'
         { PAD_TRG6      , Keyboard::J },            // 'J'
-        { PAD_TRG7      , Keyboard::C },            // 'C'
+        { PAD_TRG7      , Keyboard::LeftShift },    // 'LeftShift'
         
 
         { PAD_L1        , Keyboard::F1 },           // VK_F1

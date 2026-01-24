@@ -10,6 +10,7 @@
 #include"textUI_Manager.h"
 #include"SceneMap.h"
 #include"audio.h"
+#include "Effect.h"
 extern int moveTile;	//何マス進んだかをカウント
 
 SceneGame::SceneGame()
@@ -152,9 +153,9 @@ void SceneGame::Collision()
 {
 	//player→enemy
 	EnemyManager& enemyManager = EnemyManager::instance();
-	int playerProjectileCount = ProjectileManager::Instance().GetPlayerProjectileCount();
-	int enemyCount = enemyManager.GetEnemyCount();
-	int pursuitCount = ProjectileManager::Instance().GetPursuitProjectileCount();
+	int playerProjectileCount  = ProjectileManager::Instance().GetPlayerProjectileCount();
+	int enemyCount             = enemyManager.GetEnemyCount();
+	int pursuitCount           = ProjectileManager::Instance().GetPursuitProjectileCount();
 
 	for (int i = 0; i < playerProjectileCount; i++)
 	{
@@ -169,6 +170,8 @@ void SceneGame::Collision()
 				if (hitCircle(p->getPos(), p->getRadius(), e->getPos(), e->getRadius()))
 				{
 					//p->Destroy();
+					EffektManager::Instance().Register(new Effect(*e));	//ヒットエフェクト
+
 					if (p->onHit())
 					{
 						e->degHp(e->calcProtectingDamage(p->getDamage()));
@@ -230,6 +233,8 @@ void SceneGame::Collision()
 				//当たり判定
 				if (hitCircle(k->getPos(), k->getRadius(), e->getPos(), e->getRadius()))
 				{
+					EffektManager::Instance().Register(new Effect(*e));	//ヒットエフェクト
+
 					if (k->onHit())
 					{
 						textUI_Manager::Instance().spawnAddText(player, 15);
@@ -268,6 +273,7 @@ void SceneGame::Collision()
 				//当たり判定
 				if (hitCircle(player.getPos(), player.getRadius(), e->getPos(), e->getRadius()))
 				{
+					EffektManager::Instance().Register(new EffectP(player));	//ヒットエフェクト
 					//e->Destroy();
 					if (e->onHit())
 					{
@@ -290,6 +296,7 @@ void SceneGame::Collision()
 		{
 			if (hitCircle(player.getPos(), player.getRadius(), b->getPos(), b->getRadius()))
 			{
+				EffektManager::Instance().Register(new EffectP(player));	//ヒットエフェクト
 				music::play(P_hit);
 				CAMERA::shake(VECTOR2{ rand() % 10 - 5.0f, -static_cast<float>(rand() % 20) });
 				Coin::DegCoinNum(player.calcProtectingDamage(b->getATK()));

@@ -9,6 +9,9 @@ void ImageManager::load()
 	spr[PlayerBullet].reset(GameLib::sprite_load(L"./Data/Images/1213_coin6x6.png"));
 	spr[EnemyBullet].reset(GameLib::sprite_load(L"./Data/Images/bullet.png"));
 
+	spr[hitEffectE].reset(GameLib::sprite_load(L"./Data/Images/HitEffectE.png"));
+	spr[hitEffectP].reset(GameLib::sprite_load(L"./Data/Images/HitEffectP.png"));
+
 	spr[Map].reset(GameLib::sprite_load(L"./Data/Images/map.png"));
 	spr[boss].reset(GameLib::sprite_load(L"./Data/Images/erianNew.png"));
 	spr[bossJump].reset(GameLib::sprite_load(L"./Data/Images/jump.png"));
