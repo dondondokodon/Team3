@@ -163,10 +163,20 @@ void Stage01::cameraRender(CAMERA camera)
 // Stageのもの
 void Stage::checkFootingCollision(Player& character)
 {
+	// まず毎フレームfalseにしておく（地面や他の足場で上書きされる前提）
+	character.setIsGround(false);
+	bool onAnyFooting = false;
 	for (auto& footing : footings)
 	{
+		if (&footing == character.getBeforeLayer() &&
+			character.getSpeed().y > 3)
+		{
+			onAnyFooting = true;
+			continue;	// 前回乗ってた足場は無視する
+		}
+
 		// 足場の中心座標・サイズ		マジックナンバーはマジで適当な調整
-		float fx = footing.pos.x - 10;
+		float fx = footing.pos.x - 12.5f;
 		float fy = footing.pos.y;
 		float fw = footing.texSize.x * footing.scale.x;
 		float fh = footing.texSize.y * footing.scale.y - 80;
@@ -193,12 +203,14 @@ void Stage::checkFootingCollision(Player& character)
 		// 足場の上に乗る条件
 		bool isOnFooting = isOverlapX && prevFootY <= footingTop && footY >= footingTop && character.getSpeed().y > 2;	//2は小さすぎると横移動だけで乗れるから
 
+		//すでに立っているとき
+		bool isStanding =
+			isOverlapX &&
+			fabs(footY - footingTop) < 1.0f;
 
-		// まず毎フレームfalseにしておく（地面や他の足場で上書きされる前提）
-		character.setIsGround(false);
-
-		if (isOnFooting) {
+		if (isOnFooting||isStanding) {
 			// 足場の上に乗る
+			character.setBeforeLayer(&footing);
 			character.setPos(VECTOR2{ character.getPos().x, footingTop - character.getPivot().y * character.getScale().y });
 			float speedX = character.getSpeed().x;
 			character.setSpeed(VECTOR2{ speedX, 0 });
@@ -206,4 +218,7 @@ void Stage::checkFootingCollision(Player& character)
 			return; // 一つの足場に乗ったら他はチェックしない
 		}
 	}
+
+	if(!onAnyFooting)
+	character.setBeforeLayer(nullptr);
 }
