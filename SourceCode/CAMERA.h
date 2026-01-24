@@ -24,7 +24,7 @@ public:
 	void init();
 	void update(Character& target);
 	void setStageLimit(VECTOR2 xy) { stageLimitX = xy.x;	stageLimitY = xy.y; }
-	VECTOR2 getPos() { return (pos-drawOffset); }	//イージング込み
+	VECTOR2 getPos() { return (pos+drawOffset); }	//イージング込み
 	static void shake(VECTOR2 vel) { shakeVelocity = vel; }
 };
 

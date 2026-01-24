@@ -622,7 +622,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		//ボスジャンプの画像
 		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossJump);
 		music::play(B_Jump);
-		CAMERA::shake(VECTOR2{ 30.0f, 5.0f });
+		CAMERA::shake(VECTOR2{	rand()%15+7.5f, static_cast<float>( - rand() % 60)});
 		act = JUMP;
 
 	case JUMP:
@@ -685,6 +685,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		spr           = ImageManager::Instance().getSprite(ImageManager::SpriteNum::boss);
 		texSize       = { 500.0f,350.0f };
 		drawPosOffset = { 0.0f,0.0f };
+		radius        = 0.0f;	//死んだら当たり判定消す
 
 		act = DEATH;
 

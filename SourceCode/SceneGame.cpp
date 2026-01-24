@@ -257,7 +257,7 @@ void SceneGame::Collision()
 	}
 
 	//enemyÅ®player
-	if (player.getInvincibleTimer() <= 0)		//ñ≥ìGéûä‘íÜÇÃÇ›
+	if (player.getInvincibleTimer() <= 0&&player.getAct()!=Player::ACT::DEATH)		//ñ≥ìGéûä‘íÜÇÃÇ›
 	{
 		int EnemyProjectileCount = ProjectileManager::Instance().GetEnemyProjectileCount();
 		for (int i = 0; i < EnemyProjectileCount; i++)
@@ -272,6 +272,7 @@ void SceneGame::Collision()
 					if (e->onHit())
 					{
 						music::play(P_hit);
+						CAMERA::shake(VECTOR2{ rand() % 10 - 5.0f, -static_cast<float>(rand() % 20) });
 						Coin::DegCoinNum(player.calcProtectingDamage(e->getDamage()));
 						textUI_Manager::Instance().spawnDegText(player, -e->getDamage());
 						player.setInvincibleTimer(1.5f);
@@ -285,11 +286,12 @@ void SceneGame::Collision()
 	EnemyBoss* b = EnemyManager::instance().getBoss();
 	if (b)
 	{
-		if (player.getInvincibleTimer()<=0)
+		if (player.getInvincibleTimer()<=0 && player.getAct() != Player::ACT::DEATH)
 		{
 			if (hitCircle(player.getPos(), player.getRadius(), b->getPos(), b->getRadius()))
 			{
 				music::play(P_hit);
+				CAMERA::shake(VECTOR2{ rand() % 10 - 5.0f, -static_cast<float>(rand() % 20) });
 				Coin::DegCoinNum(player.calcProtectingDamage(b->getATK()));
 				textUI_Manager::Instance().spawnDegText(player, -b->getATK());
 				player.setInvincibleTimer(5.5f);
