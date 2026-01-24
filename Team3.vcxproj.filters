@@ -168,14 +168,14 @@
     <ClInclude Include="SourceCode\SceneResult.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="SourceCode\UI_Manager.h">
+    <ClInclude Include="SourceCode\textUI_Manager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="SourceCode\HitWall.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="SourceCode\EnemySlip.h">
-       <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="SourceCode\SceneEvent.h">
       <Filter>ヘッダー ファイル</Filter>
@@ -317,14 +317,14 @@
     <ClCompile Include="SourceCode\SceneResult.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="SourceCode\UI_Manager.cpp">
+    <ClCompile Include="SourceCode\textUI_Manager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="SourceCode\HitWall.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="SourceCode\EnemySlip.cpp">
-       <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="SourceCode\SceneEvent.cpp">
       <Filter>ソース ファイル</Filter>

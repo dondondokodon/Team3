@@ -56,6 +56,8 @@ public:
 
 		coin,
 		lostCoinText,
+		titleBack,
+		titleSprites,
 
 		Max
 	};

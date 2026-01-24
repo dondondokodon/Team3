@@ -150,5 +150,7 @@ void Stage01::cameraRender(CAMERA camera)
 	middle.cameraRender(camera);
 	front. cameraRender(camera);
 	ground.cameraRender(camera);
+	//primitive::rect(0, 0, 1280, 40, 0, 0, 0, 0, 0, 0,1);
+	//primitive::rect(0, 680, 1280, 40, 0, 0, 0, 0, 0, 0,1);
 	//footing.cameraRender(camera);	//‚±‚¢‚Â‚É“–‚½‚è”»’è‚ð‚Â‚¯‚È‚¢‚Æ‚¢‚¯‚È‚¢
 }

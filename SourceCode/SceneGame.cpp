@@ -87,7 +87,7 @@ void SceneGame::update()
 
 
 		//2分くらいたったらゲーム終了　マップへ遷移
-		if (timer == 120)
+		if (moveTile != 6 && timer == 120)
 			ISCENE::nextScene = SCENE_MAP;
 
 		//倒されたらリザルトへ
