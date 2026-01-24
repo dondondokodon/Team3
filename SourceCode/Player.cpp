@@ -6,7 +6,7 @@
 #include "EffektManager.h"
 #include"ImageManager.h"
 #include "HitBox.h"
-#include "UI_Manager.h"
+#include "textUI_Manager.h"
 #include "audio.h"
 
 Player::Player():MAX_SPEED({7,25})
