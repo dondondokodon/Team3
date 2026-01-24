@@ -81,7 +81,7 @@ void SceneBuildSelect::render()
 	}
 	
 	price_board->render();
-	text_out(3, price_board->ShowPrice, price_board->textPos.x, price_board->textPos.y, 3, 3, price_board->textColor.x, price_board->textColor.y,price_board->textColor.z, price_board->textColor.w);
+	text_out(7, price_board->ShowPrice, price_board->textPos.x, price_board->textPos.y, 2, 2, price_board->textColor.x, price_board->textColor.y,price_board->textColor.z, price_board->textColor.w);
 	money.render();
 
 }
@@ -147,7 +147,7 @@ void SceneBuildSelect::cardPick()
 	}
 
 	price_board->ShowPrice = std::to_string(nowCard->getPrice());
-	price_board->textPos = VECTOR2{ price_board->getPos().x - 55,price_board->getPos().y - 10 };
+	price_board->textPos = VECTOR2{ price_board->getPos().x - 70,price_board->getPos().y - 15 };
 	price_board->textColor = VECTOR4{ 1,0.8,0,1};
 
 
