@@ -108,8 +108,6 @@ void Enemy::deinit()
 
 void Enemy::update(CAMERA& camera, VECTOR2 targetPos)
 {
-	if (hp <= 0)	isDeathOn = true;
-
 	attackType       = none;
 	isAttackOn       = false;
 	isTargetRemoveOn = false;
@@ -142,6 +140,7 @@ void Enemy::update(CAMERA& camera, VECTOR2 targetPos)
 			speed     = {0,0};
 			hitPos    = { 0,0 };
 			act       = IDLE_INIT;
+			if (hp <= 0)	isDeathOn = true;
 		}
 	}
 

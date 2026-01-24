@@ -100,8 +100,6 @@ void EnemySlip::update(CAMERA& camera, VECTOR2 targetPos)
 {
 	this->targetPos = targetPos;
 
-	if (hp <= 0)	isDeathOn = true;
-
 	attackType = none;
 	isAttackOn = false;
 	isTargetRemoveOn = false;
@@ -134,6 +132,7 @@ void EnemySlip::update(CAMERA& camera, VECTOR2 targetPos)
 			speed = { 0,0 };
 			hitPos = { 0,0 };
 			act = WALK_INIT;
+			if (hp <= 0)	isDeathOn = true;
 		}
 	}
 	if (speed.y < 0)		isGround = false;
