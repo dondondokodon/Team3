@@ -339,6 +339,7 @@ void Player::state()
 		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player_ATTACK_Effect);
 		texSize = { 512.0f,512.0f };
 		drawPos = { drawPosOffet.x * direction.x,drawPosOffet.y };
+		//CAMERA::shake(VECTOR2{ rand()%10-5.0f, static_cast<float>(rand()%30)});
 		act = ATTACK1;
 
 	case ATTACK1:

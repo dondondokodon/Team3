@@ -206,7 +206,8 @@ void Stage::checkFootingCollision(Player& character)
 		//‚·‚Å‚É—§‚Á‚Ä‚¢‚é‚Æ‚«
 		bool isStanding =
 			isOverlapX &&
-			fabs(footY - footingTop) < 1.0f;
+			fabs(footY - footingTop) < 1.0f &&
+			character.getSpeed().y >= 0;
 
 		if (isOnFooting||isStanding) {
 			// ‘«ê‚Ìã‚Éæ‚é

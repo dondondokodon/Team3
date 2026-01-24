@@ -622,6 +622,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		//ボスジャンプの画像
 		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossJump);
 		music::play(B_Jump);
+		CAMERA::shake(VECTOR2{ 30.0f, 5.0f });
 		act = JUMP;
 
 	case JUMP:

@@ -2,6 +2,8 @@
 #include "common.h"
 #include "Character.h"
 
+VECTOR2 CAMERA::shakeVelocity = { 0.0f,0.0f };
+
 CAMERA::CAMERA() :pos({0,0}),height(SCREEN_H),width(SCREEN_W)
 {
 
@@ -12,6 +14,9 @@ void CAMERA::init()
 	pos    = { 0,0 };
 	height = SCREEN_H;
 	width  = SCREEN_W;
+
+	drawOffset    = { 0.0f,0.0f };
+	shakeVelocity = { 0.0f,0.0f };
 }
 
 void CAMERA::update(Character& target)
@@ -58,4 +63,35 @@ void CAMERA::update(Character& target)
 		pos.y, stageLimitY, height
 	);
 
+  // ===== 揺れ処理 =====
+  // 速度を減衰（イージング）
+	//shakeVelocity.x *= 0.85f;
+	//shakeVelocity.y *= 0.85f;
+
+	//drawOffset.x += shakeVelocity.x;
+	//drawOffset.y += shakeVelocity.y;
+
+	//// オフセットも元に戻す
+	//drawOffset.x *= 0.85f;
+	//drawOffset.y *= 0.85f;
+
+	//// ほぼ0なら止める
+	//if (fabs(drawOffset.x) < 0.1f) drawOffset.x = 0;
+	//if (fabs(drawOffset.y) < 0.1f) drawOffset.y = 0;
+
+	// ===== 揺れ処理 =====
+	drawOffset.x += shakeVelocity.x;
+	drawOffset.y += shakeVelocity.y;
+
+	// 速度減衰（イージング）
+	shakeVelocity.x *= 0.9f;
+	shakeVelocity.y *= 0.9f;
+
+	// 元に戻す
+	drawOffset.x *= 0.9f;
+	drawOffset.y *= 0.9f;
+
+	// ほぼ0なら止める
+	if (fabs(drawOffset.x) < 0.01f) drawOffset.x = 0;
+	if (fabs(drawOffset.y) < 0.01f) drawOffset.y = 0;
 }
