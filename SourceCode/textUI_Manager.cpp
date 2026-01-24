@@ -4,7 +4,7 @@ DegMoneyText::DegMoneyText(VECTOR2 pos, int coin)
 {
 	spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::lostCoinText);//Œã‚Å·‚µ‘Ö‚¦
 	this->pos = pos;//spawn‚Åì‚Á‚½À•W‚ð“ü‚ê‚é
-	scale = { 3,3 };
+	scale = { 2,2 };
 	texPos = { 0,0 };
 	texSize = { 200,50 };//‰¼’u‚«
 	pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
@@ -22,7 +22,7 @@ AddMoneyText::AddMoneyText(VECTOR2 pos, int coin)
 {
 	spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::lostCoinText);//Œã‚Å·‚µ‘Ö‚¦
 	this->pos = pos;
-	scale = { 3,3 };
+	scale = { 2,2 };
 	texPos = { 0,0 };
 	texSize = { 200,50 };//‰¼’u‚«
 	pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
@@ -103,7 +103,7 @@ void textUI_Manager::update()
 }
 void textUI::textRender(CAMERA& camera, std::string coin)
 {
-	text_out(3, coin, pos.x - camera.getPos().x, pos.y - camera.getPos().y, scale.x, scale.y, color.x, color.y, color.z, color.w);
+	text_out(7, coin, pos.x - camera.getPos().x, pos.y - camera.getPos().y, scale.x, scale.y, color.x, color.y, color.z, color.w);
 }
 
 void textUI_Manager::render(CAMERA& camera)
