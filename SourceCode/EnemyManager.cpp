@@ -69,6 +69,16 @@ void EnemyManager::update(CAMERA camera)
 	removeList.clear();
 }
 
+bool EnemyManager::isAlive(Character* e)
+{
+	for (auto& en : enemies)
+	{
+		if (en.get() == e)
+			return true;
+	}
+	return false;
+}
+
 
 void EnemyManager::render(CAMERA camera)
 {

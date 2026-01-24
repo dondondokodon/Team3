@@ -47,6 +47,8 @@ public:
 	//void setSpawnRule(std::unique_ptr<IEnemySpawnRule> rule);
 	void setStage(int stageNo);
 	EnemyBoss* getBoss();
+	bool isAlive(Character* e);
+
 
 private:
 	std::vector<std::unique_ptr<Enemy>> enemies;

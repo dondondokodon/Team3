@@ -13,6 +13,19 @@ Ghost::Ghost(Player& player)
 	timer   = 60;
 }
 
+Ghost::Ghost(Character& chara)
+{
+	pos     = chara.getPos();
+	scale   = chara.getScale();
+	color   = { 0.5f,0.5f,0.5f,0.5f };
+	spr     = chara.getSprite();
+	texSize = chara.getTexSize();
+	texPos  = chara.getTexPos();
+	offset  = chara.getOffset();
+	pivot   = chara.getPivot();
+	timer   = 60;
+}
+
 Ghost::~Ghost()
 {
 

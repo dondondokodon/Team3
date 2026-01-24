@@ -8,10 +8,11 @@ class Ghost :
 {
 public:
     Ghost(Player& player);
+    Ghost(Character& chara);
     ~Ghost();
-    void init()override;
-    void deinit()override;
-    void update()override;
-    bool Remove();
+    virtual void init()override;
+    virtual void deinit()override;
+    virtual void update()override;
+    virtual bool Remove();
 };
 

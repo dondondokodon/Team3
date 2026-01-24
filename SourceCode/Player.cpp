@@ -617,7 +617,7 @@ void Player::inputJump()
 void Player::inputDodge()
 {
 	//キー入力で回避
-	if (TRG(0) & PAD_TRG7)
+	if (TRG(0) & PAD_TRG5||TRG(0)&PAD_TRG7)
 	{
 		act = DODGE_INIT;
 		music::play(P_doge);
@@ -648,7 +648,7 @@ void Player::InputProjectile()
 	if (act == ATTACK1)	return;
 
 	//Lで重攻撃
-	if (TRG(0) & PAD_TRG5)
+	if (TRG(0) & PAD_TRG6)
 	{
 		if (Build::extraVeryCost)
 			act = HEAVY_ATTACK2_INIT;
@@ -657,13 +657,13 @@ void Player::InputProjectile()
 	}
 
 	//Jで重攻撃（重いバージョン　仮）
-	if (TRG(0) & PAD_TRG6)
+	/*if (TRG(0) & PAD_TRG6)
 	{
 		if (Build::extraVeryCost)
 			act = HEAVY_ATTACK2_INIT;
 		else
 			act = HEAVY_ATTACK1_INIT;
-	}
+	}*/
 }
 
 ///////////////////////////////////////////////////////////////
