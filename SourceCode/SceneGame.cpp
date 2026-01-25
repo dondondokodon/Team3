@@ -90,11 +90,10 @@ void SceneGame::update()
 		if (TRG(0) & PAD_SELECT)
 		{
 			ISCENE::nextScene = SCENE_MAP;
-
 		}
 
 		//2分くらいたったらゲーム終了　マップへ遷移
-		if (moveTile != 6 && timer == 120)
+		if (moveTile != 6 && timer == 20)
 			ISCENE::nextScene = SCENE_MAP;
 
 		//倒されたらリザルトへ

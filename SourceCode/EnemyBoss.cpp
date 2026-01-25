@@ -161,7 +161,7 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 	}
 
 	//ƒXƒP[ƒ‹”½“]
-	if (isCanFlip)
+	if (isCanFlip&&act!=DEATH)
 		ScaleReverse(targetPos);
 
 	//ó‘Ô‘JˆÚ
@@ -679,13 +679,16 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		break;
 		
 	case DEATH_INIT:
-		anime_state   = 0;
-		animeCount    = 0;
-		speed         = { 0.0f,0.0f };
-		spr           = ImageManager::Instance().getSprite(ImageManager::SpriteNum::boss);
-		texSize       = { 500.0f,350.0f };
-		drawPosOffset = { 0.0f,0.0f };
-		radius        = 0.0f;	//€‚ñ‚¾‚ç“–‚½‚è”»’èÁ‚·
+		anime_state      = 0;
+		animeCount       = 0;
+		speed            = { 0.0f,0.0f };
+		spr              = ImageManager::Instance().getSprite(ImageManager::SpriteNum::boss);
+		texSize          = { 500.0f,350.0f };
+		drawPosOffset    = { 0.0f,0.0f };
+		radius           = 0.0f;	//€‚ñ‚¾‚ç“–‚½‚è”»’èÁ‚·
+		isTargetRemoveOn = true;
+		for (auto& tail : tails)
+		tail.setNone(true);
 
 		act = DEATH;
 

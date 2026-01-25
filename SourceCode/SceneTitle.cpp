@@ -131,7 +131,11 @@ void SceneTitle::selecting()
 		
 		nowButton->setScale(VECTOR2{ 1.2,1.2 });
 
-		if (TRG(0) & PAD_START && tap > 4)	nowButton->update();
+		if (TRG(0) & PAD_START && tap > 4)
+		{
+			music::play(pic);
+			nowButton->update();
+		}
 
 
 	}
@@ -177,6 +181,7 @@ void trampSprite::update()
 			break;
 
 		}
+		music::play(tranpFly);
 		trampImpulse(dir, impulse);
 	}
 
