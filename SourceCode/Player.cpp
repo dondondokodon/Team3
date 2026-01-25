@@ -150,7 +150,7 @@ void Player::update()
 	if (PlayerEffect::attackCoinUp)
 	{
 		lightBetRatio *= 2;
-		heavyBetRatio *= 2;
+		Build::extraCost	= true;
 		PlayerEffect::attackCoinUp = false;
 	}
 
