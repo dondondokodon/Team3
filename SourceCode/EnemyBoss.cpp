@@ -654,6 +654,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 		anime_state = 0;
 		isGravityOn = false;
 		isCanFlip   = true;
+		pos.y = { pos.y - 300.0f };
 		
 		for (auto& tail : tails)
 		{
