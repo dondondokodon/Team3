@@ -1,11 +1,13 @@
 #pragma once
 #include "Scene.h"
-
+#include<memory>
+#include "Events.h"
 
 class SceneEvent :public ISCENE
 {
 private:
-	
+	std::unique_ptr<Events> event;
+	std::shared_ptr<GameLib::Sprite> spr;
 public:
 	void update()override;
 	void render()override;

@@ -161,6 +161,7 @@
     <ClInclude Include="SourceCode\EnemyManager.h" />
     <ClInclude Include="SourceCode\EnemySlip.h" />
     <ClInclude Include="SourceCode\EnemySpawnRule.h" />
+    <ClInclude Include="SourceCode\Events.h" />
     <ClInclude Include="SourceCode\Ghost.h" />
     <ClInclude Include="SourceCode\HitBox.h" />
     <ClInclude Include="SourceCode\HitWall.h" />
@@ -212,6 +213,7 @@
     <ClCompile Include="SourceCode\EnemyManager.cpp" />
     <ClCompile Include="SourceCode\EnemySlip.cpp" />
     <ClCompile Include="SourceCode\EnemySpawnRule.cpp" />
+    <ClCompile Include="SourceCode\Events.cpp" />
     <ClCompile Include="SourceCode\Ghost.cpp" />
     <ClCompile Include="SourceCode\HitBox.cpp" />
     <ClCompile Include="SourceCode\HitWall.cpp" />

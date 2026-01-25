@@ -63,6 +63,13 @@ public:
 		titleBack,
 		titleSprites,
 
+		Event1,
+		Event2,
+		Event3,
+		Event4,
+		Event5,
+		EventBack,
+
 		Max
 	};
 

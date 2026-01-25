@@ -51,6 +51,7 @@ public:
 		this->offset = offset;
 		this->direction = direction;
 	}
+	extraSprite() {}
 	~extraSprite() {}
 
 	std::string ShowPrice;

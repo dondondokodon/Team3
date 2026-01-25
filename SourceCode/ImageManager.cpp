@@ -52,7 +52,12 @@ void ImageManager::load()
 	spr[titleBack].reset(GameLib::sprite_load(L"./Data/Images/seisiki.png"));
 	spr[titleSprites].reset(GameLib::sprite_load(L"./Data/Images/title_sprite.png"));
 
-
+	spr[Event1].reset(GameLib::sprite_load(L"./Data/Images/deka_bukuro.png"));
+	spr[Event2].reset(GameLib::sprite_load(L"./Data/Images/jouisonzai.png"));
+	spr[Event3].reset(GameLib::sprite_load(L"./Data/Images/allMenAreCreatedEqual1.png"));
+	spr[Event4].reset(GameLib::sprite_load(L"./Data/Images/allMenAreCreatedEqual2.png"));
+	spr[Event5].reset(GameLib::sprite_load(L"./Data/Images/cheepBet.png"));
+	spr[EventBack].reset(GameLib::sprite_load(L"./Data/Images/ibento_haikei.png"));
 }
 
 std::shared_ptr<GameLib::Sprite> ImageManager::getSprite(int num)

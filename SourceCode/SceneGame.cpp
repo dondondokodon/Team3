@@ -45,6 +45,7 @@ void SceneGame::update()
 		state++;
 
 	case 1:
+		music::stop();
 		music::play(battle,true);
 		setBlendMode(Blender::BS_ALPHA);
 		//ターゲット設定
@@ -140,6 +141,7 @@ void SceneGame::deinit()
 	textUI_Manager::Instance().Clear();
 
 	music::stop();
+	music::play(main, true);
 
 	stages.clear();
 }
