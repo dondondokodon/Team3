@@ -180,6 +180,7 @@ void Enemy::update(CAMERA& camera, VECTOR2 targetPos)
 		Destroy();
 		//coinReward = 100;
 	}
+	debug::setString("EnemyDire:%f", direction.x);
 }
 
 void Enemy::state()
@@ -313,7 +314,7 @@ void Enemy::ScaleReverse(VECTOR2 target)
 	}*/
 
 	//真上に来た時に左右になりまくるのがいやなのでデッドゾーンを付けたver
-	if (fabsf(speed.x) > 0.5f)	return;		//スピードがあるときは変えない
+	//if (fabsf(speed.x) > 0.5f)	return;		//スピードがあるときは変えない
 
 	const float DEAD_ZONE = 20.0f; // この範囲では向きを変えない
 	float dx = target.x - pos.x;
