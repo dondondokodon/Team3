@@ -92,6 +92,7 @@ void Player::init()
 	heavyTexSize         = { 6,6 };
 	heavyRadius          = 3.0f;
 	beforeLayer          = nullptr;
+	oldFallEnemgyY       = 0.0f;
 
 	targetHitWall.x      = -1000.0f;
 	targetHitWall.top    = 0.0f;
@@ -219,6 +220,7 @@ void Player::update()
 	//重力
 	if(!isGround)
 	gravity(this, fallEnergy);
+	debug::setString("GRAVITY_Y:%f", fallEnergy.y);
 
 	//地面判定
 	if (pos.y > GROUND_Y - pivot.y)
@@ -311,6 +313,7 @@ void Player::state()
 
 		inputMove();
 		inputJump();
+		inputDodge();
 
 		if (animeUpdate(3, 8, 3, false))
 		{
@@ -332,6 +335,7 @@ void Player::state()
 		animeUpdate(4,11,6,false);
 		inputMove();
 		inputJump();
+		inputDodge();
 
 		//アイドル
 		//if (GROUND_Y - pivot.y <= pos.y)
@@ -356,6 +360,9 @@ void Player::state()
 		anime_state    = 0;
 		attack2Reserve = false;
 		dodgeReserve   = false;
+		oldFallEnemgyY = fallEnergy.y;
+		fallEnergy.y   =fallEnergy.y*0.5f; //重攻撃中は落下しない
+		speed.y        = 0.0f;
 		spr            = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player_ATTACK_Effect);
 		texSize        = { 512.0f,512.0f };
 		drawPos        = { drawPosOffet.x * direction.x,drawPosOffet.y };
@@ -368,6 +375,7 @@ void Player::state()
 		//lightAttack = false;
 		if (animeUpdate(0, 11, attack_frame, false))
 		{
+			fallEnergy.y = oldFallEnemgyY; //元に戻す
 			drawPosFlag = true;
 			act = IDLE_INIT;
 		}
@@ -375,7 +383,7 @@ void Player::state()
 		
 		
 		//連撃
-		if (anime >= 11)
+		if (anime >= 7)
 		{
 			if(attack2Reserve)
 			{
@@ -383,6 +391,7 @@ void Player::state()
 			}
 			if(dodgeReserve)
 			{
+				fallEnergy.y = oldFallEnemgyY; //元に戻す
 				drawPosFlag = true;
 				act = DODGE_INIT;
 			}
@@ -404,13 +413,15 @@ void Player::state()
 		inputDodge();
 		if (animeUpdate(1, 11, attack_frame, false))
 		{
+			fallEnergy.y = oldFallEnemgyY; //元に戻す
 			drawPosFlag = true;
 			act = IDLE_INIT;
 		}
 		if (animeTimer == 3 * attack_frame)			lightAttack = true;	//４コマ目に射撃
 		
-		if (anime >= 7&&dodgeReserve)
+		if (anime >= 6&&dodgeReserve)
 		{
+			fallEnergy.y = oldFallEnemgyY; //元に戻す
 			drawPosFlag = true;
 			act = DODGE_INIT;
 		}
@@ -423,6 +434,9 @@ void Player::state()
 		drawPos = { drawPosOffet.x * direction.x,drawPosOffet.y };
 		animeCount = 0;
 		dodgeReserve = false;
+		oldFallEnemgyY = fallEnergy.y;
+		fallEnergy.y = 0.0f; //重攻撃中は落下しない
+		speed.y = 0.0f;
 		music::play(bigAttack);
 		act = HEAVY_ATTACK1;
 
@@ -446,19 +460,22 @@ void Player::state()
 			}
 			if (animeTimer == 5 * attack_frame + 1)			heavyAttack = true; //20コマ目に射撃
 			if (animeTimer == 5 * attack_frame + 1)			speed.x = 20 * -direction.x;
+			
+			if (anime >= 10 && dodgeReserve)
+			{
+				drawPosFlag = true;
+				fallEnergy.y = oldFallEnemgyY; //元に戻す
+				act = DODGE_INIT;
+			}
 			break;
 		case 2:
 			if (animeUpdate(4, 10, attack_frame, false))
 			{
 				drawPosFlag = true;
+				fallEnergy.y = oldFallEnemgyY; //元に戻す
 				act = IDLE_INIT;
 			}
 
-			if (anime >= 1 && dodgeReserve)
-			{
-				drawPosFlag = true;
-				act = DODGE_INIT;
-			}
 			break;
 		}
 
@@ -473,6 +490,9 @@ void Player::state()
 		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player_ATTACK_Effect);
 		texSize = { 512.0f,512.0f };
 		music::play(bigAttack);
+		oldFallEnemgyY = fallEnergy.y;
+		fallEnergy.y = 0.0f; //重攻撃中は落下しない
+		speed.y = 0.0f;
 		act = HEAVY_ATTACK2;
 
 	case HEAVY_ATTACK2:
@@ -495,18 +515,20 @@ void Player::state()
 			}
 			if (animeTimer == 5 * attack_frame + 1)			heavyAttack = true; //20コマ目に射撃
 			if (animeTimer == 5 * attack_frame + 1)			speed.x = 20 * -direction.x;
+			
+			if (anime >= 10 && dodgeReserve)
+			{
+				drawPosFlag = true;
+				fallEnergy.y = oldFallEnemgyY; //元に戻す
+				act = DODGE_INIT;
+			}
 			break;
 		case 2:
 			if (animeUpdate(7, 10, attack_frame, false))
 			{
 				drawPosFlag = true;
+				fallEnergy.y = oldFallEnemgyY; //元に戻す
 				act = IDLE_INIT;
-			}
-
-			if (dodgeReserve && anime)
-			{
-				drawPosFlag = true;
-				act = DODGE_INIT;
 			}
 		     break;
 		}
