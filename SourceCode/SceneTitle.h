@@ -87,6 +87,7 @@ class play : public titleSprite
 public:
 	play(VECTOR2 Pos, VECTOR2 number)
 	{
+		spr = nullptr;
 		pos = Pos;
 		scale = { 1,1 };
 		texSize = { 743 ,509 };
@@ -105,7 +106,34 @@ public:
 	}
 	~play() {}
 
-	void update(){ISCENE::nextScene = SCENE_MAP;}
+	void update();
+};
+
+class TutorialButton : public titleSprite
+{
+public:
+	TutorialButton(VECTOR2 Pos, VECTOR2 number)
+	{
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::tutorialButton);;
+		pos = Pos;
+		scale = { 1,1 };
+		texSize = { 399 ,39 };
+		texPos = { texSize.x * number.x ,texSize.y * number.y };
+		pivot = { texSize.x * 0.5f ,texSize.y * 0.5f };
+		color = { 1,1,1,1 };
+		speed = { 0,0 };
+		offset = { 0,0 };
+		angle = 0;
+		act = 0;
+		timer = 0;
+		anime = 0;
+		animeTimer = 0;
+		anime_state = 0;
+		radius = 0;
+	}
+	~TutorialButton() {}
+
+	void update();
 };
 
 class SceneTitle :public ISCENE
@@ -114,6 +142,7 @@ private:
 	std::vector<std::unique_ptr<titleSprite>> selectButton;
 	std::vector<std::unique_ptr<titleSprite>> titleSprites;
 	std::vector<std::unique_ptr<trampSprite>> trampCard;
+	int selectIndex = 0;
 public:
 	std::shared_ptr<GameLib::Sprite> spr;
 

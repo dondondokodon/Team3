@@ -2,9 +2,10 @@
 #include<memory>
 #include"audio.h"
 #include"ImageManager.h"
+#include "SceneTutorial.h"
 using namespace std;
 
-unique_ptr<ISCENE> scenes[SCENE_MAX] = { make_unique<SceneTitle>(),make_unique<SceneGame>(), make_unique<SceneMap>(), make_unique<SceneBuildSelect>(), make_unique<SceneResult>(), make_unique<SceneEvent>()};
+unique_ptr<ISCENE> scenes[SCENE_MAX] = { make_unique<SceneTitle>(),make_unique<SceneGame>(), make_unique<SceneMap>(), make_unique<SceneBuildSelect>(), make_unique<SceneResult>(), make_unique<SceneEvent>(),make_unique<SceneTutorial>()};
 
 
 int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)

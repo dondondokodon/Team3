@@ -9,9 +9,11 @@ int tap;
 void SceneTitle::init()
 {
 	state = 0;
+	selectIndex = 0;
 	spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::titleBack);
 	titleSprites.emplace_back(std::make_unique<titleText>(VECTOR2{ 610, 340 }, VECTOR2{1,1}));
 	selectButton.emplace_back(std::make_unique<play>(VECTOR2{ SCREEN_W * 0.5f, SCREEN_H * 0.7f }, VECTOR2{ 0,1 }));
+	selectButton.emplace_back(std::make_unique<TutorialButton>(VECTOR2{ 250, SCREEN_H * 0.9f }, VECTOR2{ 0,0 }));
 	if (!tap)
 	{
 		trampCard.emplace_back(std::make_unique<trampSprite>(VECTOR2{ SCREEN_W * 0.45f,SCREEN_H * 0.65f }, trampSprite::trampNumber::S5, 5));
@@ -40,7 +42,10 @@ void SceneTitle::update()
 			text->setSprite(ImageManager::Instance().getSprite(ImageManager::SpriteNum::titleSprites));
 		
 		for (auto& button : selectButton)
-			button->setSprite(ImageManager::Instance().getSprite(ImageManager::SpriteNum::titleSprites));
+		{
+			if(!button->getSprite())
+				button->setSprite(ImageManager::Instance().getSprite(ImageManager::SpriteNum::titleSprites));
+		}
 
 		state++;
 
@@ -53,19 +58,23 @@ void SceneTitle::update()
 			tap++;
 
 
-		for (auto& tramp : trampCard)
+		if (nextScene != SCENE_TUTORIAL)
 		{
-			if (tap == tramp->flip)
-				tramp->update();
-		}
+			for (auto& tramp : trampCard)
+			{
+				if (tap == tramp->flip)
+					tramp->update();
+			}
 
-		for (auto& tramp : trampCard)
-		{
-			tramp->addPos(tramp->getSpeed());
-			tramp->multipleSpeed(0.92f);
-			if (fabs(tramp->getSpeed().x) < 0.2f)
-				tramp->setSpeed(VECTOR2{ 0,0 });
+			for (auto& tramp : trampCard)
+			{
+				tramp->addPos(tramp->getSpeed());
+				tramp->multipleSpeed(0.92f);
+				if (fabs(tramp->getSpeed().x) < 0.2f)
+					tramp->setSpeed(VECTOR2{ 0,0 });
+			}
 		}
+		
 
 
 		break;
@@ -97,6 +106,10 @@ void SceneTitle::deinit()
 	//trampCard.clear();
 	//delete &WillPlay;
 	//WillPlay = nullptr;
+	selectButton.clear();
+	titleSprites.clear();
+	//trampCard.clear();
+
 }
 
 void SceneTitle::deleteSprite()
@@ -108,36 +121,58 @@ void SceneTitle::deleteSprite()
 void SceneTitle::selecting()
 {
 	int ButtonCount = getButtonCount();
-	int i = 0;
+	
 //	for (int i = 0; i < ButtonCount; i++)
 	{
 		if (GameLib::input::TRG(0) & GameLib::input::PAD_UP)	//W
 		{
-			i--;
-			if (i < 0)
-				i = ButtonCount - 1;
+			selectIndex--;
+			if (selectIndex < 0)
+				selectIndex = ButtonCount - 1;
 
 		}
 
 		if (GameLib::input::TRG(0) & GameLib::input::PAD_DOWN)	//S
 		{
-			i++;
-			if (i > ButtonCount - 1)
-				i = 0;
+			selectIndex++;
+			if (selectIndex > ButtonCount - 1)
+				selectIndex = 0;
 
 		}
 
-		titleSprite* nowButton = getButton(i);
+		titleSprite* nowButton = getButton(selectIndex);
+		//選択されてないボタンを元の大きさに戻す
+		for (auto& b : selectButton)
+		{
+			if (b.get() != nowButton)
+			{
+				b->setScale(VECTOR2{ 1.0,1.0 });
+			}
+		}
 		
 		nowButton->setScale(VECTOR2{ 1.2,1.2 });
+		nowButton->update();
+	}
+}
 
+void play::update()
+{
+	if (TRG(0) & PAD_START)
+	{
 		if (TRG(0) & PAD_START && tap > 4)
 		{
 			music::play(pic);
-			nowButton->update();
+			ISCENE::nextScene = SCENE_MAP;
 		}
+	}
+}
 
-
+void TutorialButton::update()
+{
+	if (TRG(0) & PAD_START)
+	{
+		music::play(pic);
+		ISCENE::nextScene = SCENE_TUTORIAL;
 	}
 }
 
