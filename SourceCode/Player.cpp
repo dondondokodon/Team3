@@ -68,6 +68,7 @@ void Player::init()
 	isGround        = false;
 	heavyAttack     = false;
 	isDeathOn       = false;
+	dodgeReserve    = false;
 	baseMaxJump     = 2;
 	jumpCount       = 0;
 	direction       = { 1,0 };
@@ -352,16 +353,18 @@ void Player::state()
 		break;
 
 	case ATTACK1_INIT:
-		anime_state = 0;
+		anime_state    = 0;
 		attack2Reserve = false;
-		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player_ATTACK_Effect);
-		texSize = { 512.0f,512.0f };
-		drawPos = { drawPosOffet.x * direction.x,drawPosOffet.y };
-		act = ATTACK1;
+		dodgeReserve   = false;
+		spr            = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player_ATTACK_Effect);
+		texSize        = { 512.0f,512.0f };
+		drawPos        = { drawPosOffet.x * direction.x,drawPosOffet.y };
+		act            = ATTACK1;
 
 	case ATTACK1:
 	{
 		InputProjectile();	//ここでattack2Reserveを更新してる
+		inputDodge();
 		//lightAttack = false;
 		if (animeUpdate(0, 11, attack_frame, false))
 		{
@@ -372,12 +375,20 @@ void Player::state()
 		
 		
 		//連撃
-		if (anime >= 11 && attack2Reserve)
+		if (anime >= 11)
 		{
+			if(attack2Reserve)
 			{
 				act = ATTACK2_INIT;
 			}
+			if(dodgeReserve)
+			{
+				drawPosFlag = true;
+				act = DODGE_INIT;
+			}
 		}
+
+
 		break;
 	}
 
@@ -386,15 +397,23 @@ void Player::state()
 		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player_ATTACK_Effect);
 		texSize = { 512.0f,512.0f };
 		drawPos = { drawPosOffet.x * direction.x,drawPosOffet.y };
+		dodgeReserve = false;
 		act = ATTACK2;
 
 	case ATTACK2:
+		inputDodge();
 		if (animeUpdate(1, 11, attack_frame, false))
 		{
 			drawPosFlag = true;
 			act = IDLE_INIT;
 		}
 		if (animeTimer == 3 * attack_frame)			lightAttack = true;	//４コマ目に射撃
+		
+		if (anime >= 7&&dodgeReserve)
+		{
+			drawPosFlag = true;
+			act = DODGE_INIT;
+		}
 		break;
 
 	case HEAVY_ATTACK1_INIT:
@@ -403,10 +422,12 @@ void Player::state()
 		texSize = { 512.0f,512.0f };
 		drawPos = { drawPosOffet.x * direction.x,drawPosOffet.y };
 		animeCount = 0;
+		dodgeReserve = false;
 		music::play(bigAttack);
 		act = HEAVY_ATTACK1;
 
 	case HEAVY_ATTACK1:
+		inputDodge();
 		switch (animeCount)
 		{
 		case 0:
@@ -432,6 +453,12 @@ void Player::state()
 				drawPosFlag = true;
 				act = IDLE_INIT;
 			}
+
+			if (anime >= 1 && dodgeReserve)
+			{
+				drawPosFlag = true;
+				act = DODGE_INIT;
+			}
 			break;
 		}
 
@@ -441,6 +468,7 @@ void Player::state()
 	case HEAVY_ATTACK2_INIT:
 		anime_state = 0;
 		animeCount = 0;
+		dodgeReserve = false;
 		drawPos = { drawPosOffet.x*direction.x,drawPosOffet.y };
 		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player_ATTACK_Effect);
 		texSize = { 512.0f,512.0f };
@@ -448,6 +476,7 @@ void Player::state()
 		act = HEAVY_ATTACK2;
 
 	case HEAVY_ATTACK2:
+		inputDodge();
 		switch (animeCount)
 		{
 		case 0:
@@ -473,14 +502,25 @@ void Player::state()
 				drawPosFlag = true;
 				act = IDLE_INIT;
 			}
-			break;
+
+			if (dodgeReserve && anime)
+			{
+				drawPosFlag = true;
+				act = DODGE_INIT;
+			}
+		     break;
 		}
 		break;
 
 	case DODGE_INIT:
+	{
 		anime_state = 0;
+		int num = Coin::GetCoinNum() * 0.01f;
+		Coin::DegCoinNum(num); //回避でコイン消費
+		textUI_Manager::Instance().spawnDegText(*this, -num);
+		music::play(P_doge);
 		act = DODGE;
-
+	}
 	case DODGE:
 		if (animeUpdate(7, 10, 5, false))
 		{
@@ -488,10 +528,10 @@ void Player::state()
 		}
 
 		//4こまめから８こまめいないまでの時に後ろ方向に速度を入れる
-		if (animeTimer >= 3 * 5 + 1 && animeTimer < 7 * 5 + 1)
+		if (animeTimer >= 1 * 5 + 1 && animeTimer < 8 * 5 + 1)
 		{
 			invincibleTimer = 1.5f;	//無敵時間
-			speed.x = 10.0f * -direction.x;
+			speed.x = 5.0f * -direction.x;
 
 			if(animeTimer%3==0)		//残像エフェクト
 			EffektManager::Instance().Register(new Ghost(*this));
@@ -622,7 +662,7 @@ void Player::inputMove()
 void Player::inputJump()
 {
 	//キー入力でジャンプ
-	if (TRG(0) & PAD_TRG1&&jumpCount>0)
+	if ((TRG(0) & PAD_TRG1||TRG(0)& PAD_UP )&& jumpCount>0)
 	{
 		isGround ? music::play(P_jumpGround) : music::play(P_jump, false);
 		speed.y = -MAX_SPEED.y;
@@ -637,8 +677,13 @@ void Player::inputDodge()
 	//キー入力で回避
 	if (TRG(0) & PAD_TRG5||TRG(0)&PAD_TRG7)
 	{
+		if (act == ATTACK1 || act == ATTACK2 || act == HEAVY_ATTACK1 || act == HEAVY_ATTACK2)
+		{
+			dodgeReserve = true;
+			return;
+		}
+
 		act = DODGE_INIT;
-		music::play(P_doge);
 	}
 }
 
