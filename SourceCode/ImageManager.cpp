@@ -52,6 +52,10 @@ void ImageManager::load()
 	spr[titleBack].reset(GameLib::sprite_load(L"./Data/Images/seisiki.png"));
 	spr[titleSprites].reset(GameLib::sprite_load(L"./Data/Images/title_sprite.png"));
 
+	spr[tutorialButton].reset(GameLib::sprite_load(L"./Data/Images/GO_TO_TUTORIAL.png"));
+	spr[backButton].reset(GameLib::sprite_load(L"./Data/Images/BACK_SPACE.png"));
+	spr[tutorial].reset(GameLib::sprite_load(L"./Data/Images/sprite_tutorial.png"));
+
 	spr[Event1].reset(GameLib::sprite_load(L"./Data/Images/deka_bukuro.png"));
 	spr[Event2].reset(GameLib::sprite_load(L"./Data/Images/jouisonzai.png"));
 	spr[Event3].reset(GameLib::sprite_load(L"./Data/Images/allMenAreCreatedEqual1.png"));

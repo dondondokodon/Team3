@@ -63,6 +63,10 @@ public:
 		titleBack,
 		titleSprites,
 
+		tutorialButton,
+		tutorial,
+		backButton,	//‘Şoƒ{ƒ^ƒ“
+
 		Event1,
 		Event2,
 		Event3,
