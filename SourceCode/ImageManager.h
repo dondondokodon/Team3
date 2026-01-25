@@ -66,6 +66,7 @@ public:
 		tutorialButton,
 		tutorial,
 		backButton,	//‘Şoƒ{ƒ^ƒ“
+		SETUMEI,
 
 		Event1,
 		Event2,

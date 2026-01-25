@@ -36,6 +36,7 @@ void SceneGame::init()
 	camera.setStageLimit(VECTOR2{ SCREEN_W + 1500.0f , 720.0f});
 	EnemyManager::instance().setCamera(camera);
 	coinUi.setSprite(ImageManager::Instance().getSprite(ImageManager::SpriteNum::coin));
+	spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::SETUMEI);
 	//player.setDef(50);
 }
 
@@ -96,7 +97,7 @@ void SceneGame::update()
 		}
 
 		//2分くらいたったらゲーム終了　マップへ遷移
-		if (moveTile != 6 && timer == 20)
+		if (moveTile != 6 && timer == 60)
 			ISCENE::nextScene = SCENE_MAP;
 
 		//倒されたらリザルトへ
@@ -122,12 +123,12 @@ void SceneGame::render()
 	stages.at(0).get()->cameraRender(camera);
 	EnemyManager::instance().render(camera);
 	EffektManager::Instance().render(camera);
+	sprite_render(spr.get(), SCREEN_W * 0.5f, SCREEN_H-15,1.0f,1.0f,0.0f,0.0f,1278.0f,30.0f,1278*0.5f,15.0f);
 	player.cameraRender(camera);
 	player.hitAreaRender(camera);
 	ProjectileManager::Instance().Render(camera);
 	coinUi.render();
 	textUI_Manager::Instance().render(camera);
-
 }
 
 

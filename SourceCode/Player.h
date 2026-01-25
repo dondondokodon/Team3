@@ -109,6 +109,7 @@ private:
 	int jumpCount = 2;			//残りのジャンプ回数
 	int attack_frame = 5;		//攻撃時のフレーム数
 	int animeCount;
+	float oldFallEnemgyY = 0.0f;	//落下時の重力加速度y成分
 	HitWall beforeWall;		//１フレーム前の
 	VECTOR2 beforePos;		//１フレーム前の位置
 

@@ -19,6 +19,7 @@ private:
 	CAMERA camera;
 	CoinUi coinUi;
 	std::vector<std::unique_ptr<Stage>>	stages;
+	std::shared_ptr<Sprite> spr;
 
 public:
 	SceneGame();

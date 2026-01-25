@@ -51,6 +51,7 @@ void ImageManager::load()
 	
 	spr[titleBack].reset(GameLib::sprite_load(L"./Data/Images/seisiki.png"));
 	spr[titleSprites].reset(GameLib::sprite_load(L"./Data/Images/title_sprite.png"));
+	spr[SETUMEI].reset(GameLib::sprite_load(L"./Data/Images/AD_SPACE_W_SHIFT_L_J_K_.png"));
 
 	spr[tutorialButton].reset(GameLib::sprite_load(L"./Data/Images/GO_TO_TUTORIAL.png"));
 	spr[backButton].reset(GameLib::sprite_load(L"./Data/Images/BACK_SPACE.png"));
