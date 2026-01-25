@@ -99,6 +99,7 @@ private:
 	float heavyBetRatio = 0.1f;	//dUŒ‚Á”ïƒRƒCƒ“Š„‡
 	const VECTOR2 MAX_SPEED;	//Å‚‘¬“x
 	bool attack2Reserve = false;// Ÿ’eUŒ‚—\–ñ
+	bool dodgeReserve   = false;// ‰ñ”ğ—\–ñ
 	bool isDeathOn      = false;
 
 	const float  moveLimitLeft =20; //ˆÚ“®‚Å‚«‚é”ÍˆÍ¶
