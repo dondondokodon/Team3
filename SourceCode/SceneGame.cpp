@@ -12,7 +12,8 @@
 #include"audio.h"
 #include "Effect.h"
 extern int moveTile;	//何マス進んだかをカウント
-
+int timeClear;
+bool death;
 SceneGame::SceneGame()
 {
 	state = 0;
@@ -22,6 +23,7 @@ SceneGame::SceneGame()
 
 void SceneGame::init()
 {
+	death = false;
 	state = 0;
 	frame = 0;
 	timer = 0;
@@ -51,12 +53,12 @@ void SceneGame::update()
 		//ターゲット設定
 		EnemyManager::instance().setTarget(player);
 		//エネミーセット　引数がステージ番号
-		//SwitchEnemyType();	//ここで敵の種類を切り替えてる　デバッグの際は消してOK
+		SwitchEnemyType();	//ここで敵の種類を切り替えてる　デバッグの際は消してOK
 		/*EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ 1500.0f, 200.0f }));
 		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ -500.0f, 250.0f }));
 		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ -300.0f, 600.0f }));*/
 		SwitchStage();
-		EnemyManager::instance().setStage(stages.back().get()->getStageNo());	//1が最初
+		//EnemyManager::instance().setStage(stages.back().get()->getStageNo());	//1が最初
 		stages.at(0).get()->init();
 
 		state++;
@@ -64,7 +66,8 @@ void SceneGame::update()
 	case 2:
 
 		//時間計算（秒）
-		frame++;
+		if (!death)
+			frame++;
 		if (frame % 60 == 0)
 			timer++;
 		camera.update(player);
@@ -99,6 +102,9 @@ void SceneGame::update()
 		//倒されたらリザルトへ
 		if (player.isDeath())
 			ISCENE::nextScene = SCENE_RESULT;
+		
+		if (Coin::GetCoinNum() < 1)
+			death = true;
 
 		textUI_Manager::Instance().update();
 
@@ -140,6 +146,8 @@ void SceneGame::deinit()
 
 	music::stop();
 	music::play(main, true);
+
+	timeClear = timer;
 
 	stages.clear();
 }
@@ -185,6 +193,7 @@ void SceneGame::Collision()
 						{
 							music::play(P_lightA);
 							Coin::AddCoinNum(Coin::LightAttackReward());
+							Coin::AddGotCoin(Coin::LightAttackReward());
 							textUI_Manager::Instance().spawnAddText(player, Coin::LightAttackReward());
 						}
 
@@ -193,6 +202,7 @@ void SceneGame::Collision()
 						{
 							music::play(P_HeavyA);
 							Coin::AddCoinNum(Coin::HeavyAttackReward());
+							Coin::AddGotCoin(Coin::HeavyAttackReward());
 							textUI_Manager::Instance().spawnAddText(player, Coin::HeavyAttackReward());
 						}
 
@@ -242,7 +252,10 @@ void SceneGame::Collision()
 						e->setInvincibleTimer(1.5f);
 						e->setHitFlag(true);
 						if (k->GetOwnerId() == Projectile::kinds::pursuit)
+						{
 							Coin::AddCoinNum(15);
+							Coin::AddGotCoin(15);
+						}
 						music::play(P_lightA);
 					}
 					

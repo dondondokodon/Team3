@@ -3,7 +3,7 @@
 
 //ƒRƒCƒ“‚Ì‰Šú’l
 int Coin::CoinNum = 1500;
-
+int Coin::gotCoin = 0;
 //
 int Coin::moveCoin = Coin::CoinNum;
 
