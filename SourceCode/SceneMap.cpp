@@ -67,7 +67,7 @@ void SceneMap::update()
 
 		routePick();
 
-		//pos.x = 200 * nemuturai;
+		pos.x = 400 * nemuturai;
 
 		debug::setString("moved:%d", movedTiles.size());
 		debug::setString("moveTile:%d", moveTile);
@@ -201,7 +201,7 @@ void Event_Tile::update()
 
 void SceneMap::startBattle()		//いっちゃん最初
 {
-	tiles.emplace_back(std::make_unique<Battle1_Tile>(VECTOR2{ 100,360 }));
+	tiles.emplace_back(std::make_unique<Battle1_Tile>(VECTOR2{ 300,320 }));
 
 }
 
@@ -284,6 +284,18 @@ void SceneMap::routePick()
 			tile->setScale({ 1,1 });
 	}
 
+	for (int i = 0; i < GetNonMovedTileCount(); i++)
+	{
+		Tile* tile = GetNonMovedTile(i);
+
+		tile->setLocalPos(WorldToLocal(tile->getWorldPos()));
+
+		//tile->update();
+		if (tile != nowTile)
+			tile->setScale({ 1,1 });
+
+	}
+
 	for (int i = 0; i < GetMovedTileCount(); i++)
 	{
 		Tile* tile = GetMovedTile(i);
@@ -301,7 +313,7 @@ void SceneMap::nextSpawn()
 {
 
 	Tile* nowTile1 = GetTile(GetTileCount() - 1);	//最後
-	posMemory_x = nowTile1->getWorldPos().x + 200;	//x座標は共有
+	posMemory_x = nowTile1->getWorldPos().x + 400;	//x座標は共有
 
 	Tile* nowTile2 = 0;
 	if (GetTileCount() != 1)
@@ -309,8 +321,8 @@ void SceneMap::nextSpawn()
 
 	if (GetTileCount() == 1)
 	{
-		posMemory_y1 = nowTile1->getWorldPos().y + 100;
-		posMemory_y2 = nowTile1->getWorldPos().y - 100;
+		posMemory_y1 = nowTile1->getWorldPos().y + 150;
+		posMemory_y2 = nowTile1->getWorldPos().y - 150;
 
 	}
 	else
@@ -338,8 +350,8 @@ void SceneMap::routeMapping()
 		preTile = GetMovedTile(GetMovedTileCount() - 1);
 
 	primitive::line(
-		preTile->getWorldPos(), 
-		nowTile->getWorldPos(),
+		preTile->getLocalPos(), 
+		nowTile->getLocalPos(),
 		VECTOR4{1,1,1,1},
 		7);
 
@@ -355,6 +367,6 @@ void SceneMap::Signpost()
 			return;
 
 		lest--;
-		primitive::line(GetMovedTile(i)->getWorldPos(), GetMovedTile(i + 1)->getWorldPos(),VECTOR4{1,1,1,1}, 5);
+		primitive::line(GetMovedTile(i)->getLocalPos(), GetMovedTile(i + 1)->getLocalPos(),VECTOR4{1,1,1,1}, 5);
 	}
 }

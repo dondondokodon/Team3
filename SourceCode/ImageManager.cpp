@@ -18,11 +18,11 @@ void ImageManager::load()
 	spr[bossTail].reset(GameLib::sprite_load(L"./Data/Images/sippo.png"));
 	spr[bossUltTail].reset(GameLib::sprite_load(L"./Data/Images/tail.png"));
 	spr[bossTailPull].reset(GameLib::sprite_load(L"./Data/Images/tail_hiki_mini.png"));
-	spr[Shop].reset(GameLib::sprite_load(L"./Data/Images/shop.png"));
-	spr[Battle].reset(GameLib::sprite_load(L"./Data/Images/battle.png"));
-	spr[MiddleBoss].reset(GameLib::sprite_load(L"./Data/Images/middleBoss.png"));
-	spr[LastBoss].reset(GameLib::sprite_load(L"./Data/Images/lastBoss.png"));
-	spr[Event].reset(GameLib::sprite_load(L"./Data/Images/event.png"));
+	spr[Tile].reset(GameLib::sprite_load(L"./Data/Images/TileSprites.png"));
+	//spr[Battle].reset(GameLib::sprite_load(L"./Data/Images/battle.png"));
+	//spr[MiddleBoss].reset(GameLib::sprite_load(L"./Data/Images/middleBoss.png"));
+	//spr[LastBoss].reset(GameLib::sprite_load(L"./Data/Images/lastBoss.png"));
+	//spr[Event].reset(GameLib::sprite_load(L"./Data/Images/event.png"));
 	spr[InShop].reset(GameLib::sprite_load(L"./Data/Images/shop_room.png"));
 	spr[STRONG].reset(GameLib::sprite_load(L"./Data/Images/build0.png"));
 	spr[WEAK].reset(GameLib::sprite_load(L"./Data/Images/build2.png"));
