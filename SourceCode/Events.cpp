@@ -60,6 +60,7 @@ bool Events::update()
 		if (TRG(0) & PAD_START)
 		{
 			Coin::AddCoinNum(800);
+			Coin::AddGotCoin(800);
 			return true;
 		}
 			
@@ -91,6 +92,7 @@ bool Events::update()
 		if (TRG(0) & PAD_START)
 		{
 			Coin::AddCoinNum(300);
+			Coin::AddGotCoin(300);
 			music::play(pic);
 			return true;
 		}	
@@ -417,6 +419,7 @@ bool Event3::update()
 		if (TRG(0) & PAD_START)
 		{
 			Coin::AddCoinNum(600);
+			Coin::AddGotCoin(600);
 			return true;
 		}
 
@@ -591,6 +594,7 @@ bool Event4::update()
 		if (TRG(0) & PAD_START)
 		{
 			Coin::AddCoinNum(600);
+			Coin::AddGotCoin(600);
 			return true;
 		}
 		break;
@@ -732,6 +736,7 @@ bool Event5::update()
 		if (TRG(0) & PAD_START)
 		{
 			Coin::AddCoinNum(3000);
+			Coin::AddGotCoin(3000);
 			flag = false;
 			return true;
 		}

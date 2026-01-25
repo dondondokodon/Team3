@@ -3,13 +3,24 @@
 #include "audio.h"
 #include "Coin.h"
 
-
+std::string coincoin;
 extern bool resetMap;
+extern int moveTile;
+extern int timeClear;
+extern bool death;
+int second;
+int minutes;
+std::string time_second;
+std::string time_minutes;
+
 void SceneResult::init()
 {
 	state = 0;
 	sprite.init();
 	resetMap = true;
+
+	minutes = timeClear / 60;
+	second = (timeClear > 59) ? timeClear % 60 : timeClear;
 }
 
 void SceneResult::update()
@@ -22,6 +33,9 @@ void SceneResult::update()
 	case 1:
 		music::stop();
 		music::play(result,true);
+		coincoin = std::to_string(Coin::GetGotCoin());
+		time_second = std::to_string(second);
+		time_minutes = std::to_string(minutes);
 		state++;
 
 	case 2:
@@ -29,7 +43,7 @@ void SceneResult::update()
 		if (TRG(0) & PAD_START)
 			ISCENE::nextScene = SCENE_TITLE;
 		//SceneMap::Instance().Clear();
-
+		sprite.update();
 		debug::setString("result");
 
 		break;
@@ -42,6 +56,28 @@ void SceneResult::render()
 {
 	GameLib::clear(0, 0.5, 0.5);
 	sprite.render();
+	
+	if (moveTile == 6 && !death)
+	{
+		if (minutes < 10)
+		{
+			if (second < 10)
+				text_out(7, "0" + time_minutes + ":0" + time_second, 523, 268, 2, 2, 1, 1, 1);
+			else
+				text_out(7, "0" + time_minutes + ":" + time_second, 523, 268, 2, 2, 1, 1, 1);
+		}
+		else if (second < 10)
+		{
+			text_out(7, time_minutes + ":0" + time_second, 523, 268, 2, 2, 1, 1, 1);
+		}
+		else
+			text_out(7, time_minutes + ":" + time_second, 523, 268, 2, 2, 1, 1, 1);
+
+	}
+	else
+		text_out(7,"--:--", 523, 268, 2, 2, 1, 1, 1);
+
+	text_out(7, coincoin, 523, 378, 2, 2, 1, 0.8, 0);
 }
 
 void SceneResult::deinit()
@@ -112,7 +148,22 @@ void resultScene::init()
 
 void resultScene::update()
 {
+	//‰¼’u‚«
+	if (calcScore() < 500)
+		rank.texPos = VECTOR2{ 0,0 };
+	else if (calcScore() < 1500)
+		rank.texPos = VECTOR2{ 256,0 };
+	else if (calcScore() < 3000)
+		rank.texPos = VECTOR2{ 256 * 2,0 };
+	else
+		rank.texPos = VECTOR2{ 256 * 3,0 };
 
+	if (death)
+	{
+		resultMassage.texPos = VECTOR2{ 0 ,256 * 3 };
+		resultMassage.pos = VECTOR2{ SCREEN_W * 0.55f, SCREEN_H * 0.3f };
+	}
+	
 }
 
 void resultScene::deinit()
@@ -125,4 +176,9 @@ void resultScene::render()
 	back.render();
 	rank.render();
 	resultMassage.render();
+}
+
+int resultScene::calcScore()
+{
+	return Coin::GetGotCoin() / timeClear;
 }

@@ -2,12 +2,14 @@
 #include "../GameLib/game_lib.h"
 #include "ImageManager.h"
 #include "audio.h"
+#include "Coin.h"
 using namespace input;
 
 int tap;
 
 void SceneTitle::init()
 {
+	Coin::ResetGotCoin();
 	state = 0;
 	spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::titleBack);
 	titleSprites.emplace_back(std::make_unique<titleText>(VECTOR2{ 610, 340 }, VECTOR2{1,1}));

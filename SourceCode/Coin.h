@@ -8,6 +8,7 @@ class Coin
 private:
 	static int CoinNum;	//現在の合計枚数
 	static int moveCoin;//動く枚数
+	static int gotCoin;	//総獲得コイン数
 
 public:
 	static int GetCoinNum() { return CoinNum; }				//ゲッター
@@ -25,6 +26,10 @@ public:
 
 	//ダメージ計算
 	static int calcDamage(int baseDamage, int coin) { return baseDamage * coin; }
+
+	static void AddGotCoin(int add) { gotCoin += add; }	//獲得した枚数を入れる
+	static int GetGotCoin() { return gotCoin; }			//獲得した枚数のゲッター
+	static void ResetGotCoin() { gotCoin = 0; }			//獲得したコインを０に戻す
 
 };
 

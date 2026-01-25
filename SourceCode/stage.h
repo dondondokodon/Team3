@@ -142,5 +142,5 @@ public:
 	void deinit()override;
 	void render()override;
 	void cameraRender(CAMERA camera)override {};
-
+	int calcScore();
 };
