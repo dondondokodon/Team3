@@ -20,6 +20,7 @@ void SceneResult::update()
 		state++;
 
 	case 1:
+		music::stop();
 		music::play(result,true);
 		state++;
 
