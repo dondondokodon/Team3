@@ -122,7 +122,7 @@ void EnemyBoss::init()
 	//scale = { 1.0f,1.0f };
 	//pos = { 1000,360 };
 	//act = ATTACK2_INIT;
-	act = ATTACK1_INIT;
+	//act = ATTACK1_INIT;
 }
 
 EnemyBoss::~EnemyBoss()
