@@ -42,10 +42,10 @@ void Stage02::init()
 
 	//’†”wŒi
 	middle.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::casinoMiddle);
-	middle.pos = { 0,-50 };
+	middle.pos = { 0,-680 };
 	middle.scale = { 1,1 };
 	middle.texPos = { 0,0 };
-	middle.texSize = { 3840, 770 };
+	middle.texSize = { 3840, 1400 };
 	middle.pivot = { 0,0 };
 	middle.color = { 1,1,1,1 };
 	middle.speed = { 0.8,0.4 };

@@ -102,6 +102,16 @@ void Player::init()
 
 	//texSize = { 320,320 };
 
+		//攻撃コイン消費アップ効果
+	if (PlayerEffect::attackCoinUp)
+	{
+		//lightBetRatio *= 2;
+		//heavyBetRatio *= 2;
+		Build::extraCost = true;
+		PlayerEffect::attackCoinUp = false;
+
+	}
+
 	//3段ジャンプ
 	if (Build::extraJump)
 		addEffect(std::make_unique<ExtraJump>());
@@ -145,13 +155,6 @@ void Player::update()
 	{
 		def = -10.0f;
 		PlayerEffect::defDef = false;
-	}
-	//攻撃コイン消費アップ効果
-	if (PlayerEffect::attackCoinUp)
-	{
-		lightBetRatio *= 2;
-		Build::extraCost	= true;
-		PlayerEffect::attackCoinUp = false;
 	}
 
 	//描画位置補正 状態遷移より上に置かないとサイズとかが更新されてから描画されるので上に置く
