@@ -8,6 +8,7 @@
 #include "HitBox.h"
 #include "textUI_Manager.h"
 #include "audio.h"
+#include "PlayerEffect.h"
 
 Player::Player():MAX_SPEED({7,25})
 {
@@ -139,6 +140,20 @@ void Player::deinit()
 
 void Player::update()
 {
+	//効果があったら
+	if (PlayerEffect::defDef)
+	{
+		def = -10.0f;
+		PlayerEffect::defDef = false;
+	}
+	//攻撃コイン消費アップ効果
+	if (PlayerEffect::attackCoinUp)
+	{
+		lightBetRatio *= 2;
+		heavyBetRatio *= 2;
+		PlayerEffect::attackCoinUp = false;
+	}
+
 	//描画位置補正 状態遷移より上に置かないとサイズとかが更新されてから描画されるので上に置く
 	if (drawPosFlag)
 	{
