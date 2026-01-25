@@ -181,7 +181,7 @@ void SceneGame::Collision()
 					//p->Destroy();
 					EffektManager::Instance().Register(new Effect(*e));	//ヒットエフェクト
 
-					if (p->onHit())
+					//if (p->onHit())
 					{
 						e->degHp(e->calcProtectingDamage(p->getDamage()));
 						e->setInvincibleTimer(1.5f);
@@ -192,6 +192,7 @@ void SceneGame::Collision()
 						//軽攻撃なら
 						if (p->GetOwnerId() == Projectile::kinds::light)
 						{
+							p->onHit();
 							music::play(P_lightA);
 							Coin::AddCoinNum(Coin::LightAttackReward());
 							Coin::AddGotCoin(Coin::LightAttackReward());
@@ -210,6 +211,7 @@ void SceneGame::Collision()
 						//攻撃を当てたら追撃	現在当ててもコインの返還は無し
 						if (p->GetOwnerId() != Projectile::kinds::pursuit && Build::extraBullet)
 						{
+							p->onHit();
 							int useCoin = Coin::GetRatioCoin(0.005f);
 							ProjectileStraight* b = new ProjectileStraight(&ProjectileManager::Instance(), Projectile::Faction::player, Coin::calcDamage(2, useCoin), Projectile::kinds::pursuit, player.getPursuitLife(), ImageManager::Instance().getSprite(ImageManager::SpriteNum::PlayerBullet), player.getPursuitSize(), player.getPursuitScale(), player.getPursuitSpeed(), player.getPursuitRadius());
 							//Coin::DegCoinNum(useCoin);
