@@ -1,6 +1,7 @@
 #include "SceneEvent.h"
 #include"ImageManager.h"
 
+bool flag = false;
 
 void SceneEvent::init()
 {
@@ -12,10 +13,37 @@ void SceneEvent::update()
 	switch (state)
 	{
 	case 0:
+		if (resetMap)
+			flag = false;
 		setBlendMode(Blender::BS_ALPHA);
 
 		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::EventBack);
-		event = std::make_unique<Events>();
+
+		int n;
+		flag ? n=5 : n=4;
+		switch (rand() % n)
+		{
+		case 0:
+			event = std::make_unique<Events>();
+			break;
+
+		case 1:
+			event = std::make_unique<Event2>();
+			break;
+
+		case 2:
+			event = std::make_unique<Event3>();
+			break;
+
+		case 3:
+			event = std::make_unique<Event4>();
+			break;
+
+		case 4:
+			event = std::make_unique<Event5>();
+			break;
+		}
+		
 		state++;
 
 	case 1:

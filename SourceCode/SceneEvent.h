@@ -3,6 +3,9 @@
 #include<memory>
 #include "Events.h"
 
+extern bool resetMap;
+
+
 class SceneEvent :public ISCENE
 {
 private:
