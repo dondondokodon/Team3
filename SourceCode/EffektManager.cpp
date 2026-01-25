@@ -33,7 +33,7 @@ void EffektManager::init()
 }
 void EffektManager::clear()
 {
-
+	Effekts.clear();
 }
 void EffektManager::Remove()
 {

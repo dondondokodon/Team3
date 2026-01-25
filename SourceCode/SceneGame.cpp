@@ -141,6 +141,9 @@ void SceneGame::deinit()
 	//球を全削除
 	ProjectileManager::Instance().Clear();
 
+	//エフェクトのクリア
+	EffektManager::Instance().clear();
+
 	EnemyManager::instance().setCameraNull();
 
 	textUI_Manager::Instance().Clear();
@@ -184,7 +187,7 @@ void SceneGame::Collision()
 					//if (p->onHit())
 					{
 						e->degHp(e->calcProtectingDamage(p->getDamage()));
-						e->setInvincibleTimer(1.5f);
+						e->setInvincibleTimer(2.5f);
 						e->setHitFlag(true);
 						//textUI_Manager::Instance().spawnAddText(player);
 						//textUI_Manager::Instance().spawnDegText(*e);
