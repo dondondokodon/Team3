@@ -6,10 +6,10 @@ void Stage02::init()
 {
 	//”wŒiiƒOƒ‰ƒf[ƒVƒ‡ƒ“j
 	back.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::casinoBack);
-	back.pos = { 0,0 };
+	back.pos = { 0,-50 };
 	back.scale = { 1,1 };
 	back.texPos = { 0,0 };
-	back.texSize = { 3840, 720 };
+	back.texSize = { 3840, 770 };
 	back.pivot = { 0,0 };
 	back.color = { 1,1,1,1 };
 	back.speed = { 0.6,0.3 };
@@ -42,10 +42,10 @@ void Stage02::init()
 
 	//’†”wŒi
 	middle.spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::casinoMiddle);
-	middle.pos = { 0,0 };
+	middle.pos = { 0,-50 };
 	middle.scale = { 1,1 };
 	middle.texPos = { 0,0 };
-	middle.texSize = { 3840, 720 };
+	middle.texSize = { 3840, 770 };
 	middle.pivot = { 0,0 };
 	middle.color = { 1,1,1,1 };
 	middle.speed = { 0.8,0.4 };

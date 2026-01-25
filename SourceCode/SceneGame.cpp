@@ -113,7 +113,7 @@ void SceneGame::update()
 
 void SceneGame::render()
 {
-	GameLib::clear(1, 0, 1);
+	GameLib::clear(1, 0, 0);
 	stages.at(0).get()->cameraRender(camera);
 	EnemyManager::instance().render(camera);
 	EffektManager::Instance().render(camera);

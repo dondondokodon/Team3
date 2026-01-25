@@ -20,11 +20,12 @@ public:
 		hitEffectP,
 
 		Map,
-		Shop,
-		Battle,
-		MiddleBoss,
-		LastBoss,
-		Event,
+		Tile,
+		//Shop,
+		//Battle,
+		//MiddleBoss,
+		//LastBoss,
+		//Event,
 		InShop,
 
 		STRONG,

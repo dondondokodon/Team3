@@ -64,6 +64,7 @@ public:
 
 
 	VECTOR2 getWorldPos() { return WorldPos; }
+	VECTOR2 getLocalPos() { return LocalPos; }
 	void addWorldPos(VECTOR2 pos) { WorldPos += pos; }
 	void addLocalPos(VECTOR2 pos) { LocalPos += pos; }
 	VECTOR2 getScale() { return scale; }
@@ -108,12 +109,12 @@ class Shop_Tile : public Tile
 public:
 	Shop_Tile(VECTOR2 WPos)
 	{
-		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Shop);
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Tile);
 		WorldPos = WPos;
 		scale = { 1,1 };
-		texPos = { 0,0 };
-		texSize = { 64,64 };
-		pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
+		texPos = { 357,0 };
+		texSize = { 357,327 };
+		pivot = { texSize.x * 0.5f,texSize.y * 0.2f };
 		color = { 1,1,1,1 };
 		speed = { 0,0 };
 		offset = { 0,0 };
@@ -133,12 +134,12 @@ class Event_Tile : public Tile
 public:
 	Event_Tile(VECTOR2 WPos)
 	{
-		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Event);
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Tile);
 		WorldPos = WPos;
 		scale = { 1,1 };
-		texPos = { 0,0 };
-		texSize = { 64,64 };
-		pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
+		texPos = { 357 *2,0 };
+		texSize = { 357,327 };
+		pivot = { texSize.x * 0.5f,texSize.y * 0.2f };
 		color = { 1,1,1,1 };
 		speed = { 0,0 };
 		offset = { 0,0 };
@@ -158,12 +159,12 @@ class Battle1_Tile : public Tile
 public:
 	Battle1_Tile(VECTOR2 WPos)
 	{
-		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Battle);
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Tile);
 		WorldPos = WPos;
 		scale = { 1,1 };
-		texPos = { 0,0 };
-		texSize = { 64,64 };
-		pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
+		texPos = { 357 *3,0 };
+		texSize = { 357,327 };
+		pivot = { texSize.x * 0.5f,texSize.y * 0.2f };
 		color = { 1,1,1,1 };
 		speed = { 0,0 };
 		offset = { 0,0 };
@@ -183,12 +184,12 @@ class Battle2_Tile : public Tile
 public:
 	Battle2_Tile(VECTOR2 WPos)
 	{
-		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::MiddleBoss);
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Tile);
 		WorldPos = WPos;
 		scale = { 1,1 };
 		texPos = { 0,0 };
-		texSize = { 64,64 };
-		pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
+		texSize = { 375,327 };
+		pivot = { texSize.x * 0.5f,texSize.y * 0.2f };
 		color = { 1,1,1,1 };
 		speed = { 0,0 };
 		offset = { 0,0 };
@@ -208,11 +209,11 @@ class Battle3_Tile : public Tile
 public:
 	Battle3_Tile(VECTOR2 WPos)
 	{
-		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::LastBoss);
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Tile);
 		WorldPos = WPos;
 		scale = { 1,1 };
 		texPos = { 0,0 };
-		texSize = { 64,64 };
+		texSize = { 357,327 };
 		pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
 		color = { 1,1,1,1 };
 		speed = { 0,0 };
