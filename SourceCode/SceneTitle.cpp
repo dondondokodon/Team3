@@ -93,7 +93,7 @@ void SceneTitle::render()
 
 void SceneTitle::deinit()
 {
-	music::stop();
+	//music::stop();
 	//trampCard.clear();
 	//delete &WillPlay;
 	//WillPlay = nullptr;

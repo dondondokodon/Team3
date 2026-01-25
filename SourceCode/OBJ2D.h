@@ -85,6 +85,8 @@ public:
 	void setPosition(VECTOR2 p) { pos = p; }
 	void setSpeed(VECTOR2 Speed) { speed = Speed; }
 	void setAngle(float Angle) { angle = Angle; }
+	void setOffset(VECTOR2 OffSet) { offset = OffSet; }
+	void setDirection(VECTOR2 Dir) { direction = Dir; }
 	void setSprite(int num) { if(num>=ImageManager::SpriteNum::Max) spr=ImageManager::Instance().getSprite(num); }	//イメージマネージャーのenum使って代入
 };
 

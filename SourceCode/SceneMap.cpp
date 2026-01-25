@@ -27,7 +27,7 @@ void SceneMap::update()
 		state++;
 
 	case 1:
-		music::play(main, true);
+		//music::play(main, true);
 		setBlendMode(Blender::BS_ALPHA);
 
 		if (resetMap)
@@ -106,7 +106,7 @@ void SceneMap::deinit()
 	if (!moveTile)
 		posMemory_y0 = GetTile(0)->getWorldPos().y;
 
-	music::stop();
+	//music::stop();
 
 	nextSpawn();
 	moveTile++;

@@ -48,7 +48,7 @@ void SceneBuildSelect::update()
 
 	case 1:
 		//srand(unsigned int(time(NULL)));
-		music::play(main, true);
+		//music::play(main, true);
 		setBuild();
 		state++;
 
@@ -95,7 +95,7 @@ void SceneBuildSelect::deinit()
 	//	soldOut.push_back(std::move(showWindow[i]));
 	//}
 
-	music::stop();
+	//music::stop();
 	showWindow.clear();
 }
 
