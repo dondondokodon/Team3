@@ -271,6 +271,9 @@ bool Event2::update()
 		drawMask |= TEXT_MSG5;
 		if (TRG(0) & PAD_START)
 		{
+#if 3
+			//TODO::パーク
+#endif
 			//複数のパーク入手
 
 			//コイン減少
@@ -434,6 +437,9 @@ bool Event3::update()
 		drawMask |= TEXT_MSG5;
 		if (TRG(0) & PAD_START)
 		{
+#if 4
+			//TODO::パーク
+#endif
 			//パーク入手
 
 			return true;

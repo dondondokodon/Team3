@@ -461,15 +461,19 @@ void Player::state()
 			if (animeTimer == 5 * attack_frame + 1)			heavyAttack = true; //20コマ目に射撃
 			if (animeTimer == 5 * attack_frame + 1)			speed.x = 20 * -direction.x;
 			
-			if (anime >= 10 && dodgeReserve)
+			if (anime >= 10 )
 			{
-				drawPosFlag = true;
 				fallEnergy.y = oldFallEnemgyY; //元に戻す
-				act = DODGE_INIT;
+				if (dodgeReserve)
+				{
+					drawPosFlag = true;
+					fallEnergy.y = oldFallEnemgyY; //元に戻す
+					act = DODGE_INIT;
+				}
 			}
 			break;
 		case 2:
-			if (animeUpdate(4, 10, attack_frame, false))
+			if (animeUpdate(4, 1, attack_frame, false))
 			{
 				drawPosFlag = true;
 				fallEnergy.y = oldFallEnemgyY; //元に戻す
@@ -516,18 +520,22 @@ void Player::state()
 			if (animeTimer == 5 * attack_frame + 1)			heavyAttack = true; //20コマ目に射撃
 			if (animeTimer == 5 * attack_frame + 1)			speed.x = 20 * -direction.x;
 			
-			if (anime >= 10 && dodgeReserve)
+			if (anime >= 10 )
 			{
-				drawPosFlag = true;
 				fallEnergy.y = oldFallEnemgyY; //元に戻す
-				act = DODGE_INIT;
+				if (dodgeReserve)
+				{
+					drawPosFlag = true;
+					fallEnergy.y = oldFallEnemgyY; //元に戻す
+					act = DODGE_INIT;
+				}
 			}
+
 			break;
 		case 2:
-			if (animeUpdate(7, 10, attack_frame, false))
+			if (animeUpdate(7, 1, attack_frame, false))
 			{
 				drawPosFlag = true;
-				fallEnergy.y = oldFallEnemgyY; //元に戻す
 				act = IDLE_INIT;
 			}
 		     break;
