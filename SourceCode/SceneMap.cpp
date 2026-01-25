@@ -2,6 +2,7 @@
 #include "../GameLib/game_lib.h"
 #include "Build.h"
 #include"audio.h"
+#include "PlayerEffect.h"
 
 
 int moveTile = 0;	//何マス進んだかをカウント
@@ -133,6 +134,7 @@ void SceneMap::Clear()
 	move5 = 0;
 	nemuturai = 0;
 	i = 0;				//どのマスにいるか
+	PlayerEffect::Reset();	//プレイヤーの効果削除
 
 	Build::extraJump = false;
 	Build::extraCost = false;

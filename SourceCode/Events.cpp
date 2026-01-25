@@ -1,5 +1,6 @@
 #include "Events.h"
 #include "audio.h"
+#include "PlayerEffect.h"
 
 void Events::init()
 {
@@ -249,8 +250,10 @@ bool Event2::update()
 #endif
 
 			//攻撃に使用するコインの量を増やす
+			PlayerEffect::attackCoinUp = true;
 
 			//被ダメージ上昇
+			PlayerEffect::defDef = true;
 
 			return true;
 		}

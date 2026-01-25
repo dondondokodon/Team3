@@ -168,6 +168,7 @@
     <ClInclude Include="SourceCode\ImageManager.h" />
     <ClInclude Include="SourceCode\OBJ2D.h" />
     <ClInclude Include="SourceCode\Player.h" />
+    <ClInclude Include="SourceCode\PlayerEffect.h" />
     <ClInclude Include="SourceCode\Projectile.h" />
     <ClInclude Include="SourceCode\ProjectileManager.h" />
     <ClInclude Include="SourceCode\ProjectileStraight.h" />
@@ -221,6 +222,7 @@
     <ClCompile Include="SourceCode\main.cpp" />
     <ClCompile Include="SourceCode\OBJ2D.cpp" />
     <ClCompile Include="SourceCode\Player.cpp" />
+    <ClCompile Include="SourceCode\PlayerEffect.cpp" />
     <ClCompile Include="SourceCode\Projectile.cpp" />
     <ClCompile Include="SourceCode\ProjectileManager.cpp" />
     <ClCompile Include="SourceCode\ProjectileStraight.cpp" />
