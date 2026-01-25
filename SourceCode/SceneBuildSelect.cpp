@@ -78,14 +78,27 @@ void SceneBuildSelect::render()
 	{
 		BuildCard* card = GetCard(i);
 		card->render();
+		//card->buffDebuffRender();
 	}
 	
+	BuildCard::Instance().buffDebuffRender();
+
 	price_board->render();
 	text_out(7, price_board->ShowPrice, price_board->textPos.x, price_board->textPos.y, 2, 2, price_board->textColor.x, price_board->textColor.y,price_board->textColor.z, price_board->textColor.w);
+
 	money.render();
 
 }
 
+
+void BuildCard::buffDebuffRender()
+{
+	for (auto& effectText : effects)
+	{
+		effectText->render();
+	}
+
+}
 
 void SceneBuildSelect::deinit()
 {
@@ -97,6 +110,7 @@ void SceneBuildSelect::deinit()
 
 	//music::stop();
 	showWindow.clear();
+	BuildCard::Instance().Clear();
 }
 
 void SceneBuildSelect::deleteSprite()
@@ -135,6 +149,22 @@ void SceneBuildSelect::cardPick()
 	BuildCard* nowCard = GetCard(j);
 
 	nowCard->setScale({ 1.1,1.1 });
+
+	//‚²‚è‰Ÿ‚µŒä–Æ
+	if (j + 1 != 2)
+	{
+		BuildCard::Instance().GetEffect(j)->setScale({ 1.1,1.1 });
+		BuildCard::Instance().GetEffect(j + 1)->setScale({ 1.1,1.1 });
+		BuildCard::Instance().GetEffect(j + 2)->setScale({ 1,1 });
+		BuildCard::Instance().GetEffect(j + 3)->setScale({ 1,1 });
+	}
+	else//2
+	{
+		BuildCard::Instance().GetEffect(j + 1)->setScale({ 1.1,1.1 });
+		BuildCard::Instance().GetEffect(j + 2)->setScale({ 1.1,1.1 });
+		BuildCard::Instance().GetEffect(j)->setScale({ 1,1 });
+		BuildCard::Instance().GetEffect(j - 1)->setScale({ 1,1 });
+	}
 
 	//‰¿Ši‚ğ•\¦
 	if (nowCard->getRank() == BuildCard::rank::strong)

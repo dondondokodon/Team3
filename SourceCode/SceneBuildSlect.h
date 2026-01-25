@@ -6,6 +6,8 @@
 #include "Build.h"
 #include "Coin.h"
 
+extern class buffDebuff;
+
 //基底クラス
 class BuildCard : public OBJ2D
 {
@@ -32,6 +34,21 @@ public:
 	int price = 0;
 	int build = -1;
 	int power = -1;
+
+	static BuildCard& Instance()
+	{
+		static BuildCard instance;
+		return instance;
+	}
+	void Register(std::unique_ptr<buffDebuff> effect) { effects.emplace_back(std::move(effect)); }
+	void buffDebuffRender();
+	void Clear() { effects.clear(); }
+
+	int GetEffectCount()const { return effects.size(); }
+	buffDebuff* GetEffect(int index) { return effects.at(index).get(); }
+
+	//カードの効果を表示させるための配列
+	std::vector<std::unique_ptr<buffDebuff>> effects;
 };
 
 //追加のスプライト
@@ -42,7 +59,7 @@ public:
 	{
 		this->spr = spr;
 		this->pos = pos;
-		this->scale = scale;
+ 		this->scale = scale;
 		this->texPos = texPos;
 		this->texSize = texSize;
 		pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
@@ -61,6 +78,62 @@ public:
 	void update()override {}
 };
 
+class buffDebuff : public OBJ2D
+{
+public:
+
+	buffDebuff() {}
+	virtual ~buffDebuff() {}
+
+	void addPos(VECTOR2 Pos) { pos += Pos; }
+	void update()override {}
+};
+
+class buff : public buffDebuff
+{
+public:
+
+	buff(VECTOR2 Pos, int line, int row)
+	{
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::buff);
+		pos = Pos;
+		scale = VECTOR2{ 1,1 };
+		texSize = VECTOR2{ 285,277 };
+		texPos = VECTOR2{ texSize.x * line, texSize.y * row };
+		pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
+		color = VECTOR4{ 1,1,1,1 };
+		speed = VECTOR2{ 0,0 };
+		offset = VECTOR2{ 0,0 };
+		direction = VECTOR2{ 0,0 };
+
+
+	}
+	virtual ~buff() {};
+
+};
+
+class debuff : public buffDebuff
+{
+public:
+
+	debuff(VECTOR2 Pos, int line, int row)
+	{
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::debuff);
+		pos = Pos;
+		scale = VECTOR2{ 1,1 };
+		texSize = VECTOR2{ 285,280 };
+		texPos = VECTOR2{ texSize.x * line, texSize.y * row };
+		pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
+		color = VECTOR4{ 1,1,1,1 };
+		speed = VECTOR2{ 0,0 };
+		offset = VECTOR2{ 0,0 };
+		direction = VECTOR2{ 0,0 };
+
+
+	}
+	virtual ~debuff() {};
+
+};
 //コストアップ
 class VeryCostUpBuild : public BuildCard
 {
@@ -80,6 +153,9 @@ public:
 		build = BuildCard::kinds::VERYCOST;
 		power = BuildCard::rank::strong;
 		price = 500;
+		BuildCard::Instance().Register(std::make_unique<buff>(VECTOR2{ pos.x, pos.y - 130 }, 0, 0));
+		BuildCard::Instance().Register(std::make_unique<debuff>(VECTOR2{ pos.x, pos.y + 120 }, 0, 0));
+
 	}
 	~VeryCostUpBuild() {}
 
@@ -110,7 +186,8 @@ public:
 		build = BuildCard::kinds::EXTRAJUMP;
 		power = BuildCard::rank::weak;
 		price = 200;
-
+		BuildCard::Instance().Register(std::make_unique<buff>(VECTOR2{ pos.x, pos.y - 130 }, 0, 0));
+		BuildCard::Instance().Register(std::make_unique<debuff>(VECTOR2{ pos.x, pos.y + 120 }, 0, 0));
 	}
 	~ExtraJumpBuild() {}
 
@@ -141,6 +218,8 @@ public:
 		build = BuildCard::kinds::MOTIONRAPID;
 		power = BuildCard::rank::weak;
 		price = 200;
+		BuildCard::Instance().Register(std::make_unique<buff>(VECTOR2{ pos.x, pos.y - 130 }, 0, 0));
+		BuildCard::Instance().Register(std::make_unique<debuff>(VECTOR2{ pos.x, pos.y + 120 }, 0, 0));
 
 	}
 	~MotionRapidBuild() {}
@@ -172,7 +251,8 @@ public:
 		build = BuildCard::kinds::MOONGRAVITY;
 		power = BuildCard::rank::weak;
 		price = 200;
-
+		BuildCard::Instance().Register(std::make_unique<buff>(VECTOR2{ pos.x, pos.y - 130 }, 0, 0));
+		BuildCard::Instance().Register(std::make_unique<debuff>(VECTOR2{ pos.x, pos.y + 120 }, 0, 0));
 	}
 	~MoonGravityBuild() {}
 
@@ -203,6 +283,8 @@ public:
 		build = BuildCard::kinds::EXTRABULLET;
 		power = BuildCard::rank::strong;
 		price = 500;
+		BuildCard::Instance().Register(std::make_unique<buff>(VECTOR2{ pos.x, pos.y - 130 }, 0, 0));
+		BuildCard::Instance().Register(std::make_unique<debuff>(VECTOR2{ pos.x, pos.y + 120 }, 0, 0));
 
 	}
 	~ExtraBulletBuild() {}
