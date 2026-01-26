@@ -11,7 +11,7 @@
 #include"SceneMap.h"
 #include"audio.h"
 #include "Effect.h"
-extern int moveTile;	//‰½ƒ}ƒXi‚ñ‚¾‚©‚ğƒJƒEƒ“ƒg
+extern int moveTile;	//ä½•ãƒã‚¹é€²ã‚“ã ã‹ã‚’ã‚«ã‚¦ãƒ³ãƒˆ
 int timeClear;
 bool death;
 SceneGame::SceneGame()
@@ -51,29 +51,35 @@ void SceneGame::update()
 		music::stop();
 		music::play(battle,true);
 		setBlendMode(Blender::BS_ALPHA);
-		//ƒ^[ƒQƒbƒgİ’è
+		//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆè¨­å®š
 		EnemyManager::instance().setTarget(player);
-		//ƒGƒlƒ~[ƒZƒbƒg@ˆø”‚ªƒXƒe[ƒW”Ô†
-		SwitchEnemyType();	//‚±‚±‚Å“G‚Ìí—Ş‚ğØ‚è‘Ö‚¦‚Ä‚é@ƒfƒoƒbƒO‚ÌÛ‚ÍÁ‚µ‚ÄOK
+		//ã‚¨ãƒãƒŸãƒ¼ã‚»ãƒƒãƒˆã€€å¼•æ•°ãŒã‚¹ãƒ†ãƒ¼ã‚¸ç•ªå·
+		SwitchEnemyType();	//ã“ã“ã§æ•µã®ç¨®é¡ã‚’åˆ‡ã‚Šæ›¿ãˆã¦ã‚‹ã€€ãƒ‡ãƒãƒƒã‚°ã®éš›ã¯æ¶ˆã—ã¦OK
 		/*EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ 1500.0f, 200.0f }));
 		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ -500.0f, 250.0f }));
 		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ -300.0f, 600.0f }));*/
 		SwitchStage();
-		//EnemyManager::instance().setStage(stages.back().get()->getStageNo());	//1‚ªÅ‰
+		{
+			if(moveTile>=3)
+			EnemyManager::instance().setPopNum(1);
+		}
+		
+		
+		//EnemyManager::instance().setStage(stages.back().get()->getStageNo());	//1ãŒæœ€åˆ
 		stages.at(0).get()->init();
 
 		state++;
 
 	case 2:
 
-		//ŠÔŒvZi•bj
+		//æ™‚é–“è¨ˆç®—ï¼ˆç§’ï¼‰
 		if (!death)
 			frame++;
 		if (frame % 60 == 0)
 			timer++;
 		camera.update(player);
 
-		//player@boss@Õ“Ë”»’è
+		//playerã€€bossã€€è¡çªåˆ¤å®š
 		/*EnemyBoss* b = EnemyManager::instance().getBoss();
 		if (b)
 		{
@@ -81,7 +87,7 @@ void SceneGame::update()
 		}*/
 		player.update();
 
-		//“y‘ä‚Ì“–‚½‚è”»’è
+		//åœŸå°ã®å½“ãŸã‚Šåˆ¤å®š
 		stages.back().get()->checkFootingCollision(player);
 
 		EnemyManager::instance().update(camera);
@@ -90,13 +96,13 @@ void SceneGame::update()
 		//stage02.update();
 		stages.at(0).get()->update();
 
-		//ƒfƒoƒbƒO—p
+		//ãƒ‡ãƒãƒƒã‚°ç”¨
 		if (TRG(0) & PAD_SELECT)
 		{
 			ISCENE::nextScene = SCENE_MAP;
 		}
 
-		//2•ª‚­‚ç‚¢‚½‚Á‚½‚çƒQ[ƒ€I—¹@ƒ}ƒbƒv‚Ö‘JˆÚ
+		//2åˆ†ãã‚‰ã„ãŸã£ãŸã‚‰ã‚²ãƒ¼ãƒ çµ‚äº†ã€€ãƒãƒƒãƒ—ã¸é·ç§»
 		if (moveTile != 6 && timer == 60)
 		{
 			Coin::AddCoinNum(800);
@@ -104,7 +110,7 @@ void SceneGame::update()
 		}
 			
 
-		//“|‚³‚ê‚½‚çƒŠƒUƒ‹ƒg‚Ö
+		//å€’ã•ã‚ŒãŸã‚‰ãƒªã‚¶ãƒ«ãƒˆã¸
 		if (player.isDeath())
 			ISCENE::nextScene = SCENE_RESULT;
 		
@@ -134,42 +140,45 @@ void SceneGame::render()
 	coinUi.render();
 	textUI_Manager::Instance().render(camera);
 
-	// Œ…”‚ğ‹‚ß‚é
-	int num = 60-timer;
-	int temp = num;
-	int digit = 1;
-	while (temp >= 10)
+	if (moveTile < 6)
 	{
-		temp /= 10;
-		digit *= 10;
-	}
+		// æ¡æ•°ã‚’æ±‚ã‚ã‚‹
+		int num = 60 - timer;
+		int temp = num;
+		int digit = 1;
+		while (temp >= 10)
+		{
+			temp /= 10;
+			digit *= 10;
+		}
 
-	// ‘å‚«‚¢Œ…‚©‚çæ‚èo‚·
-	int i = 0;
-	while (digit > 0)
-	{
-		int d = num / digit;   // æ“ª‚ÌŒ…
+		// å¤§ãã„æ¡ã‹ã‚‰å–ã‚Šå‡ºã™
+		int i = 0;
+		while (digit > 0)
+		{
+			int d = num / digit;   // å…ˆé ­ã®æ¡
 
-		char str = (d + '0');
-		std::string strin(1, str);
-		text_out(7, strin, SCREEN_W*0.5f + i * 30-20 , SCREEN_H*0.1f - 20, 1.0f,1.0f, 1.0f, 1.0f, 1.0f, 1.0f,TEXT_ALIGN::MIDDLE);
-		num %= digit;          // æ“ªŒ…‚ğíœ
-		digit /= 10;
-		i++;
+			char str = (d + '0');
+			std::string strin(1, str);
+			text_out(7, strin, SCREEN_W * 0.5f + i * 30 - 20, SCREEN_H * 0.1f - 20, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, TEXT_ALIGN::MIDDLE);
+			num %= digit;          // å…ˆé ­æ¡ã‚’å‰Šé™¤
+			digit /= 10;
+			i++;
+		}
 	}
 }
 
 
 void SceneGame::deinit()
 {
-	//“G‚ÌƒNƒŠƒA
+	//æ•µã®ã‚¯ãƒªã‚¢
 	EnemyManager::instance().clear();
 	player.deinit();
 
-	//‹…‚ğ‘Síœ
+	//çƒã‚’å…¨å‰Šé™¤
 	ProjectileManager::Instance().Clear();
 
-	//ƒGƒtƒFƒNƒg‚ÌƒNƒŠƒA
+	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ã‚¯ãƒªã‚¢
 	EffektManager::Instance().clear();
 
 	EnemyManager::instance().setCameraNull();
@@ -191,7 +200,7 @@ void SceneGame::deleteSprite()
 
 void SceneGame::Collision()
 {
-	//player¨enemy
+	//playerâ†’enemy
 	EnemyManager& enemyManager = EnemyManager::instance();
 	int playerProjectileCount  = ProjectileManager::Instance().GetPlayerProjectileCount();
 	int enemyCount             = enemyManager.GetEnemyCount();
@@ -204,23 +213,23 @@ void SceneGame::Collision()
 		for (int j = 0; j < enemyCount; j++)
 		{
 			Enemy* e = enemyManager.GetEnemy(j);
-			if (e->getInvincibleTimer() <= 0)		//–³“GŠÔ’†‚Í“–‚½‚è”»’è‚ğæ‚ç‚È‚¢
+			if (e->getInvincibleTimer() <= 0)		//ç„¡æ•µæ™‚é–“ä¸­ã¯å½“ãŸã‚Šåˆ¤å®šã‚’å–ã‚‰ãªã„
 			{
-				//“–‚½‚è”»’è
+				//å½“ãŸã‚Šåˆ¤å®š
 				if (hitCircle(p->getPos(), p->getRadius(), e->getPos(), e->getRadius()))
 				{
 					//p->Destroy();
-					EffektManager::Instance().Register(new Effect(*e));	//ƒqƒbƒgƒGƒtƒFƒNƒg
+					EffektManager::Instance().Register(new Effect(*e));	//ãƒ’ãƒƒãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
 
 					//if (p->onHit())
 					{
 						e->degHp(e->calcProtectingDamage(p->getDamage()));
-						e->setInvincibleTimer(3.5f);
+						e->setInvincibleTimer(1.0f);
 						e->setHitFlag(true);
 						//textUI_Manager::Instance().spawnAddText(player);
 						//textUI_Manager::Instance().spawnDegText(*e);
 
-						//ŒyUŒ‚‚È‚ç
+						//è»½æ”»æ’ƒãªã‚‰
 						if (p->GetOwnerId() == Projectile::kinds::light)
 						{
 							if (!Build::lightChange)
@@ -232,16 +241,17 @@ void SceneGame::Collision()
 							textUI_Manager::Instance().spawnAddText(player, Coin::LightAttackReward());
 						}
 
-						//dUŒ‚‚È‚ç
+						//é‡æ”»æ’ƒãªã‚‰
 						if (p->GetOwnerId() == Projectile::kinds::heavy)
 						{
 							music::play(P_HeavyA);
+							e->setInvincibleTimer(5.5f);
 							Coin::AddCoinNum(Coin::HeavyAttackReward());
 							Coin::AddGotCoin(Coin::HeavyAttackReward());
 							textUI_Manager::Instance().spawnAddText(player, Coin::HeavyAttackReward());
 						}
 
-						//UŒ‚‚ğ“–‚Ä‚½‚ç’ÇŒ‚	Œ»İ“–‚Ä‚Ä‚àƒRƒCƒ“‚Ì•ÔŠÒ‚Í–³‚µ
+						//æ”»æ’ƒã‚’å½“ã¦ãŸã‚‰è¿½æ’ƒ	ç¾åœ¨å½“ã¦ã¦ã‚‚ã‚³ã‚¤ãƒ³ã®è¿”é‚„ã¯ç„¡ã—
 						if (p->GetOwnerId() != Projectile::kinds::pursuit && Build::extraBullet)
 						{
 							p->onHit();
@@ -267,19 +277,19 @@ void SceneGame::Collision()
 		}
 	}
 
-	//’Ç”ö’e
+	//è¿½å°¾å¼¾
 	for (int l = 0; l < pursuitCount; l++)
 	{
 		Projectile* k = ProjectileManager::Instance().GetPursuitProjectile(l);
 		for (int j = 0; j < enemyCount; j++)
 		{
 			Enemy* e = enemyManager.GetEnemy(j);
-			if (e->getInvincibleTimer() <= 0)		//–³“GŠÔ’†‚Í“–‚½‚è”»’è‚ğæ‚ç‚È‚¢
+			if (e->getInvincibleTimer() <= 0)		//ç„¡æ•µæ™‚é–“ä¸­ã¯å½“ãŸã‚Šåˆ¤å®šã‚’å–ã‚‰ãªã„
 			{
-				//“–‚½‚è”»’è
+				//å½“ãŸã‚Šåˆ¤å®š
 				if (hitCircle(k->getPos(), k->getRadius(), e->getPos(), e->getRadius()))
 				{
-					EffektManager::Instance().Register(new Effect(*e));	//ƒqƒbƒgƒGƒtƒFƒNƒg
+					EffektManager::Instance().Register(new Effect(*e));	//ãƒ’ãƒƒãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
 
 					if (k->onHit())
 					{
@@ -310,8 +320,8 @@ void SceneGame::Collision()
 		}
 	}
 
-	//enemy¨player
-	if (player.getInvincibleTimer() <= 0&&player.getAct()!=Player::ACT::DEATH)		//–³“GŠÔ’†‚Ì‚İ
+	//enemyâ†’player
+	if (player.getInvincibleTimer() <= 0&&player.getAct()!=Player::ACT::DEATH)		//ç„¡æ•µæ™‚é–“ä¸­ã®ã¿
 	{
 		int EnemyProjectileCount = ProjectileManager::Instance().GetEnemyProjectileCount();
 		for (int i = 0; i < EnemyProjectileCount; i++)
@@ -319,10 +329,10 @@ void SceneGame::Collision()
 			Projectile* e = ProjectileManager::Instance().GetEnemyProjectile(i);
 			for (int j = 0; j < enemyCount; j++)
 			{
-				//“–‚½‚è”»’è
+				//å½“ãŸã‚Šåˆ¤å®š
 				if (hitCircle(player.getPos(), player.getRadius(), e->getPos(), e->getRadius()))
 				{
-					EffektManager::Instance().Register(new EffectP(player));	//ƒqƒbƒgƒGƒtƒFƒNƒg
+					EffektManager::Instance().Register(new EffectP(player));	//ãƒ’ãƒƒãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
 					//e->Destroy();
 					if (e->onHit())
 					{
@@ -338,7 +348,7 @@ void SceneGame::Collision()
 		}
 	}
 
-	//boss->player‘Ì‚Ì”»’è
+	//boss->playerä½“ã®åˆ¤å®š
 	EnemyBoss* b = EnemyManager::instance().getBoss();
 	if (b)
 	{
@@ -346,7 +356,7 @@ void SceneGame::Collision()
 		{
 			if (hitCircle(player.getPos(), player.getRadius(), b->getPos(), b->getRadius()))
 			{
-				EffektManager::Instance().Register(new EffectP(player));	//ƒqƒbƒgƒGƒtƒFƒNƒg
+				EffektManager::Instance().Register(new EffectP(player));	//ãƒ’ãƒƒãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
 				music::play(P_hit);
 				CAMERA::shake(VECTOR2{ rand() % 10 - 5.0f, -static_cast<float>(rand() % 20) });
 				Coin::DegCoinNum(player.calcProtectingDamage(b->getATK()));
@@ -368,9 +378,9 @@ void SceneGame::SwitchStage()
 void SceneGame::SwitchEnemyType()
 {
 	if (moveTile == 6)
-		EnemyManager::instance().setStage(2);	//2‚ª‚Ú‚·
+		EnemyManager::instance().setStage(2);	//2ãŒã¼ã™
 
 	else
-		EnemyManager::instance().setStage(1);	//1‚ª‚´‚±
+		EnemyManager::instance().setStage(1);	//1ãŒã–ã“
 }
 

@@ -22,7 +22,7 @@ std::unique_ptr<IEnemySpawnRule> SpawnRuleFactory::create(int stageNo)
 void Statge1SpawnRule::update()
 {
 	//最大数チェック  最大数ならリターン
-	if (EnemyManager::instance().GetEnemyCount() >= 4)	return;
+	if (EnemyManager::instance().GetEnemyCount() >= 3+spawnNum)	return;
 
 	//沸き位置設定
 	VECTOR2 pos = EnemyManager::instance().setSpawnPos();

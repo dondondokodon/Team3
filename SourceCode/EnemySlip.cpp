@@ -32,7 +32,7 @@ EnemySlip::EnemySlip()
 
 EnemySlip::EnemySlip(VECTOR2 pos)
 {
-	hp               = 100;
+	hp               = 80;
 	atk              = 20;
 	texSize          = { 320.0f,320.0f };
 	texPos           = { 0.0f,0.0f };
@@ -61,8 +61,8 @@ EnemySlip::EnemySlip(VECTOR2 pos)
 
 void EnemySlip::init()
 {
-	hp                 = 200;
-	atk                =60;
+	hp                 = 110;
+	atk                = 45;
 	texSize            = { 320.0f,320.0f };
 	texPos             = { 0.0f,0.0f };
 	//pos              = { 1000,500 };
