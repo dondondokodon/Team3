@@ -77,7 +77,7 @@ bool Events::update()
 		{
 			Coin::DegCoinNum(Coin::GetCoinNum() * 0.4f);
 			//特別なビルドをアンロック
-
+			Build::extraJump = true;
 			return true;
 		}
 		break;
@@ -252,10 +252,12 @@ bool Event2::update()
 #endif
 
 			//攻撃に使用するコインの量を増やす
-			PlayerEffect::attackCoinUp = true;
+			//PlayerEffect::attackCoinUp = true;
+			Build::extraCost = true;
 
 			//被ダメージ上昇
-			PlayerEffect::defDef = true;
+			//PlayerEffect::defDef = true;
+			Build::defenseDown = true;
 
 			return true;
 		}
@@ -275,6 +277,7 @@ bool Event2::update()
 			//TODO::パーク
 #endif
 			//複数のパーク入手
+
 
 			//コイン減少
 			Coin::DegCoinNum(Coin::GetCoinNum() * 0.4f);

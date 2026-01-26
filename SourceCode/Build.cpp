@@ -7,7 +7,7 @@ bool Build::extraVeryCost = false;
 bool Build::extraMotionRapid = false;
 bool Build::extraMoonGravity = false;
 bool Build::extraBullet = false;
-
+bool Build::defenseDown = false;
 
 //ジャンプ追加
 int ExtraJump::AddMaxJump() const
@@ -16,9 +16,14 @@ int ExtraJump::AddMaxJump() const
 }
 
 //重攻撃時コストup
-float CostUp::AddCost() const
+float CostUp::AddHeavyCost() const
 {
 	return 0.2f;	//0.1+0.2
+}
+
+float CostUp::AddLightCost() const
+{
+	return 0.04f;	//0.01+0.04
 }
 
 //重攻撃時コスト超up
@@ -61,4 +66,10 @@ VECTOR2 moonGravity::degGravity() const
 float moonGravity::degDefense() const
 {
 	return -30.0f;	//30%down
+}
+
+//イベント用のやつ
+float ReceivedUp::degDefense() const
+{
+	return -10.0f;
 }

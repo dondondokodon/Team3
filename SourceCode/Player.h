@@ -32,7 +32,7 @@ public:
 
 	int GetMaxJump();
 	void ResetJumpCount() { jumpCount = GetMaxJump(); }
-	void setHeavyCost();
+	void setCost();
 	void setHeavyVeryCost();
 	void setAttackFrame();
 	void setGravity();
