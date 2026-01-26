@@ -105,15 +105,14 @@ void Player::init()
 
 	//texSize = { 320,320 };
 
-		//攻撃コイン消費アップ効果
-	if (PlayerEffect::attackCoinUp)
-	{
-		//lightBetRatio *= 2;
-		//heavyBetRatio *= 2;
-		Build::extraCost = true;
-		PlayerEffect::attackCoinUp = false;
+	//	//攻撃コイン消費アップ効果
+	//if (PlayerEffect::attackCoinUp)
+	//{
+	//	//lightBetRatio *= 2;
+	//	//heavyBetRatio *= 2;
+	//	PlayerEffect::attackCoinUp = false;
 
-	}
+	//}
 
 	//3段ジャンプ
 	if (Build::extraJump)
@@ -135,7 +134,12 @@ void Player::init()
 	if (Build::extraMoonGravity)
 		addEffect(std::make_unique<moonGravity>());
 
-	setHeavyCost();
+
+	//イベントでの防御ダウン
+	if (Build::defenseDown)
+		addEffect(std::make_unique<ReceivedUp>());
+
+	setCost();
 	setHeavyVeryCost();
 	setAttackFrame();
 	setGravity();
@@ -154,11 +158,11 @@ void Player::deinit()
 void Player::update()
 {
 	//効果があったら
-	if (PlayerEffect::defDef)
-	{
-		def = -0.3f;
-		PlayerEffect::defDef = false;
-	}
+	//if (PlayerEffect::defDef)
+	//{
+	//	def = -0.3f;
+	//	PlayerEffect::defDef = false;
+	//}
 
 	//描画位置補正 状態遷移より上に置かないとサイズとかが更新されてから描画されるので上に置く
 	if (drawPosFlag)
@@ -249,15 +253,15 @@ void Player::update()
 
 
 	setBlendMode(Blender::BS_ALPHA);
-	debug::setString("SPEEDX:%f", speed.x);
-	debug::setString("SPEEDY:%f", speed.y);
-	debug::setString("positionX:%f", pos.x);
-	debug::setString("positionY:%f", pos.y);
-	debug::setString("jumpCount:%d", jumpCount);
-	debug::setString("act:%d", act);
-	debug::setString("isGround:%d", isGround);
-	debug::setString("buildCount:%d", builds.size());
-	debug::setString("heavyCost:%d", getHeavyRatio());
+	//debug::setString("SPEEDX:%f", speed.x);
+	//debug::setString("SPEEDY:%f", speed.y);
+	//debug::setString("positionX:%f", pos.x);
+	//debug::setString("positionY:%f", pos.y);
+	//debug::setString("jumpCount:%d", jumpCount);
+	//debug::setString("act:%d", act);
+	//debug::setString("isGround:%d", isGround);
+	//debug::setString("buildCount:%d", builds.size());
+	//debug::setString("heavyCost:%d", getHeavyRatio());
 
 }
 
@@ -770,11 +774,17 @@ int Player::GetMaxJump()
 	return baseMaxJump + bounce;
 }
 
-void Player::setHeavyCost()
+void Player::setCost()
 {
 	float addCost = 0.0f;
-	for (auto& e : builds)	addCost += e->AddCost();
+	float addLight = 0.0f;
+	for (auto& e : builds) 
+	{ 
+		addCost += e->AddHeavyCost();
+		addLight += e->AddLightCost();
+	}
 	addHeavyRatio(addCost);
+	addLightRatio(addLight);
 }
 
 void Player::setHeavyVeryCost()

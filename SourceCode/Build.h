@@ -20,10 +20,12 @@ public:
 	static bool extraMotionRapid;
 	static bool extraMoonGravity;
 	static bool extraBullet;
+	static bool defenseDown;
 
 	//中身
 	virtual int AddMaxJump() const { return 0; }
-	virtual float AddCost() const { return 0.0f; }
+	virtual float AddHeavyCost() const { return 0.0f; }
+	virtual float AddLightCost() const { return 0.0f; }
 	virtual float AddVeryCost() const { return 0.0f; }
 	virtual VECTOR2 DegProjectileSpeed() const { return { 0.0f,0.0f }; }
 	virtual VECTOR2 AddProjectileScale() const { return { 0.0f,0.0f }; }
@@ -50,8 +52,19 @@ class CostUp :public Build
 {
 public:
 	~CostUp(){}
-	float AddCost() const;
+	float AddHeavyCost() const;
+	float AddLightCost() const;
+
 };
+
+//被ダメージアップ
+class ReceivedUp : public Build
+{
+public:
+	~ReceivedUp(){}
+	float degDefense()const;
+};
+
 
 //重攻撃時コイン消費量up+弾速低下+サイズup
 class VeryCostUp :public Build

@@ -251,7 +251,7 @@ void SceneBuildSelect::setBuild()
 	//Žã‚¢ƒrƒ‹ƒh
 	std::vector<std::pair<int, Factory>> weakPool =
 	{
-		{BuildCard::kinds::EXTRAJUMP,  [](VECTOR2 p) {return std::make_unique < ExtraJumpBuild>(p); }},
+		//{BuildCard::kinds::EXTRAJUMP,  [](VECTOR2 p) {return std::make_unique < ExtraJumpBuild>(p); }},
 		{BuildCard::kinds::MOTIONRAPID,[](VECTOR2 p) {return std::make_unique < MotionRapidBuild>(p); }},
 		{BuildCard::kinds::MOONGRAVITY,[](VECTOR2 p) {return std::make_unique < MoonGravityBuild>(p); }},
 

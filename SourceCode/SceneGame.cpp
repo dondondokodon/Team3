@@ -326,8 +326,9 @@ void SceneGame::Collision()
 					{
 						music::play(P_hit);
 						CAMERA::shake(VECTOR2{ rand() % 10 - 5.0f, -static_cast<float>(rand() % 20) });
-						Coin::DegCoinNum(player.calcProtectingDamage(e->getDamage()));
-						textUI_Manager::Instance().spawnDegText(player, -player.calcProtectingDamage(e->getDamage()));
+						int dmg = player.calcProtectingDamage(e->getDamage());
+						Coin::DegCoinNum(dmg);
+						textUI_Manager::Instance().spawnDegText(player, -dmg);
 						player.setInvincibleTimer(1.5f);
 					}
 				}
@@ -347,7 +348,7 @@ void SceneGame::Collision()
 				music::play(P_hit);
 				CAMERA::shake(VECTOR2{ rand() % 10 - 5.0f, -static_cast<float>(rand() % 20) });
 				Coin::DegCoinNum(player.calcProtectingDamage(b->getATK()));
-				textUI_Manager::Instance().spawnDegText(player, -b->getATK());
+				textUI_Manager::Instance().spawnDegText(player, -player.calcProtectingDamage(b->getATK()));
 				player.setInvincibleTimer(5.5f);
 			}
 		}
