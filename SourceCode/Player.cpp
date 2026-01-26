@@ -103,6 +103,10 @@ void Player::init()
 	setFallEnergy(VECTOR2{ 0.0f,1.3f });
 	setDef(0);
 
+	maxSpeed = 7;
+	Coin::lightRatio = 2.5f;
+	Coin::heavyRatio = 1.5f;
+
 	//texSize = { 320,320 };
 
 	//	//攻撃コイン消費アップ効果
@@ -139,11 +143,20 @@ void Player::init()
 	if (Build::defenseDown)
 		addEffect(std::make_unique<ReceivedUp>());
 
+	//返ってくるコインの枚数アップ
+	if (Build::extraReward)
+		addEffect(std::make_unique<ExtraReward>());
+	
+
 	setCost();
 	setHeavyVeryCost();
 	setAttackFrame();
 	setGravity();
 	setDEF();
+	setRewardRatio();
+
+	MAX_SPEED.x = maxSpeed;
+
 }
 
 void Player::deinit()
@@ -782,6 +795,8 @@ void Player::setCost()
 	{ 
 		addCost += e->AddHeavyCost();
 		addLight += e->AddLightCost();
+		addLight -= e->degLightCost();
+		addCost -= e->degHeavyCost();
 	}
 	addHeavyRatio(addCost);
 	addLightRatio(addLight);
@@ -809,7 +824,11 @@ void Player::setHeavyVeryCost()
 void Player::setAttackFrame()
 {
 	int frame = 0;
-	for (auto& e : builds)	frame += e->degMotionFrameSpeed();
+	for (auto& e : builds) 
+	{
+		frame += e->degMotionFrameSpeed(); 
+		frame += -e->addMotionFrameSpeed();
+	}
 	degAttackFrame(frame);
 
 }
@@ -831,4 +850,19 @@ void Player::setDEF()
 	setDef(def);
 
 
+}
+
+void Player::setRewardRatio()
+{
+	float addRatio = 0;
+	float degSpeed = 0;
+	for (auto& e : builds) 
+	{
+		addRatio += e->AddReward(); 
+		degSpeed += e->DegMoveSpeed();
+	}
+
+	setSpeedX(-degSpeed);
+	Coin::lightRatio += addRatio;
+	Coin::heavyRatio += addRatio;
 }

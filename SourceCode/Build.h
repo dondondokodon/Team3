@@ -21,6 +21,7 @@ public:
 	static bool extraMoonGravity;
 	static bool extraBullet;
 	static bool defenseDown;
+	static bool extraReward;
 
 	//中身
 	virtual int AddMaxJump() const { return 0; }
@@ -32,8 +33,14 @@ public:
 	virtual float AddProjectileRadius() const { return  0.0f; }
 	virtual float DegProjectileLife()const { return 0.0f; }
 	virtual int degMotionFrameSpeed()const { return 0.0f; }
+	virtual int addMotionFrameSpeed()const { return 0.0f; }
 	virtual VECTOR2 degGravity() const { return { 0.0f,0.0f }; }
 	virtual float degDefense() const { return 0.0f; }
+	virtual float AddReward()const { return 0.0f; }
+	virtual float degLightCost()const { return 0.0f; }
+	virtual float degHeavyCost()const { return 0.0f; }
+	virtual float DegMoveSpeed()const { return 0.0f; }
+
 
 
 };
@@ -47,7 +54,7 @@ public:
 	int AddMaxJump() const;
 };
 
-//重攻撃時コイン消費量up
+//攻撃時コイン消費量up
 class CostUp :public Build
 {
 public:
@@ -78,12 +85,14 @@ public:
 	//float DegProjectileLife()const;
 };
 
-//攻撃測上昇+サイズDown
+//攻撃速度上昇+攻撃力減少
 class MotionRapid :public Build
 {
 public:
 	~MotionRapid(){}
 	int degMotionFrameSpeed()const;
+	float degLightCost()const;
+	float degHeavyCost()const;
 	
 };
 
@@ -94,4 +103,13 @@ public:
 	~moonGravity(){}
 	VECTOR2 degGravity() const;
 	float degDefense() const;
+};
+
+//コインの獲得枚数Up
+class ExtraReward : public Build
+{
+public:
+	~ExtraReward() {}
+	float AddReward()const;
+	float DegMoveSpeed()const;
 };

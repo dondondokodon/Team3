@@ -8,6 +8,7 @@ bool Build::extraMotionRapid = false;
 bool Build::extraMoonGravity = false;
 bool Build::extraBullet = false;
 bool Build::defenseDown = false;
+bool Build::extraReward = false;
 
 //ジャンプ追加
 int ExtraJump::AddMaxJump() const
@@ -18,18 +19,18 @@ int ExtraJump::AddMaxJump() const
 //重攻撃時コストup
 float CostUp::AddHeavyCost() const
 {
-	return 0.2f;	//0.1+0.2
+	return 0.1f;	//0.1+0.1
 }
 
 float CostUp::AddLightCost() const
 {
-	return 0.04f;	//0.01+0.04
+	return 0.005f;	//0.01+0.005
 }
 
 //重攻撃時コスト超up
 float VeryCostUp::AddVeryCost() const
 {
-	return 0.4f;	//0.1+0.4
+	return 0.2f;	//0.1+0.2
 }
 
 //弾速減
@@ -54,9 +55,19 @@ float VeryCostUp::AddProjectileRadius() const
 int MotionRapid::degMotionFrameSpeed()const
 {
 	return 2;	//frame-2
+
+}
+float MotionRapid::degLightCost()const
+{
+	return 0.0002f;
+}
+float MotionRapid::degHeavyCost()const
+{
+	return 0.02f;
 }
 
-//重力を6分の1に
+
+//重力を6分の1に（イメージ）
 VECTOR2 moonGravity::degGravity() const
 {
 	return { 0.0f,0.6f };	//1.3 * 0.6
@@ -65,11 +76,22 @@ VECTOR2 moonGravity::degGravity() const
 //防御力を下げる
 float moonGravity::degDefense() const
 {
-	return -30.0f;	//30%down
+	return -10.0f;	//10%down
 }
 
 //イベント用のやつ
 float ReceivedUp::degDefense() const
 {
 	return -10.0f;
+}
+
+//コインの返還枚数Up
+float ExtraReward::AddReward() const
+{
+	return 0.5f; 
+}
+
+float ExtraReward::DegMoveSpeed()const
+{
+	return 1.5;
 }
