@@ -3,6 +3,7 @@
 #include "Build.h"
 #include"audio.h"
 #include "PlayerEffect.h"
+#include "Coin.h"
 
 
 int moveTile = 0;	//何マス進んだかをカウント
@@ -13,6 +14,7 @@ bool resetMap = false;
 
 void SceneMap::init()
 {
+	BuildNum = 0;
 	i = 0;
 	//ShopAndBattle();	//後でランダムで出るようにしたら完成？
 	state = 0;
@@ -30,7 +32,7 @@ void SceneMap::update()
 	case 1:
 		//music::play(main, true);
 		setBlendMode(Blender::BS_ALPHA);
-
+		gotBuilds();
 		if (resetMap)
 			Clear();
 		resetMap = false;
@@ -100,6 +102,9 @@ void SceneMap::render()
 		tile->render();
 	}
 
+	text_out(7, std::to_string(Coin::GetCoinNum()), 300, 650, 2, 2, 1, 1, 0);
+	text_out(7, std::to_string(BuildNum), 1050, 650, 2, 2, 1, 1, 1);
+	
 }
 
 void SceneMap::deinit()
@@ -116,6 +121,26 @@ void SceneMap::deinit()
 void SceneMap::deleteSprite()
 {
 
+}
+
+void SceneMap::gotBuilds()
+{	
+	if (Build::extraJump)
+		BuildNum++;
+	if (Build::extraCost)
+		BuildNum++;
+	if (Build::extraVeryCost)
+		BuildNum++;
+	if (Build::extraMotionRapid)
+		BuildNum++;
+	if (Build::extraMoonGravity)
+		BuildNum++;
+	if (Build::extraBullet)
+		BuildNum++;
+	if (Build::defenseDown)
+		BuildNum++;
+	if (Build::extraReward)
+		BuildNum++;
 }
 
 

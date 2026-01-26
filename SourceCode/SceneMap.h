@@ -3,7 +3,7 @@
 #include"../GameLib/game_lib.h"
 #include "CAMERA.h"
 #include"ImageManager.h"
-
+#include"Build.h"
 
 
 class Tile
@@ -258,6 +258,7 @@ public:
 	void nextSpawn();
 	void routeMapping();
 	void Signpost();
+	void gotBuilds();
 
 	//”æ“¾
 	int GetTileCount()const { return static_cast<int>(tiles.size()); }
@@ -283,6 +284,9 @@ private:
 
 	float posMemory_y1;
 	float posMemory_y2;
+
+	int BuildNum;
+
 
 	//ƒ}ƒX‚ğ“ü‚ê‚é”z—ñ
 	std::vector<std::unique_ptr<Tile>>	tiles;
