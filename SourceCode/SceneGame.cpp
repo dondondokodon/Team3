@@ -135,7 +135,7 @@ void SceneGame::render()
 	EffektManager::Instance().render(camera);
 	sprite_render(spr.get(), SCREEN_W * 0.5f, SCREEN_H-15,1.0f,1.0f,0.0f,0.0f,1278.0f,30.0f,1278*0.5f,15.0f);
 	player.cameraRender(camera);
-	player.hitAreaRender(camera);
+	//player.hitAreaRender(camera);
 	ProjectileManager::Instance().Render(camera);
 	coinUi.render();
 	textUI_Manager::Instance().render(camera);

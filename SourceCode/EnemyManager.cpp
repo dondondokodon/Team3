@@ -86,7 +86,7 @@ void EnemyManager::render(CAMERA camera)
 	for (auto& e : enemies)
 	{
 		e->cameraRender(camera);
-		e->hitAreaRender(camera);
+		//e->hitAreaRender(camera);
 	}
 }
 

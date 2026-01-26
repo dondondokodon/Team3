@@ -67,17 +67,17 @@ void ProjectileManager::Render(CAMERA& camera)
 	for (Projectile* projectile : playerProjectiles)
 	{
 		projectile->cameraRender(camera);
-		GameLib::primitive::circle(projectile->getPos() - camera.getPos(), projectile->getRadius(), { 1, 1 }, 0, { 1, 1, 1, 0.5f });
+		//GameLib::primitive::circle(projectile->getPos() - camera.getPos(), projectile->getRadius(), { 1, 1 }, 0, { 1, 1, 1, 0.5f });
 	}
 	for (Projectile* projectile : enemyProjectiles)
 	{
 		projectile->cameraRender(camera);
-		GameLib::primitive::circle(projectile->getPos() - camera.getPos(), projectile->getRadius(), { 1, 1 }, 0, { 1, 1, 1, 0.5f });
+		//GameLib::primitive::circle(projectile->getPos() - camera.getPos(), projectile->getRadius(), { 1, 1 }, 0, { 1, 1, 1, 0.5f });
 	}
 	for (Projectile* projectile : pursuitProjectiles)
 	{
 		projectile->cameraRender(camera);
-		GameLib::primitive::circle(projectile->getPos() - camera.getPos(), projectile->getRadius(), { 1, 1 }, 0, { 1, 1, 1, 0.5f });
+		//GameLib::primitive::circle(projectile->getPos() - camera.getPos(), projectile->getRadius(), { 1, 1 }, 0, { 1, 1, 1, 0.5f });
 	}
 
 }
