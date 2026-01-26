@@ -1,5 +1,6 @@
 #include "Coin.h"
 #include "ImageManager.h"
+#include <string>
 
 //ƒRƒCƒ“‚Ì‰Šú’l
 int Coin::CoinNum = 1500;
@@ -31,4 +32,8 @@ CoinUi::CoinUi()
 	animeTimer = 0;
 	anime_state = 0;
 	radius = texSize.x * 0.2f * scale.x;;
+}
+
+void CoinUi::update()
+{
 }
