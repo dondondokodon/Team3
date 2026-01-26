@@ -149,11 +149,11 @@ void resultScene::init()
 void resultScene::update()
 {
 	//‰¼’u‚«
-	if (calcScore() < 500)
+	if (calcScore() < 300)
 		rank.texPos = VECTOR2{ 0,0 };
-	else if (calcScore() < 1500)
+	else if (calcScore() < 500)
 		rank.texPos = VECTOR2{ 256,0 };
-	else if (calcScore() < 3000)
+	else if (calcScore() < 1000)
 		rank.texPos = VECTOR2{ 256 * 2,0 };
 	else
 		rank.texPos = VECTOR2{ 256 * 3,0 };

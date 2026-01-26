@@ -50,6 +50,7 @@ public:
     virtual void degHp(int damage) { hp += -damage; }
     int getHp()const { return hp; }
     bool getIsAttackOn() { return isAttackOn; }
+    void setIsAttackOn(bool set) { isAttackOn = set; }
     int getAttackType() { return attackType; }
     bool getIsTargetRemoveOn() { return isTargetRemoveOn; }
     void moveHorizontalInCamera(CAMERA& camera);

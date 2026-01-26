@@ -41,6 +41,7 @@ void EnemyManager::update(CAMERA camera)
 			}
 			}
 			
+			(*it)->setIsAttackOn(false);
 		}
 		//Ž€‚ñ‚Å‚½‚ç
 		if ((*it)->isDeath())
