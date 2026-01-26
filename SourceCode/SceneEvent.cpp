@@ -6,6 +6,7 @@ bool flag = false;
 void SceneEvent::init()
 {
 	state = 0;
+	//coinUi.setSprite(ImageManager::Instance().getSprite(ImageManager::SpriteNum::coin));
 }
 
 void SceneEvent::update()
@@ -18,6 +19,7 @@ void SceneEvent::update()
 		setBlendMode(Blender::BS_ALPHA);
 
 		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::EventBack);
+
 
 		int n;
 		flag ? n=5 : n=4;
@@ -66,6 +68,8 @@ void SceneEvent::render()
 	sprite_render(spr.get(), 0, 0, 1, 1, 0, 0, 1280, 720, 0, 0, 0, 1, 1, 1, 1);
 
 	event->render();
+
+	//coinUi.render();
 }
 
 

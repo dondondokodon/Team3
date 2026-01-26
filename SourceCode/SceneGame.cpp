@@ -98,7 +98,11 @@ void SceneGame::update()
 
 		//2分くらいたったらゲーム終了　マップへ遷移
 		if (moveTile != 6 && timer == 60)
+		{
+			Coin::AddCoinNum(800);
 			ISCENE::nextScene = SCENE_MAP;
+		}
+			
 
 		//倒されたらリザルトへ
 		if (player.isDeath())

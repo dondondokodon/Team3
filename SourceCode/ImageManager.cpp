@@ -18,6 +18,7 @@ void ImageManager::load()
 	spr[bossTail].reset(GameLib::sprite_load(L"./Data/Images/sippo.png"));
 	spr[bossUltTail].reset(GameLib::sprite_load(L"./Data/Images/tail.png"));
 	spr[bossTailPull].reset(GameLib::sprite_load(L"./Data/Images/tail_hiki_mini.png"));
+	spr[bossHpUi].reset(GameLib::sprite_load(L"./Data/Images/Bhp.png"));
 	spr[Tile].reset(GameLib::sprite_load(L"./Data/Images/TileSprites.png"));
 	//spr[Battle].reset(GameLib::sprite_load(L"./Data/Images/battle.png"));
 	//spr[MiddleBoss].reset(GameLib::sprite_load(L"./Data/Images/middleBoss.png"));
