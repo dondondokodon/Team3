@@ -105,7 +105,7 @@ private:
 	bool dodgeReserve   = false;// ‰ñ”ğ—\–ñ
 	bool isDeathOn      = false;
 
-	const float  moveLimitLeft =42; //ˆÚ“®‚Å‚«‚é”ÍˆÍ¶
+	const float  moveLimitLeft =20; //ˆÚ“®‚Å‚«‚é”ÍˆÍ¶
 	const float  moveLimitRight=SCREEN_W*2+200; //ˆÚ“®‚Å‚«‚é”ÍˆÍ¶
 	
 	int baseMaxJump = 2;		//Å‘å‚ÌƒWƒƒƒ“ƒv‰ñ”

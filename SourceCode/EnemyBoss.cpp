@@ -419,7 +419,7 @@ void EnemyBoss::state(VECTOR2 targetPos)
 				decideAttack();
 			else
 				act = ATTACK2_INIT;	
-				act = ATTACK2_INIT;	
+				//act = ATTACK2_INIT;	
 		}
 
 		break;

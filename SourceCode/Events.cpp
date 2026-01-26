@@ -445,7 +445,7 @@ bool Event3::update()
 			//TODO::パーク
 #endif
 			//パーク入手
-
+		
 			return true;
 		}
 		break;
@@ -745,8 +745,8 @@ bool Event5::update()
 		drawMask |= TEXT_MSG3;
 		if (TRG(0) & PAD_START)
 		{
-			Coin::AddCoinNum(3000);
-			Coin::AddGotCoin(3000);
+			Coin::AddCoinNum(2000);
+			Coin::AddGotCoin(2000);
 			flag = false;
 			return true;
 		}
