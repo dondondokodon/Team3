@@ -19,7 +19,8 @@ public:
 		EXTRAJUMP,
 		MOTIONRAPID,
 		MOONGRAVITY,
-		EXTRABULLET
+		EXTRABULLET,
+		EXTRAREWARD,
 	};
 
 	enum rank
@@ -134,6 +135,8 @@ public:
 	virtual ~debuff() {};
 
 };
+
+
 //コストアップ
 class VeryCostUpBuild : public BuildCard
 {
@@ -153,8 +156,8 @@ public:
 		build = BuildCard::kinds::VERYCOST;
 		power = BuildCard::rank::strong;
 		price = 500;
-		BuildCard::Instance().Register(std::make_unique<buff>(VECTOR2{ pos.x, pos.y - 130 }, 0, 0));
-		BuildCard::Instance().Register(std::make_unique<debuff>(VECTOR2{ pos.x, pos.y + 120 }, 0, 0));
+		BuildCard::Instance().Register(std::make_unique<buff>(VECTOR2{ pos.x, pos.y - 130 }, 5, 1));
+		BuildCard::Instance().Register(std::make_unique<debuff>(VECTOR2{ pos.x, pos.y + 120 }, 0, 1));
 
 	}
 	~VeryCostUpBuild() {}
@@ -218,8 +221,8 @@ public:
 		build = BuildCard::kinds::MOTIONRAPID;
 		power = BuildCard::rank::weak;
 		price = 200;
-		BuildCard::Instance().Register(std::make_unique<buff>(VECTOR2{ pos.x, pos.y - 130 }, 0, 0));
-		BuildCard::Instance().Register(std::make_unique<debuff>(VECTOR2{ pos.x, pos.y + 120 }, 0, 0));
+		BuildCard::Instance().Register(std::make_unique<buff>(VECTOR2{ pos.x, pos.y - 130 }, 2, 0));
+		BuildCard::Instance().Register(std::make_unique<debuff>(VECTOR2{ pos.x, pos.y + 120 }, 1, 0));
 
 	}
 	~MotionRapidBuild() {}
@@ -252,7 +255,7 @@ public:
 		power = BuildCard::rank::weak;
 		price = 200;
 		BuildCard::Instance().Register(std::make_unique<buff>(VECTOR2{ pos.x, pos.y - 130 }, 0, 0));
-		BuildCard::Instance().Register(std::make_unique<debuff>(VECTOR2{ pos.x, pos.y + 120 }, 0, 0));
+		BuildCard::Instance().Register(std::make_unique<debuff>(VECTOR2{ pos.x, pos.y + 120 }, 3, 1));
 	}
 	~MoonGravityBuild() {}
 
@@ -283,7 +286,7 @@ public:
 		build = BuildCard::kinds::EXTRABULLET;
 		power = BuildCard::rank::strong;
 		price = 500;
-		BuildCard::Instance().Register(std::make_unique<buff>(VECTOR2{ pos.x, pos.y - 130 }, 0, 0));
+		BuildCard::Instance().Register(std::make_unique<buff>(VECTOR2{ pos.x, pos.y - 130 }, 1, 0));
 		BuildCard::Instance().Register(std::make_unique<debuff>(VECTOR2{ pos.x, pos.y + 120 }, 0, 0));
 
 	}
@@ -292,6 +295,39 @@ public:
 	void update()override 
 	{
 		Build::extraBullet = true;
+		Coin::DegCoinNum(price);
+	};
+	//void render();
+};
+
+//返還されるコインの枚数アップ
+class ExtraRewardBuild : public BuildCard
+{
+public:
+	ExtraRewardBuild(VECTOR2 pos)
+	{
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::STRONG);	//ここ差し替え
+		this->pos = pos;
+		scale = { 1,1 };
+		texPos = { 0,0 };
+		texSize = { 376,596 };
+		pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
+		color = { 1,1,1,1 };
+		speed = { 0,0 };
+		offset = { 0,0 };
+		direction = { 0,0 };
+		build = BuildCard::kinds::EXTRAREWARD;
+		power = BuildCard::rank::strong;
+		price = 900;
+		BuildCard::Instance().Register(std::make_unique<buff>(VECTOR2{ pos.x, pos.y - 130}, 0, 1));
+		BuildCard::Instance().Register(std::make_unique<debuff>(VECTOR2{ pos.x, pos.y + 120 }, 0, 0));
+
+	}
+	~ExtraRewardBuild() {}
+
+	void update()override 
+	{
+		Build::extraReward = true;
 		Coin::DegCoinNum(price);
 	};
 	//void render();

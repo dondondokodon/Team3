@@ -37,6 +37,7 @@ public:
 	void setAttackFrame();
 	void setGravity();
 	void setDEF();
+	void setRewardRatio();
 	void setHitWall(HitWall set) { targetHitWall = set; }
 	void setSpeed(VECTOR2 set) { speed = set; }
 	void setIsGround(bool set) { isGround = set; }
@@ -58,6 +59,7 @@ public:
 	void addHeavyBulletRadius(float radius) { heavyRadius += radius; }
 
 	void degAttackFrame(int frame) { attack_frame -= frame; }
+	void setSpeedX(float Speed) { maxSpeed += Speed; }
 
 	//’ÇŒ‚’e
 	float getPursuitLife()const { return lightLifeLimit; }
@@ -97,7 +99,8 @@ private:
 	int returnGold = 0;			//UŒ‚‚ğ“–‚Ä‚½‚É‹A‚Á‚Ä‚­‚é‚¨‹à
 	float lightBetRatio = 0.01f;//ŒyUŒ‚Á”ïƒRƒCƒ“Š„‡
 	float heavyBetRatio = 0.10f;	//dUŒ‚Á”ïƒRƒCƒ“Š„‡
-	const VECTOR2 MAX_SPEED;	//Å‚‘¬“x
+	VECTOR2 MAX_SPEED;	//Å‚‘¬“x
+	float maxSpeed = 7;		//ƒrƒ‹ƒh‚Å‚¢‚¶‚é—p
 	bool attack2Reserve = false;// Ÿ’eUŒ‚—\–ñ
 	bool dodgeReserve   = false;// ‰ñ”ğ—\–ñ
 	bool isDeathOn      = false;

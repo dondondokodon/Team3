@@ -77,7 +77,7 @@ bool Events::update()
 		{
 			Coin::DegCoinNum(Coin::GetCoinNum() * 0.4f);
 			//特別なビルドをアンロック
-			Build::extraJump = true;
+			Build::extraMoonGravity = true;
 			return true;
 		}
 		break;
@@ -277,6 +277,7 @@ bool Event2::update()
 			//TODO::パーク
 #endif
 			//複数のパーク入手
+			Build::extraJump = true;
 
 
 			//コイン減少

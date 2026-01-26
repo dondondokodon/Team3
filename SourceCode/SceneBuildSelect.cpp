@@ -246,6 +246,7 @@ void SceneBuildSelect::setBuild()
 	{
 		{BuildCard::kinds::VERYCOST,   [](VECTOR2 p) {return std::make_unique < VeryCostUpBuild>(p); }},
 		{BuildCard::kinds::EXTRABULLET,[](VECTOR2 p) {return std::make_unique < ExtraBulletBuild>(p); }},
+		{BuildCard::kinds::EXTRAREWARD,[](VECTOR2 p) {return std::make_unique < ExtraRewardBuild>(p); }},
 
 	};
 	//Žã‚¢ƒrƒ‹ƒh
@@ -253,7 +254,7 @@ void SceneBuildSelect::setBuild()
 	{
 		//{BuildCard::kinds::EXTRAJUMP,  [](VECTOR2 p) {return std::make_unique < ExtraJumpBuild>(p); }},
 		{BuildCard::kinds::MOTIONRAPID,[](VECTOR2 p) {return std::make_unique < MotionRapidBuild>(p); }},
-		{BuildCard::kinds::MOONGRAVITY,[](VECTOR2 p) {return std::make_unique < MoonGravityBuild>(p); }},
+		//{BuildCard::kinds::MOONGRAVITY,[](VECTOR2 p) {return std::make_unique < MoonGravityBuild>(p); }},
 
 	};
 

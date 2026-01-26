@@ -7,6 +7,9 @@ int Coin::CoinNum = 1500;
 int Coin::gotCoin = 0;
 //
 int Coin::moveCoin = Coin::CoinNum;
+float Coin::lightRatio = 2.5f;
+float Coin::heavyRatio = 1.5f;
+
 
 int Coin::GetRatioCoin(float ratio)
 {
