@@ -22,16 +22,22 @@ public:
 	static bool extraBullet;
 	static bool defenseDown;
 	static bool extraReward;
+	static bool extraSpeed;
+	static bool lightChange;
 
-	//中身
+	//中身 リファクタリングポイント
 	virtual int AddMaxJump() const { return 0; }
 	virtual float AddHeavyCost() const { return 0.0f; }
 	virtual float AddLightCost() const { return 0.0f; }
 	virtual float AddVeryCost() const { return 0.0f; }
-	virtual VECTOR2 DegProjectileSpeed() const { return { 0.0f,0.0f }; }
-	virtual VECTOR2 AddProjectileScale() const { return { 0.0f,0.0f }; }
-	virtual float AddProjectileRadius() const { return  0.0f; }
-	virtual float DegProjectileLife()const { return 0.0f; }
+	virtual VECTOR2 HeavyProjectileSpeed() const { return { 0.0f,0.0f }; }
+	virtual VECTOR2 HeavyProjectileScale() const { return { 0.0f,0.0f }; }
+	virtual float HeavyProjectileRadius() const { return  0.0f; }
+	virtual VECTOR2 LightProjectileSpeed() const { return { 0.0f,0.0f }; }
+	virtual VECTOR2 LightProjectileScale() const { return { 0.0f,0.0f }; }
+	//virtual float LightProjectileRadius() const { return  0.0f; }
+	virtual float HeavyProjectileLife()const { return 0.0f; }
+	virtual float LightProjectileLife()const { return 0.0f; }
 	virtual int degMotionFrameSpeed()const { return 0.0f; }
 	virtual int addMotionFrameSpeed()const { return 0.0f; }
 	virtual VECTOR2 degGravity() const { return { 0.0f,0.0f }; }
@@ -40,6 +46,7 @@ public:
 	virtual float degLightCost()const { return 0.0f; }
 	virtual float degHeavyCost()const { return 0.0f; }
 	virtual float DegMoveSpeed()const { return 0.0f; }
+	virtual float AddMoveSpeed()const { return 0.0f; }
 
 
 
@@ -79,9 +86,9 @@ class VeryCostUp :public Build
 public:
 	~VeryCostUp(){}
 	float AddVeryCost() const;
-	VECTOR2 DegProjectileSpeed() const;
-	VECTOR2 AddProjectileScale() const;
-	float AddProjectileRadius() const;
+	VECTOR2 HeavyProjectileSpeed() const;
+	VECTOR2 HeavyProjectileScale() const;
+	float HeavyProjectileRadius() const;
 	//float DegProjectileLife()const;
 };
 
@@ -112,4 +119,25 @@ public:
 	~ExtraReward() {}
 	float AddReward()const;
 	float DegMoveSpeed()const;
+};
+
+//移動速度アップ＋被ダメ少アップ
+class RapidSpeed : public Build
+{
+public:
+	~RapidSpeed(){}
+	float AddMoveSpeed()const;
+	float degDefense() const;
+
+};
+
+//軽攻撃変化＋寿命大幅down
+class ChangeLightAtk : public Build
+{
+public:
+	~ChangeLightAtk(){}
+	VECTOR2 LightProjectileSpeed() const;
+	VECTOR2 LightProjectileScale() const;
+	float LightProjectileLife()const;
+
 };

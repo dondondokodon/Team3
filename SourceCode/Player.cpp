@@ -147,6 +147,14 @@ void Player::init()
 	if (Build::extraReward)
 		addEffect(std::make_unique<ExtraReward>());
 	
+	//移動速度アップ
+	if (Build::extraSpeed)
+		addEffect(std::make_unique<RapidSpeed>());
+	
+	//K攻撃変化
+	if (Build::lightChange)
+		addEffect(std::make_unique<ChangeLightAtk>());
+	
 
 	setCost();
 	setHeavyVeryCost();
@@ -154,6 +162,7 @@ void Player::init()
 	setGravity();
 	setDEF();
 	setRewardRatio();
+	setLightAtk();
 
 	MAX_SPEED.x = maxSpeed;
 
@@ -811,9 +820,9 @@ void Player::setHeavyVeryCost()
 	for (auto& e : builds)
 	{
 		addCost += e->AddVeryCost();
-		speed += e->DegProjectileSpeed();
-		scale += e->AddProjectileScale();
-		radius += e->AddProjectileRadius();
+		speed += e->HeavyProjectileSpeed();
+		scale += e->HeavyProjectileScale();
+		radius += e->HeavyProjectileRadius();
 	}
 	addHeavyRatio(addCost);
 	degHeavyBulletSpeed(speed);
@@ -860,9 +869,27 @@ void Player::setRewardRatio()
 	{
 		addRatio += e->AddReward(); 
 		degSpeed += e->DegMoveSpeed();
+		degSpeed += e->AddMoveSpeed();
 	}
 
 	setSpeedX(-degSpeed);
 	Coin::lightRatio += addRatio;
 	Coin::heavyRatio += addRatio;
+}
+
+void Player::setLightAtk()
+{
+	VECTOR2 bulletSpeed = { 0,0 };
+	VECTOR2 bulletSize = { 0,0 };
+	float life = 0;
+	for (auto& e : builds)
+	{
+		bulletSpeed += e->LightProjectileSpeed();
+		bulletSize -= e->LightProjectileScale();
+		life -= e->LightProjectileLife();
+	}
+
+	setLightAtkSpeed(bulletSpeed);
+	setLightAtkSize(bulletSize);
+	setLightLife(life);
 }

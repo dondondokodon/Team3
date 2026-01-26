@@ -278,7 +278,7 @@ bool Event2::update()
 #endif
 			//複数のパーク入手
 			Build::extraJump = true;
-
+			Build::lightChange = true;
 
 			//コイン減少
 			Coin::DegCoinNum(Coin::GetCoinNum() * 0.4f);
@@ -445,7 +445,7 @@ bool Event3::update()
 			//TODO::パーク
 #endif
 			//パーク入手
-
+			Build::extraBullet = true;
 			return true;
 		}
 		break;

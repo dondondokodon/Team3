@@ -58,10 +58,10 @@ void CAMERA::update(Character& target)
 		pos.y = -800;
 	if (pos.y > stageLimitY - height)
 		pos.y = stageLimitY - height;
-	debug::setString(
-		"camY=%.1f stageLimitY=%.1f height=%.1f",
-		pos.y, stageLimitY, height
-	);
+	//debug::setString(
+	//	"camY=%.1f stageLimitY=%.1f height=%.1f",
+	//	pos.y, stageLimitY, height
+	//);
 
 	//// ===== —h‚êˆ— =====
 	// ‚»‚Ì•ûŒü‚ÉˆÚ“®‚·‚é‚¾‚¯

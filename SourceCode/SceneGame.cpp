@@ -115,8 +115,8 @@ void SceneGame::update()
 
 		ProjectileManager::Instance().update();
 		Collision();
-		debug::setString("time:%d", timer);
-		debug::setString("Coin:%d", Coin::GetCoinNum());
+		//debug::setString("time:%d", timer);
+		//debug::setString("Coin:%d", Coin::GetCoinNum());
 		break;
 	}
 }
@@ -223,7 +223,9 @@ void SceneGame::Collision()
 						//ŒyUŒ‚‚È‚ç
 						if (p->GetOwnerId() == Projectile::kinds::light)
 						{
-							p->onHit();
+							if (!Build::lightChange)
+								p->onHit();
+
 							music::play(P_lightA);
 							Coin::AddCoinNum(Coin::LightAttackReward());
 							Coin::AddGotCoin(Coin::LightAttackReward());

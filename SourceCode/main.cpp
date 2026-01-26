@@ -51,7 +51,7 @@ int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
 		scenes[ISCENE::curScene]->render();
 
 		//デバッグ用文字列の表示
-		debug::display(1, 1, 1, 1, 1);
+		//debug::display(1, 1, 1, 1, 1);
 
 		//画面を描画する
 		GameLib::present(1, 0);

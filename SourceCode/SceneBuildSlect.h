@@ -21,6 +21,8 @@ public:
 		MOONGRAVITY,
 		EXTRABULLET,
 		EXTRAREWARD,
+		RAPIDSPEED,
+		LIGHTCHANGE,
 	};
 
 	enum rank
@@ -328,6 +330,72 @@ public:
 	void update()override 
 	{
 		Build::extraReward = true;
+		Coin::DegCoinNum(price);
+	};
+	//void render();
+};
+
+//移動速度アップ＋被ダメ少アップ
+class RapidSpeedBuild : public BuildCard
+{
+public:
+	RapidSpeedBuild(VECTOR2 pos)
+	{
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::WEAK);	//ここ差し替え
+		this->pos = pos;
+		scale = { 1,1 };
+		texPos = { 0,0 };
+		texSize = { 376,596 };
+		pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
+		color = { 1,1,1,1 };
+		speed = { 0,0 };
+		offset = { 0,0 };
+		direction = { 0,0 };
+		build = BuildCard::kinds::RAPIDSPEED;
+		power = BuildCard::rank::weak;
+		price = 300;
+		BuildCard::Instance().Register(std::make_unique<buff>(VECTOR2{ pos.x, pos.y - 130}, 0, 0));
+		BuildCard::Instance().Register(std::make_unique<debuff>(VECTOR2{ pos.x, pos.y + 120 }, 3, 0));
+
+	}
+	~RapidSpeedBuild() {}
+
+	void update()override 
+	{
+		Build::extraSpeed = true;
+		Coin::DegCoinNum(price);
+	};
+	//void render();
+};
+
+//K攻撃変化
+class LightAtkBuild : public BuildCard
+{
+public:
+	LightAtkBuild(VECTOR2 pos)
+	{
+		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::WEAK);	//ここ差し替え
+		this->pos = pos;
+		scale = { 1,1 };
+		texPos = { 0,0 };
+		texSize = { 376,596 };
+		pivot = { texSize.x * 0.5f,texSize.y * 0.5f };
+		color = { 1,1,1,1 };
+		speed = { 0,0 };
+		offset = { 0,0 };
+		direction = { 0,0 };
+		build = BuildCard::kinds::LIGHTCHANGE;
+		power = BuildCard::rank::weak;
+		price = 600;
+		BuildCard::Instance().Register(std::make_unique<buff>(VECTOR2{ pos.x, pos.y - 130}, 2, 1));
+		BuildCard::Instance().Register(std::make_unique<debuff>(VECTOR2{ pos.x, pos.y + 120 }, 0, 1));
+
+	}
+	~LightAtkBuild() {}
+
+	void update()override 
+	{
+		Build::lightChange = true;
 		Coin::DegCoinNum(price);
 	};
 	//void render();
