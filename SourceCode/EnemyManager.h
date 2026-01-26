@@ -48,7 +48,8 @@ public:
 	void setStage(int stageNo);
 	EnemyBoss* getBoss();
 	bool isAlive(Character* e);
-
+	void setPopNum(int num) { spawnRule->setSpawnNum(num); }
+	int getPopNum() { return spawnRule->getSpawnNum(); }
 
 private:
 	std::vector<std::unique_ptr<Enemy>> enemies;
