@@ -225,7 +225,7 @@ void SceneGame::Collision()
 					//if (p->onHit())
 					{
 						e->degHp(e->calcProtectingDamage(p->getDamage()));
-						e->setInvincibleTimer(3.5f);
+						e->setInvincibleTimer(1.0f);
 						e->setHitFlag(true);
 						//textUI_Manager::Instance().spawnAddText(player);
 						//textUI_Manager::Instance().spawnDegText(*e);
@@ -244,6 +244,7 @@ void SceneGame::Collision()
 						if (p->GetOwnerId() == Projectile::kinds::heavy)
 						{
 							music::play(P_HeavyA);
+							e->setInvincibleTimer(5.5f);
 							Coin::AddCoinNum(Coin::HeavyAttackReward());
 							Coin::AddGotCoin(Coin::HeavyAttackReward());
 							textUI_Manager::Instance().spawnAddText(player, Coin::HeavyAttackReward());

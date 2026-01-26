@@ -43,8 +43,8 @@ Player::Player():MAX_SPEED({7,25})
 
 void Player::init()
 {
-	pos     = { SCREEN_W * 0.5f,SCREEN_H * 0.5f };
-	pos     = { SCREEN_W * 0.5f,0.0f };
+	pos     = { SCREEN_W * 0.2f,SCREEN_H * 0.1f };
+	//pos     = { SCREEN_W * 0.5f,0.0f };
 	scale   = { 1,1 };
 	texPos  = { 0,0 };
 	texSize = { 320,320 };
@@ -55,7 +55,7 @@ void Player::init()
 	angle   = 0;
 	
 	spr             = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player);
-	act             = 0;
+	act             = FALL_INIT;
 	timer           = 0;
 	anime           = 0;
 	animeTimer      = 0;
