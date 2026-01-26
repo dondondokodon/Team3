@@ -62,7 +62,7 @@ public:
 
 			char str = (d + '0');
 			std::string strin(1, str);
-			text_out(7, strin, pos.x + i * 30+40, pos.y-20, scale.x, scale.y, 1.0f,1.0f,0.0f,1.0f);
+			text_out(7, strin, pos.x + i * 30 + 40, pos.y - 20, scale.x, scale.y, 1.0f, 1.0f, 0.0f, 1.0f);
 			num %= digit;          // æ“ªŒ…‚ğíœ
 			digit /= 10;
 			i++;
