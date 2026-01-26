@@ -61,8 +61,8 @@ EnemySlip::EnemySlip(VECTOR2 pos)
 
 void EnemySlip::init()
 {
-	hp                 = 100;
-	atk                = 100;
+	hp                 = 200;
+	atk                =60;
 	texSize            = { 320.0f,320.0f };
 	texPos             = { 0.0f,0.0f };
 	//pos              = { 1000,500 };
@@ -93,7 +93,7 @@ void EnemySlip::init()
 	exitRnd            = 40;
 	isDeathOn          = false;
 	isHitMotionOn      = false;
-	attackTimer = 0;
+	attackTimer        = 0;
 }
 
 void EnemySlip::update(CAMERA& camera, VECTOR2 targetPos)

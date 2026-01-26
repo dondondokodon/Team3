@@ -72,7 +72,7 @@ void EnemyBoss::init()
 	/*if (!sprTail)
 		sprTail = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTail);*/
 
-	hp               = 2000;
+	hp               = 5000;
 	atk              = 100;
 	texSize          = { 500.0f,350.0f };
 	texPos           = { 0.0f,0.0f };

@@ -96,7 +96,7 @@ private:
 	int gold       = Coin::GetCoinNum(); //‚¨‹à
 	int returnGold = 0;			//UŒ‚‚ğ“–‚Ä‚½‚É‹A‚Á‚Ä‚­‚é‚¨‹à
 	float lightBetRatio = 0.01f;//ŒyUŒ‚Á”ïƒRƒCƒ“Š„‡
-	float heavyBetRatio = 0.1f;	//dUŒ‚Á”ïƒRƒCƒ“Š„‡
+	float heavyBetRatio = 0.10f;	//dUŒ‚Á”ïƒRƒCƒ“Š„‡
 	const VECTOR2 MAX_SPEED;	//Å‚‘¬“x
 	bool attack2Reserve = false;// Ÿ’eUŒ‚—\–ñ
 	bool dodgeReserve   = false;// ‰ñ”ğ—\–ñ

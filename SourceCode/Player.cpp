@@ -78,7 +78,7 @@ void Player::init()
 
 	playerBullet         = ImageManager::Instance().getSprite(ImageManager::SpriteNum::PlayerBullet);
 	lightBetRatio        = 0.01f;
-	heavyBetRatio        = 0.1f;
+	heavyBetRatio        = 0.10f;
 	lightSpeed           = { 15,15 };
 	lightScale           = { 3,3 };
 	lightLifeLimit       = 0.7f;
@@ -93,6 +93,7 @@ void Player::init()
 	heavyRadius          = 3.0f;
 	beforeLayer          = nullptr;
 	oldFallEnemgyY       = 0.0f;
+	fallEnergy           = { 0.0f,1.3f };
 
 	targetHitWall.x      = -1000.0f;
 	targetHitWall.top    = 0.0f;
@@ -155,7 +156,7 @@ void Player::update()
 	//効果があったら
 	if (PlayerEffect::defDef)
 	{
-		def = -10.0f;
+		def = -0.3f;
 		PlayerEffect::defDef = false;
 	}
 
@@ -193,7 +194,7 @@ void Player::update()
 	{
 		int useCoin = Coin::GetRatioCoin(getHeavyRatio());
 		heavyScale = (getAct() == Player::HEAVY_ATTACK2) ? VECTOR2{ 17.0f,17.0f } : VECTOR2{ 8.0f,8.0f };
-		ProjectileStraight* projectile = new ProjectileStraight(&ProjectileManager::Instance(), Projectile::Faction::player, Coin::calcDamage(10, useCoin), Projectile::kinds::heavy, heavyLifeLimit, playerBullet, heavyTexSize, heavyScale, heavySpeed, heavyRadius);
+		ProjectileStraight* projectile = new ProjectileStraight(&ProjectileManager::Instance(), Projectile::Faction::player, Coin::calcDamage(2.5f, useCoin), Projectile::kinds::heavy, heavyLifeLimit, playerBullet, heavyTexSize, heavyScale, heavySpeed, heavyRadius);
 		Coin::DegCoinNum(useCoin);
 		projectile->Launch(getDir(), getPos());
 		textUI_Manager::Instance().spawnDegText(*this, -useCoin);
@@ -574,6 +575,7 @@ void Player::state()
 		drawPosFlag = false;
 		texSize = { 320.0f,320.0f };
 		speed = { 0.0f,0.0f };
+		fallEnergy = { 0.0f,1.3f };	//重力戻す
 		spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::Player);
 		act = DEATH;
 
