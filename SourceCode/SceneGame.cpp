@@ -59,6 +59,12 @@ void SceneGame::update()
 		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ -500.0f, 250.0f }));
 		EnemyManager::instance().add(std::make_unique<Enemy>(VECTOR2{ -300.0f, 600.0f }));*/
 		SwitchStage();
+		{
+			if(moveTile>=3)
+			EnemyManager::instance().setPopNum(1);
+		}
+		
+		
 		//EnemyManager::instance().setStage(stages.back().get()->getStageNo());	//1‚ªÅ‰
 		stages.at(0).get()->init();
 
@@ -117,6 +123,7 @@ void SceneGame::update()
 		Collision();
 		debug::setString("time:%d", timer);
 		debug::setString("Coin:%d", Coin::GetCoinNum());
+		debug::setString("moveTile:%d", moveTile);
 		break;
 	}
 }
@@ -134,28 +141,31 @@ void SceneGame::render()
 	coinUi.render();
 	textUI_Manager::Instance().render(camera);
 
-	// Œ…”‚ğ‹‚ß‚é
-	int num = 60-timer;
-	int temp = num;
-	int digit = 1;
-	while (temp >= 10)
+	if (moveTile < 6)
 	{
-		temp /= 10;
-		digit *= 10;
-	}
+		// Œ…”‚ğ‹‚ß‚é
+		int num = 60 - timer;
+		int temp = num;
+		int digit = 1;
+		while (temp >= 10)
+		{
+			temp /= 10;
+			digit *= 10;
+		}
 
-	// ‘å‚«‚¢Œ…‚©‚çæ‚èo‚·
-	int i = 0;
-	while (digit > 0)
-	{
-		int d = num / digit;   // æ“ª‚ÌŒ…
+		// ‘å‚«‚¢Œ…‚©‚çæ‚èo‚·
+		int i = 0;
+		while (digit > 0)
+		{
+			int d = num / digit;   // æ“ª‚ÌŒ…
 
-		char str = (d + '0');
-		std::string strin(1, str);
-		text_out(7, strin, SCREEN_W*0.5f + i * 30-20 , SCREEN_H*0.1f - 20, 1.0f,1.0f, 1.0f, 1.0f, 1.0f, 1.0f,TEXT_ALIGN::MIDDLE);
-		num %= digit;          // æ“ªŒ…‚ğíœ
-		digit /= 10;
-		i++;
+			char str = (d + '0');
+			std::string strin(1, str);
+			text_out(7, strin, SCREEN_W * 0.5f + i * 30 - 20, SCREEN_H * 0.1f - 20, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, TEXT_ALIGN::MIDDLE);
+			num %= digit;          // æ“ªŒ…‚ğíœ
+			digit /= 10;
+			i++;
+		}
 	}
 }
 
