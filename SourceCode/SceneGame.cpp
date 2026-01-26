@@ -315,7 +315,7 @@ void SceneGame::Collision()
 	EnemyBoss* b = EnemyManager::instance().getBoss();
 	if (b)
 	{
-		if (player.getInvincibleTimer()<=0 && player.getAct() != Player::ACT::DEATH)
+		if (player.getInvincibleTimer()<=0 && player.getAct() != Player::ACT::DEATH&&b->getAct()!=EnemyBoss::STATE::DEATH)
 		{
 			if (hitCircle(player.getPos(), player.getRadius(), b->getPos(), b->getRadius()))
 			{

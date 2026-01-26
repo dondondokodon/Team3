@@ -31,6 +31,8 @@ private:
     float blackUi=0.0f;
 	static constexpr int HpMax = 5000.0f;
 
+
+public:
     enum STATE
     {
         IDLE_INIT,
@@ -54,8 +56,6 @@ private:
         DEATH_INIT,
         DEATH
     };
-
-public:
     EnemyBoss();
     EnemyBoss(VECTOR2 Pos);
     ~EnemyBoss();
