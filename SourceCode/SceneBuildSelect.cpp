@@ -5,18 +5,18 @@
 #include "audio.h"
 using namespace input;
 int j;				//どのカードを選んでいるか
-std::unique_ptr<extraSprite> selectingMessage;
-std::unique_ptr<extraSprite> price_board;
+int a;
 
 void SceneBuildSelect::init()
 {
+	a = 60;
 	j = 0;
 	state = 0;
 	spr = ImageManager::Instance().getSprite(ImageManager::SpriteNum::InShop);
 
 	money.setSprite(ImageManager::Instance().getSprite(ImageManager::SpriteNum::coin));
 
-	selectingMessage = std::make_unique<extraSprite>( 
+	selectingMessage.emplace_back(std::make_unique<extraSprite>( 
 		ImageManager::Instance().getSprite(ImageManager::SpriteNum::selectingGetPark),
 		VECTOR2{SCREEN_W * 0.5f,50.0f},
 		VECTOR2{1,1},
@@ -24,7 +24,17 @@ void SceneBuildSelect::init()
 		VECTOR2{684,93},
 		VECTOR4{1,1,1,1},
 		VECTOR2{0,0},VECTOR2{0,0},
-		VECTOR2{0,0} );
+		VECTOR2{0,0} ));
+
+	selectingMessage.emplace_back(std::make_unique<extraSprite>(
+		ImageManager::Instance().getSprite(ImageManager::SpriteNum::backButton),
+		VECTOR2{ SCREEN_W * 0.5f,SCREEN_H * 0.5f },
+		VECTOR2{1,1},
+		VECTOR2{0,0},
+		VECTOR2{409,45},
+		VECTOR4{1,1,1,0},
+		VECTOR2{0,0},VECTOR2{0,0},
+		VECTOR2{0,0} ));
 
 	price_board = std::make_unique<extraSprite>(
 		ImageManager::Instance().getSprite(ImageManager::SpriteNum::priceBoard),
@@ -58,7 +68,8 @@ void SceneBuildSelect::update()
 		//	ISCENE::nextScene = SCENE_GAME;
 
 		cardPick();
-
+		if (stime)
+			ShowTime();
 		//debug::setString("Build");
 
 		break;
@@ -72,7 +83,6 @@ void SceneBuildSelect::render()
 	if (!spr) return;
 	sprite_render(spr.get(), 0, 0, 1, 1, 0, 0, 1280, 720, 0, 0, 0, 1, 1, 1, 1);
 
-	selectingMessage->render();
 
 	for (int i = 0; i <= GetCardCount() - 1; i++)
 	{
@@ -86,6 +96,10 @@ void SceneBuildSelect::render()
 	price_board->render();
 	text_out(7, price_board->ShowPrice, price_board->textPos.x, price_board->textPos.y, 2, 2, price_board->textColor.x, price_board->textColor.y,price_board->textColor.z, price_board->textColor.w);
 
+	for (auto& massage : selectingMessage)
+	{
+		massage->render();
+	}
 	money.render();
 
 	
@@ -205,9 +219,11 @@ void SceneBuildSelect::cardPick()
 		//次のシーンへ
 		nextScene = SCENE_MAP;
 	}
-	else
+	else if (TRG(0) & PAD_START && Coin::GetCoinNum() <= nowCard->getPrice())
 	{
 		//何かしらの演出入れたい
+		stime = true;
+		a = 60;
 	}
 
 	//メニュー
@@ -225,6 +241,19 @@ void SceneBuildSelect::cardPick()
 		if (card != nowCard)
 			card->setScale({ 1,1 });
 	}
+}
+
+void SceneBuildSelect::ShowTime()
+{
+	a--;
+	selectingMessage.at(1).get()->setColor(VECTOR4{ 1,0,0,1 });
+
+	if (a == 0)
+	{
+		selectingMessage.at(1).get()->setColor(VECTOR4{ 1,0,0,0 });
+		stime = false;
+	}
+
 }
 
 void SceneBuildSelect::setBuild()

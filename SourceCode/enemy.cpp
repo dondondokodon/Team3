@@ -70,7 +70,7 @@ Enemy::Enemy(VECTOR2 Pos) :coinReward(100), maxSpeedX(3)
 void Enemy::init()  
 {
 	hp				= 50;
-	atk				= 30;
+	atk				= 10;
 	texSize			= { 320.0f,320.0f };
 	texPos			= { 0.0f,0.0f };
 	//pos			= { 1000,500 };		引数付きコンストラクタで設定する場合があるのでinitでは書かない

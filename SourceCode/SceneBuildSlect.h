@@ -419,6 +419,8 @@ public:
 	void inputCardSelect();
 	void cardPick();
 	void setBuild();
+	bool stime;
+	void ShowTime();
 
 	int GetCardCount()const { return static_cast<int>(showWindow.size()); }
 	int GetUsedCardCount()const { return static_cast<int>(soldOut.size()); }
@@ -428,5 +430,8 @@ public:
 
 	std::vector<std::unique_ptr<BuildCard>>  showWindow;
 	std::vector<std::unique_ptr<BuildCard>>  soldOut;
+	std::vector<std::unique_ptr<extraSprite>> selectingMessage;
+	std::unique_ptr<extraSprite> price_board;
+
 };
 

@@ -369,10 +369,10 @@ void SceneGame::Collision()
 
 void SceneGame::SwitchStage()
 {
-	if (moveTile > 3)
-		stages.emplace_back(std::make_unique<Stage02>());
-	else
+	if (moveTile == 6)
 		stages.emplace_back(std::make_unique<Stage01>());
+	else
+		stages.emplace_back(std::make_unique<Stage02>());
 }
 
 void SceneGame::SwitchEnemyType()
