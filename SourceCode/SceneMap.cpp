@@ -32,10 +32,10 @@ void SceneMap::update()
 	case 1:
 		//music::play(main, true);
 		setBlendMode(Blender::BS_ALPHA);
-		gotBuilds();
 		if (resetMap)
 			Clear();
 		resetMap = false;
+		gotBuilds();
 
 		if (!moveTile)
 			startBattle();
@@ -125,6 +125,7 @@ void SceneMap::deleteSprite()
 
 void SceneMap::gotBuilds()
 {	
+
 	if (Build::extraJump)
 		BuildNum++;
 	if (Build::extraCost)
@@ -139,7 +140,9 @@ void SceneMap::gotBuilds()
 		BuildNum++;
 	if (Build::defenseDown)
 		BuildNum++;
-	if (Build::extraReward)
+	if (Build::extraSpeed)
+		BuildNum++;
+	if (Build::lightChange)
 		BuildNum++;
 }
 
@@ -167,7 +170,10 @@ void SceneMap::Clear()
 	Build::extraMotionRapid = false;
 	Build::extraMoonGravity = false;
 	Build::extraBullet = false;
-
+	Build::defenseDown = false;
+	Build::extraReward = false;
+	Build::extraSpeed = false;
+	Build::lightChange = false;
 
 }
 

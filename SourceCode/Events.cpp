@@ -27,11 +27,11 @@ void Events::init()
 		i++;
 	}
 
-	//ƒRƒƒ“ƒg‚È‚¢‚Ì‚Í‰º‚Ì•¶š
-	text[0].setPosition({ 550.0f, 50.0f });	//ƒ^ƒCƒgƒ‹	
+	//ã‚³ãƒ¡ãƒ³ãƒˆãªã„ã®ã¯ä¸‹ã®æ–‡å­—
+	text[0].setPosition({ 550.0f, 50.0f });	//ã‚¿ã‚¤ãƒˆãƒ«	
 	text[1].setPosition({ SCREEN_W*0.5f, SCREEN_H-200.0f });
-	text[2].setPosition({ 450.0f, SCREEN_H*0.5f });	//‘I‚Ô‚â‚Â
-	text[3].setPosition({ 850.0f, SCREEN_H*0.5f });//‘I‚Ô‚â‚Â
+	text[2].setPosition({ 450.0f, SCREEN_H*0.5f });	//é¸ã¶ã‚„ã¤
+	text[3].setPosition({ 850.0f, SCREEN_H*0.5f });//é¸ã¶ã‚„ã¤
 	text[4].setPosition({ SCREEN_W * 0.5f, SCREEN_H - 200.0f });
 	text[5].setPosition({ SCREEN_W * 0.5f, SCREEN_H - 200.0f });
 	text[6].setPosition({ SCREEN_W * 0.5f, SCREEN_H - 200.0f });
@@ -76,7 +76,7 @@ bool Events::update()
 		if (TRG(0) & PAD_START)
 		{
 			Coin::DegCoinNum(Coin::GetCoinNum() * 0.4f);
-			//“Á•Ê‚Èƒrƒ‹ƒh‚ğƒAƒ“ƒƒbƒN
+			//ç‰¹åˆ¥ãªãƒ“ãƒ«ãƒ‰ã‚’ã‚¢ãƒ³ãƒ­ãƒƒã‚¯
 			Build::extraMoonGravity = true;
 			return true;
 		}
@@ -101,14 +101,14 @@ bool Events::update()
 
 	if (!pushCount)
 	{
-		//‰E‰Ÿ‚µ‚½‚ç
+		//å³æŠ¼ã—ãŸã‚‰
 		if (TRG(0) & PAD_RIGHT)
 		{
 			isRight = true;
 			isScaleUp = false;
 			scale = { 1.0f,1.0f };
 		}
-		//¶‰Ÿ‚µ‚½‚ç
+		//å·¦æŠ¼ã—ãŸã‚‰
 		if (TRG(0) & PAD_LEFT)
 		{
 			isRight = false;
@@ -118,18 +118,18 @@ bool Events::update()
 
 		if (isRight)
 		{
-			//ƒXƒP[ƒ‹XV
+			//ã‚¹ã‚±ãƒ¼ãƒ«æ›´æ–°
 			text[3].setScale({ scale.x,scale.x });
 			text[2].setScale({ 1.0f,1.0f });
 		}
 		else
 		{
-			//ƒXƒP[ƒ‹XV
+			//ã‚¹ã‚±ãƒ¼ãƒ«æ›´æ–°
 			text[2].setScale({ scale.x,scale.x });
 			text[3].setScale({ 1.0f,1.0f });
 		}
 
-		//•¶šƒTƒCƒY‘å‚«‚­‚·‚é
+		//æ–‡å­—ã‚µã‚¤ã‚ºå¤§ããã™ã‚‹
 		const float scaleNum = 0.01f;
 		if (isScaleUp)
 		{
@@ -214,11 +214,11 @@ void Event2::init()
 		i++;
 	}
 
-	//ƒRƒƒ“ƒg‚È‚¢‚Ì‚Í‰º‚Ì•¶š
-	text[0].setPosition({ 550.0f, 50.0f });	//ƒ^ƒCƒgƒ‹	
+	//ã‚³ãƒ¡ãƒ³ãƒˆãªã„ã®ã¯ä¸‹ã®æ–‡å­—
+	text[0].setPosition({ 550.0f, 50.0f });	//ã‚¿ã‚¤ãƒˆãƒ«	
 	text[1].setPosition({ SCREEN_W * 0.5f, SCREEN_H - 200.0f });
-	text[2].setPosition({ 450.0f, SCREEN_H * 0.5f });	//‘I‚Ô‚â‚Â
-	text[3].setPosition({ 850.0f, SCREEN_H * 0.5f });//‘I‚Ô‚â‚Â
+	text[2].setPosition({ 450.0f, SCREEN_H * 0.5f });	//é¸ã¶ã‚„ã¤
+	text[3].setPosition({ 850.0f, SCREEN_H * 0.5f });//é¸ã¶ã‚„ã¤
 	text[4].setPosition({ SCREEN_W * 0.5f, SCREEN_H - 200.0f });
 	text[5].setPosition({ SCREEN_W * 0.5f, SCREEN_H - 200.0f });
 	text[6].setPosition({ SCREEN_W * 0.5f, SCREEN_H - 200.0f });
@@ -248,14 +248,14 @@ bool Event2::update()
 		if (TRG(0) & PAD_START)
 		{
 #if 2
-			//TODO::Œã‚Å‚â‚é
+			//TODO::å¾Œã§ã‚„ã‚‹
 #endif
 
-			//UŒ‚‚Ég—p‚·‚éƒRƒCƒ“‚Ì—Ê‚ğ‘‚â‚·
+			//æ”»æ’ƒã«ä½¿ç”¨ã™ã‚‹ã‚³ã‚¤ãƒ³ã®é‡ã‚’å¢—ã‚„ã™
 			//PlayerEffect::attackCoinUp = true;
 			Build::extraCost = true;
 
-			//”íƒ_ƒ[ƒWã¸
+			//è¢«ãƒ€ãƒ¡ãƒ¼ã‚¸ä¸Šæ˜‡
 			//PlayerEffect::defDef = true;
 			Build::defenseDown = true;
 
@@ -274,13 +274,13 @@ bool Event2::update()
 		if (TRG(0) & PAD_START)
 		{
 #if 3
-			//TODO::ƒp[ƒN
+			//TODO::ãƒ‘ãƒ¼ã‚¯
 #endif
-			//•¡”‚Ìƒp[ƒN“üè
+			//è¤‡æ•°ã®ãƒ‘ãƒ¼ã‚¯å…¥æ‰‹
 			Build::extraJump = true;
+			Build::lightChange = true;
 
-
-			//ƒRƒCƒ“Œ¸­
+			//ã‚³ã‚¤ãƒ³æ¸›å°‘
 			Coin::DegCoinNum(Coin::GetCoinNum() * 0.4f);
 
 			return true;
@@ -290,14 +290,14 @@ bool Event2::update()
 
 	if (!pushCount)
 	{
-		//‰E‰Ÿ‚µ‚½‚ç
+		//å³æŠ¼ã—ãŸã‚‰
 		if (TRG(0) & PAD_RIGHT)
 		{
 			isRight = true;
 			isScaleUp = false;
 			scale = { 1.0f,1.0f };
 		}
-		//¶‰Ÿ‚µ‚½‚ç
+		//å·¦æŠ¼ã—ãŸã‚‰
 		if (TRG(0) & PAD_LEFT)
 		{
 			isRight = false;
@@ -307,18 +307,18 @@ bool Event2::update()
 
 		if (isRight)
 		{
-			//ƒXƒP[ƒ‹XV
+			//ã‚¹ã‚±ãƒ¼ãƒ«æ›´æ–°
 			text[3].setScale({ scale.x,scale.x });
 			text[2].setScale({ 1.0f,1.0f });
 		}
 		else
 		{
-			//ƒXƒP[ƒ‹XV
+			//ã‚¹ã‚±ãƒ¼ãƒ«æ›´æ–°
 			text[2].setScale({ scale.x,scale.x });
 			text[3].setScale({ 1.0f,1.0f });
 		}
 
-		//•¶šƒTƒCƒY‘å‚«‚­‚·‚é
+		//æ–‡å­—ã‚µã‚¤ã‚ºå¤§ããã™ã‚‹
 		const float scaleNum = 0.01f;
 		if (isScaleUp)
 		{
@@ -392,11 +392,11 @@ void Event3::init()
 		i++;
 	}
 
-	//ƒRƒƒ“ƒg‚È‚¢‚Ì‚Í‰º‚Ì•¶š
-	text[0].setPosition({ 550.0f, 50.0f });	//ƒ^ƒCƒgƒ‹	
+	//ã‚³ãƒ¡ãƒ³ãƒˆãªã„ã®ã¯ä¸‹ã®æ–‡å­—
+	text[0].setPosition({ 550.0f, 50.0f });	//ã‚¿ã‚¤ãƒˆãƒ«	
 	text[1].setPosition({ SCREEN_W * 0.5f, SCREEN_H - 200.0f });
-	text[2].setPosition({ 450.0f, SCREEN_H * 0.5f });	//‘I‚Ô‚â‚Â
-	text[3].setPosition({ 850.0f, SCREEN_H * 0.5f });//‘I‚Ô‚â‚Â
+	text[2].setPosition({ 450.0f, SCREEN_H * 0.5f });	//é¸ã¶ã‚„ã¤
+	text[3].setPosition({ 850.0f, SCREEN_H * 0.5f });//é¸ã¶ã‚„ã¤
 	text[4].setPosition({ SCREEN_W * 0.5f, SCREEN_H - 200.0f });
 	text[5].setPosition({ SCREEN_W * 0.5f, SCREEN_H - 200.0f });
 	text[6].setPosition({ SCREEN_W * 0.5f, SCREEN_H - 200.0f });
@@ -442,10 +442,10 @@ bool Event3::update()
 		if (TRG(0) & PAD_START)
 		{
 #if 4
-			//TODO::ƒp[ƒN
+			//TODO::ãƒ‘ãƒ¼ã‚¯
 #endif
-			//ƒp[ƒN“üè
-		
+			//ãƒ‘ãƒ¼ã‚¯å…¥æ‰‹
+			Build::extraBullet = true;
 			return true;
 		}
 		break;
@@ -453,14 +453,14 @@ bool Event3::update()
 
 	if (!pushCount)
 	{
-		//‰E‰Ÿ‚µ‚½‚ç
+		//å³æŠ¼ã—ãŸã‚‰
 		if (TRG(0) & PAD_RIGHT)
 		{
 			isRight = true;
 			isScaleUp = false;
 			scale = { 1.0f,1.0f };
 		}
-		//¶‰Ÿ‚µ‚½‚ç
+		//å·¦æŠ¼ã—ãŸã‚‰
 		if (TRG(0) & PAD_LEFT)
 		{
 			isRight = false;
@@ -470,18 +470,18 @@ bool Event3::update()
 
 		if (isRight)
 		{
-			//ƒXƒP[ƒ‹XV
+			//ã‚¹ã‚±ãƒ¼ãƒ«æ›´æ–°
 			text[3].setScale({ scale.x,scale.x });
 			text[2].setScale({ 1.0f,1.0f });
 		}
 		else
 		{
-			//ƒXƒP[ƒ‹XV
+			//ã‚¹ã‚±ãƒ¼ãƒ«æ›´æ–°
 			text[2].setScale({ scale.x,scale.x });
 			text[3].setScale({ 1.0f,1.0f });
 		}
 
-		//•¶šƒTƒCƒY‘å‚«‚­‚·‚é
+		//æ–‡å­—ã‚µã‚¤ã‚ºå¤§ããã™ã‚‹
 		const float scaleNum = 0.01f;
 		if (isScaleUp)
 		{
@@ -554,11 +554,11 @@ void Event4::init()
 		i++;
 	}
 
-	//ƒRƒƒ“ƒg‚È‚¢‚Ì‚Í‰º‚Ì•¶š
-	text[0].setPosition({ 550.0f, 50.0f });	//ƒ^ƒCƒgƒ‹	
+	//ã‚³ãƒ¡ãƒ³ãƒˆãªã„ã®ã¯ä¸‹ã®æ–‡å­—
+	text[0].setPosition({ 550.0f, 50.0f });	//ã‚¿ã‚¤ãƒˆãƒ«	
 	text[1].setPosition({ SCREEN_W * 0.5f, SCREEN_H - 200.0f });
-	text[2].setPosition({ 450.0f, SCREEN_H * 0.5f });	//‘I‚Ô‚â‚Â
-	text[3].setPosition({ 850.0f, SCREEN_H * 0.5f });//‘I‚Ô‚â‚Â
+	text[2].setPosition({ 450.0f, SCREEN_H * 0.5f });	//é¸ã¶ã‚„ã¤
+	text[3].setPosition({ 850.0f, SCREEN_H * 0.5f });//é¸ã¶ã‚„ã¤
 	text[4].setPosition({ SCREEN_W * 0.5f, SCREEN_H - 200.0f });
 	text[5].setPosition({ SCREEN_W * 0.5f, SCREEN_H - 200.0f });
 	text[6].setPosition({ SCREEN_W * 0.5f, SCREEN_H - 200.0f });
@@ -612,14 +612,14 @@ bool Event4::update()
 
 	if (!pushCount)
 	{
-		//‰E‰Ÿ‚µ‚½‚ç
+		//å³æŠ¼ã—ãŸã‚‰
 		if (TRG(0) & PAD_RIGHT)
 		{
 			isRight = true;
 			isScaleUp = false;
 			scale = { 1.0f,1.0f };
 		}
-		//¶‰Ÿ‚µ‚½‚ç
+		//å·¦æŠ¼ã—ãŸã‚‰
 		if (TRG(0) & PAD_LEFT)
 		{
 			isRight = false;
@@ -629,18 +629,18 @@ bool Event4::update()
 
 		if (isRight)
 		{
-			//ƒXƒP[ƒ‹XV
+			//ã‚¹ã‚±ãƒ¼ãƒ«æ›´æ–°
 			text[3].setScale({ scale.x,scale.x });
 			text[2].setScale({ 1.0f,1.0f });
 		}
 		else
 		{
-			//ƒXƒP[ƒ‹XV
+			//ã‚¹ã‚±ãƒ¼ãƒ«æ›´æ–°
 			text[2].setScale({ scale.x,scale.x });
 			text[3].setScale({ 1.0f,1.0f });
 		}
 
-		//•¶šƒTƒCƒY‘å‚«‚­‚·‚é
+		//æ–‡å­—ã‚µã‚¤ã‚ºå¤§ããã™ã‚‹
 		const float scaleNum = 0.01f;
 		if (isScaleUp)
 		{
@@ -713,8 +713,8 @@ void Event5::init()
 		i++;
 	}
 
-	//ƒRƒƒ“ƒg‚È‚¢‚Ì‚Í‰º‚Ì•¶š
-	text[0].setPosition({ 550.0f, 50.0f });	//ƒ^ƒCƒgƒ‹	
+	//ã‚³ãƒ¡ãƒ³ãƒˆãªã„ã®ã¯ä¸‹ã®æ–‡å­—
+	text[0].setPosition({ 550.0f, 50.0f });	//ã‚¿ã‚¤ãƒˆãƒ«	
 	text[1].setPosition({ SCREEN_W * 0.5f, SCREEN_H - 200.0f });
 	text[2].setPosition({ SCREEN_W * 0.5f, SCREEN_H - 200.0f });
 	text[3].setPosition({ SCREEN_W * 0.5f, SCREEN_H - 200.0f });

@@ -9,6 +9,8 @@ bool Build::extraMoonGravity = false;
 bool Build::extraBullet = false;
 bool Build::defenseDown = false;
 bool Build::extraReward = false;
+bool Build::extraSpeed = false;
+bool Build::lightChange = false;
 
 //ジャンプ追加
 int ExtraJump::AddMaxJump() const
@@ -34,19 +36,19 @@ float VeryCostUp::AddVeryCost() const
 }
 
 //弾速減
-VECTOR2 VeryCostUp::DegProjectileSpeed() const
+VECTOR2 VeryCostUp::HeavyProjectileSpeed() const
 {
 	return { 5,5 };	//10-8
 }
 
 //スケール増
-VECTOR2 VeryCostUp::AddProjectileScale() const
+VECTOR2 VeryCostUp::HeavyProjectileScale() const
 {
 	return { 18,18 };	
 }
 
 //当たり判定拡大
-float VeryCostUp::AddProjectileRadius() const
+float VeryCostUp::HeavyProjectileRadius() const
 {
 	return  50;	//仮置き
 }
@@ -95,3 +97,27 @@ float ExtraReward::DegMoveSpeed()const
 {
 	return 1.5;
 }
+
+float RapidSpeed::AddMoveSpeed()const
+{
+	return -2;
+}
+
+float RapidSpeed::degDefense() const
+{
+	return -5.0f;
+}
+
+VECTOR2 ChangeLightAtk::LightProjectileSpeed() const
+{
+	return VECTOR2{ 10,0 };
+}
+VECTOR2 ChangeLightAtk::LightProjectileScale() const
+{
+	return VECTOR2{ 1,1 };
+}
+float ChangeLightAtk::LightProjectileLife()const
+{
+	return 0.4f;
+}
+

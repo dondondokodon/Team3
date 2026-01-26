@@ -38,6 +38,8 @@ public:
 	void setGravity();
 	void setDEF();
 	void setRewardRatio();
+	void setLightAtk();
+
 	void setHitWall(HitWall set) { targetHitWall = set; }
 	void setSpeed(VECTOR2 set) { speed = set; }
 	void setIsGround(bool set) { isGround = set; }
@@ -60,6 +62,10 @@ public:
 
 	void degAttackFrame(int frame) { attack_frame -= frame; }
 	void setSpeedX(float Speed) { maxSpeed += Speed; }
+
+	VECTOR2 setLightAtkSpeed(VECTOR2 Speed) { return lightSpeed += Speed; }
+	VECTOR2 setLightAtkSize(VECTOR2 size) { return lightScale += size; }
+	float setLightLife(float limit) { return lightLifeLimit += limit; }
 
 	//’ÇŒ‚’e
 	float getPursuitLife()const { return lightLifeLimit; }
