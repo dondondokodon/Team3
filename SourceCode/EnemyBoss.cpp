@@ -72,7 +72,7 @@ void EnemyBoss::init()
 	/*if (!sprTail)
 		sprTail = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossTail);*/
 
-	hp               = 5000;
+	hp               = HpMax;
 	atk              = 100;
 	texSize          = { 500.0f,350.0f };
 	texPos           = { 0.0f,0.0f };
@@ -115,6 +115,10 @@ void EnemyBoss::init()
 	meleeRadius  = radius;
 	exitRnd = 1;
 	isDeathOn = false;
+
+	sprUi = ImageManager::Instance().getSprite(ImageManager::SpriteNum::bossHpUi);
+
+	blackUi = 550.0f;
 	
 
 	//ここより下デバッグ用
@@ -217,6 +221,13 @@ void EnemyBoss::update(CAMERA& camera, VECTOR2 targetPos)
 		ISCENE::nextScene = SCENE_RESULT;
 
 	}
+
+	//uiのアプデ
+	{
+		float par = (float)hp / (float)HpMax;
+		blackUi = 550*par;
+	}
+
 	debug::setString("Pos,state,DrawOFFset:%f:%f:%d", pos.x, pos.y,act);
 	debug::setString("DrawOFFset:%f:%f", drawPosOffset.x,drawPosOffset.y);
 	debug::setString("BossSpeed:%f", speed.x);
@@ -781,6 +792,28 @@ void EnemyBoss::cameraRender(CAMERA& camera)
 	);
 	for(auto& tail:tails)
 	tail.cameraRender(camera);
+
+	
+
+	sprite_render(
+		sprUi.get(),
+		SCREEN_W * 0.5f, SCREEN_H * 0.1f,
+		1.0f, 1.0f,
+		0.0f, 0.0f,
+		550.0f, 60.0f,
+		550.0f * 0.5f, 60.0f * 0.5f,
+		0.0f,
+		0.0f,0.0f,0.0f,1.0f
+	);
+
+	sprite_render(
+		sprUi.get(),
+		SCREEN_W * 0.5f-550.0*0.5f, SCREEN_H * 0.1f,
+		1.0f, 1.0f,
+		0.0f, 0.0f,
+		blackUi, 60.0f,
+		0.0f, 60.0f * 0.5f
+	);
 
 	//当たり判定壁
 	//primitive::line(hitWall.x - camera.getPos().x, hitWall.top - camera.getPos().y, hitWall.x - camera.getPos().x, hitWall.bottom - camera.getPos().y);

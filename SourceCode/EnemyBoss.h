@@ -3,6 +3,7 @@
 #include <memory>
 #include "Tail.h"
 #include "audio.h"
+
 class EnemyBoss :
     public Enemy
 {
@@ -26,6 +27,9 @@ private:
     static constexpr int TailMAX=5;
     Tail tails[TailMAX];                          //ƒEƒ‹ƒg—p‚ÌK”ö
     float meleeRadius;
+	std::shared_ptr<Sprite> sprUi;
+    float blackUi=0.0f;
+	static constexpr int HpMax = 5000.0f;
 
     enum STATE
     {

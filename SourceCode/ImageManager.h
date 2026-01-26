@@ -57,6 +57,7 @@ public:
 		bossUltTail,
 		bossTailPull,
 		bossJump,
+		bossHpUi,
 
 		coin,
 		lostCoinText,
