@@ -43,29 +43,5 @@ public:
 	void render()override
 	{
 		OBJ2D::render();
-
-		// Œ…”‚ğ‹‚ß‚é
-		int num = Coin::GetCoinNum();
-		int temp = num;
-		int digit = 1;
-		while (temp >= 10)
-		{
-			temp /= 10;
-			digit *= 10;
-		}
-
-		// ‘å‚«‚¢Œ…‚©‚çæ‚èo‚·
-		int i = 0;
-		while (digit > 0)
-		{
-			int d = num / digit;   // æ“ª‚ÌŒ…
-
-			char str = (d + '0');
-			std::string strin(1, str);
-			text_out(7, strin, pos.x + i * 30+40, pos.y-20, scale.x, scale.y, 1.0f,1.0f,0.0f,1.0f);
-			num %= digit;          // æ“ªŒ…‚ğíœ
-			digit /= 10;
-			i++;
-		}
 	}
 };
