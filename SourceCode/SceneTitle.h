@@ -4,7 +4,15 @@
 #include"ImageManager.h"
 #include<vector>
 
-class trampSprite : public OBJ2D
+class titleSprite : public OBJ2D
+{
+public:
+	titleSprite() {};
+	virtual ~titleSprite() {}
+	void update()override {}
+};
+
+class trampSprite : public titleSprite
 {
 public:
 	trampSprite(VECTOR2 Pos, int Number, int Flip)
@@ -49,13 +57,7 @@ public:
 
 };
 
-class titleSprite : public OBJ2D
-{
-public:
-	titleSprite() {};
-	virtual ~titleSprite(){}
-	void update()override {}
-};
+
 
 class titleText :public titleSprite
 {
@@ -143,6 +145,7 @@ private:
 	std::vector<std::unique_ptr<titleSprite>> titleSprites;
 	std::vector<std::unique_ptr<trampSprite>> trampCard;
 	int selectIndex = 0;
+	bool allowSelect = false;
 public:
 	std::shared_ptr<GameLib::Sprite> spr;
 

@@ -58,7 +58,8 @@ void SceneTitle::update()
 
 		if (TRG(0) & PAD_START)
 			tap++;
-
+		if (tap > 4)
+			allowSelect = true;
 
 		if (nextScene != SCENE_TUTORIAL)
 		{
@@ -152,16 +153,21 @@ void SceneTitle::selecting()
 			}
 		}
 		
-		nowButton->setScale(VECTOR2{ 1.2,1.2 });
-		nowButton->update();
+		
+		if (allowSelect)
+		{
+			nowButton->setScale(VECTOR2{ 1.2,1.2 });
+			if (TRG(0) & PAD_START)
+				nowButton->update();
+		}
 	}
 }
 
 void play::update()
 {
-	if (TRG(0) & PAD_START)
+	//if (TRG(0) & PAD_START)
 	{
-		if (TRG(0) & PAD_START && tap > 4)
+		if (tap > 4)
 		{
 			music::play(pic);
 			ISCENE::nextScene = SCENE_MAP;
@@ -171,7 +177,7 @@ void play::update()
 
 void TutorialButton::update()
 {
-	if (TRG(0) & PAD_START)
+	//if (TRG(0) & PAD_START)
 	{
 		music::play(pic);
 		ISCENE::nextScene = SCENE_TUTORIAL;
