@@ -254,7 +254,7 @@ void SceneGame::Collision()
 						//攻撃を当てたら追撃	現在当ててもコインの返還は無し
 						if (p->GetOwnerId() != Projectile::kinds::pursuit && Build::extraBullet)
 						{
-							if (p->GetOwnerId() == Projectile::kinds::light)
+							if (p->GetOwnerId() == Projectile::kinds::light && !Build::lightChange)
 								p->onHit();
 							int useCoin = Coin::GetRatioCoin(0.005f);
 							ProjectileStraight* b = new ProjectileStraight(&ProjectileManager::Instance(), Projectile::Faction::player, Coin::calcDamage(2, useCoin), Projectile::kinds::pursuit, player.getPursuitLife(), ImageManager::Instance().getSprite(ImageManager::SpriteNum::PlayerBullet), player.getPursuitSize(), player.getPursuitScale(), player.getPursuitSpeed(), player.getPursuitRadius());

@@ -118,6 +118,17 @@ void Player::init()
 
 	//}
 
+	//Build::extraJump = true;
+	//Build::extraCost = true;
+	//Build::extraVeryCost = true;
+	//Build::extraMotionRapid = true;
+	//Build::extraMoonGravity = true;
+	//Build::defenseDown = true;
+	//Build::extraReward = true;
+	//Build::extraSpeed = true;
+	//Build::extraBullet = true;
+	//Build::lightChange = true;
+
 	//3段ジャンプ
 	if (Build::extraJump)
 		addEffect(std::make_unique<ExtraJump>());
