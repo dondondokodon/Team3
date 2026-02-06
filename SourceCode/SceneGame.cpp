@@ -61,7 +61,7 @@ void SceneGame::update()
 		SwitchStage();
 		{
 			if(moveTile>=3)
-			EnemyManager::instance().setPopNum(1);
+			EnemyManager::instance().setPopNum(100);
 		}
 		
 		
@@ -97,10 +97,10 @@ void SceneGame::update()
 		stages.at(0).get()->update();
 
 		//デバッグ用
-		/*if (TRG(0) & PAD_SELECT)
+		if (TRG(0) & PAD_SELECT)
 		{
 			ISCENE::nextScene = SCENE_MAP;
-		}*/
+		}
 
 		//2分くらいたったらゲーム終了　マップへ遷移
 		if (moveTile != 6 && timer == 60)

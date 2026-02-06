@@ -9,6 +9,7 @@
 #include "textUI_Manager.h"
 #include "audio.h"
 #include "PlayerEffect.h"
+#include "imgui.h"
 
 Player::Player():MAX_SPEED({7,25})
 {
@@ -118,16 +119,16 @@ void Player::init()
 
 	//}
 
-	//Build::extraJump = true;
-	//Build::extraCost = true;
-	//Build::extraVeryCost = true;
-	//Build::extraMotionRapid = true;
+	Build::extraJump = true;
+	Build::extraCost = true;
+	Build::extraVeryCost = true;
+	Build::extraMotionRapid = true;
 	//Build::extraMoonGravity = true;
 	//Build::defenseDown = true;
-	//Build::extraReward = true;
-	//Build::extraSpeed = true;
-	//Build::extraBullet = true;
-	//Build::lightChange = true;
+	Build::extraReward = true;
+	Build::extraSpeed = true;
+	Build::extraBullet = true;
+	Build::lightChange = true;
 
 	//3段ジャンプ
 	if (Build::extraJump)
@@ -176,6 +177,7 @@ void Player::init()
 	setLightAtk();
 
 	MAX_SPEED.x = maxSpeed;
+
 
 }
 
@@ -283,7 +285,8 @@ void Player::update()
 	//摩擦
 	friction(this);
 
-
+	//Gui
+	DrawGui();
 
 	setBlendMode(Blender::BS_ALPHA);
 	//debug::setString("SPEEDX:%f", speed.x);
@@ -903,4 +906,10 @@ void Player::setLightAtk()
 	setLightAtkSpeed(bulletSpeed);
 	setLightAtkSize(bulletSize);
 	setLightLife(life);
+}
+
+//Gui描画
+void Player::DrawGui()
+{
+	ImGui::InputFloat2("pos", &pos.x);
 }
