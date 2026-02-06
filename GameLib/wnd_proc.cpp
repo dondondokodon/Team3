@@ -1,4 +1,10 @@
 #include "game_lib.h"
+#include <imgui_impl_win32.h>
+#include <imgui_impl_dx11.h>
+#include "imgui.h"
+#include "../ImGuiCtrl.h"
+
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 namespace GameLib {
     void startHrTimer();
@@ -9,6 +15,8 @@ namespace GameLib {
     //--------------------------------------------------------------
     LRESULT CALLBACK fnWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
+        ImGuiRapper::ImGuiCtrl::Instance().HandleMessage(hwnd, msg, wParam, lParam);
+
         using DirectX::Keyboard;
 
         // マウスホイール用

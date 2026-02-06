@@ -100,6 +100,9 @@ public:
 		DEATH
 	};
 
+	//Gui
+	void DrawGui();
+
 private:
 	int gold       = Coin::GetCoinNum(); //‚¨‹à
 	int returnGold = 0;			//UŒ‚‚ğ“–‚Ä‚½‚É‹A‚Á‚Ä‚­‚é‚¨‹à

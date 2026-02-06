@@ -3,6 +3,7 @@
 #include"audio.h"
 #include"ImageManager.h"
 #include "SceneTutorial.h"
+#include "../ImGuiCtrl.h"
 using namespace std;
 
 unique_ptr<ISCENE> scenes[SCENE_MAX] = { make_unique<SceneTitle>(),make_unique<SceneGame>(), make_unique<SceneMap>(), make_unique<SceneBuildSelect>(), make_unique<SceneResult>(), make_unique<SceneEvent>(),make_unique<SceneTutorial>()};
@@ -12,6 +13,10 @@ int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
 {
 	//ゲームライブラリの初期設定
 	GameLib::init(L"チーム制作3", SCREEN_W, SCREEN_H,true);
+
+	auto& ctrl = ImGuiRapper::ImGuiCtrl::Instance();
+
+	ctrl.Initialize(GameLib::window::getHwnd(), GameLib::DirectX11::getDevice(), GameLib::DirectX11::getContext());
 
 	//スプライト全ロード
 	ImageManager::Instance().load();
@@ -43,6 +48,8 @@ int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
 		//入力を更新する
 		input::update();
 
+		ctrl.NewFrame();
+
 		//音楽の更新
 		music::update();
 
@@ -52,6 +59,8 @@ int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
 
 		//デバッグ用文字列の表示
 		//debug::display(1, 1, 1, 1, 1);
+
+		ctrl.Render();
 
 		//画面を描画する
 		GameLib::present(1, 0);
@@ -68,6 +77,8 @@ int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
 
 	//音楽の開放
 	audio_deinit();
+
+	ctrl.Finalize();
 
 	//ゲームライブラリの終了処理
 	GameLib::uninit();

@@ -3,15 +3,15 @@
 #include <string>
 
 //コインの初期値
-int Coin::CoinNum = 1500;
-int Coin::gotCoin = 0;
+long int Coin::CoinNum = 500;
+long int Coin::gotCoin = 0;
 //
-int Coin::moveCoin = Coin::CoinNum;
+long int Coin::moveCoin = Coin::CoinNum;
 float Coin::lightRatio = 2.5f;
 float Coin::heavyRatio = 1.5f;
 
 
-int Coin::GetRatioCoin(float ratio)
+long int Coin::GetRatioCoin(float ratio)
 {
 	moveCoin = CoinNum;	//ここでコピー
 	moveCoin *= ratio;

@@ -76,6 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Gui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -90,6 +91,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Gui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -104,6 +106,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Gui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -118,6 +121,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Gui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -146,6 +150,15 @@
     <ClInclude Include="GameLib\util.h" />
     <ClInclude Include="GameLib\vector.h" />
     <ClInclude Include="GameLib\view_settings.h" />
+    <ClInclude Include="Gui\imconfig.h" />
+    <ClInclude Include="Gui\imgui.h" />
+    <ClInclude Include="Gui\imgui_impl_dx11.h" />
+    <ClInclude Include="Gui\imgui_impl_win32.h" />
+    <ClInclude Include="Gui\imgui_internal.h" />
+    <ClInclude Include="Gui\imstb_rectpack.h" />
+    <ClInclude Include="Gui\imstb_textedit.h" />
+    <ClInclude Include="Gui\imstb_truetype.h" />
+    <ClInclude Include="ImGuiCtrl.h" />
     <ClInclude Include="SourceCode\all.h" />
     <ClInclude Include="SourceCode\Attack.h" />
     <ClInclude Include="SourceCode\audio.h" />
@@ -201,6 +214,13 @@
     <ClCompile Include="GameLib\vector.cpp" />
     <ClCompile Include="GameLib\view_settings.cpp" />
     <ClCompile Include="GameLib\wnd_proc.cpp" />
+    <ClCompile Include="Gui\imgui.cpp" />
+    <ClCompile Include="Gui\imgui_demo.cpp" />
+    <ClCompile Include="Gui\imgui_draw.cpp" />
+    <ClCompile Include="Gui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="Gui\imgui_impl_win32.cpp" />
+    <ClCompile Include="Gui\imgui_widgets.cpp" />
+    <ClCompile Include="ImGuiCtrl.cpp" />
     <ClCompile Include="SourceCode\Attack.cpp" />
     <ClCompile Include="SourceCode\audio.cpp" />
     <ClCompile Include="SourceCode\Build.cpp" />
