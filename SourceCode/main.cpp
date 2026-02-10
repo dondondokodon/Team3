@@ -12,7 +12,7 @@ unique_ptr<ISCENE> scenes[SCENE_MAX] = { make_unique<SceneTitle>(),make_unique<S
 int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int)
 {
 	//ゲームライブラリの初期設定
-	GameLib::init(L"チーム制作3", SCREEN_W, SCREEN_H,true);
+	GameLib::init(L"WillYouPlay", SCREEN_W, SCREEN_H,true);
 
 	auto& ctrl = ImGuiRapper::ImGuiCtrl::Instance();
 
